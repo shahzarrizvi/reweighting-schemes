@@ -1,0 +1,75 @@
+%-------------------------------------------------------------------------------
+% This file contains the title, author and abstract.
+% It also contains all relevant document numbers used for an ATLAS note.
+%-------------------------------------------------------------------------------
+
+% Title
+\AtlasTitle{A Simultaneous Measurement of all Charged Particle Properties in $Z$+jets Events from $\sqrt{s}=13$ TeV $pp$ Collisions from the ATLAS Detector}
+
+% Draft version:
+% Should be 1.0 for the first circulation, and 2.0 for the second circulation.
+% If given, adds draft version on front page, a 'DRAFT' box on top of each other page, 
+% and line numbers.
+% Comment or remove in final version.
+\AtlasVersion{0.1}
+
+%https://atlas-glance.cern.ch/atlas/analysis/analyses/details.php?id=5225
+
+% Abstract - % directly after { is important for correct indentation
+\AtlasAbstract{%
+This support note describes a measurement of all charged particle properties in $Z$+jets events using the full Run 2 $pp$ collision dataset recorded by the ATLAS detector.  In particular, this is the first search to unfold data without binning and using a variable-length and high-dimensional phase space.  The phase space space is defined by the kinematic properties of all charged particles within a fiducial volume.  This unfolding is achieved using the recently proposed OmniFold technique, which uses iteratively trained neural networks.
+}
+
+% Author - this does not work with revtex (add it after \begin{document})
+%\author{The ATLAS Collaboration}
+
+% Authors and list of contributors to the analysis
+% \AtlasAuthorContributor also adds the name to the author list
+% Include package latex/atlascontribute to use this
+% Use authblk package if there are multiple authors, which is included by latex/atlascontribute
+ \usepackage{authblk}
+% Use the following 3 lines to have all institutes on one line
+% \makeatletter
+% \renewcommand\AB@affilsepx{, \protect\Affilfont}
+% \makeatother
+% \renewcommand\Authands{, } % avoid ``. and'' for last author
+% \renewcommand\Affilfont{\itshape\small} % affiliation formatting
+ \AtlasAuthorContributor{Dag Gillberg}{a}{To be filled in.}
+  \AtlasAuthorContributor{Sandeep Kaur}{a}{To be filled in.}
+    \AtlasAuthorContributor{Matt LeBlanc}{b}{To be filled in.}
+     \AtlasAuthorContributor{Eric Metodiev}{e}{Short Term Associate.  To be filled in.}
+ \AtlasAuthorContributor{Laura Miller}{a}{To be filled in.}
+ \AtlasAuthorContributor{Benjamin Nachman}{c}{To be filled in.}
+  \AtlasAuthorContributor{Jennifer Roloff}{d}{To be filled in.}
+    \AtlasAuthorContributor{Adi Suresh}{c,f}{To be filled in.}
+% \AtlasAuthorContributor{Second AtlasAuthorContributor}{b}{Author's contribution.}
+% \AtlasAuthorContributor{Third AtlasAuthorContributor}{a}{Author's contribution.}
+% \AtlasContributor{Fourth AtlasContributor}{Contribution to the analysis.}
+% \author[a]{First Author}
+% \author[a]{Second Author}
+% \author[b]{Third Author}
+ \affil[c]{Lawrence Berkeley National Laboratory (LBNL)}
+  \affil[f]{University of California, Berkeley}
+  \affil[a]{Carleton University}
+   \affil[b]{European Center for Nuclear Research (CERN)}
+    \affil[d]{Brookhaven National Laboratory (BNL)}
+        \affil[e]{Massachusetts Institute of Technology (MIT)}
+% \affil[b]{Another Institution}
+
+
+% If a special author list should be indicated via a link use the following code:
+% Include the two lines below if you do not use atlasstyle:
+% \usepackage[marginal,hang]{footmisc}
+% \setlength{\footnotemargin}{0.5em}
+% Use the following lines in all cases:
+% \usepackage{authblk}
+% \author{The ATLAS Collaboration%
+% \thanks{The full author list can be found at:\newline
+%   \url{https://atlas.web.cern.ch/Atlas/PUBNOTES/ATL-PHYS-PUB-2016-007/authorlist.pdf}}
+% }
+
+% ATLAS reference code, to help ATLAS members to locate the paper
+\AtlasRefCode{ANA-STDM-2020-17}
+
+% ATLAS note number. Can be an COM, INT, PUB or CONF note
+\AtlasNote{ANA-STDM-2020-17-INT1}

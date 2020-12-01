@@ -1,0 +1,306 @@
+%-------------------------------------------------------------------------------
+% This file provides a skeleton ATLAS note.
+% \pdfinclusioncopyfonts=1
+% This command may be needed in order to get \ell in PDF plots to appear. Found in
+% https://tex.stackexchange.com/questions/322010/pdflatex-glyph-undefined-symbols-disappear-from-included-pdf
+%-------------------------------------------------------------------------------
+% Specify where ATLAS LaTeX style files can be found.
+\newcommand*{\ATLASLATEXPATH}{latex/}
+% Use this variant if the files are in a central location, e.g. $HOME/texmf.
+% \newcommand*{\ATLASLATEXPATH}{}
+%-------------------------------------------------------------------------------
+\documentclass[NOTE, atlasdraft=true, texlive=2016, UKenglish]{\ATLASLATEXPATH atlasdoc}
+% The language of the document must be set: usually UKenglish or USenglish.
+% british and american also work!
+% Commonly used options:
+%  atlasdraft=true|false This document is an ATLAS draft.
+%  texlive=YYYY          Specify TeX Live version (2016 is default).
+%  coverpage             Create ATLAS draft cover page for collaboration circulation.
+%                        See atlas-draft-cover.tex for a list of variables that should be defined.
+%  cernpreprint          Create front page for a CERN preprint.
+%                        See atlas-preprint-cover.tex for a list of variables that should be defined.
+%  NOTE                  The document is an ATLAS note (draft).
+%  PAPER                 The document is an ATLAS paper (draft).
+%  CONF                  The document is a CONF note (draft).
+%  PUB                   The document is a PUB note (draft).
+%  BOOK                  The document is of book form, like an LOI or TDR (draft)
+%  txfonts=true|false    Use txfonts rather than the default newtx
+%  paper=a4|letter       Set paper size to A4 (default) or letter.
+
+%-------------------------------------------------------------------------------
+% Extra packages:
+\usepackage{\ATLASLATEXPATH atlaspackage}
+% Commonly used options:
+%  biblatex=true|false   Use biblatex (default) or bibtex for the bibliography.
+%  backend=bibtex        Use the bibtex backend rather than biber.
+%  subfigure|subfig|subcaption  to use one of these packages for figures in figures.
+%  minimal               Minimal set of packages.
+%  default               Standard set of packages.
+%  full                  Full set of packages.
+%-------------------------------------------------------------------------------
+% Style file with biblatex options for ATLAS documents.
+\usepackage{\ATLASLATEXPATH atlasbiblatex}
+
+% Package for creating list of authors and contributors to the analysis.
+\usepackage{\ATLASLATEXPATH atlascontribute}
+
+% Useful macros
+\usepackage{\ATLASLATEXPATH atlasphysics}
+\usepackage{xfrac}
+% See doc/atlas_physics.pdf for a list of the defined symbols.
+% Default options are:
+%   true:  journal, misc, particle, unit, xref
+%   false: BSM, heppparticle, hepprocess, hion, jetetmiss, math, process, other, texmf
+% See the package for details on the options.
+
+% Files with references for use with biblatex.
+% Note that biber gives an error if it finds empty bib files.
+\addbibresource{ANA-STDM-2020-17-INT1.bib}
+\addbibresource{bib/ATLAS.bib}
+\addbibresource{bib/CMS.bib}
+\addbibresource{bib/ConfNotes.bib}
+\addbibresource{bib/PubNotes.bib}
+
+% Paths for figures - do not forget the / at the end of the directory name.
+\graphicspath{{logos/}{figures/}}
+
+% Add you own definitions here (file ANA-STDM-2020-17-INT1-defs.sty).
+\usepackage{ANA-STDM-2020-17-INT1-defs}
+
+%-------------------------------------------------------------------------------
+% Generic document information
+%-------------------------------------------------------------------------------
+
+% Title, abstract and document
+\input{ANA-STDM-2020-17-INT1-metadata}
+% Author and title for the PDF file
+\hypersetup{pdftitle={ATLAS document},pdfauthor={The ATLAS Collaboration}}
+
+%-------------------------------------------------------------------------------
+% Content
+%-------------------------------------------------------------------------------
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+% List of contributors - print here or after the Bibliography.
+%\PrintAtlasContribute{0.30}
+%\clearpage
+
+\clearpage
+
+\section{Executive Summary}
+\label{sec:exec}
+
+\subsection{Target}
+
+This analysis uses an innovative machine learning method~\cite{1911.09107} to perform an unbinned, variable- and high-dimensional unfolding using $Z$+jets events. As the first search using these new techniques, we limit the phase space to relatively high $p_T$ $Z$ bosons in the $Z\rightarrow\mu\mu$ channel.   The analysis uses the full Run 2 dataset and targets summer/fall 2021.
+
+\subsection{Context}
+
+While there is no other measurement that is unbinned, variable- and high-dimensional, there are a variety of related binned measurements of specific observables.   These include track-based observables in inclusive $Z$+jets events at $\sqrt{s}=8$ TeV~\cite{STDM-2015-14} and various measurements of hadronic final states using tracks~\cite{STDM-2018-57,STDM-2017-33,STDM-2017-16}.  None of these measurements are directly comparable to the one presented in this analysis because of the topology and/or the phase space.  However, as we are using a new methodology for the first time, one of the goals of this paper is to compare the method with standard techniques (e.g. Iterative Bayesian Unfolding~\cite{DAGOSTINI1995487,1974AJ.....79..745L,Richardson:72}) in addition to presenting the new unbinned data.
+
+\subsection{Contributors}
+
+\PrintAtlasContribute{0.30}
+
+\clearpage
+
+\section{Change Log}
+
+\begin{itemize}
+\item Version 0.1: Initial version, to be used for the editorial board request.
+\end{itemize}
+
+\clearpage
+
+%-------------------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+%-------------------------------------------------------------------------------
+
+The goal of the Large Hadron Collider (LHC) is to infer properties of nature at subnuclear length scales.   One strategy for data analysis is to use models like the Standard Model (SM) and its extensions to fit parameter values to data.  This is an effective strategy that has been used to measure Standard Model couplings and masses as well as to constrain the strength of new physics extensions of the SM.  A key limitation of this parametric approach is that the final result cannot be easily used to infer properties of other parameters or reinterpreted in the context of a different model.  An alternative strategy is to correct data for detector effects in order to measure differential cross sections.  These \textit{unfolded} spectra can be reused for a variety of model interpretations.   Unfolding facilitates data preservation for reuse over time and comparisons across experiments.
+
+The most widely used unfolding methods use various forms of regularized matrix inversion~\cite{DAGOSTINI1995487,Hocker:1995kb,Schmitt:2012kp}.  There are four challenges with these approaches that limit their usefulness.   First, the target observables must be specified prior to unfolding and cannot be changed after the measurement.  Similarly, the binning of the observables must be fixed at the start of the measurement.  Due to the binned nature of existing techniques, most measurements are limited to a small number of observables (usually one) to be simultaneously unfolded.  Finally, the existing methods are not able to account for auxiliary features that determine the resolution of the target observables and thus limit the precision of the measurement.
+
+A variety of alternative unfolding method have been proposed to solve a subset of these challenges.   For example, some proposals avoid binning~\cite{Glazov:2017vni,Datta:2018mwd,Lindemann:1995ut,Aslan:2003vu} and others use machine learning to improve various aspects of the measurement precision~\cite{Gagunashvili:2010zw,Glazov:2017vni,Datta:2018mwd}.  Recently, three techniques have been proposed that have the potential to address all of the above challenges: OmniFold~\cite{1911.09107}, Conditional GAN Unfolding (CGU)~\cite{Bellagente:2019uyp}, and Conditional Normalizing Flow Unfolding (CNFU)~\cite{Bellagente:2020piv}.   The OmniFold approach scaffolds a simulation with a neural network to perform high- and variable-dimensional reweighting.  The CGU and CNFU methods use neural networks to generate corrected events given detector-level events.  
+
+This analysis uses the OmniFold approach to perform the first high- and variable-dimensional unbinned measurement.  In contrast to the CFU and CNFU methods, OmniFold can naturally account for point-cloud nature of collider events.  Furthermore, OmniFold reduces to the widely studied Iterative Bayesian Unfolding approach~\cite{DAGOSTINI1995487} when the inputs are binned.  Finally, by using reweighting instead of direct generative modeling, the neural networks need to only learn small corrections to the simulation instead of learning the full probability density of the data.   The physical system chosen for the measurement is the hadronic activity in boosted $Z$ boson events.  Leptonically decaying $Z$ bosons can be identified with high purity and efficiency.  The rest of the event can then be studied with little bias from the event selection.  Charged particles are used due to the precision with which they can be measured.  These events have many tens of charged particles each with a momentum and electric charge and thus the target phase space is about 100-dimensional.
+
+This note is organized as follows.  First, Sec.~\ref{sec:samples} introduces the data and simulated event samples used for the analysis.  Then, Sec.~\ref{sec:objects} describes the objects used in the analysis (in particular, charged particles and tracks).  The analysis methodology is disucssed in Sec.~\ref{sec:strategy} and the prescription for systematic uncertainties appears in Sec.~\ref{sec:uncerts}.  Results are presented in Sec.~\ref{sec:result} and the note concludes in Sec.~\ref{sec:conclusion}.
+
+%-------------------------------------------------------------------------------
+\section{Event Samples}
+\label{sec:samples}
+%-------------------------------------------------------------------------------
+
+\subsection{Data}
+
+This analysis is performed using data from $pp$ collisions provided from the Large Hadron Collider with $\sqrt{s} = 13$~\TeV~between 2015-2018, and collected with the ATLAS detector. The total integrated luminosity of this dataset following the application of the GoodRunsList is 139 fb$^{-1}\pm1.7\%$. The specific GoodRunsList files used are...
+
+\subsection{Simulation}
+
+
+\section{Objects}
+\label{sec:objects}
+
+\subsection{Detector-level}
+
+\paragraph{Muons} are ...
+
+\paragraph{Tracks} are reconstructed from charged-particle hits within the silicon- and straw-tube based inner tracking detectors. They are required to pass the X quality working point and to be associated with the primary vertex of the event using the X track-to-vertex association.  The primary vertex is defined  as the reconstructed vertex with the highest sum of associated track $\pt^2$.  Tracks are required to have a $\pt>500$~\MeV~to be included in this measurement.  The track $\eta$ and $\phi$ coordinates come from the five-parameter track fit to $(\eta,\phi,q/p,d_0,z_0)$, and thus correspond to the track coordinates at the origin.  
+
+\subsection{Particle-level}
+
+Stable charged particles ($c\tau$ > 10 mm) are used to define the analog of tracks at particle-level.  Charged-particles are required to have $\pt > 500$~\MeV~and $|\eta|<2.5$.
+
+\section{Methodology}
+\label{sec:strategy}
+
+\subsection{Event Selection}
+
+\subsection{Unfolding Procedures}
+
+\subsubsection{Introduction}
+
+Paragraph introducing unfolding generally.
+
+One of the most widely used unfolding methods is the Iterative Bayesian Unfolding (IBU) technique.  By treating each bin of a histogram as an element in a vector or matrix, we can write
+
+\begin{align}
+\textbf{R}\cdot\textbf{t}=\textbf{d}\,,
+\end{align}
+where $\textbf{t}$ is the particle-level distribution (represented as a vector), $\textbf{d}$ is the detector-level distribution (also represented as a vector), and $\textbf{R}$ is the response matrix.
+
+\subsubsection{OmniFold}
+
+\subsubsection{Illustration of Different Methods}
+
+In order to illustrate the OmniFold procedure and how it compares to other techniques, it is useful to consider a simple two-bin example.  Suppose that there are only two possible values at particle-level and detector-level: $(T_1,T_2)$ and $(R_1,R_2)$, respectively.  Further suppose that the detector response is given by:
+
+\begin{align}
+\Pr(R_1|T_1)&=100\%\,,\\
+\Pr(R_1|T_2)&=50\%\,.
+\end{align}
+
+The simulation has $\Pr_\text{MC}(T_i)=50\%$ so that $\Pr_\text{MC}(R_1)=75\%$ and $\Pr_\text{MC}(R_2)=25\%$.   Finally, we observe $\Pr_\text{Data}(R_1)=50\%$ in data.  What do the various method predict for $\Pr_\text{unfolded}(T_1)$?   Before proceeding, note that the correct answer is $\Pr_\text{Data}(T_1)=0$.
+
+\paragraph{OmniFold}  The first step of OmniFold is to derive weights $\omega_1$ to make the MC match the data.  The weight function is specified by two numbers, one for each of the two bin values.  These weights are given by $\omega_1(R_i)=\Pr_\text{Data}(R_i)/\Pr_\text{MC}(R_i)$, which is $\omega_1(R_1)=2/3$ and $\omega_1(R_2)=2$.  These weights are then pulled back to particle level.  In MC, 50\% of events have $(T_1,R_1)$, 25\% of events have $(T_2,R_1)$ and 25\% of events have $(T_2,R_2)$.   The first two of these types of events get assigned $\omega(R_1)$ and the last one gets assigned $\omega(R_2)$.  Therefore, the weighted particle-level probability mass function is $\Pr_\text{MC,1}(T_1)=1/3$.  The second step of OmniFold derives weights $\nu_1=\Pr_\text{MC,1}(T_i)/\Pr_\text{MC}(T_i)$, which are $\nu_1(T_1)=2/3$ and $\nu_1(T_2)=4/3$. 
+
+The above procedure is then repeated using the weights $\nu_1$ pushed to detector-level.  The new detector-level probability mass is given by $\Pr_\text{MC,2}(R_1)=2/3$.  Detector-level weights are derived according to $\omega_2(R_i)=\Pr_\text{Data}(R_i)/\Pr_\text{MC,2}(R_i)$.  Table~\ref{lab:omnifoldexample} shows the evolution of OmniFold over many iterations.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|ccccccc| }
+\hline
+$i$ & $\omega_i(R_1)$ & $\omega_i(R_2)$ & $\nu_i(R_1)$ & $\nu_i(R_2)$ & $\Pr_\text{MC,$i$}(R_1)$ & $\Pr_\text{MC,$i$}(T_1)$ \\
+\hline
+0 & 1 & 1 & 1 & 1 & $\sfrac{3}{4}$ & $\sfrac{1}{2}$ \\
+1 & $\sfrac{2}{3}$ & $2$ & $\sfrac{2}{3}$ & $\sfrac{4}{3}$ & $\sfrac{2}{3}$ & $\sfrac{1}{3}$ \\
+2 & $\sfrac{3}{4}$ & $\sfrac{3}{2}$ & $\sfrac{1}{2}$ & $\sfrac{3}{2}$ & $\sfrac{5}{8}$ & $\sfrac{1}{4}$ \\
+\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+$\infty$ & 1 & 1 & 0 & 2 & \sfrac{1}{2} & 0\\
+\hline
+\end{tabular}
+\caption{The evolution of OmniFold for the simple two-bin example described in the text.}
+\label{lab:omnifoldexample}
+\end{table}
+
+\paragraph{Conditional GAN Unfolding (CGU)} In the training phase of CGU, one learns $\Pr(T_i|R_j)$ based on the simulation.  In the simple binned case, this probability mass is specified by four numbers.  
+
+\begin{align}
+\Pr(T_i|R_j)&=\frac{\Pr(R_j|T_i)\Pr(T_i)}{\Pr(R_j|T_1)\Pr(T_1)+\Pr(R_j|T_2)\Pr(T_2)}\\
+&=\frac{\Pr(R_j|T_i)}{\Pr(R_j|T_1)+\Pr(R_j|T_2)}\\
+&=\left\{\begin{matrix}\sfrac{2}{3} & \text{$i=1$ and $j=1$} \cr 0 & \text{$i=1$ and $j=2$}  \cr \sfrac{1}{3}& \text{$i=2$ and $j=1$}  \cr 1& \text{$i=2$ and $j=2$}  \end{matrix}\right.
+\end{align}
+%
+Applied to data, we would measure 
+%
+\begin{align}
+\Pr{}_\text{unfolded}(T_1)&=\Pr(T_1|R_1)\Pr{}_\text{data}(R_1)+\Pr(T_1|R_2)\Pr{}_\text{data}(R_2)=\sfrac{1}{6}\,,\\
+\Pr{}_\text{unfold}(T_2)&=\Pr(T_2|R_1)\Pr{}_\text{data}(R_1)+\Pr(T_2|R_2)\Pr{}_\text{data}(R_2)=\sfrac{5}{6}\,,
+\end{align}
+%
+which is the wrong answer.
+
+\paragraph{Conditional Normalizing Flow Unfolding (CNFU)} In the binned case, this is equivalent to matrix inversion.   The response matrix is 
+
+\begin{align}
+\mathbf{R}=\begin{pmatrix} 1& \sfrac{1}{2}\cr 0 & \sfrac{1}{2}\end{pmatrix}\implies \mathbf{R}^{-1}=\begin{pmatrix} 1 & -1 \cr 0 & 2\end{pmatrix}\,.
+\end{align}
+%
+Applying $\mathbf{R}^{-1}$ to $(\sfrac{1}{2},\sfrac{1}{2}$) results in $(0,1)$, the correct answer.  There are many undesirable features of matrix inversion, but it does result in an unbiased measurement.
+
+\paragraph{Iterative Bayesian Unfolding (IBU)} 
+
+Table~\ref{lab:ibuexample} shows the evolution of IBU over many iterations.  Note that the second column of Table~\ref{lab:ibuexample} is the same as the last column of Table~\ref{lab:omnifoldexample} - this is because OmniFold and IBU are equivalent in the binned case.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|cccccc| }
+\hline
+$i$ & $\Pr_\text{MC,$i$}(T_1)$ & $\Pr_0(T_1|M_1)$ & $\Pr_0(T_1|M_2)$ & $\Pr_0(T_2|M_1)$ & $\Pr_0(T_2|M_2)$\\
+\hline
+$0$ & $\sfrac{1}{2}$ & $\sfrac{2}{3}$ & 0 & $\sfrac{1}{3}$ & $1$\\
+$1$ & $\sfrac{1}{3}$ & $\sfrac{1}{2}$ & 0 & $\sfrac{1}{2}$ & $1$\\
+$2$ & $\sfrac{1}{4}$ & $\sfrac{2}{5}$ & 0 & $\sfrac{3}{5}$ & $1$\\
+\vdots & \vdots & \vdots & \vdots & \vdots & \vdots  \\
+$\infty$ & 0 & 0 & 0 & 1 & 1\\
+\hline
+\end{tabular}
+\caption{The evolution of IBU for the simple two-bin example described in the text.}
+\label{lab:ibuexample}
+\end{table}
+
+\subsection{Comparison of binned and unbinned}
+
+\section{Systematic Uncertainties}
+\label{sec:uncerts}
+
+
+%-------------------------------------------------------------------------------
+\section{Results}
+\label{sec:result}
+%-------------------------------------------------------------------------------
+
+
+%-------------------------------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion}
+%-------------------------------------------------------------------------------
+
+Place your conclusion here.
+
+
+%-------------------------------------------------------------------------------
+% If you use biblatex and either biber or bibtex to process the bibliography
+% just say \printbibliography here
+\printbibliography
+% If you want to use the traditional BibTeX you need to use the syntax below.
+%\bibliographystyle{bib/bst/atlasBibStyleWithTitle}
+%\bibliography{ANA-STDM-2020-17-INT1,bib/ATLAS,bib/CMS,bib/ConfNotes,bib/PubNotes}
+%-------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------
+% Print the list of contributors to the analysis
+% The argument gives the fraction of the text width used for the names
+%-------------------------------------------------------------------------------
+\clearpage
+%The supporting notes for the analysis should also contain a list of contributors.
+%This information should usually be included in \texttt{mydocument-metadata.tex}.
+%The list should be printed either here or before the Table of Contents.
+%\PrintAtlasContribute{0.30}
+
+
+%-------------------------------------------------------------------------------
+\clearpage
+\appendix
+\part*{Appendices}
+\addcontentsline{toc}{part}{Appendices}
+%-------------------------------------------------------------------------------
+
+\section{Monte Carlo Sample Lists}
+
+\end{document}
