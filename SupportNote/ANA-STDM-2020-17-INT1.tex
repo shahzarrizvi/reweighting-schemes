@@ -132,34 +132,21 @@ This analysis uses the OmniFold approach to perform the first high- and variable
 This note is organized as follows.  First, Sec.~\ref{sec:samples} introduces the data and simulated event samples used for the analysis.  Then, Sec.~\ref{sec:objects} describes the objects used in the analysis (in particular, charged particles and tracks).  The analysis methodology is disucssed in Sec.~\ref{sec:strategy} and the prescription for systematic uncertainties appears in Sec.~\ref{sec:uncerts}.  Results are presented in Sec.~\ref{sec:result} and the note concludes in Sec.~\ref{sec:conclusion}.
 
 %-------------------------------------------------------------------------------
-\section{Event Samples}
+\section{Event samples}
 \label{sec:samples}
+\input{4_data_MC}
+
 %-------------------------------------------------------------------------------
-
-\subsection{Data}
-
-This analysis is performed using data from $pp$ collisions provided from the Large Hadron Collider with $\sqrt{s} = 13$~\TeV~between 2015-2018, and collected with the ATLAS detector. The total integrated luminosity of this dataset following the application of the GoodRunsList is 139 fb$^{-1}\pm1.7\%$. The specific GoodRunsList files used are...
-
-\subsection{Simulation}
-
-
 \section{Objects}
 \label{sec:objects}
+\input{5_objects}
 
-\subsection{Detector-level}
-
-\paragraph{Muons} are ...
-
-\paragraph{Tracks} are reconstructed from charged-particle hits within the silicon- and straw-tube based inner tracking detectors. They are required to pass the X quality working point and to be associated with the primary vertex of the event using the X track-to-vertex association.  The primary vertex is defined  as the reconstructed vertex with the highest sum of associated track $\pt^2$.  Tracks are required to have a $\pt>500$~\MeV~to be included in this measurement.  The track $\eta$ and $\phi$ coordinates come from the five-parameter track fit to $(\eta,\phi,q/p,d_0,z_0)$, and thus correspond to the track coordinates at the origin.  
-
-\subsection{Particle-level}
-
-Stable charged particles ($c\tau$ > 10 mm) are used to define the analog of tracks at particle-level.  Charged-particles are required to have $\pt > 500$~\MeV~and $|\eta|<2.5$.
-
+%-------------------------------------------------------------------------------
 \section{Methodology}
 \label{sec:strategy}
 
-\subsection{Event Selection}
+\subsection{Event selection}
+\input{6a_event_selection}
 
 \subsection{Unfolding Procedures}
 
@@ -300,7 +287,7 @@ Place your conclusion here.
 \part*{Appendices}
 \addcontentsline{toc}{part}{Appendices}
 %-------------------------------------------------------------------------------
-
-\section{Monte Carlo Sample Lists}
+\input{appendix_jet_composition.tex}
+\section{Monte Carlo samples}
 
 \end{document}
