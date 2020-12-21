@@ -1,0 +1,52 @@
+Initial event selection is outlined in Table~\ref{lab:eventsel}. This is primarily designed to remove problematic and background events in favour of the $Z\rightarrow\mu\mu + \text{jets}$ signal process. The various cuts are discussed in more detail below.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l|l}
+         \hline
+    \textbf{Event Selection} & \textbf{Description} \\ \hline
+    Good Runs List & Event must be part of GRL \\ \hline
+    Event Cleaning & No LAr, tile calorimeter, or tracker errors. Event is complete. \\ \hline
+    Trigger & Single muon trigger: \\
+    & HLT\_mu20\_iloose\_L1MU15\_OR\_HLT\_mu50 (2015) \\
+    & HLT\_mu26\_ivarmedium\_OR\_HLT\_mu50 (2016-18) \\ \hline
+    Primary Vertex & $N_{PV}\geq1$ \\ \hline
+    Muons & $N_{\text{muons}}\geq2$ \\
+          & Opposite charges \\
+          & Pass TTVA recommendations for muons \\
+          & $81\leq m_{\ell\ell} (\text{GeV})\leq 101$ \\
+          & $p_{\text{T},\ell\ell}\geq200$ GeV \\ \hline
+    \end{tabular}
+    \caption{Overview of the applied event selection.}
+    \label{lab:eventsel}
+\end{table}
+
+\subsubsection{Event Requirements}
+The first requirement is that the event must be a part of the ATLAS Good Run Lists (GRL) [GRL Ref]. These are discussed in Sec.~\ref{sec:samples}.
+
+Secondly, the events must pass event cleaning [Event Cleaning Ref]. This removes events that:
+\begin{itemize}
+    \item Contain errors in the data collected in the LAr calorimeters (check for error on xAOD::EventInfo::LAr)
+    \item Contain errors in the data collected in the tile calorimeters (check for error on xAOD::EventInfo::Tile)
+    \item Contain errors in the silicon tracker data (check for error on xAOD::EventInfo::SCT)
+    \item Events which are incomplete due to a restart of the trigger, timing and control system (check for event flag in xAOD::EventInfo::Core)
+\end{itemize}
+
+Additionally, it is required that the event in question have at least one primary vertex.
+
+\subsubsection{Trigger Requirements}
+Events are required to pass an unprescaled single muon trigger, as outlined in table blah [Trigger Ref]. The recommended trigger is dependent on the year of the data (or corresponding Monte Carlo sample).
+
+\subsubsection{Di-Muon System Requirements}
+The event is required to have at least two muons of opposite charge, with a dilepton mass between 81 GeV and 101 GeV in order to ensure the muons originate from a $Z$ boson.
+
+Additionally, the muons must pass track-to-vertex association recommendations [TTVA ref] as follows:
+
+\begin{itemize}
+    \item $|d_0^{BL}\text{significance}| < $ 3
+    \item $|\Delta z_0^{BL}\sin\theta| < 0.5 $mm
+\end{itemize}
+
+where $d_0$ and $z_0$ represent the point along the track that is the closest approach to the beamspot.
+
+The large $p_{\text{T},\ell\ell}$ cut of 200 GeV has been chosen to ensure that the balancing jet(s) have a high quantity of charged particles, as these are the primary subject of the analysis.
