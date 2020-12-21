@@ -1,10 +1,43 @@
 \subsection{Detector-level}
 
-\paragraph{Muons} are ...
+\paragraph{Muons} are reconstructed using a combination of information from the muon spectrometer (MS) and the inner detector (ID). Occasionally, the ATLAS calorimeters are used to provide additional information for reconstruction. The reconstruction process is described in detail in reference blah.
+The muons are required to pass medium quality selection using the MuonSelectionTool and the PflowLoose\_VarRad isolation working point [Iso ref] as given by the IsolationTool. The simulated muons are also calibrated in order to correct for $p_\text{T}$ discrepancies between data and simulation [Muon Ref].
 
-\paragraph{Tracks} are reconstructed from charged-particle hits within the silicon- and straw-tube based inner tracking detectors. They are required to pass the X quality working point and to be associated with the primary vertex of the event using the X track-to-vertex association.  The primary vertex is defined  as the reconstructed vertex with the highest sum of associated track $\pt^2$.  Tracks are required to have a $\pt>500$~\MeV~to be included in this measurement.  The track $\eta$ and $\phi$ coordinates come from the five-parameter track fit to $(\eta,\phi,q/p,d_0,z_0)$, and thus correspond to the track coordinates at the origin.  
+\paragraph{Tracks} are reconstructed from charged-particle hits within the silicon- and straw-tube based inner tracking detectors. They are required to pass the X quality working point and to be associated with the primary vertex of the event using the X track-to-vertex association.  The primary vertex is defined  as the reconstructed vertex with the highest sum of associated track $\pt^2$.  Tracks are required to have a $\pt>500$~\MeV~to be included in this measurement.  The track $\eta$ and $\phi$ coordinates come from the five-parameter track fit to $(\eta,\phi,q/p,d_0,z_0)$, and thus correspond to the track coordinates at the origin.
+
+\paragraph{Jets}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l|l}
+    \hline
+     \textbf{Object} & \textbf{Additional Selection Criteria} \\ \hline
+     Calibrated Muons & Medium Quality, pass isolation: PflowLoose\_VarRad \\ \hline
+     Calibrated Jets (AntiKt4EMPFlowJets) & $\Delta R_{e,jet} > 0.2$ \\
+      & Muon-PFlow jet overlap removal \\ \hline
+     Tracks & Loose Quality \\
+      & Loose TTVA (may switch to Tight) \\ \hline
+    \end{tabular}
+    \caption{Object level cuts}
+    \label{tab:ObjCuts}
+\end{table}
 
 \subsection{Particle-level}
 
 Stable charged particles ($c\tau$ > 10 mm) are used to define the analog of tracks at particle-level.  Charged-particles are required to have $\pt > 500$~\MeV~and $|\eta|<2.5$.
 
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l|l}
+    \hline
+    \textbf{Object} & \textbf{Acceptance} \\ \hline
+    Dressed Muons & $p_\text{T} \geq 25$ GeV, $|\eta| \leq 2.4$ \\\hline
+    Jets (TruthWZJets) & $p_\text{T}\geq 10$ GeV, $|y|\leq4.4$ \\\hline
+    Charged Hadrons & $p_\text{T} \geq 500$ MeV, $|\eta| \leq 2.5$  \\ \hline
+    Phase Space & At least two oppositely charged muons \\
+    & $81\leq m_{\ell\ell} \text{ (GeV)}\leq101$ \\
+    & $p_{\text{T},\ell\ell}\geq200$ GeV \\ \hline
+    \end{tabular}
+    \caption{Fiducial object cuts}
+    \label{tab:PLObjCuts}
+\end{table}
