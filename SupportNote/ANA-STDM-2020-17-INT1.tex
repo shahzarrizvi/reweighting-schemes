@@ -318,12 +318,29 @@ $\infty$ & 0 & 0 & 0 & 1 & 1\\
 
 \subsection{Gaussian Example}
 
+This section shows the unfolding of a one-dimensional Gaussian random variable with a Gaussian noise model.  Figure~\ref{fig:gaussian:inputs} shows the `data' and `simulation'.  The data has a mean of 1 and a standard deviation of 1.5 while the simulation has a mean of 0 and a standard deviation of 1.  In both cases, the noise is an additive Gaussian with mean 0 and unit variance.  
+
+Describe the neural network.  3 layers, 50 nodes per layer, ReLU on intermediate layers, sigmoid on output layer, train for 200 epochs with early stopping with a patience of 10 (always stopped early after $\mathcal{O}(10)$ iterations).  Binary cross entropy, adam, batch size 10000, one million events total.  Keras + Tensorflow.
+
+OmniFold is demonstrated in Fig.~\ref{fig:gaussian:iterations}.
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.6\textwidth]{Figures/GaussianToyExample/GaussianToyExample-Distributions.pdf}
-\caption{blah}
-\label{fig:gaussian:blah}
+\caption{The `simulation' (left) and `data' (right) for the one-dimensional Gaussian illustration.  The narrower histograms are the particle-level distributions and the wider ones are the detector-level distributions.}
+\label{fig:gaussian:inputs}
 \end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[1 iteration]{\includegraphics[width=0.45\textwidth]{Figures/GaussianToyExample/GaussianToyExample-UnfoldingResultsIteration01.pdf}}\subfloat[2 iterations]{\includegraphics[width=0.45\textwidth]{Figures/GaussianToyExample/GaussianToyExample-UnfoldingResultsIteration02.pdf}}\\
+\subfloat[3 iterations]{\includegraphics[width=0.45\textwidth]{Figures/GaussianToyExample/GaussianToyExample-UnfoldingResultsIteration03.pdf}}\subfloat[4 iterations]{\includegraphics[width=0.45\textwidth]{Figures/GaussianToyExample/GaussianToyExample-UnfoldingResultsIteration04.pdf}}\\
+\subfloat[5 iterations]{\includegraphics[width=0.45\textwidth]{Figures/GaussianToyExample/GaussianToyExample-UnfoldingResultsIteration05.pdf}}\subfloat[6 iterations]{\includegraphics[width=0.45\textwidth]{Figures/GaussianToyExample/GaussianToyExample-UnfoldingResultsIteration06.pdf}}
+\caption{An illustration of six iterations of the OmniFold algorithm to the one-dimensional Gaussian example.  For each iteration, the left plot is the detector-level distribution with weights $\omega_n$ and the right plot is the particle-level distribution with weights $\nu_n$.}
+\label{fig:gaussian:iterations}
+\end{figure}
+
+%use subfig
 
 \subsection{OmniFold for ATLAS}
 
@@ -341,7 +358,6 @@ Describe the NN setup.  Also need to say how we deal with acceptance effects.
 \section{Results}
 \label{sec:result}
 %-------------------------------------------------------------------------------
-
 
 %-------------------------------------------------------------------------------
 \section{Conclusion}
