@@ -47,6 +47,9 @@
 % Useful macros
 \usepackage{\ATLASLATEXPATH atlasphysics}
 \usepackage{xfrac}
+\usepackage{enumitem}
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
 % See doc/atlas_physics.pdf for a list of the defined symbols.
 % Default options are:
 %   true:  journal, misc, particle, unit, xref
@@ -148,20 +151,92 @@ This note is organized as follows.  First, Sec.~\ref{sec:samples} introduces the
 \subsection{Event selection}
 \input{6a_event_selection}
 
-\subsection{Unfolding Procedures}
+\subsection{Unfolding procedures}
 
 \subsubsection{Introduction}
 
-Paragraph introducing unfolding generally.
+Unfolding is the process of removing detector effects from data in order to infer the properties of particle-level spectra (see~\cite{Cowan:2002in,Blobel:2203257,doi:10.1002/9783527653416.ch6,Balasubramanian:2019itp} for reviews).  In other fields, this is often called \textit{deconvolution}, since one can think of detector effects as the convolution of a noise function with the spectrum of interest.  Unfolding needs to correct for many effects:
 
-One of the most widely used unfolding methods is the Iterative Bayesian Unfolding (IBU) technique.  By treating each bin of a histogram as an element in a vector or matrix, we can write
+\begin{enumerate}[label={(\arabic*)}]
+\item Acceptance and efficiency: particles produced may not be measured.
+\item Detector noise: particles measured may not be from real particles, at least not the desired particles (e.g. fakes) within a fiducial volume (migrating into acceptance).
+\item Background processes: if one wants to measure the differential cross section of a particular process, then you may want to subtract the contributions from background processes.
+\item Combinatorics: if there are $n$ particles and you want to measure the properties of a particular order (e.g. leading $p_T$), the detector effects can change the order.
+\item Detector distortions: the detector response introduces bias and resolution effects.
+\end{enumerate}
+
+A well-structured measurement will be dominated by (5).  It is possible to setup a measurement so that (4) is not relevant (e.g. operating at the level of events as sets instead of using individual objects).  By using a pure (e.g. $Z$+jets) or inclusive (e.g. dijets) event selection, (3) can be made irrelevant.  It is also possible to mitigate (1) and (2) by performing the unfolding in a bigger phase space than is eventually used for the final measurement.  In our case, we will also reduce these effects by using the highly efficient $Z$ to select events and then using (mostly) the hadronic recoil for the measurement.
+
+Corrections are derived using simulations, by creating a match between particle-level events and detector-level events.  Until now, all measurements have been performed using binned data.   In this case, detector effects can be modeled by a set of linear equations:
 
 \begin{align}
-\textbf{R}\cdot\textbf{t}=\textbf{d}\,,
+\label{eq:foldingequation}
+\left(\textbf{R}\cdot (\textbf{t}\odot \textbf{c})\right)\odot 1/\textbf{f}+\textbf{b}=\textbf{d}\,,
 \end{align}
-where $\textbf{t}$ is the particle-level distribution (represented as a vector), $\textbf{d}$ is the detector-level distribution (also represented as a vector), and $\textbf{R}$ is the response matrix.
+%
+where bold letters denote vectors or matrices, $\cdot$ is the usual matrix product, $\odot$ is the Hadamard (component-wise) product, and the division is defined component-wise. The symbol $\textbf{t}$ is the particle-level distribution, $\textbf{d}$ is the detector-level distribution, $\textbf{b}$ is the background detector-level distribution, and $\textbf{R}$ is the response matrix.  The correction factors $\textbf{c}$ represent the fraction of particle-level events that also pass the detector-level selection and the fake factors $\textbf{f}$ represent the fraction of detector-level events that have a corresponding particle-level event that passes the selection.  The solution to Eq.~\ref{eq:foldingequation} is given by
+
+\begin{align}
+\label{eq:foldingequation}
+\textbf{t}_\text{measured} = \textbf{R}^{-1}\left( (\textbf{d}-\textbf{b})\odot \textbf{f}\right)\odot 1/\textbf{c}.
+\end{align}
+
+Many of the of the common unfolding methods follow the form in Eq.~\ref{eq:foldingequation}, but vary in their estimation of $\textbf{R}^{-1}$.  For a variety of reasons, it is advantageous to not directly invert the response matrix.  In particular, \textbf{R} may not be invertible because it is singular or not even a square matrix.  The simple matrix inverse is also susceptible to oscillations from significant off-diagonal components.
+
+One of the most widely used unfolding methods is the Iterative Bayesian Unfolding (IBU) technique\footnote{In other fields, this is called Lucy-Richardson deconvolution~\cite{1974AJ.....79..745L,Richardson:72}.}.   For simplicity, assume that $\textbf{b}=\textbf{0}$ and $\textbf{f}=\textbf{c}=\textbf{1}$.  When this is not the case, these are corrected for in the binned case using Eq.~\ref{eq:foldingequation}.   The IBU method then proceeds as follows:
+
+\begin{align}
+\textbf{t}^{(n)}&=\sum_j \Pr(t_i|d_j) d_j \\
+&=\sum_j \frac{\Pr(d_j|t_i)\Pr^{(n)}(t_i)}{\sum_i \Pr(d_j|t_i)\Pr^{(n)}(t_i)} d_j \\
+&=\sum_j \frac{R_{ji}\Pr^{(n)}(t_i}{\sum_i R_{ji}\Pr^{(n)}(t_i)} d_j.
+\end{align}
+%
+Typically, one choses the prior $\Pr^{(n)}(t_i)=t_i^{(n-1)}$ and $\Pr^{(0)}(t_i)=t_i$ (from simulation), assuming $\textbf{t}$ is normalized.  It has been shown that as $n\rightarrow\infty$, the IBU estimate approaches the maximum likelihood estimator~\cite{shepp1982maximum}.  Typically, $n\sim 3$ as a form of regularization to balance amplifying statistical fluctuations with mitigating systematic uncertainties from the prior dependence.
 
 \subsubsection{OmniFold}
+
+IBU and other standard unfolding methods face three challenges.  First, they require the data to be binned.  This binning must be chosen ahead of time and is often chosen manually.  Second, only a small number of observables (or a small number of bins for a given number of observables) can be unfolded simultaneously in order to keep the total number of bins to a manageable level.  Finally, the matrix $\textbf{R}$ only depends on the unfolded features and not on any other auxiliary features that may be useful for determining the detector response.  Even though the inputs to the unfolding may be calibrated, if the detector response depends on additional features, the result will be suboptimal and potentially biased.
+
+OmniFold is an approach that addresses all three of the above challenges by using neural networks.  Like IBU, OmniFold is an iterative method.  Furthermore, OmniFold is a naturally generalization of IBU in the sense that if you apply the OmniFold method to binned data, it reproduces IBU at each iteration.  The OmniFold method proceeds as follows:
+
+\begin{description}
+\item Iterate:
+	\begin{enumerate}[label={(\arabic*)}]
+		\item Reweight detector-level simulation to match data.
+		\item Use the weights from (1) to reweight the default particle-level simulation to weighted simulation.
+	\end{enumerate}
+\end{description}
+
+As an algorithm, the OmniFold procedure does not require neural networks; however, these tools are well-suited to be the reweighting functions described above (more on this below).  Step (2) of the OmniFold algorithm is important because the weights from (1) are not a function of the particle-level phase space.  In particular, two events in the same particle-level phase space can be mapped to different detector-level events.  However, to be a proper unfolding, we require that two events with the same particle-level phase space have the same weight.  This is achieved with Step (2).  
+
+The OmniFold procedure is illustrated schematically in Fig.~\ref{fig:omnifoldschematic}.  The detector-level weights at a given step are represented by the symbol $\omega_n$ while the particle-level weights are represented by the symbol $\nu_n$.  Note that for Step (2), we could reweight from the original particle-level simulation to the weighted simulation or from the weights derived at the previous step to weights from (1).  Both achieve the same results, but there may be advantages to learning an incremental reweighting (as in Fig.~\ref{fig:omnifoldschematic}) since each step is a correction on the previous step.  
+
+The output of the OmniFold method is a set of events with weights.  One can then make any observables from the features used in the unfolding and from those features, one can construct histograms using whatever binning is desired.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{Figures/schematic.pdf}
+\caption{Figure adapted from Ref.~\cite{1911.09107}.}
+\label{fig:omnifoldschematic}
+\end{figure}
+
+An effective strategy for implementing the OmniFold protocol is to use neural networks as reweighting functions.  A reweighting function is simply a ratio of two probability densities.  It is a fact that the optimal classifier between two event samples is the same quantity - the likelihood ratio (or any monotonic function of it).  Therefore, we build a reweighting function by training a classifier and properly interpreting the output.  In particular, a classifier $f$ trained using the standard binary cross entropy loss function 
+
+\begin{align}
+f^*=\argmin_f-\sum_{i\in\text{dataset 1}} \log(g(x_i)) -\sum_{i\in\text{dataset 2}} \log(1-f(x_i)),
+\end{align}
+%
+has the property\footnote{This fact is well-known~\cite{hastie01statisticallearning,sugiyama_suzuki_kanamori_2012} and also has been used in many contexts in high-energy physics~\cite{2010.03569,1907.08209,Stoye:2018ovl,Hollingsworth:2020kjg,Brehmer:2018kdj,Brehmer:2018eca,Brehmer:2019xox,Brehmer:2018hga,Cranmer:2015bka,Badiali:2020wal,Andreassen:2020nkr,Andreassen:2019cjw,Fischer-ACAT2019}.} that asymptotically (enough training data, flexible enough network architecture and training):
+
+\begin{align}
+\frac{f^*(x)}{1-f^*(x)}\propto \frac{p(x|\text{dataset 1})}{p(x|\text{dataset 2})}.
+\end{align}
+%
+The proportionality is equality if the same number of events are in the two datasets.  A constant is not important from the point of view of reweighting. 
+
+The power of neural networks is that they are naturally unbinned and can process high-dimensional data.  Furthermore, neural networks can also process variable-length data.  We will refer to the case that the inputs are one-dimensional as UniFold, the case that the inputs are multi- (but fixed-)dimensional as MultiFold, and the case where there are.  If it is clear from context, we will simply refer to all of these approaches as OmniFold.
+
+To get a feel for what OmniFold does, the next section compares various approaches in a two-bin example where it is easy to derive the steps analytically.  Following that, we show a Gaussian example where the power of the neural network becomes clear.
 
 \subsubsection{Illustration of Different Methods}
 
@@ -241,7 +316,22 @@ $\infty$ & 0 & 0 & 0 & 1 & 1\\
 \label{lab:ibuexample}
 \end{table}
 
-\subsection{Comparison of binned and unbinned}
+\subsection{Gaussian Example}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{Figures/GaussianToyExample/GaussianToyExample-Distributions.pdf}
+\caption{blah}
+\label{fig:gaussian:blah}
+\end{figure}
+
+\subsection{OmniFold for ATLAS}
+
+Describe the NN setup.  Also need to say how we deal with acceptance effects.
+
+\subsection{Technical Closure Test}
+
+\subsection{Stress Tests}
 
 \section{Systematic Uncertainties}
 \label{sec:uncerts}
