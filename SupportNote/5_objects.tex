@@ -1,6 +1,6 @@
 \subsection{Detector-level}
 
-\paragraph{Muons} are reconstructed using a combination of information from the muon spectrometer (MS) and the inner detector (ID). Occasionally, the ATLAS calorimeters are used to provide additional information for reconstruction. The reconstruction process is described in detail in reference blah.
+\paragraph{Muons} are reconstructed using a combination of information from the muon spectrometer (MS) and the inner detector (ID). Occasionally, the ATLAS calorimeters are used to provide additional information for reconstruction. The reconstruction process is described in detail in reference [Muon Ref].
 The muons are required to pass medium quality selection using the MuonSelectionTool and the PflowLoose\_VarRad isolation working point [Iso ref] as given by the IsolationTool. The simulated muons are also calibrated in order to correct for $p_\text{T}$ discrepancies between data and simulation [Muon Ref].
 
 \paragraph{Tracks} are reconstructed from charged-particle hits within the silicon- and straw-tube based inner tracking detectors. They are required to pass the X quality working point and to be associated with the primary vertex of the event using the X track-to-vertex association.  The primary vertex is defined  as the reconstructed vertex with the highest sum of associated track $\pt^2$.  Tracks are required to have a $\pt>500$~\MeV~to be included in this measurement.  The track $\eta$ and $\phi$ coordinates come from the five-parameter track fit to $(\eta,\phi,q/p,d_0,z_0)$, and thus correspond to the track coordinates at the origin.
@@ -16,7 +16,8 @@ The muons are required to pass medium quality selection using the MuonSelectionT
      Calibrated Jets (AntiKt4EMPFlowJets) & $\Delta R_{e,jet} > 0.2$ \\
       & Muon-PFlow jet overlap removal \\ \hline
      Tracks & Loose Quality \\
-      & Loose TTVA (may switch to Tight) \\ \hline
+      & Loose TTVA (may switch to Tight) \\
+      & $p_{\text{T}} > 500$ MeV \\ \hline
     \end{tabular}
     \caption{Object level cuts}
     \label{tab:ObjCuts}
