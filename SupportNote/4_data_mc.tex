@@ -1,41 +1,49 @@
 \subsection{Data}
 
-This analysis is performed using data from $pp$ collisions provided from the Large Hadron Collider with $\sqrt{s} = 13$~\TeV~between 2015--2018, and collected with the ATLAS detector. The total integrated luminosity of this dataset following the application of the GoodRunsList is 139~fb$^{-1}\pm1.7\%$ [GRL Ref]. The total integrated luminosity per year of data-taking is listed in table~\ref{tab:LumiYear}. The specific GoodRunsList files used are:
+This analysis is performed using data from $pp$ collisions provided from the Large Hadron Collider with $\sqrt{s} = 13$~\TeV~between 2015--2018, and collected with the ATLAS detector. The total integrated luminosity of this dataset following the application of the GoodRunsList is \SI{139.0}{\ifb} with an uncertainty of 1.7\%. 
+The total integrated luminosity per year of data-taking is listed in table~\ref{tab:LumiYear}. The specific GoodRunsList files used are:
 
-\begin{itemize}
-    \item For 2015 data:
+\begin{scriptsize}
+\begin{verbatim}
+20170619/data15_13TeV.periodAllYear_DetStatus-v89-pro21-02_Unknown_PHYS_StandardGRL_All_Good_25ns.xml
+20180129/data16_13TeV.periodAllYear_DetStatus-v89-pro21-01_DQDefects-00-02-04_PHYS_StandardGRL_All_Good_25ns.xml
+20180619/data17_13TeV.periodAllYear_DetStatus-v99-pro22-01_Unknown_PHYS_StandardGRL_All_Good_25ns_Triggerno17e33prim.xml
+20190318/data18_13TeV.periodAllYear_DetStatus-v102-pro22-04_Unknown_PHYS_StandardGRL_All_Good_25ns_Triggerno17e33prim.xml
+\end{verbatim}
+\end{scriptsize}
+% \begin{itemize}
+%     \item For 2015 data:
 
-    data15\_13TeV/20170619/data15\_13TeV.periodAllYear\_DetStatus-v89-pro21-02\_Unknown\_PHYS\_\\
-    StandardGRL\_All\_Good\_25ns.xml
-    \item For 2016 data:
+%     \item For 2016 data:
 
-    data16\_13TeV/20180129/data16\_13TeV.periodAllYear\_DetStatus-v89-pro21-01\_DQDefects-00-02-04\_PHYS\_StandardGRL\_All\_Good\_25ns.xml
-    \item For 2017 data:
+%     data16\_13TeV/20180129/data16\_13TeV.periodAllYear\_DetStatus-v89-pro21-01\_DQDefects-00-02-04\_PHYS\_StandardGRL\_All\_Good\_25ns.xml
+%     \item For 2017 data:
 
-    data17\_13TeV/20180619/data17\_13TeV.periodAllYear\_DetStatus-v99-pro22-01\_Unknown\_PHYS\_ \\
-    StandardGRL\_All\_Good\_25ns\_Triggerno17e33prim.xml
-    \item For 2018 data:
+%     data17\_13TeV/20180619/data17\_13TeV.periodAllYear\_DetStatus-v99-pro22-01\_Unknown\_PHYS\_ \\
+%     StandardGRL\_All\_Good\_25ns\_Triggerno17e33prim.xml
+%     \item For 2018 data:
 
-    data18\_13TeV/20190318/data18\_13TeV.periodAllYear\_DetStatus-v102-pro22-04\_Unknown\_PHYS\_ \\
-    StandardGRL\_All\_Good\_25ns\_Triggerno17e33prim.xml
-\end{itemize}
+%     data18\_13TeV/20190318/data18\_13TeV.periodAllYear\_DetStatus-v102-pro22-04\_Unknown\_PHYS\_ \\
+%     StandardGRL\_All\_Good\_25ns\_Triggerno17e33prim.xml
+% \end{itemize}
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{l|c}
     \hline
     \textbf{Year} & \textbf{Integrated Luminosity (fb$^{-1}$)} \\ \hline
-    2015 &  3.21 \\\hline
-    2016 &  32.99 \\\hline
-    2017 &  44.31 \\ \hline
-    2018 &  58.45 \\ \hline\hline
+    2015  &   3.21 \\\hline
+    2016  &  32.99 \\\hline
+    2017  &  44.31 \\ \hline
+    2018  &  58.45 \\ \hline\hline
     Total & 139.0 \\ \hline
     \end{tabular}
-    \caption{The measured integrated luminosity per year in the ATLAS detector}
+    \caption{The integrated luminosity of the data collected each year corresponding to the GRLs listed in the text and the latests recommended luminocity calibration \texttt{OfLumi-010}.}
     \label{tab:LumiYear}
 \end{table}
 
-The GRID datasets used are outlined in Appendix~\ref{app:datasets}.
+The GRID datasets used are outlined in Appendix~\ref{app:datasets}. We are using the STDM7 derivations.
+These contain all electrons, muons and tracks and hence the information need for this analysis.
 
 \subsection{Simulation}
 Monte Carlo samples can be used to compare results from data with SM predictions. The events obtained from MC samples are also used in the OmniFold method as a part of the unfolding process, which is outlined in detail in Section~\ref{subsec:omnifold}.
