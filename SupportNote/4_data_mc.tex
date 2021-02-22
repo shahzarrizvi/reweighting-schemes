@@ -1,6 +1,6 @@
 \subsection{Data}
 
-This analysis is performed using data from $pp$ collisions provided from the Large Hadron Collider with $\sqrt{s} = 13$~\TeV~between 2015--2018, and collected with the ATLAS detector. The total integrated luminosity of this dataset following the application of the GoodRunsList is 139~fb$^{-1}\pm1.7\%$ [GRL Ref]. The specific GoodRunsList files used are:
+This analysis is performed using data from $pp$ collisions provided from the Large Hadron Collider with $\sqrt{s} = 13$~\TeV~between 2015--2018, and collected with the ATLAS detector. The total integrated luminosity of this dataset following the application of the GoodRunsList is 139~fb$^{-1}\pm1.7\%$ [GRL Ref]. The total integrated luminosity per year of data-taking is listed in table~\ref{tab:LumiYear}. The specific GoodRunsList files used are:
 
 \begin{itemize}
     \item For 2015 data:
@@ -20,29 +20,36 @@ This analysis is performed using data from $pp$ collisions provided from the Lar
     StandardGRL\_All\_Good\_25ns\_Triggerno17e33prim.xml
 \end{itemize}
 
-The GRID datasets used are outlined in Appendix~\ref{app:datasets}.
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l|c}
+    \hline
+    \textbf{Year} & \textbf{Integrated Luminosity (fb$^{-1}$)} \\ \hline
+    2015 &  3.21 \\\hline
+    2016 &  32.99 \\\hline
+    2017 &  44.31 \\ \hline
+    2018 &  58.45 \\ \hline\hline
+    Total & 139.0 \\ \hline
+    \end{tabular}
+    \caption{The measured integrated luminosity per year in the ATLAS detector}
+    \label{tab:LumiYear}
+\end{table}
 
-\subsection{Data Stability}
-To check stability of data used for this analysis, rate for each year is calculated by dividing events to their corresponding luminosities. Luminosity per run is combined until summed up luminosities become either 2 fb$^{-1}$ or greater than this. Figure~\ref{fig:DataStability} depicts rate for year 2015 to 2018, where each time-ordered data bin contains 2 fb$^{-1}$ luminosity. The first bin shows rate for year 2015, bins 2--16 are for year 2016, bins 17--37 and 38--64 represent rate for year 2017 and 2018 respectively. Further, to consider those residual runs having combined luminosities smaller than 2 fb$^{-1}$, the last bin for each year is merged with the previous bin. The calculated average rate for year 2015--2018 is 2845 $\pm$ 4 and shows consistentency for each year. Figure~\ref{fig:DataStability} shows the stability of data for each year used in this analysis.
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.75\textwidth]{figures/DataStability.pdf}
-\caption{Events per fb$^{-1}$ for year 2015 to 2018, where each time-ordered data bin contains 2 fb$^{-1}$ luminosity.}
-\label{fig:DataStability}
-\end{figure}
+The GRID datasets used are outlined in Appendix~\ref{app:datasets}.
 
 \subsection{Simulation}
 Monte Carlo samples can be used to compare results from data with SM predictions. The events obtained from MC samples are also used in the OmniFold method as a part of the unfolding process, which is outlined in detail in Section~\ref{subsec:omnifold}.
-Due to differing pileup and detector conditions, MC samples are divided up into different campaigns: with MC16a corresponding to data taken in 2015 and 2016, MC16d to data taken in 2017, and MC16e to data taken in 2018. The analysis is performed independently
+Due to differing pile-up and detector conditions, MC samples are divided up into different campaigns: with MC16a corresponding to data taken in 2015 and 2016, MC16d to data taken in 2017, and MC16e to data taken in 2018. The analysis is performed independently
 on these three campaigns and scaled according to the luminosity in order to compare the results directly with data.
 
-Two different MC $Z\rightarrow\mu\mu$ samples are used in this analysis. The first uses Powheg-Box [Powheg references] to produces parton level events at next-to-leading order (NLO) in QCD using the CT10nlo parton distribution function (PDF), the parton level events are
-then passed to Pythia 8 [Pythia Ref] which performs showering, hadronization and the subsequent particle decays.
-The second dataset uses Sherpa version 2.2.1 with the NNPDF3.0 NNLO PDF to both generate and hadronize events. The Sherpa samples are accurate up to NNLO in QCD. More...
+Two different MC $Z\rightarrow\mu\mu$ samples are used in this analysis. The first uses Powheg-Box [Powheg references] to produce parton level events at next-to-leading order (NLO) in QCD using the CT10nlo parton distribution function (PDF) [CT10 Ref], the parton level events are
+then passed to Pythia 8 [Pythia Ref] which performs showering, hadronization and the subsequent particle decays using the CTEQ6L1 PDF and parameters tuned according to the AZNLO set [AZNLO Ref].
 
-The detector response is determined by inputting the resulting events into GEANT4 simulation for the ATLAS detector [GEANT4 ref]...
+The second dataset uses Sherpa version 2.2.1 [Sherpa ref] with the NNPDF3.0 NNLO PDF [NNPDF Ref]. Parton level events are produced at leading order using the Comix generator [Comix Ref], and the OpenLoops package [OpenLoops Ref] is used to provide corrections up to NLO.
+Parton showers are produced and matched to the NLO matrix elements using an improved CKKW matching procedure [CKKW Refs], which is extended to NLO accuracy using the MEPS@NLO method [MEPS Ref]. Hadronization is performed internally using the default parameters set by the generator.
+
+The detector response is determined by inputting the resulting events into the GEANT4 simulation [GEANT4 ref] for the ATLAS detector [ATLAS Sim Ref]. The events are then reconstructed using the same procedure that is used for data. Corrections made to MC events in order to compare them directly with data are described in Section~\ref{subsec:MCCorr}.
+The effects due to multiple proton-proton collisions that occur within the same or a neighbouring bunch crossing (pile-up) is simulated using inelastic proton-proton collisions produced using the Pythia 8 event generator with the A3 tune [PU Pythia Tune Ref] and using the NNPDF2.3LO PDFs [NNPDF Ref]. The resulting events are
+then overlaid with the existing sample at a rate that is consistent with the measured value from data.
 
 The GRID datasets are listed in Appendix~\ref{app:datasets}.
-
-
-
