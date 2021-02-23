@@ -1,7 +1,8 @@
 \subsection{Data}
+\label{subsec:data}
 
-This analysis is performed using data from $pp$ collisions provided from the Large Hadron Collider with $\sqrt{s} = 13$~\TeV~between 2015--2018, and collected with the ATLAS detector. The total integrated luminosity of this dataset following the application of the GoodRunsList is \SI{139.0}{\ifb} with an uncertainty of 1.7\%. 
-The total integrated luminosity per year of data-taking is listed in table~\ref{tab:LumiYear}. The specific GoodRunsList files used are:
+This analysis is performed using data from $pp$ collisions provided from the Large Hadron Collider with $\sqrt{s} = 13$~\TeV~between 2015--2018, and collected with the ATLAS detector. The total integrated luminosity of this dataset following the application of the GoodRunsList is \SI{139.0}{\ifb} with an uncertainty of 1.7\%.
+The total integrated luminosity per year of data-taking is listed in table~\ref{tab:LumiYear}. The specific GoodRunsList files used are\footnote{Recommended GRLs are listed in: \url{twiki: https://twiki.cern.ch/twiki/bin/viewauth/AtlasProtected/GoodRunListsForAnalysisRun2}}:
 
 \begin{scriptsize}
 \begin{verbatim}
@@ -11,21 +12,6 @@ The total integrated luminosity per year of data-taking is listed in table~\ref{
 20190318/data18_13TeV.periodAllYear_DetStatus-v102-pro22-04_Unknown_PHYS_StandardGRL_All_Good_25ns_Triggerno17e33prim.xml
 \end{verbatim}
 \end{scriptsize}
-% \begin{itemize}
-%     \item For 2015 data:
-
-%     \item For 2016 data:
-
-%     data16\_13TeV/20180129/data16\_13TeV.periodAllYear\_DetStatus-v89-pro21-01\_DQDefects-00-02-04\_PHYS\_StandardGRL\_All\_Good\_25ns.xml
-%     \item For 2017 data:
-
-%     data17\_13TeV/20180619/data17\_13TeV.periodAllYear\_DetStatus-v99-pro22-01\_Unknown\_PHYS\_ \\
-%     StandardGRL\_All\_Good\_25ns\_Triggerno17e33prim.xml
-%     \item For 2018 data:
-
-%     data18\_13TeV/20190318/data18\_13TeV.periodAllYear\_DetStatus-v102-pro22-04\_Unknown\_PHYS\_ \\
-%     StandardGRL\_All\_Good\_25ns\_Triggerno17e33prim.xml
-% \end{itemize}
 
 \begin{table}[h!]
     \centering
@@ -38,26 +24,27 @@ The total integrated luminosity per year of data-taking is listed in table~\ref{
     2018  &  58.45 \\ \hline\hline
     Total & 139.0 \\ \hline
     \end{tabular}
-    \caption{The integrated luminosity of the data collected each year corresponding to the GRLs listed in the text and the latests recommended luminocity calibration \texttt{OfLumi-010}.}
+    \caption{The integrated luminosity of the data collected each year corresponding to the GRLs listed in the text and the latest recommended luminosity calibration: \texttt{OflLumi-008} for 2015 data, \texttt{OflLumi-009} for 2016 and \texttt{OflLumi-010} for 2017 and 2018.}
     \label{tab:LumiYear}
 \end{table}
 
-The GRID datasets used are outlined in Appendix~\ref{app:datasets}. We are using the STDM7 derivations.
-These contain all electrons, muons and tracks and hence the information need for this analysis.
+STDM7 derivations\footnote{More details regarding the STDM derivations can be found here: \url{twiki: https://twiki.cern.ch/twiki/bin/viewauth/AtlasProtected/StandardModelASG}} are used in this analysis, as they contain the relevant tracking information needed to perform the unfolding of the charged particles, as well as all electrons and muons. STMD7 derivations include all events which pass any single muon trigger, and therefore contain all events needed for this analysis.
+
+The GRID datasets used are outlined in Appendix~\ref{app:datasets}.
 
 \subsection{Simulation}
 Monte Carlo samples can be used to compare results from data with SM predictions. The events obtained from MC samples are also used in the OmniFold method as a part of the unfolding process, which is outlined in detail in Section~\ref{subsec:omnifold}.
 Due to differing pile-up and detector conditions, MC samples are divided up into different campaigns: with MC16a corresponding to data taken in 2015 and 2016, MC16d to data taken in 2017, and MC16e to data taken in 2018. The analysis is performed independently
 on these three campaigns and scaled according to the luminosity in order to compare the results directly with data.
 
-Two different MC $Z\rightarrow\mu\mu$ samples are used in this analysis. The first uses Powheg-Box [Powheg references] to produce parton level events at next-to-leading order (NLO) in QCD using the CT10nlo parton distribution function (PDF) [CT10 Ref], the parton level events are
-then passed to Pythia 8 [Pythia Ref] which performs showering, hadronization and the subsequent particle decays using the CTEQ6L1 PDF and parameters tuned according to the AZNLO set [AZNLO Ref].
+Two different MC $Z\rightarrow\mu\mu$ samples are used in this analysis. The first uses \powbox{}~\cite{Nason:2004rx,Frixione:2007vw,Alioli:2010xd} to produce parton level events at next-to-leading order (NLO) in QCD using the CT10nlo parton distribution function (PDF)~\cite{Lai:2010vv}, the parton level events are
+then passed to $\pythia$~\cite{Sjostrand:2007gs} which performs showering, hadronization and the subsequent particle decays using the CTEQ6L1 PDF~\cite{Lai:2010vv} and parameters tuned according to the AZNLO set~\cite{Aad:2014xaa}.
 
-The second dataset uses Sherpa version 2.2.1 [Sherpa ref] with the NNPDF3.0 NNLO PDF [NNPDF Ref]. Parton level events are produced at leading order using the Comix generator [Comix Ref], and the OpenLoops package [OpenLoops Ref] is used to provide corrections up to NLO.
-Parton showers are produced and matched to the NLO matrix elements using an improved CKKW matching procedure [CKKW Refs], which is extended to NLO accuracy using the MEPS@NLO method [MEPS Ref]. Hadronization is performed internally using the default parameters set by the generator.
+The second dataset uses $\sherpa$ version 2.2.1~\cite{Gleisberg:2008ta,Bothmann:2019yzt} with the NNPDF3.0 NNLO PDF~\cite{Ball:2012cx}. Parton level events are produced at leading order using the Comix generator~\cite{Gleisberg:2008fv}, and the OpenLoops package~\cite{Cascioli:2011va} is used to provide corrections up to NLO.
+Parton showers are produced and matched to the NLO matrix elements using an improved CKKW matching procedure~\cite{Catani:2001cc,Hoeche:2009rj}, which is extended to NLO accuracy using the MEPS@NLO method~\cite{Hoeche:2012yf}. Hadronization is performed internally using the default parameters set by the generator.
 
-The detector response is determined by inputting the resulting events into the GEANT4 simulation [GEANT4 ref] for the ATLAS detector [ATLAS Sim Ref]. The events are then reconstructed using the same procedure that is used for data. Corrections made to MC events in order to compare them directly with data are described in Section~\ref{subsec:MCCorr}.
-The effects due to multiple proton-proton collisions that occur within the same or a neighbouring bunch crossing (pile-up) is simulated using inelastic proton-proton collisions produced using the Pythia 8 event generator with the A3 tune [PU Pythia Tune Ref] and using the NNPDF2.3LO PDFs [NNPDF Ref]. The resulting events are
+The detector response is determined by inputting the resulting events into the GEANT4 simulation~\cite{Agostinelli2003250} for the ATLAS detector~\cite{Aad:2010ah}. The events are then reconstructed using the same procedure that is used for data. Corrections made to MC events in order to compare them directly with data are described in section~\ref{subsec:MCCorr}.
+The effects due to multiple proton-proton collisions that occur within the same or a neighbouring bunch crossing (pile-up) is simulated~\cite{Marshall:2014mza} using inelastic proton-proton collisions produced using the $\pythia$ event generator with the A3 tune~\cite{ATLAS:2016puo} and using the NNPDF2.3LO PDFs~\cite{Ball:2012cx}. The resulting events are
 then overlaid with the existing sample at a rate that is consistent with the measured value from data.
 
 The GRID datasets are listed in Appendix~\ref{app:datasets}.
