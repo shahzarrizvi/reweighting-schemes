@@ -196,13 +196,13 @@ Typically, one choses the prior $\Pr^{(n)}(t_i)=t_i^{(n-1)}$ and $\Pr^{(0)}(t_i)
 
 IBU and other standard unfolding methods face three challenges.  First, they require the data to be binned.  This binning must be chosen ahead of time and is often chosen manually.  Second, only a small number of observables (or a small number of bins for a given number of observables) can be unfolded simultaneously in order to keep the total number of bins to a manageable level.  Finally, the matrix $\textbf{R}$ only depends on the unfolded features and not on any other auxiliary features that may be useful for determining the detector response.  Even though the inputs to the unfolding may be calibrated, if the detector response depends on additional features, the result will be suboptimal and potentially biased.
 
-OmniFold is an approach that addresses all three of the above challenges by using neural networks.  Like IBU, OmniFold is an iterative method.  Furthermore, OmniFold is a naturally generalization of IBU in the sense that if you apply the OmniFold method to binned data, it reproduces IBU at each iteration.  The OmniFold method proceeds as follows:
+OmniFold is an approach that addresses all three of the above challenges by using neural networks.  Like IBU, OmniFold is an iterative method.  Furthermore, OmniFold is a natural generalization of IBU in the sense that when the OmniFold method is applied to binned data, it reproduces IBU at each iteration.  The OmniFold method proceeds as follows:
 
 \begin{description}
 \item Iterate:
 	\begin{enumerate}[label={(\arabic*)}]
-		\item Reweight detector-level simulation to match data.
-		\item Use the weights from (1) to reweight the default particle-level simulation to weighted simulation.
+		\item Reweight detector-level simulation ('MC Reco') to match data ('Data Reco).
+		\item Use the weights from (1) to reweight the default particle-level simulation ('MC Truth') to weighted simulation.
 	\end{enumerate}
 \end{description}
 
@@ -210,7 +210,7 @@ As an algorithm, the OmniFold procedure does not require neural networks; howeve
 
 The OmniFold procedure is illustrated schematically in Fig.~\ref{fig:omnifoldschematic}.  The detector-level weights at a given step are represented by the symbol $\omega_n$ while the particle-level weights are represented by the symbol $\nu_n$.  Note that for Step (2), we could reweight from the original particle-level simulation to the weighted simulation or from the weights derived at the previous step to weights from (1).  Both achieve the same results, but there may be advantages to learning an incremental reweighting (as in Fig.~\ref{fig:omnifoldschematic}) since each step is a correction on the previous step.
 
-The output of the OmniFold method is a set of events with weights.  One can then make any observables from the features used in the unfolding and from those features, one can construct histograms using whatever binning is desired.
+The output of the OmniFold method is a set of events with weights.  One can then construct any observables from the features used in the unfolding, and from those features, one can construct histograms using whatever binning is desired.
 
 \begin{figure}[h!]
 \centering
@@ -219,23 +219,24 @@ The output of the OmniFold method is a set of events with weights.  One can then
 \label{fig:omnifoldschematic}
 \end{figure}
 
-An effective strategy for implementing the OmniFold protocol is to use neural networks as reweighting functions.  A reweighting function is simply a ratio of two probability densities.  It is a fact that the optimal classifier between two event samples is the same quantity - the likelihood ratio (or any monotonic function of it).  Therefore, we build a reweighting function by training a classifier and properly interpreting the output.  In particular, a classifier $f$ trained using the standard binary cross entropy loss function
+An effective strategy for implementing the OmniFold protocol is to use neural networks as reweighting functions.  A reweighting function is simply a ratio of two probability densities.  It is a fact that the optimal classifier between two event samples is the same quantity - the likelihood ratio (or any monotonic function of it).  Therefore, we build a reweighting function by training a classifier and properly interpreting the output.  In particular, a classifier $f$ trained using the standard binary cross entropy loss function on events $x$ with event weights $w$
 
 \begin{align}
-f^*=\argmin_f-\sum_{i\in\text{dataset 1}} \log(g(x_i)) -\sum_{i\in\text{dataset 2}} \log(1-f(x_i)),
+\label{eq:binarycrossentropy}
+	f^*=\argmin_f-\sum_{i\in\text{dataset 1}}w_i \log(f(x_i)) -\sum_{i\in\text{dataset 2}} w_i\log(1-f(x_i)),
 \end{align}
 %
-has the property\footnote{This fact is well-known~\cite{hastie01statisticallearning,sugiyama_suzuki_kanamori_2012} and also has been used in many contexts in high-energy physics~\cite{2010.03569,1907.08209,Stoye:2018ovl,Hollingsworth:2020kjg,Brehmer:2018kdj,Brehmer:2018eca,Brehmer:2019xox,Brehmer:2018hga,Cranmer:2015bka,Badiali:2020wal,Andreassen:2020nkr,Andreassen:2019cjw,Fischer-ACAT2019}.} that asymptotically (enough training data, flexible enough network architecture and training):
+has the property\footnote{This fact is well-known~\cite{hastie01statisticallearning,sugiyama_suzuki_kanamori_2012} and also has been used in many contexts in high-energy physics~\cite{2010.03569,1907.08209,Stoye:2018ovl,Hollingsworth:2020kjg,Brehmer:2018kdj,Brehmer:2018eca,Brehmer:2019xox,Brehmer:2018hga,Cranmer:2015bka,Badiali:2020wal,Andreassen:2020nkr,Andreassen:2019cjw,Fischer-ACAT2019}.} that asymptotically (i.e. with enough training data, flexible enough network architecture and training):
 
 \begin{align}
 \frac{f^*(x)}{1-f^*(x)}\propto \frac{p(x|\text{dataset 1})}{p(x|\text{dataset 2})}.
 \end{align}
 %
-The proportionality is equality if the same number of events are in the two datasets.  A constant is not important from the point of view of reweighting.
+The proportionality is equality if the two datasets contain the same number of events; however, a constant is not important from the point of view of reweighting.
 
-The power of neural networks is that they are naturally unbinned and can process high-dimensional data.  Furthermore, neural networks can also process variable-length data.  We will refer to the case that the inputs are one-dimensional as UniFold, the case that the inputs are multi- (but fixed-)dimensional as MultiFold, and the case where there are.  If it is clear from context, we will simply refer to all of these approaches as OmniFold.
+The power of neural networks is that they are naturally unbinned and can process high-dimensional data.  Furthermore, neural networks can also process variable-length data.  We will refer to the case that the inputs are one-dimensional as UniFold, the case that the inputs are multi- (but fixed-)dimensional as MultiFold, and the case where there are of variable dimension (namely, the raw particle data) as OmniFold.  If it is clear from context, we will simply refer to all of these approaches as OmniFold.
 
-To get a feel for what OmniFold does, the next section compares various approaches in a two-bin example where it is easy to derive the steps analytically.  Following that, we show a Gaussian example where the power of the neural network becomes clear.
+To develop an intuition for how OmniFold operates, the next section compares various approaches in a two-bin example where it is easy to derive the steps analytically.  Following that, we show a Gaussian example where the power of the neural network becomes clear.
 
 \subsubsection{Illustration of Different Methods}
 
@@ -317,11 +318,15 @@ $\infty$ & 0 & 0 & 0 & 1 & 1\\
 
 \subsection{Gaussian Example}
 
-This section shows the unfolding of a one-dimensional Gaussian random variable with a Gaussian noise model.  Figure~\ref{fig:gaussian:inputs} shows the `data' and `simulation'.  The data has a mean of 1 and a standard deviation of 1.5 while the simulation has a mean of 0 and a standard deviation of 1.  In both cases, the noise is an additive Gaussian with mean 0 and unit variance.
+This section shows the unfolding of a one-dimensional Gaussian random variable with a Gaussian noise model.  Figure~\ref{fig:gaussian:inputs} shows the `data' and `simulation'.  The data has a mean of 1 and a standard deviation of 1.5 while the simulation has a mean of 0 and a standard deviation of 1.  In both cases, the distributions are made up of ten million events and the detector effects (noise) are an additive Gaussian with mean 0 and unit variance.
 
-Describe the neural network.  3 layers, 50 nodes per layer, ReLU on intermediate layers, sigmoid on output layer, train for 200 epochs with early stopping with a patience of 10 (always stopped early after $\mathcal{O}(10)$ iterations).  Binary cross entropy, adam, batch size 10000, one million events total.  Keras + Tensorflow.
+The neural network implemented for reweighting is comprised of 3 layers, with 50 nodes per layer.  Rectified linear units (ReLU) connect the intermediate layers and the output is Softmax.  The training/validation split is 75/25.  The network is trained for 200 epochs with early stopping using a patience of 10, and the training time is about 5 seconds per epoch on an NVIDIA Quadro RTX 6000 GPU. The batch size is $10^5$.  All neural networks are implemented using \textsc{Keras}~\cite{keras} with the \textsc{Tensorflow} backend~\cite{tensorflow} and optimized with \textsc{Adam}~\cite{adam}.  Networks are trained using the binary cross entropy loss function described in Eq.~\ref{eq:binarycrossentropy}.
 
-OmniFold is demonstrated in Fig.~\ref{fig:gaussian:iterations}.
+Six iterations resulting in successful unfolding using the OmniFold procedure is demonstrated in Fig.~\ref{fig:gaussian:iterations}.
+
+To model the effects of initial Monte Carlo (MC) generation event weights, we inject artificial initial event weights. Specifically, each event in the particle-level truth and particle-level simulation $x_i$ is given a weight $w_i$ with $w_i$ drawn from $\mathcal{N}(x_i, 1)$; effectively, events further from the origin are more heavily weighted. This results in the distributions shown in Figure~\ref{fig:gaussian:MCinputs}. We then carry out an identical unfolding procedure as described above, simply initializing $\omega_0$ as the initial event weights $w_i$ for simulation.
+
+Again, six iterations resulting in successful unfolding using the OmniFold procedure for the case with initial MC weights injected is demonstrated in Fig.~\ref{fig:gaussian:MCiterations}.
 
 \begin{figure}[h!]
 \centering
@@ -337,6 +342,22 @@ OmniFold is demonstrated in Fig.~\ref{fig:gaussian:iterations}.
 \subfloat[5 iterations]{\includegraphics[width=0.45\textwidth]{Figures/GaussianToyExample/GaussianToyExample-UnfoldingResultsIteration05.pdf}}\subfloat[6 iterations]{\includegraphics[width=0.45\textwidth]{Figures/GaussianToyExample/GaussianToyExample-UnfoldingResultsIteration06.pdf}}
 \caption{An illustration of six iterations of the OmniFold algorithm to the one-dimensional Gaussian example.  For each iteration, the left plot is the detector-level distribution with weights $\omega_n$ and the right plot is the particle-level distribution with weights $\nu_n$.}
 \label{fig:gaussian:iterations}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{Figures/GaussianToyExample/GaussianToyExample-MCDistributions.pdf}
+\caption{The `simulation' (left) and `data' (right) for the one-dimensional Gaussian illustration with initial MC event weights included.}
+\label{fig:gaussian:MCinputs}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[1 iteration]{\includegraphics[width=0.45\textwidth]{Figures/GaussianToyExample/GaussianToyExample-MCUnfoldingResultsIteration01.pdf}}\subfloat[2 iterations]{\includegraphics[width=0.45\textwidth]{Figures/GaussianToyExample/GaussianToyExample-MCUnfoldingResultsIteration02.pdf}}\\
+\subfloat[3 iterations]{\includegraphics[width=0.45\textwidth]{Figures/GaussianToyExample/GaussianToyExample-MCUnfoldingResultsIteration03.pdf}}\subfloat[4 iterations]{\includegraphics[width=0.45\textwidth]{Figures/GaussianToyExample/GaussianToyExample-MCUnfoldingResultsIteration04.pdf}}\\
+\subfloat[5 iterations]{\includegraphics[width=0.45\textwidth]{Figures/GaussianToyExample/GaussianToyExample-MCUnfoldingResultsIteration05.pdf}}\subfloat[6 iterations]{\includegraphics[width=0.45\textwidth]{Figures/GaussianToyExample/GaussianToyExample-MCUnfoldingResultsIteration06.pdf}}
+\caption{An illustration of six iterations of the OmniFold algorithm to the one-dimensional Gaussian example with initial MC event weights injected.  For each iteration, the left plot is the detector-level distribution with weights $\omega_n$ and the right plot is the particle-level distribution with weights $\nu_n$.}
+\label{fig:gaussian:MCiterations}
 \end{figure}
 
 %use subfig
