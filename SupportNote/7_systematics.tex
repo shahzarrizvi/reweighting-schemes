@@ -1,0 +1,45 @@
+\subsection{Pileup reweighting systematic}
+As discussed in section~\ref{subsec:PRW}, a scaling correction is applied to the data during pileup reweighting. The up and down systematic variations for this scaling are
+stored as PRW\_DATASF.
+
+\subsection{Muon systematics}
+
+\subsubsection{Muon efficiency systematics}
+As summarized in section~\ref{subsec:MCCorr} there are several scale factors associated with muon reconstruction related to efficiencies in the trigger, reconstruction, isolation and track-to-vertex association.
+As such, there are 2 systematics associated with the trigger scale factor, 2 for the isolation scale factor, 4 for the reconstruction efficiency scale factor, and 2 for the TTVA scale factor.
+\begin{itemize}
+  \item MUON\_EFF\_TrigSystUncertainty
+  \item MUON\_EFF\_TrigStatUncertainty
+  \item MUON\_EFF\_ISO\_SYS
+  \item MUON\_EFF\_ISO\_STAT
+  \item MUON\_EFF\_RECO\_SYS
+  \item MUON\_EFF\_RECO\_SYS\_LOWPT
+  \item MUON\_EFF\_RECO\_STAT
+  \item MUON\_EFF\_RECO\_STAT\_LOWPT
+  \item MUON\_EFF\_TTVA\_SYS
+  \item MUON\_EFF\_TTVA\_STAT
+\end{itemize}
+
+\subsubsection{Muon calibration systematics}
+There are also systematic variations associated with the calibration applied to the muons. These will have an affect on the muon kinematics. The systematic variations are listed below, and include
+one for momentum variations due to measurements made in the inner detector, one for momentum effects related to the muon spectrometer, 2 systematics related to the measured sagitta value, and one for the
+scale.
+\begin{itemize}
+  \item MUON\_ID
+  \item MUON\_MS
+  \item MUON\_SAGITTA\_RESBIAS
+  \item MUON\_SAGITTA\_RHO
+  \item MUON\_SCALE
+\end{itemize}
+
+\subsection{Track systematics}
+The first five systematics listed below are related to the efficiency and fake rate for the tracks. The final systematic is related to alignment corrections made to the tracks, and biases the $\pt$ of the track. 
+\begin{itemize}
+  \item InDet::TRK\_EFF\_TIGHT\_GLOBAL
+  \item InDet::TRK\_EFF\_TIGHT\_IBL
+  \item InDet::TRK\_EFF\_TIGHT\_PP0
+  \item InDet::TRK\_EFF\_TIGHT\_PHYSMODEL
+  \item InDet::TRK\_EFF\_LOOSE\_TIDE
+  \item InDet::TRK\_FAKE\_RATE\_LOOSE
+  \item InDet::TRK\_BIAS\_QOVERP\_SAGITTA\_WM
+\end{itemize}
