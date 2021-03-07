@@ -53,7 +53,7 @@ Additionally, the muons must pass track-to-vertex association recommendations\fo
     \item $|\Delta z_0^{BL}\sin\theta| < 0.5 $mm
 \end{itemize}
 
-where $d_0$ and $z_0$ represent the point along the track that is the closest approach to the beamspot.
+where $d_0$ and $z_0$ represent the point along the track with the closest approach to the beamspot.
 
 The large $p_{\text{T},\ell\ell}$ cut of 200~GeV has been chosen to ensure that the balancing jet(s) have a high quantity of charged particles, as these are the primary subject of the analysis.
 Events with a $p_{\text{T},\ell\ell}$ larger than 165~GeV are saved in order to study migration effects between truth and reconstructed events (i.e. events where the reconstructed $p_{\text{T},\ell\ell}$
@@ -78,7 +78,8 @@ Jets are required to have a calibrated $p_\text{T} > 10~\text{GeV}$ and rapidity
 \subsubsection{Overlap Removal}
 
 There is a possibility that an electron may be misidentified as a jet during reconstruction, so in cases where the jet is found to be within $\Delta R < 0.2$ of a reconstructed electron, the jet is removed.
-Additionally, a specialized overlap removal procedure must be applied between muons and jets due to a bug in the particle flow algorithm which results in secondary muon tracks being included in the particle flow objects.
+Additionally, a specialized overlap removal procedure must be applied between muons and jets due to a bug in the particle flow algorithm which results in sub-leading muon tracks being included in the particle flow objects~\footnote{A brief summary of the bug and the overlap removal procedure can be found here: \url{https://indico.cern.ch/event/807799/contributions/3362328/attachments/1818680/2973610/Presentation.pdf},
+and here: \url{https://indico.cern.ch/event/814156/contributions/3396841/attachments/1830226/2997072/Presentation.pdf}}.
 The muon is preferentially kept in this case, so it does not limit our analysis as the jets are not currently used.
 
 A summary of the detector level event selection can be found in table~\ref{tab:ObjCuts}.
@@ -132,15 +133,15 @@ Objects at particle-level, as well as the truth phase space, are summarized in t
 \subsection{Corrections to Monte Carlo samples}
 \label{subsec:MCCorr}
 \subsubsection{Pileup reweighting}
-When events in MC samples are produced, the average interactions per bunch crossing, $\mu$, is assigned a certain value. This can differ from the values that are actually seen in the corresponding data, thus it is
+When events in MC samples are produced, the interactions per bunch crossing, $\mu$, is assigned a certain value. This can differ from the values that are actually seen in the corresponding data, thus it is
 necessary to correct the MC events such that the distribution of $\mu$ is equivalent to what is observed in data.
 
 The \texttt{PileupReweightingTool}\footnote{Details can be found here: \url{twiki: https://twiki.cern.ch/twiki/bin/view/AtlasProtected/ExtendedPileupReweighting}} uses the $\mu$ and the run number assigned to the MC event along with the luminosity of the corresponding data in the same run number to determine the pileup weight to be applied to the event.
-This requires that both the average $\mu$ distribution for the specific MC sample is available to the tool, as well as the files used to calculate the luminosity for the data. As we use unprescaled triggers in this analysis, the centrally produced lumicalc files corresponding to the GoodRunsLists in section~\ref{subsec:data} are used.
+This requires that both the $\mu$ distribution for the specific MC sample is available to the tool, as well as the files used to calculate the luminosity for the data. As we use unprescaled triggers in this analysis, the centrally produced lumicalc files corresponding to the GoodRunsLists in section~\ref{subsec:data} are used.
 Configuration files for the tool for each MC sample are also provided centrally.
 The pileup weight is then multiplied with the MC event weight in order to correct the $\mu$.
 
-The tool also provides a scaling correction for data. The MC simulation for a given $\mu$ value is known to be too hard, therefore the average $\mu$ values in data are scaled down to account for this.
+The tool also provides a scaling correction for data. The MC simulation for a given $\mu$ value is known to be too hard, therefore the $\mu$ values in data are scaled down to account for this.
 
 \subsubsection{Trigger scale factor}
 There are differing trigger efficiencies between data and MC simulation, thus a correction in the form of a scale factor applied to the event weight is necessary for MC events. The triggers used in this analysis are outlined in section~\ref{subsubsec:trigger}.
@@ -209,9 +210,9 @@ Table~\ref{tab:CFComp} compares the event yields after applying the analysis cut
 Figure~\ref{fig:MuActual} shows the actual interactions per bunch crossing $\mu$ for the individual data periods, as well as the full Run 2 dataset.
 Figure~\ref{fig:pTmll} gives the $\pt$ and $m$ distributions for the dilepton system, and figure~\ref{fig:pTetamus} gives the $\pt$ and $\eta$ distributions for both the leading and sub-leading muon.
 The $\pt$ and $y$ distributions for the leading and sub-leading track jet are shown in figure~\ref{fig:pTyjets}, and figure~\ref{fig:jetsubstructure} and~\ref{fig:ntrackinjets} show some
-selected jet substructure variables and the number of constituents, respectively.
+selected jet substructure variables and the number of constituents, respectively. Finally, the properties of the tracks used for the analysis are shown in figure~\ref{fig:trackInfo}.
 
-Finally, the properties of the tracks used for the analysis are shown in figure~\ref{fig:trackInfo}.
+Figure~\ref{fig:EventDisplay} shows an example event display for an event which passes all analysis cuts.
 
 \begin{figure}[h!]
   \centering
@@ -277,6 +278,17 @@ Finally, the properties of the tracks used for the analysis are shown in figure~
   \includegraphics[page=152,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
   \caption{Distributions for the number of tracks per event (top left), and the $\pt$ (top right), $\eta$ (bottom left), and $\phi$ (bottom right) for each reconstructed track}
   \label{fig:trackInfo}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=6,width=0.45\textwidth]{figures/EventDisplays.pdf}
+  \includegraphics[page=7,width=0.45\textwidth]{figures/EventDisplays.pdf} \\
+  \includegraphics[page=8,width=0.45\textwidth]{figures/EventDisplays.pdf}
+  \caption{An event display for an event which passes all cuts. For the reconstructed event (top left) and the particle level event (top right), the centre of the dilepton system is shown with a red X and the individual muons with a red dot.
+  Track jets are shown with a blue circle, and leading jet constituents are represented with a black X while other jet constituents are shown with a purple X. The leading jet is also shown (bottom), with the reconstructed constituents represented
+  by a black X, and truth charged hadrons represented by a blue circle.}
+  \label{fig:EventDisplay}
 \end{figure}
 
 \clearpage
