@@ -1,11 +1,11 @@
 \section{Particle composition and detector response of hadronic recoil}
 
-This section examines the particle composition and the detector response of the leading jet that balance the $Z$~boson in the fiducial region of the analysis. 
-The Powheg $Z\to \mu\mu$ sample is used. The particle origin of each track is obtained using the \texttt{truthParticleLink} to find the truth identification of each reconstructed track (see section~\ref{sec:samples}). In addition to the standard event preselection described in section~\ref{sec:selection}, extra cuts are used to make sure the leading reconstructed jet matches the leading particle jet in each event. 
-%To ensure the closet matching between the leading reconstructed jet and leading truth jet, and always have very good DR between them, the cut on ratio of 
+This section examines the particle composition and the detector response of the leading jet that balance the $Z$~boson in the fiducial region of the analysis.
+The Powheg $Z\to \mu\mu$ sample is used. The particle origin of each track is obtained using the \texttt{truthParticleLink} to find the truth identification of each reconstructed track (see section~\ref{sec:samples}). In addition to the standard event preselection described in section~\ref{sec:selection}, extra cuts are used to make sure the leading reconstructed jet matches the leading particle jet in each event.
+%To ensure the closet matching between the leading reconstructed jet and leading truth jet, and always have very good DR between them, the cut on ratio of
 This is achieved by requiring $|y_\mathrm{j1}|<2.1$ and $\pTlj / \pTsj < 0.7$. The selection is applied on reconstructed level. However, due to the additional criterion, the leading particle-level (truth) jet will always match the leading reco jet. Note that the jets will have a very high \pt{} since the event selection includes the selection $\pTll > \SI{165}{\GeV}$, and the jet will have a similar \pt{} to that of the $Z$~boson.
 
-Particles are classified depending to their type in the following categories: \texttt{pion} for $\pi^+$ and $\pi^-$; \texttt{kaon} for charged kaons; \texttt{proton}; 
+Particles are classified depending to their type in the following categories: \texttt{pion} for $\pi^+$ and $\pi^-$; \texttt{kaon} for charged kaons; \texttt{proton};
 \texttt{mu} for $\mu^-$ or $\mu^+$; \texttt{e} for $e^-$ or $e^+$;
 strange for any charge hadron with strange content other than kaons; \texttt{neutral} for any neutral hadron; \texttt{gam} for photons. As mentioned above, tracks are classified in the same categories using the \texttt{truthParticleLink}. In case there is no truth particle match, it is labelled unmatched. This includes contributions from pileup particles and fake tracks (and possibly secondaries).
 
@@ -17,7 +17,7 @@ All of the reconstructed tracks inside leading jet as well as charged-particles 
 	\includegraphics[width=0.48\textwidth,page=3]{figures/jet_comp_study_powheg_Tight_MultiplicityFraction.pdf}
 	\includegraphics[width=0.48\textwidth,page=3]{figures/jet_comp_study_powheg_Tight_pTFraction.pdf}
 	\caption{Composition of the leading jet in terms of particle multiplicity (left) and \pt{} (right) as a function of jet \pt{}.
-		The photon multiplicity is divided by 2 in the left plot, since most photons are produced in pairs by a neutral hadron (e.g.\ $\pi\to\gamma\gamma$). 
+		The photon multiplicity is divided by 2 in the left plot, since most photons are produced in pairs by a neutral hadron (e.g.\ $\pi\to\gamma\gamma$).
 		We can see that $\approx 42$\% of the jet \pt{} is carried by neutral particles. It's surprising that the fraction of neutral hadrons is so high (why??).}
 	\label{fig:truthJetComp}
 \end{figure}
@@ -111,3 +111,5 @@ Figures~\ref{fig:response pion and kaon} to ~\ref{fig:track jet response} are sh
 \caption {The fraction of electrons (left) and strange particles (right) in the reconstructed tracks as a function of jet \pT.}
 \label{fig:response electrons and starnge particles}
 \end{figure}
+
+\clearpage
