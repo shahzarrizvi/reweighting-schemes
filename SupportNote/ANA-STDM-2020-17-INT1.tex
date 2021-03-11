@@ -360,15 +360,178 @@ Again, six iterations resulting in successful unfolding using the OmniFold proce
 \label{fig:gaussian:MCiterations}
 \end{figure}
 
-%use subfig
+\clearpage
 
 \subsection{OmniFold for ATLAS}
 
-Describe the NN setup.  Also need to say how we deal with acceptance effects.
+As in the previous section, all neural networks are implemented in \textsc{Tensorflow} and optimized with \textsc{Adam}.  The following sections contain a series of validation studies, starting with a technical closure test in Sec.~\ref{sec:technicalclosure}, a series of artificial stress tests in Sec.~\ref{sec:technicalclosure}, and then a Pythia-Sherpa comparison in Sec.~\ref{sec:modeldep}.  In each section, we will first show the results on individual observables (UniFold) and then extend the results to multidimensional unfolding.  Note that in all plots, the unfolded result is unbinned, even though histograms with a fixed binning are used for illustration.  The unfolded results can be readily rebinned.
+
+All of the input features are standardized by subtracting the mean and dividing by the per-feature standard deviation.  The neural networks for UniFold and MultiFold have three hidden layers with 50 nodes each using the ReLU activation for internal layers and the sigmoid activation for the last layer.  We train for 200 epochs with early stopping using a patience of 10 epochs.
 
 \subsection{Technical Closure Test}
+\label{sec:technicalclosure}
 
-\subsection{Stress Tests}
+As a technical closure test, we unfold Pythia with itself.  To do this, we take the Pythia sample and randomly label half as `data' and the other half as `simulation'.   The unfolding should converge after one step because the Step 1 and thus Step 2 weights should all be unity.  This is shown for individual observable unfoldings in Sec.~\ref{sec:technicalclosure:unifold} and for multidimensional unfolding in Sec.~\ref{sec:technicalclosure:multifold}.
+
+\subsubsection{UniFold}
+\label{sec:technicalclosure:unifold}
+
+Figures~\ref{fig:technicalclosure:mass},~\ref{fig:technicalclosure:ntracksjet1},~\ref{fig:technicalclosure:pT_trackj1},~\ref{fig:technicalclosure:tau1_trackj1}, and~\ref{fig:technicalclosure:y_trackj1} show the technical closure of UniFold for the leading track jet mass, constituent multiplicity, $p_T$, $\tau_1$ and rapidity, respectively.  In all cases, the unfolding converges after one iteration, as expected.
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/UniFold/m_trackj1/ATLASOmniFold-TechnicalClosureTest-UniFold-m_trackj1-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/UniFold/m_trackj1/ATLASOmniFold-TechnicalClosureTest-UniFold-m_trackj1-Iteration01.pdf}}
+\caption{A technical closure test for the mass of the leading track jet using using UniFold.  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosure:mass}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/UniFold/Ntracks_trackj1/ATLASOmniFold-TechnicalClosureTest-UniFold-Ntracks_trackj1-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/UniFold/Ntracks_trackj1/ATLASOmniFold-TechnicalClosureTest-UniFold-Ntracks_trackj1-Iteration01.pdf}}
+\caption{A technical closure test for the number of tracks in the leading track jet using UniFold.  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosure:ntracksjet1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/UniFold/pT_trackj1/ATLASOmniFold-TechnicalClosureTest-UniFold-pT_trackj1-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/UniFold/pT_trackj1/ATLASOmniFold-TechnicalClosureTest-UniFold-pT_trackj1-Iteration01.pdf}}
+\caption{A technical closure test for the $p_T$ of the leading track jet using UniFold.  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosure:pT_trackj1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.89\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/UniFold/tau1_trackj1/ATLASOmniFold-TechnicalClosureTest-UniFold-tau1_trackj1-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/UniFold/tau1_trackj1/ATLASOmniFold-TechnicalClosureTest-UniFold-tau1_trackj1-Iteration01.pdf}}
+\caption{A technical closure test for the $\tau_1$ of the leading track jet using UniFold.  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosure:tau1_trackj1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/UniFold/y_trackj1/ATLASOmniFold-TechnicalClosureTest-UniFold-y_trackj1-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/UniFold/y_trackj1/ATLASOmniFold-TechnicalClosureTest-UniFold-y_trackj1-Iteration01.pdf}}
+\caption{A technical closure test for the rapidity of the leading track jet using UniFold.  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosure:y_trackj1}
+\end{figure}
+
+\subsubsection{MultiFold}
+\label{sec:technicalclosure:multifold}
+
+In this section, we determine the closure of a 16-dimensional unfolding that includes $y_{\mu^+\mu^-},p_{T,\mu^+\mu^-}$ and the following properties of the leading subleading track jets: mass, constituent multiplicity, $p_T$, $\tau_1$, $\tau_2$, and $\tau_3$.  For illustration, the same five observables as in Sec.~\ref{sec:technicalclosure:unifold} are shown in figures~\ref{fig:technicalclosureMulti:mass},~\ref{fig:technicalclosureMulti:ntracksjet1},~\ref{fig:technicalclosureMulti:pT_trackj1},~\ref{fig:technicalclosureMulti:tau1_trackj1}, and~\ref{fig:technicalclosureMulti:y_trackj1}, but the quality of the technical closure is excellent for any projection of the 16-dimensional space (the remaining 11 observables histograms are in App.~\ref{sec:multifoldtechnicalclosure}).
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/m_trackj1/ATLASOmniFold-TechnicalClosureTest-MultiFold-m_trackj1-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/m_trackj1/ATLASOmniFold-TechnicalClosureTest-MultiFold-m_trackj1-Iteration01.pdf}}
+\caption{A technical closure test for the mass of the leading track jet using using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:mass}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/Ntracks_trackj1/ATLASOmniFold-TechnicalClosureTest-MultiFold-Ntracks_trackj1-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/Ntracks_trackj1/ATLASOmniFold-TechnicalClosureTest-MultiFold-Ntracks_trackj1-Iteration01.pdf}}
+\caption{A technical closure test for the number of tracks in the leading track jet using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:ntracksjet1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/pT_trackj1/ATLASOmniFold-TechnicalClosureTest-MultiFold-pT_trackj1-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/pT_trackj1/ATLASOmniFold-TechnicalClosureTest-MultiFold-pT_trackj1-Iteration01.pdf}}
+\caption{A technical closure test for the $p_T$ of the leading track jet using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:pT_trackj1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.89\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/tau1_trackj1/ATLASOmniFold-TechnicalClosureTest-MultiFold-tau1_trackj1-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/tau1_trackj1/ATLASOmniFold-TechnicalClosureTest-MultiFold-tau1_trackj1-Iteration01.pdf}}
+\caption{A technical closure test for the $\tau_1$ of the leading track jet using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:tau1_trackj1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/y_trackj1/ATLASOmniFold-TechnicalClosureTest-MultiFold-y_trackj1-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/y_trackj1/ATLASOmniFold-TechnicalClosureTest-MultiFold-y_trackj1-Iteration01.pdf}}
+\caption{A technical closure test for the rapidity of the leading track jet using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:y_trackj1}
+\end{figure}
+
+\subsection{Artificial Stress Tests}
+\label{sec:technicalclosure}
+
+In this section, we apply artificial weights to the events in order to shift the various distributions and we show that we can recover the unshifted distributions.  In particular, we divide the Pythia sample in half again and apply stress weights to the half labeled `simulation'.  In one case (Sec.~\ref{sec:stress:deterministic}), these weights are a deterministic function of the input features.  In a second case (Sec.~\ref{sec:stress:stochastic}), the weights are stochastic function of the inputs.
+
+\subsubsection{Deterministic Weights}
+\label{sec:stress:deterministic}
+
+For a given event $x$ in sample $X$, the stress weights are given by 
+
+\begin{align}
+w = w_{MC}\,(-\min_{x'\in X}\mathcal{Z}(x')+\mathcal{Z}(x))^n\,,
+\end{align}
+%
+where $w_{MC}$ is the Monte Carlo event weight and $\mathcal{Z}$ gives the Z-score of $x\in X$. We do a basic weight standardization given all stress weights $W$ by doing $w\mapsto\frac{w}{\langle W\rangle}$. These stress weights are constructed to induce a right shift in the given distribution. Note that a larger value of $n$ induces a more intense right-shift in the stressed distributions.  For the plots below, a value of $n=2$ is used.
+
+\paragraph{UniFold}
+
+Figure~\ref{fig:stressa_mass} shows ...
+
+\begin{figure}[h!]
+\centering
+\subfloat[Weights]{\includegraphics[width=0.45\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/m_trackj1/ATLASOmniFold-StressTestA-UniFold-m_trackj1-StressWeightsHist.pdf}}\\
+\subfloat[Input histograms]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/m_trackj1/ATLASOmniFold-StressTestA-UniFold-m_trackj1-Distributions}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/m_trackj1/ATLASOmniFold-StressTestA-UniFold-m_trackj1-Iteration01}}\\
+\subfloat[After 2 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/m_trackj1/ATLASOmniFold-StressTestA-UniFold-m_trackj1-Iteration02}}
+\phantomcaption 
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\ContinuedFloat
+\subfloat[After 3 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/m_trackj1/ATLASOmniFold-StressTestA-UniFold-m_trackj1-Iteration03}}\\
+\subfloat[After 4 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/m_trackj1/ATLASOmniFold-StressTestA-UniFold-m_trackj1-Iteration04}}\\
+\subfloat[After 5 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/m_trackj1/ATLASOmniFold-StressTestA-UniFold-m_trackj1-Iteration05}}\\
+\subfloat[After 6 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/m_trackj1/ATLASOmniFold-StressTestA-UniFold-m_trackj1-Iteration06}}
+\caption{A stress test for UniFold applied to the leading track jet mass.}
+\label{fig:stressa_mass}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Weights]{\includegraphics[width=0.45\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestA-UniFold-Ntracks_trackj1-StressWeightsHist.pdf}}\\
+\subfloat[Input histograms]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestA-UniFold-Ntracks_trackj1-Distributions}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestA-UniFold-Ntracks_trackj1-Iteration01}}\\
+\subfloat[After 2 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestA-UniFold-Ntracks_trackj1-Iteration02}}
+\phantomcaption 
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\ContinuedFloat
+\subfloat[After 3 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestA-UniFold-Ntracks_trackj1-Iteration03}}\\
+\subfloat[After 4 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestA-UniFold-Ntracks_trackj1-Iteration04}}\\
+\subfloat[After 5 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestA-UniFold-Ntracks_trackj1-Iteration05}}\\
+\subfloat[After 6 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestA-UniFold-Ntracks_trackj1-Iteration06}}
+\caption{A stress test for UniFold applied to the leading track jet constituent multiplicity.}
+\label{fig:stressa_Ntracks_trackj1}
+\end{figure}
+
+\paragraph{MultiFold}
+
+\subsubsection{Stochastic Weights}
+\label{sec:stress:stochastic}
+
+\subsection{Model Dependence}
+\label{sec:modeldep}
+
+\clearpage
 
 \section{Systematic uncertainties}
 \label{sec:uncerts}
@@ -416,5 +579,98 @@ Place your conclusion here.
 %-------------------------------------------------------------------------------
 \input{appendix_jet_composition.tex}
 \input{appendix_datasets.tex}
+
+\section{MultiFold Technical Closure}
+\label{sec:multifoldtechnicalclosure}
+
+The remaining 11 observables not shown in Sec.~\ref{sec:technicalclosure:multifold} are shown in Fig.~\ref{fig:technicalclosureMulti:mass2},~\ref{fig:technicalclosureMulti:ntracksjet2},~\ref{fig:technicalclosureMulti:pT_trackj2},~\ref{fig:technicalclosureMulti:tau1_trackj2}, and~\ref{fig:technicalclosureMulti:y_trackj2},~\ref{fig:technicalclosureMulti:tau2_trackj1},~\ref{fig:technicalclosureMulti:tau2_trackj2},~\ref{fig:technicalclosureMulti:tau3_trackj1},~\ref{fig:technicalclosureMulti:tau3_trackj2},~\ref{fig:technicalclosureMulti:yll},~\ref{fig:technicalclosureMulti:ptll}.
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/m_trackj2/ATLASOmniFold-TechnicalClosureTest-MultiFold-m_trackj2-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/m_trackj2/ATLASOmniFold-TechnicalClosureTest-MultiFold-m_trackj2-Iteration01.pdf}}
+\caption{A technical closure test for the mass of the subleading track jet using using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:mass2}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/Ntracks_trackj2/ATLASOmniFold-TechnicalClosureTest-MultiFold-Ntracks_trackj2-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/Ntracks_trackj2/ATLASOmniFold-TechnicalClosureTest-MultiFold-Ntracks_trackj2-Iteration01.pdf}}
+\caption{A technical closure test for the number of tracks in the subleading track jet using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:ntracksjet2}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/pT_trackj2/ATLASOmniFold-TechnicalClosureTest-MultiFold-pT_trackj2-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/pT_trackj2/ATLASOmniFold-TechnicalClosureTest-MultiFold-pT_trackj2-Iteration01.pdf}}
+\caption{A technical closure test for the $p_T$ of the subleading track jet using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:pT_trackj2}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.89\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/tau1_trackj2/ATLASOmniFold-TechnicalClosureTest-MultiFold-tau1_trackj2-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/tau1_trackj2/ATLASOmniFold-TechnicalClosureTest-MultiFold-tau1_trackj2-Iteration01.pdf}}
+\caption{A technical closure test for the $\tau_1$ of the subleading track jet using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:tau1_trackj2}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/y_trackj2/ATLASOmniFold-TechnicalClosureTest-MultiFold-y_trackj2-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/y_trackj2/ATLASOmniFold-TechnicalClosureTest-MultiFold-y_trackj2-Iteration01.pdf}}
+\caption{A technical closure test for the rapidity of the subleading track jet using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:y_trackj2}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.89\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/tau2_trackj1/ATLASOmniFold-TechnicalClosureTest-MultiFold-tau2_trackj1-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/tau2_trackj1/ATLASOmniFold-TechnicalClosureTest-MultiFold-tau2_trackj1-Iteration01.pdf}}
+\caption{A technical closure test for the $\tau_2$ of the leading track jet using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:tau2_trackj1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.89\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/tau2_trackj2/ATLASOmniFold-TechnicalClosureTest-MultiFold-tau2_trackj2-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/tau2_trackj2/ATLASOmniFold-TechnicalClosureTest-MultiFold-tau2_trackj2-Iteration01.pdf}}
+\caption{A technical closure test for the $\tau_2$ of the subleading track jet using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:tau2_trackj2}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.89\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/tau3_trackj1/ATLASOmniFold-TechnicalClosureTest-MultiFold-tau3_trackj1-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/tau3_trackj1/ATLASOmniFold-TechnicalClosureTest-MultiFold-tau3_trackj1-Iteration01.pdf}}
+\caption{A technical closure test for the $\tau_3$ of the leading track jet using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:tau3_trackj1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.89\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/tau3_trackj2/ATLASOmniFold-TechnicalClosureTest-MultiFold-tau3_trackj2-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/tau3_trackj2/ATLASOmniFold-TechnicalClosureTest-MultiFold-tau3_trackj2-Iteration01.pdf}}
+\caption{A technical closure test for the $\tau_3$ of the subleading track jet using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:tau3_trackj2}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.89\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/y_ll/ATLASOmniFold-TechnicalClosureTest-MultiFold-y_ll-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/y_ll/ATLASOmniFold-TechnicalClosureTest-MultiFold-y_ll-Iteration01.pdf}}
+\caption{A technical closure test for $y_{ll}$ using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:yll}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Input histograms]{\includegraphics[width=0.89\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/pT_ll/ATLASOmniFold-TechnicalClosureTest-MultiFold-pT_ll-Distributions.pdf}}\\
+\subfloat[After 1 iteration]{\includegraphics[width=0.95\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-TechnicalClosureTest/MultiFold/pT_ll/ATLASOmniFold-TechnicalClosureTest-MultiFold-pT_ll-Iteration01.pdf}}
+\caption{A technical closure test for $p_{T,ll}$ using MultiFold (16 observables are simultaneously unfolded).  The top plot show the input histograms and the bottom plots are the results after one iteration of OmniFold.  By construction the top left and top right histograms are statistically identical.}
+\label{fig:technicalclosureMulti:ptll}
+\end{figure}
 
 \end{document}
