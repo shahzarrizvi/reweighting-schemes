@@ -789,16 +789,22 @@ Figures~\ref{fig:stressc_mass} and~\ref{fig:stressc_Ntracks_trackj1} are example
 
 We have investigated data/MC differences at detector-level (Sec.~\ref{sec:datamc}), but we remain blinded to the unfolded data until following the Editorial Board's approval of the procedure.
 
-\subsection{Proposed Results}
+\subsection{Proposed Presentation of Results}
 
+Unlike all other measurements, the results here are \textbf{unbinned}.  Clearly, we can represent the data as histograms, but that is restrictive.  We propose the following for the presentation of results:
 
+\begin{itemize}
+	\item Our paper will contain a small number of unfolded histograms to illustrate the breadth of the result.
+	\item We make public the weight function(s) (as a neural network, saving the model architecture and weights from TensorFlow) and the exact configuration used to generate the nominal MC events.  There will be one function per systematic uncertainty.  This, combined with a Rivet routine of the analysis selection, will ensure that the data can be used and readily and widely reinterpreted.
+	\item (Alternative: we make public our simulated MC sample with a vector of weights for each event)
+\end{itemize}
 
 %-------------------------------------------------------------------------------
 \section{Conclusion}
 \label{sec:conclusion}
 %-------------------------------------------------------------------------------
 
-Place your conclusion here.
+\textit{To be filled in once we have unblinded.}
 
 
 %-------------------------------------------------------------------------------
