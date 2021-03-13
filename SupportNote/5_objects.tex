@@ -44,6 +44,7 @@ Events are required to pass an unprescaled single muon trigger\footnote{The muon
 The recommended trigger is dependent on the year in which the data was taken (or the year of the corresponding Monte Carlo sample).
 
 \subsubsection{Di-Muon System Requirements}
+\label{subsubsec:TTVA_selection}
 The event is required to have at least two muons of opposite charge, with a dilepton mass between 81 GeV and 101 GeV in order to ensure the muons originate from a $Z$ boson.
 
 Additionally, the muons must pass track-to-vertex association recommendations\footnote{Recommendations are given by the tracking group and are outlined here: \url{twiki: https://twiki.cern.ch/twiki/bin/view/AtlasProtected/TrackingCPEOYE2015}} as follows:
@@ -152,7 +153,7 @@ Muon scale factors related to reconstruction efficiency, isolation efficiency, a
 factor\footnote{Addtional information on both the trigger and muon scale factors may be found in the muon analysis twiki: \url{twiki: https://twiki.cern.ch/twiki/bin/view/AtlasProtected/MCPAnalysisGuidelinesMC16}}.
 
 \subsection{Data stability tests}
-To check stability of data used for this analysis, rate for each year is calculated by dividing events to their corresponding luminosities. Luminosity per run is combined until summed up luminosities become either 2 fb$^{-1}$ or greater than this. Figure~\ref{fig:DataStability} depicts rate for year 2015 to 2018, where each time-ordered data bin contains 2 fb$^{-1}$ luminosity. The first bin shows rate for year 2015, bins 2--16 are for year 2016, bins 17--37 and 38--64 represent rate for year 2017 and 2018 respectively. Further, to consider those residual runs having combined luminosities smaller than 2 fb$^{-1}$, the last bin for each year is merged with the previous bin. The calculated average rate for year 2015--2018 is 2845 $\pm$ 4 and shows consistentency for each year. Figure~\ref{fig:DataStability} shows the stability of data for each year used in this analysis.
+To check stability of data used for this analysis, rate for each year is calculated by dividing events to their corresponding luminosities. Further to ensure analysis selection, only those events are used which have $p_{\text{T},\ell\ell}>165$ GeV. Luminosity per run is combined until summed up luminosities become either 2 fb$^{-1}$ or greater than this. Figure~\ref{fig:DataStability} depicts rate for year 2015 to 2018, where each time-ordered data bin contains 2 fb$^{-1}$ luminosity. The first bin shows rate for year 2015, bins 2--16 are for year 2016, bins 17--37 and 38--64 represent rate for year 2017 and 2018 respectively. Further, to consider those residual runs having combined luminosities smaller than 2 fb$^{-1}$, the last bin for each year is merged with the previous bin. The calculated average rate for year 2015--2018 is 2812 $\pm$ 4 and shows consistency for each year. Figure~\ref{fig:DataStability} shows the stability of data for each year used in this analysis.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.75\textwidth]{figures/DataStability.pdf}
