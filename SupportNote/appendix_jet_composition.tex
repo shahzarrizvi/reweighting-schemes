@@ -3,7 +3,9 @@
 This section examines the particle composition and the detector response of the leading jet that balance the $Z$~boson in the fiducial region of the analysis.
 The Powheg $Z\to \mu\mu$ sample is used. The particle origin of each track is obtained using the \texttt{truthParticleLink} to find the truth identification of each reconstructed track (see section~\ref{sec:samples}). In addition to the standard event preselection described in section~\ref{sec:selection}, extra cuts are used to make sure the leading reconstructed jet matches the leading particle jet in each event.
 %To ensure the closet matching between the leading reconstructed jet and leading truth jet, and always have very good DR between them, the cut on ratio of
-This is achieved by requiring $|y_\mathrm{j1}|<2.1$ and $\pTlj / \pTsj < 0.7$. The selection is applied on reconstructed level. However, due to the additional criterion, the leading particle-level (truth) jet will always match the leading reco jet. Note that the jets will have a very high \pt{} since the event selection includes the selection $\pTll > \SI{165}{\GeV}$, and the jet will have a similar \pt{} to that of the $Z$~boson.
+This is achieved by requiring $|y_\mathrm{j1}|<2.1$ and $\pTlj / \pTsj < 0.7$. The selection is applied on reconstructed level. However, due to the additional criterion, the leading particle-level (truth) jet will always match the leading reco jet. Note that the jets will have a very high \pt{} since the event selection includes the selection $\pTll > \SI{165}{\GeV}$, and the jet will have a similar \pt{} to that of the $Z$~boson. 
+
+Further events are required to pass track-to-vertex association (TTVA) recommendations as described in section~\ref{subsubsec:trigger}. There are three recommending working points for TTVA, however studies have been done for two only i.e loose and tight TTVA selections.  
 
 Particles are classified depending to their type in the following categories: \texttt{pion} for $\pi^+$ and $\pi^-$; \texttt{kaon} for charged kaons; \texttt{proton};
 \texttt{mu} for $\mu^-$ or $\mu^+$; \texttt{e} for $e^-$ or $e^+$;
@@ -14,8 +16,8 @@ All of the reconstructed tracks inside leading jet as well as charged-particles 
 
 \begin{figure}[b]
 	\centering
-	\includegraphics[width=0.48\textwidth,page=3]{figures/jet_comp_study_powheg_Tight_MultiplicityFraction.pdf}
-	\includegraphics[width=0.48\textwidth,page=3]{figures/jet_comp_study_powheg_Tight_pTFraction.pdf}
+	\includegraphics[width=0.48\textwidth,page=3]{figures/jet_comp_study_powheg_Tight_MultiplicityFraction_mc16e.pdf}
+	\includegraphics[width=0.48\textwidth,page=3]{figures/jet_comp_study_powheg_Tight_pTFraction_mc16e.pdf}
 	\caption{Composition of the leading jet in terms of particle multiplicity (left) and \pt{} (right) as a function of jet \pt{}.
 		The photon multiplicity is divided by 2 in the left plot, since most photons are produced in pairs by a neutral hadron (e.g.\ $\pi\to\gamma\gamma$).
 		We can see that $\approx 42$\% of the jet \pt{} is carried by neutral particles. It's surprising that the fraction of neutral hadrons is so high (why??).}
@@ -25,8 +27,8 @@ All of the reconstructed tracks inside leading jet as well as charged-particles 
 
 \begin{figure}
 \centering
-\includegraphics[width=0.48\textwidth,page=1]{figures/jet_comp_study_powheg_Tight_MultiplicityFraction.pdf}
-\includegraphics[width=0.48\textwidth,page=1]{figures/jet_comp_study_powheg_Tight_pTFraction.pdf}
+\includegraphics[width=0.48\textwidth,page=1]{figures/jet_comp_study_powheg_Tight_MultiplicityFraction_mc16e.pdf}
+\includegraphics[width=0.48\textwidth,page=1]{figures/jet_comp_study_powheg_Tight_pTFraction_mc16e.pdf}
 \caption {The fraction of the reconstructed tracks multiplicity (left) and \pT (right) inside reconstructed leading jet as a function of jet pT for various categories (see the text for details).}
 \label{fig:fraction of charged particles in reco jet}
 \end{figure}
@@ -34,9 +36,9 @@ All of the reconstructed tracks inside leading jet as well as charged-particles 
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.3, page=2]{figures/jet_comp_study_powheg_Tight_MultiplicityFraction.pdf}
+\includegraphics[scale=0.3, page=2]{figures/jet_comp_study_powheg_Tight_MultiplicityFraction_mc16e.pdf}
 \hspace{2mm}
-\includegraphics[scale=0.3, page=2]{figures/jet_comp_study_powheg_Tight_pTFraction.pdf}
+\includegraphics[scale=0.3, page=2]{figures/jet_comp_study_powheg_Tight_pTFraction_mc16e.pdf}
 \caption {The fraction of the charged particle multiplicity (left) and \pT (right) inside particle level leading jet as a function of jet pT for various categories (see the text for details).}
 \label{fig:fraction of charged particles in truth jet}
 \end{figure}
@@ -88,8 +90,8 @@ Figures~\ref{fig:response pion and kaon} to ~\ref{fig:track jet response} are sh
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.3, page=4]{figures/jet_comp_study_powheg_Tight_pTFraction.pdf}
-\includegraphics[scale=0.3, page=5]{figures/jet_comp_study_powheg_Tight_pTFraction.pdf}
+\includegraphics[scale=0.3, page=4]{figures/jet_comp_study_powheg_Tight_pTFraction_mc16e.pdf}
+\includegraphics[scale=0.3, page=5]{figures/jet_comp_study_powheg_Tight_pTFraction_mc16e.pdf}
 \caption {The fraction of pions (left) and kaons (right) in the reconstructed tracks as a function of jet \pT.}
 \label{fig:fraction pions and kaons}
 \end{figure}
@@ -97,8 +99,8 @@ Figures~\ref{fig:response pion and kaon} to ~\ref{fig:track jet response} are sh
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.3, page=6]{figures/jet_comp_study_powheg_Tight_pTFraction.pdf}
-\includegraphics[scale=0.3, page=7]{figures/jet_comp_study_powheg_Tight_pTFraction.pdf}
+\includegraphics[scale=0.3, page=6]{figures/jet_comp_study_powheg_Tight_pTFraction_mc16e.pdf}
+\includegraphics[scale=0.3, page=7]{figures/jet_comp_study_powheg_Tight_pTFraction_mc16e.pdf}
 \caption {The fraction of protons (left) and muons (right) in the reconstructed tracks as a function of jet \pT.}
 \label{fig:response protons and muons}
 \end{figure}
@@ -106,8 +108,8 @@ Figures~\ref{fig:response pion and kaon} to ~\ref{fig:track jet response} are sh
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.3, page=8]{figures/jet_comp_study_powheg_Tight_pTFraction.pdf}
-\includegraphics[scale=0.3, page=9]{figures/jet_comp_study_powheg_Tight_pTFraction.pdf}
+\includegraphics[scale=0.3, page=8]{figures/jet_comp_study_powheg_Tight_pTFraction_mc16e.pdf}
+\includegraphics[scale=0.3, page=9]{figures/jet_comp_study_powheg_Tight_pTFraction_mc16e.pdf}
 \caption {The fraction of electrons (left) and strange particles (right) in the reconstructed tracks as a function of jet \pT.}
 \label{fig:response electrons and starnge particles}
 \end{figure}
