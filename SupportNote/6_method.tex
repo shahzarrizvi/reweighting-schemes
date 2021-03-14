@@ -106,7 +106,7 @@ With the notation used in Eq.~\ref{eq:foldingequation}, this situation is given 
 	\mathbf{R} = \begin{bmatrix} 1 & 0.5\\ 0 & 0.5\end{bmatrix}, & \mathbf{d} = \begin{bmatrix} 0.5\\ 0.5\end{bmatrix}, & \mathbf{c}=\mathbf{f}=\mathbf{1},~~\mathbf{b}=\mathbf{0}.
 \end{eqnarray}
 %
-What do the various method predict for $\Pr_\text{unfolded}(T_1)$?   Before proceeding, note that the correct answer is $\Pr_\text{Data}(T_1)=0$, i.e.\ $\mathbf{t}=[0.5,0.5]^\intercal$.
+What do the various method predict for $\Pr_\text{unfolded}(T_1)$?   Before proceeding, note that the correct answer is $\Pr_\text{Data}(T_1)=0$, i.e.\ $\mathbf{t}=[0 1]^\intercal$.
 
 \paragraph{OmniFold}  The first step of OmniFold is to derive weights $\omega_1$ to make the MC match the data.  The weight function is specified by two numbers, one for each of the two bin values.  These weights are given by $\omega_1(R_i)=\Pr_\text{Data}(R_i)/\Pr_\text{MC}(R_i)$, which is $\omega_1(R_1)=2/3$ and $\omega_1(R_2)=2$.  These weights are then pulled back to particle level.  In MC, 50\% of events have $(T_1,R_1)$, 25\% of events have $(T_2,R_1)$ and 25\% of events have $(T_2,R_2)$.   The first two of these types of events get assigned $\omega(R_1)$ and the last one gets assigned $\omega(R_2)$.  Therefore, the weighted particle-level probability mass function is $\Pr_\text{MC,1}(T_1)=1/3$.  The second step of OmniFold derives weights $\nu_1=\Pr_\text{MC,1}(T_i)/\Pr_\text{MC}(T_i)$, which are $\nu_1(T_1)=2/3$ and $\nu_1(T_2)=4/3$.
 
