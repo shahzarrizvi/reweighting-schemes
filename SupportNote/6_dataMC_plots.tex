@@ -50,12 +50,14 @@ Table~\ref{tab:CFComp} compares the event yields after applying the analysis cut
 
 \subsection{Data stability tests}
 \label{sec:data-stability}
-To check stability of data used for this analysis, rate for each year is calculated by dividing events to their corresponding luminosities. Further to ensure analysis selection, only those events are used which have $p_{\text{T},\ell\ell}>165$ GeV. Luminosity per run is combined until summed up luminosities become either 2 fb$^{-1}$ or greater than this. Figure~\ref{fig:DataStability} depicts rate for year 2015 to 2018, where each time-ordered data bin contains 2 fb$^{-1}$ luminosity. The first bin shows rate for year 2015, bins 2--16 are for year 2016, bins 17--37 and 38--64 represent rate for year 2017 and 2018 respectively. Further, to consider those residual runs having combined luminosities smaller than 2 fb$^{-1}$, the last bin for each year is merged with the previous bin. The calculated average rate for year 2015--2018 is 2812 $\pm$ 4 and shows consistency for each year. Figure~\ref{fig:DataStability} shows the stability of data for each year used in this analysis.
+To check stability of data used for this analysis, rate for each year is calculated by dividing event counts from a set of runs by their associated total integrated luminosity. Events are counted if they pass the event selection with $p_{\text{T},\ell\ell}>165$ GeV. Consecutive runs are combined until the integrated luminosity amount to at least 2 fb$^{-1}$. Figure~\ref{fig:DataStability} depicts the rate for year 2015 to 2018, where each time-ordered data bin contains data 2 fb$^{-1}$ luminosity. The first bin shows rate for year 2015, bins 2--16 are for year 2016, bins 17--37 and 38--64 represent rate for year 2017 and 2018 respectively. Further, to consider those residual runs having combined luminosities smaller than 2 fb$^{-1}$, the last bin for each year is merged with the previous bin. The calculated average rate for year 2015--2018 is 2812 $\pm$ 4 and shows reasonable consistency for each year. Figure~\ref{fig:DataStability} shows the stability of data for each year used in this analysis.
 \begin{figure}[h!]
-	\centering
-	\includegraphics[width=0.75\textwidth]{figures/DataStability.pdf}
-	\caption{Events per fb$^{-1}$ for year 2015 to 2018, where each time-ordered data bin contains 2 fb$^{-1}$ luminosity.}
-	\label{fig:DataStability}
+  \centering
+  \includegraphics[width=0.75\textwidth]{figures/DataStability.pdf}
+  \caption{Events per fb$^{-1}$ for year 2015 to 2018, where each time-ordered data bin contains 2 fb$^{-1}$ luminosity.
+    $p$-values and chi-squared values are calculated using statistical uncertainty only. Additional bias is expected due to the changing beam conditions (more or less pileup, affecting e.g.\ lepton isolation).
+  }
+  \label{fig:DataStability}
 \end{figure}
 
 \subsection{Predicted and observed kinematic distributions}
@@ -72,7 +74,7 @@ selected jet substructure variables and the number of constituents, respectively
   \includegraphics[page=6,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
   \includegraphics[page=7,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
   \includegraphics[page=8,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \caption{The actual interactions per bunch crossing, $\mu$, for 2015-2016 data (top left), 2017 data (top right), 2018 data (bottom left), and the full Run-2 dataset (bottom right)}
+  \caption{The ``actual'' mean interactions per bunch crossing, $\mu$, for 2015--2016 data (top left), 2017 data (top right), 2018 data (bottom left), and the full Run-2 dataset (bottom right). Note that the pileup-reweighing uses actual $\mu$ for 2017 and 2018 data, while $\mu_\mathrm{avg}$, i.e.\ $\mu$ calculated by averaging the actual $\mu$ of all bunches, were used for 2015--2016 data. Hence a worse agreement is seen for this period.}
   \label{fig:MuActual}
 \end{figure}
 
@@ -135,7 +137,7 @@ selected jet substructure variables and the number of constituents, respectively
 \subsection{Event displays}
 \label{sec:event-displays}
 
-Figure~\ref{fig:EventDisplay} shows an example event display for an event which passes all analysis cuts.
+Figure~\ref{fig:EventDisplay} shows an event display for an event that passes the event selection.
 
 \begin{figure}[h!]
   \centering
