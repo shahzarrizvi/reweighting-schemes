@@ -15,25 +15,23 @@ Unfolding is the process of removing detector effects from data in order to infe
 A well-structured measurement will be dominated by (5).  It is possible to setup a measurement so that (4) is not relevant (e.g. operating at the level of events as sets instead of using individual objects).  By using a pure (e.g. $Z$+jets) or inclusive (e.g. dijets) event selection, (3) can be made irrelevant.  It is also possible to mitigate (1) and (2) by performing the unfolding in a bigger phase space than is eventually used for the final measurement.  In our case, we will also reduce these effects by using the highly efficient $Z$ to select events and then using (mostly) the hadronic recoil for the measurement.
 
 Corrections are derived using simulations, by creating a match between particle-level events and detector-level events.  Until now, all measurements have been performed using binned data.   In this case, detector effects can be modeled by a set of linear equations:
-
 \begin{align}
 \label{eq:foldingequation}
 \left(\textbf{R}\cdot (\textbf{t}\odot \textbf{c})\right)\odot 1/\textbf{f}+\textbf{b}=\textbf{d}\,,
 \end{align}
-%
-where bold letters denote vectors or matrices, $\cdot$ is the usual matrix product, $\odot$ is the Hadamard (component-wise) product, and the division is defined component-wise. The symbol $\textbf{t}$ is the particle-level distribution, $\textbf{d}$ is the detector-level distribution, $\textbf{b}$ is the background detector-level distribution, and $\textbf{R}$ is the response matrix.  The correction factors $\textbf{c}$ represent the fraction of particle-level events that also pass the detector-level selection and the fake factors $\textbf{f}$ represent the fraction of detector-level events that have a corresponding particle-level event that passes the selection.  The solution to Eq.~\ref{eq:foldingequation} is given by
-
+where bold letters denote vectors or matrices, $\cdot$ is the usual matrix product, $\odot$ is the Hadamard (component-wise) product, and the division is defined component-wise\footnote{An equivalent way to write Eq.~\ref{eq:foldingequation} is $\left(\sum_{i}R_{ij}\,t_i\,c_i\right)/f_j+b_j=d_j$, where $i$ and $j$ are indices for the reconstructed and particle level bins, respectively.}. The symbol $\textbf{t}$ is the particle-level distribution, $\textbf{d}$ is the detector-level distribution, $\textbf{b}$ is the background detector-level distribution, and $\textbf{R}$ is the response matrix.  The correction factors $\textbf{c}$ represent the fraction of particle-level events that also pass the detector-level selection and the fake factors $\textbf{f}$ represent the fraction of detector-level events that have a corresponding particle-level event that passes the selection.  The solution to Eq.~\ref{eq:foldingequation} is given by
 \begin{align}
-\label{eq:foldingequation}
+\label{eq:unfolding}
 \textbf{t}_\text{measured} = \textbf{R}^{-1}\left( (\textbf{d}-\textbf{b})\odot \textbf{f}\right)\odot 1/\textbf{c}.
 \end{align}
+Many of the of the common unfolding methods follow the form in Eq.~\ref{eq:unfolding}. 
+Uncertainties on the measurement are obtained using uncertainty propagation. In particular, the unfolding uncertainties are evaluated by varying the response matrix term $\mathbf{R}^{-1}$, which typically is done coherently with the $\mathbf{f}$ and $\mathbf{c}$ terms (e.g.\ by switching MC generator or propagating an experimental or theoretical systematic that affect the event kinematics).
+%but vary in their estimation of $\textbf{R}^{-1}$.  
+For a variety of reasons, it is advantageous to not directly invert the response matrix.  In particular, \textbf{R} may not be invertible because it is singular or not even a square matrix.  The simple matrix inverse is also susceptible to oscillations from significant off-diagonal components.
 
-Many of the of the common unfolding methods follow the form in Eq.~\ref{eq:foldingequation}, but vary in their estimation of $\textbf{R}^{-1}$.  For a variety of reasons, it is advantageous to not directly invert the response matrix.  In particular, \textbf{R} may not be invertible because it is singular or not even a square matrix.  The simple matrix inverse is also susceptible to oscillations from significant off-diagonal components.
-
-One of the most widely used unfolding methods is the Iterative Bayesian Unfolding (IBU) technique\footnote{In other fields, this is called Lucy-Richardson deconvolution~\cite{1974AJ.....79..745L,Richardson:72}.}.   For simplicity, assume that $\textbf{b}=\textbf{0}$ and $\textbf{f}=\textbf{c}=\textbf{1}$.  When this is not the case, these are corrected for in the binned case using Eq.~\ref{eq:foldingequation}.   The IBU method then proceeds as follows:
-
+One of the most widely used unfolding methods is the Iterative Bayesian Unfolding (IBU) technique\footnote{In other fields, this is called Lucy-Richardson deconvolution~\cite{1974AJ.....79..745L,Richardson:72}.}.   For simplicity, assume that $\textbf{b}=\textbf{0}$ and $\textbf{f}=\textbf{c}=\textbf{1}$.  When this is not the case, these are corrected for in the binned case as done in Eq.~\ref{eq:unfolding}.   The IBU method then proceeds as follows:
 \begin{align}
-\textbf{t}^{(n)}&=\sum_j \Pr(t_i|d_j) d_j \\
+t_i^{(n)}&=\sum_j \Pr(t_i|d_j) d_j \\
 &=\sum_j \frac{\Pr(d_j|t_i)\Pr^{(n)}(t_i)}{\sum_i \Pr(d_j|t_i)\Pr^{(n)}(t_i)} d_j \\
 &=\sum_j \frac{R_{ji}\Pr^{(n)}(t_i}{\sum_i R_{ji}\Pr^{(n)}(t_i)} d_j.
 \end{align}
@@ -45,21 +43,25 @@ Typically, one choses the prior $\Pr^{(n)}(t_i)=t_i^{(n-1)}$ and $\Pr^{(0)}(t_i)
 
 IBU and other standard unfolding methods face three challenges.  First, they require the data to be binned.  This binning must be chosen ahead of time and is often chosen manually.  Second, only a small number of observables (or a small number of bins for a given number of observables) can be unfolded simultaneously in order to keep the total number of bins to a manageable level.  Finally, the matrix $\textbf{R}$ only depends on the unfolded features and not on any other auxiliary features that may be useful for determining the detector response.  Even though the inputs to the unfolding may be calibrated, if the detector response depends on additional features, the result will be suboptimal and potentially biased.
 
-OmniFold is an approach that addresses all three of the above challenges by using neural networks.  Like IBU, OmniFold is an iterative method.  Furthermore, OmniFold is a natural generalization of IBU in the sense that when the OmniFold method is applied to binned data, it reproduces IBU at each iteration.  The OmniFold method proceeds as follows:
+OmniFold is an approach that addresses all three of the above challenges by using neural networks.  Like IBU, OmniFold is an iterative method.  Furthermore, OmniFold is a natural generalization of IBU in the sense that when the OmniFold method is applied to binned data, it reproduces IBU at each iteration.  
+As the Omnifold method is unbinned, it works directly with events and we will use $\vec{x}_i$ as the particle-level properties of event $i$, and $\vec{x}_{\mathrm{reco},i}$ would be the corresponding detector-level quantities ($i$ is no longer a bin index as in previous equations).
+The OmniFold method proceeds as follows:
 
 \begin{description}
 \item Iterate:
-        \begin{enumerate}[label={(\arabic*)}]
-                \item Reweight detector-level simulation ('MC Reco') to match data ('Data Reco).
-                \item Use the weights from (1) to reweight the default particle-level simulation ('MC Truth') to weighted simulation.
-        \end{enumerate}
+  \begin{enumerate}[label={(\arabic*)}]
+    \item Determine a reweighting function $\omega(\vec{x}_\mathrm{reco})$ that adjusts the detector-level simulation ('MC Reco') to match data ('Data Reco').
+    \item Propagate the weights from (1) to the particle-level simulation ('MC Truth'), and determine a new reweighting function $\nu(\vec{x})$ that replicates this reweighing based on particle-level quantities $\vec{x}$. The particle level weights $\nu(\vec{x})$ are next propagated to detector-level.
+ \end{enumerate}
 \end{description}
+%
+The final result after $n$ iterations is a function $\nu(\vec{x})$ that provides weights to a particle-level MC sample such that will become ``unfolded data'' for any observable constructed from the event features $\vec{x}$. 
 
 As an algorithm, the OmniFold procedure does not require neural networks; however, these tools are well-suited to be the reweighting functions described above (more on this below).  Step (2) of the OmniFold algorithm is important because the weights from (1) are not a function of the particle-level phase space.  In particular, two events in the same particle-level phase space can be mapped to different detector-level events.  However, to be a proper unfolding, we require that two events with the same particle-level phase space have the same weight.  This is achieved with Step (2).
 
 The OmniFold procedure is illustrated schematically in Fig.~\ref{fig:omnifoldschematic}.  The detector-level weights at a given step are represented by the symbol $\omega_n$ while the particle-level weights are represented by the symbol $\nu_n$.  Note that for Step (2), we could reweight from the original particle-level simulation to the weighted simulation or from the weights derived at the previous step to weights from (1).  Both achieve the same results, but there may be advantages to learning an incremental reweighting (as in Fig.~\ref{fig:omnifoldschematic}) since each step is a correction on the previous step.
 
-The output of the OmniFold method is a set of events with weights.  One can then construct any observables from the features used in the unfolding, and from those features, one can construct histograms using whatever binning is desired.
+As mentioned, the output of the OmniFold method is a set of events with weights.  One can then construct any observables from the features used in the unfolding, and from those features, one can construct histograms using whatever binning is desired.
 
 \begin{figure}[h!]
 \centering
@@ -68,17 +70,18 @@ The output of the OmniFold method is a set of events with weights.  One can then
 \label{fig:omnifoldschematic}
 \end{figure}
 
-An effective strategy for implementing the OmniFold protocol is to use neural networks as reweighting functions.  A reweighting function is simply a ratio of two probability densities.  It is a fact that the optimal classifier between two event samples is the same quantity - the likelihood ratio (or any monotonic function of it).  Therefore, we build a reweighting function by training a classifier and properly interpreting the output.  In particular, a classifier $f$ trained using the standard binary cross entropy loss function on events $x$ with event weights $w$
-
+An effective strategy for implementing the OmniFold protocol is to use neural networks as reweighting functions.  A reweighting function is simply a ratio of two probability densities.  It is a fact that the optimal classifier between two event samples is the same quantity - the likelihood ratio (or any monotonic function of it).  Therefore, we build a reweighting function by training a classifier and properly interpreting the output. 
+In particular, a classifier $f$ trained using the standard binary cross entropy loss function on events with features $\vec{x}_i$ and event weights $w_i$
+%
 \begin{align}
 \label{eq:binarycrossentropy}
-        f^*=\argmin_f-\sum_{i\in\text{dataset 1}}w_i \log(f(x_i)) -\sum_{i\in\text{dataset 2}} w_i\log(1-f(x_i)),
+        f^*=\argmin_f~~-\sum_{i\in\text{dataset 1}}w_i \log(f(\vec{x}_i)) -\sum_{i\in\text{dataset 2}} w_i\log(1-f(\vec{x}_i)),
 \end{align}
 %
-has the property\footnote{This fact is well-known~\cite{hastie01statisticallearning,sugiyama_suzuki_kanamori_2012} and also has been used in many contexts in high-energy physics~\cite{2010.03569,1907.08209,Stoye:2018ovl,Hollingsworth:2020kjg,Brehmer:2018kdj,Brehmer:2018eca,Brehmer:2019xox,Brehmer:2018hga,Cranmer:2015bka,Badiali:2020wal,Andreassen:2020nkr,Andreassen:2019cjw,Fischer-ACAT2019}.} that asymptotically (i.e. with enough training data, flexible enough network architecture and training):
-
+has the property\footnote{This fact is well-known~\cite{hastie01statisticallearning,sugiyama_suzuki_kanamori_2012} and also has been used in many contexts in high-energy physics~\cite{2010.03569,1907.08209,Stoye:2018ovl,Hollingsworth:2020kjg,Brehmer:2018kdj,Brehmer:2018eca,Brehmer:2019xox,Brehmer:2018hga,Cranmer:2015bka,Badiali:2020wal,Andreassen:2020nkr,Andreassen:2019cjw,Fischer-ACAT2019}.} that asymptotically (i.e.\ with enough training data, flexible enough network architecture and training):
+%
 \begin{align}
-\frac{f^*(x)}{1-f^*(x)}\propto \frac{p(x|\text{dataset 1})}{p(x|\text{dataset 2})}.
+\frac{f^*(\vec{x})}{1-f^*(\vec{x})}\propto \frac{p(\vec{x}|\text{dataset 1})}{p(\vec{x}|\text{dataset 2})}.
 \end{align}
 %
 The proportionality is equality if the two datasets contain the same number of events; however, a constant is not important from the point of view of reweighting.
@@ -90,13 +93,20 @@ To develop an intuition for how OmniFold operates, the next section compares var
 \subsubsection{Illustration of Different Methods}
 
 In order to illustrate the OmniFold procedure and how it compares to other techniques, it is useful to consider a simple two-bin example.  Suppose that there are only two possible values at particle-level and detector-level: $(T_1,T_2)$ and $(R_1,R_2)$, respectively.  Further suppose that the detector response is given by:
-
+%
 \begin{align}
 \Pr(R_1|T_1)&=100\%\,,\\
 \Pr(R_1|T_2)&=50\%\,.
 \end{align}
-
-The simulation has $\Pr_\text{MC}(T_i)=50\%$ so that $\Pr_\text{MC}(R_1)=75\%$ and $\Pr_\text{MC}(R_2)=25\%$.   Finally, we observe $\Pr_\text{Data}(R_1)=50\%$ in data.  What do the various method predict for $\Pr_\text{unfolded}(T_1)$?   Before proceeding, note that the correct answer is $\Pr_\text{Data}(T_1)=0$.
+%
+The simulation has $\Pr_\text{MC}(T_i)=50\%$ so that $\Pr_\text{MC}(R_1)=75\%$ and $\Pr_\text{MC}(R_2)=25\%$.   Finally, we observe $\Pr_\text{Data}(R_1)=50\%$ in data.
+With the notation used in Eq.~\ref{eq:foldingequation}, this situation is given by
+%
+\begin{eqnarray}
+	\mathbf{R} = \begin{bmatrix} 1 & 0.5\\ 0 & 0.5\end{bmatrix}, & \mathbf{d} = \begin{bmatrix} 0.5\\ 0.5\end{bmatrix}, & \mathbf{c}=\mathbf{f}=\mathbf{1},~~\mathbf{b}=\mathbf{0}.
+\end{eqnarray}
+%
+What do the various method predict for $\Pr_\text{unfolded}(T_1)$?   Before proceeding, note that the correct answer is $\Pr_\text{Data}(T_1)=0$, i.e.\ $\mathbf{t}=[0.5,0.5]^\intercal$.
 
 \paragraph{OmniFold}  The first step of OmniFold is to derive weights $\omega_1$ to make the MC match the data.  The weight function is specified by two numbers, one for each of the two bin values.  These weights are given by $\omega_1(R_i)=\Pr_\text{Data}(R_i)/\Pr_\text{MC}(R_i)$, which is $\omega_1(R_1)=2/3$ and $\omega_1(R_2)=2$.  These weights are then pulled back to particle level.  In MC, 50\% of events have $(T_1,R_1)$, 25\% of events have $(T_2,R_1)$ and 25\% of events have $(T_2,R_2)$.   The first two of these types of events get assigned $\omega(R_1)$ and the last one gets assigned $\omega(R_2)$.  Therefore, the weighted particle-level probability mass function is $\Pr_\text{MC,1}(T_1)=1/3$.  The second step of OmniFold derives weights $\nu_1=\Pr_\text{MC,1}(T_i)/\Pr_\text{MC}(T_i)$, which are $\nu_1(T_1)=2/3$ and $\nu_1(T_2)=4/3$.
 
