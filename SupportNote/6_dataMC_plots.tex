@@ -60,7 +60,7 @@ To check stability of data used for this analysis, rate for each year is calcula
   \label{fig:DataStability}
 \end{figure}
 
-\subsection{Predicted and observed kinematic distributions}
+\subsection{Observed and predicted kinematic distributions}
 \label{sec:datamc}
 Figure~\ref{fig:MuActual} shows the actual interactions per bunch crossing $\mu$ for the individual data periods, as well as the full Run 2 dataset.
 Figure~\ref{fig:pTmll} gives the $\pt$ and $m$ distributions for the dilepton system, and figure~\ref{fig:pTetamus} gives the $\pt$ and $\eta$ distributions for both the leading and sub-leading muon.
@@ -134,10 +134,11 @@ selected jet substructure variables and the number of constituents, respectively
   \label{fig:trackInfo}
 \end{figure}
 
+\clearpage
 \subsection{Event displays}
 \label{sec:event-displays}
 
-Figure~\ref{fig:EventDisplay} shows an event display for an event that passes the event selection.
+Figure~\ref{fig:EventDisplay} shows an event display for an event that passes the event selection. This event contains two muons and 45 charged hadrons at the truth level (with $\pt>\SI{0.5}{\GeV}$ and $|\eta|<2.5$). 37 tracks are reconstructed. Most tracks have a clear matching truth particles, but we can see many examples of charged hadrons that did not produce a track, and some examples of ``fake'' tracks that do not have any matching charged truth hadron. More event displays like this are listed in Appendix~\ref{app:event-displays}. 
 
 \begin{figure}[h!]
   \centering
@@ -145,14 +146,10 @@ Figure~\ref{fig:EventDisplay} shows an event display for an event that passes th
   \includegraphics[page=27,width=0.48\textwidth]{figures/EventDisplays.pdf} \\
   \includegraphics[page=29,width=0.48\textwidth]{figures/EventDisplays.pdf}
   \includegraphics[page=30,width=0.48\textwidth]{figures/EventDisplays.pdf}
-  \caption{Event display for an event that passes all cuts. 
-    The muons are shown as red dots, the charged particles (hadrons or tracks) are shown as gray or black crosses and the dilepton system is displayed as a red cross, separately at the reconstructed level (top left) and at the particle level (top right). 
-    %, the centre of the dilepton system is shown with a red X and the individual muons with a red dot.
+  \caption{Displays of a simulated event that passes all cuts. Full event views are provided both at the reconstructed level (top left) and at the particle level (top right).
+    Muons are shown as red dots, the charged particles (hadrons or tracks) are shown as gray or black crosses and the dilepton system is displayed as a red cross.
     Track jets are shown as blue circles, and leading jet constituents are represented with black crosses.
-    % while other jet constituents are shown with a purple X. 
-    The leading jet is also shown (bottom left) simulaniously for reconstructed tracks and truth charged hadrons, and most particle momenta are listed (bottom right).
-    %with the reconstructed constituents represented by a black X, and truth charged hadrons represented by a blue circle.}
-    More event displays like this are listed in Appendix~\ref{app:event-displays}. 
+    A zoomed view of the leading jet is shown at the bottom left simultaneously for reconstructed tracks and truth charged hadrons. The momenta for most particles in the event are also (bottom right). 
     Note that the goal with this analysis is to provide unfolded events that contain a list of four vectors corresponding to all individual particles seen in the upper right figure: two muons, and a full list of charged hadrons particles.}
   \label{fig:EventDisplay}
 \end{figure}
