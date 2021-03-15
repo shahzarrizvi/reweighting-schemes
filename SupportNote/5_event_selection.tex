@@ -1,7 +1,7 @@
 \subsection{Event selection}
 \label{sec:selection}
 
-Initial event selection is outlined in table~\ref{lab:eventsel}. This is primarily designed to remove problematic and background events in favour of the $Z\rightarrow\mu\mu + \text{jets}$ signal process. The various cuts are discussed in more detail below.
+Initial event selection is outlined in table~\ref{lab:eventsel}. This is primarily designed to remove problematic and background events in favour of the $(Z\to\mu\mu)$+jets signal process. The various cuts are discussed in more detail below.
 
 \begin{table}[h!]
     \centering
@@ -24,11 +24,14 @@ Initial event selection is outlined in table~\ref{lab:eventsel}. This is primari
     \label{lab:eventsel}
 \end{table}
 
-\subsubsection{Event Requirements}
+\subsubsection{Event requirements}
 The first requirement is that the event must be a part of the ATLAS Good Run Lists (GRL). These are discussed in section~\ref{sec:samples}.
 
 Secondly, the events must pass event cleaning\footnote{The event cleaning procedure is outlined in \url{twiki: https://twiki.cern.ch/twiki/bin/view/Atlas/DataPreparationCheckListForPhysicsAnalysis}}. This removes events that:
 \begin{itemize}
+    \setlength{\itemsep}{1pt}
+    \setlength{\parskip}{0pt}
+    \setlength{\parsep}{0pt}
     \item Contain errors in the data collected in the LAr calorimeters (check for error on \texttt{xAOD::EventInfo::LAr})
     \item Contain errors in the data collected in the tile calorimeters (check for error on \texttt{xAOD::EventInfo::Tile})
     \item Contain errors in the silicon tracker data (check for error on \texttt{xAOD::EventInfo::SCT})
@@ -38,12 +41,12 @@ Secondly, the events must pass event cleaning\footnote{The event cleaning proced
 
 Additionally, it is required that the event in question have at least one primary vertex.
 
-\subsubsection{Trigger Requirements}
+\subsubsection{Trigger requirements}
 \label{subsubsec:trigger}
 Events are required to pass an unprescaled single muon trigger\footnote{The muon trigger recommendations can be found here: \url{twiki: https://twiki.cern.ch/twiki/bin/view/Atlas/MuonTriggerPhysicsRecommendationsRel212017}}, as outlined in table~\ref{lab:eventsel}.
 The recommended trigger is dependent on the year in which the data was taken (or the year of the corresponding Monte Carlo sample).
 
-\subsubsection{Di-Muon System Requirements}
+\subsubsection{Dimuon system requirements}
 \label{subsubsec:TTVA_selection}
 The event is required to have at least two muons of opposite charge, with a dilepton mass between 81 GeV and 101 GeV in order to ensure the muons originate from a $Z$ boson.
 
@@ -152,146 +155,3 @@ There are differing trigger efficiencies between data and MC simulation, thus a 
 Muon scale factors related to reconstruction efficiency, isolation efficiency, and track-to-vertex (TTVA) efficiency are derived from $J/\psi$ and $Z$ events using the tag-and-probe method for muons in the central region. The resulting scale factors are applied to the event weight in the same way as the trigger scale
 factor\footnote{Addtional information on both the trigger and muon scale factors may be found in the muon analysis twiki: \url{twiki: https://twiki.cern.ch/twiki/bin/view/AtlasProtected/MCPAnalysisGuidelinesMC16}}.
 
-\subsection{Data stability tests}
-To check stability of data used for this analysis, rate for each year is calculated by dividing events to their corresponding luminosities. Further to ensure analysis selection, only those events are used which have $p_{\text{T},\ell\ell}>165$ GeV. Luminosity per run is combined until summed up luminosities become either 2 fb$^{-1}$ or greater than this. Figure~\ref{fig:DataStability} depicts rate for year 2015 to 2018, where each time-ordered data bin contains 2 fb$^{-1}$ luminosity. The first bin shows rate for year 2015, bins 2--16 are for year 2016, bins 17--37 and 38--64 represent rate for year 2017 and 2018 respectively. Further, to consider those residual runs having combined luminosities smaller than 2 fb$^{-1}$, the last bin for each year is merged with the previous bin. The calculated average rate for year 2015--2018 is 2812 $\pm$ 4 and shows consistency for each year. Figure~\ref{fig:DataStability} shows the stability of data for each year used in this analysis.
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.75\textwidth]{figures/DataStability.pdf}
-\caption{Events per fb$^{-1}$ for year 2015 to 2018, where each time-ordered data bin contains 2 fb$^{-1}$ luminosity.}
-\label{fig:DataStability}
-\end{figure}
-
-\subsection{Data and Monte Carlo comparisons}
-\label{sec:datamc}
-
-Table~\ref{tab:CFComp} compares the event yields after applying the analysis cuts with data and the 2 MC samples for each year, and table~\ref{tab:RelCF} shows a relative comparison between the cuts.  Note that the event selection has been validated using an independent implementation of the analysis event selection using the $ZH\rightarrow aa\rightarrow gggg$ analysis framework\footnote{We thank Murtaza Safdari for helping with this.  The analysis code is built on the BHamAnalyaisFramework: \url{https://gitlab.cern.ch/atlas-physics/HDBS/HBSM/higgs_axion_axion/-/tree/workingCompile/BhamAnalysisFramework}.}.
-
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{l|l|l|l|l|l|l}
-    \hline\hline
-    \textbf{Sample} & \multicolumn{6}{c}{\textbf{Cuts}} \\ \hline
-     & None & DQ & Trigger & Dilepton & $p_{\text{T},\ell\ell}$ & $p_{\text{T},\ell\ell}$ \\
-     &  &  &  &  & $>165~\GeV$ & $>200~\GeV$ \\ \hline\hline
-    Data 2015-2016 & 475.7M & 462.5M & 72.89M & 20.27M & 103.5k & 54.92k \\ \hline
-    Powheg Pythia 8 MC16a & 70.63M & 70.28M & 41.27M & 20.11M & 79.31k & 41.15k \\ \hline
-    Sherpa 2.2.1 MC16a & 75.60M & 75.21M & 42.28M & 20.06M & 96.72k & 52.03k \\ \hline\hline
-    Data 2017 & 282.8M & 270.5M & 84.38M & 24.15M & 124.2k & 65.87k \\ \hline
-    Powheg Pythia 8 MC16d & 86.42M & 85.88M & 50.35M & 24.45M & 96.58k & 50.08k \\ \hline
-    Sherpa 2.2.1 MC16d & 92.50M & 91.90M & 51.59M & 24.41M & 118.3k & 63.30k \\ \hline\hline
-    Data 2018 & 357.0M & 348.7M & 116.8M & 35.99M & 163.4k & 86.35k \\ \hline
-    Powheg Pythia 8 MC16e & 114.0M & 113.3M & 67.22M & 32.46M & 128.2k & 66.56k \\ \hline
-    Sherpa 2.2.1 MC16e & 122.0M & 121.3M & 68.93M & 36.41M & 155.9k & 83.23k \\ \hline\hline
-    \end{tabular}
-    \caption{Number of events remaining after each cut applied during the analysis. Data Quality (DQ) includes the GRL and event cleaning criteria.
-    Dilepton includes the checks for 2 oppositely charged muons which pass TTVA and trigger matching requirements, as well as the $m_{\ell\ell}$ cut.
-    Differences between MC and data are expected up to the dilepton cut as data contains QCD background while the MC samples do not.}
-    \label{tab:CFComp}
-\end{table}
-
-\begin{table}[h!]
-  \centering
-  \begin{tabular}{l|l|l|l|l|l}
-  \hline\hline
-  \textbf{Sample} & \multicolumn{5}{c}{\textbf{Cuts}} \\ \hline
-    & DQ & Trigger & Dilepton & $p_{\text{T},\ell\ell}$ & $p_{\text{T},\ell\ell}$ \\
-    &  &  &  & $>165~\GeV$ & $>200~\GeV$ \\ \hline\hline
-   Data 2015-2016 & -2.46\% & -84.24\% & -72.20\% & -99.49\% & -46.93\% \\ \hline
-   Powheg Pythia 8 MC16a & -0.50\% & -41.27\% & -51.27\% & -99.61\% & -48.11\% \\ \hline
-   Sherpa 2.2.1 MC16a & -0.50\% & -43.78\% & -52.56\% & -99.52\% & -46.21\% \\ \hline\hline
-   Data 2017 & -4.35\% & -68.61\% & -71.38\% & -99.49\% & -46.93\% \\ \hline
-   Powheg Pythia 8 MC16d & -0.63\% & -41.37\% & -51.45\% & -99.60\% & -48.15\% \\ \hline
-   Sherpa 2.2.1 MC16d & -0.64\% & -43.87\% & -52.68\% & -99.52\% & -46.51\% \\ \hline\hline
-   Data 2018 & -2.30\% & -66.50\% & -72.88\% & -99.48\% & -47.04\% \\ \hline
-   Powheg Pythia 8 MC16e & -0.60\% & -40.69\% & -51.70\% & -99.61\% & -48.97\% \\ \hline
-   Sherpa 2.2.1 MC16e & -0.60\% & -43.17\% & -52.95\% & -99.52\% & -46.63\% \\ \hline\hline
-   \end{tabular}
-   \caption{The relative number of events rejected after each cut compared to the previous cut}
-   \label{tab:RelCF}
-\end{table}
-
-Figure~\ref{fig:MuActual} shows the actual interactions per bunch crossing $\mu$ for the individual data periods, as well as the full Run 2 dataset.
-Figure~\ref{fig:pTmll} gives the $\pt$ and $m$ distributions for the dilepton system, and figure~\ref{fig:pTetamus} gives the $\pt$ and $\eta$ distributions for both the leading and sub-leading muon.
-The $\pt$ and $y$ distributions for the leading and sub-leading track jet are shown in figure~\ref{fig:pTyjets}, and figure~\ref{fig:jetsubstructure} and~\ref{fig:ntrackinjets} show some
-selected jet substructure variables and the number of constituents, respectively. Finally, the properties of the tracks used for the analysis are shown in figure~\ref{fig:trackInfo}.
-
-Figure~\ref{fig:EventDisplay} shows an example event display for an event which passes all analysis cuts.
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[page=5,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \includegraphics[page=6,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
-  \includegraphics[page=7,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \includegraphics[page=8,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \caption{The actual interactions per bunch crossing, $\mu$, for 2015-2016 data (top left), 2017 data (top right), 2018 data (bottom left), and the full Run-2 dataset (bottom right)}
-  \label{fig:MuActual}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[page=12,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \includegraphics[page=16,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \caption{Distributions for the $\pt$ and $m$ of the dilepton system. Due to the high $\pt$ phase space, it is expected that the MC simulation will underpredict the data.}
-  \label{fig:pTmll}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \subfloat[Leading muon]{\includegraphics[page=24,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=32,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}} \\
-  \subfloat[Sub-leading muon]{\includegraphics[page=28,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=36,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}}
-  \caption{The $\pt$ and $\eta$ distributions for the (a) leading and (b) the sub-leading muon}
-  \label{fig:pTetamus}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \subfloat[Leading track jet]{\includegraphics[page=72,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=76,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}} \\
-  \subfloat[Sub-leading track jet]{\includegraphics[page=88,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=92,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}}
-  \caption{The $\pt$ and $y$ distributions for the (a) leading and (b) the sub-leading jet}
-  \label{fig:pTyjets}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[page=84,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \includegraphics[page=100,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
-  \includegraphics[page=104,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-    \includegraphics[page=116,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\\
-  \includegraphics[page=108,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-      \includegraphics[page=120,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\\
-  \includegraphics[page=112,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-      \includegraphics[page=124,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \caption{Jet substructure features for the leading (left) and subleading (right) track jets.}
-  \label{fig:jetsubstructure}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[page=136,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \includegraphics[page=140,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
-  \caption{The number of constituents in the leading (left) and subleading (right) track jets.}
-  \label{fig:ntrackinjets}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[page=128,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \includegraphics[page=144,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
-  \includegraphics[page=148,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \includegraphics[page=152,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \caption{Distributions for the number of tracks per event (top left), and the $\pt$ (top right), $\eta$ (bottom left), and $\phi$ (bottom right) for each reconstructed track}
-  \label{fig:trackInfo}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[page=6,width=0.45\textwidth]{figures/EventDisplays.pdf}
-  \includegraphics[page=7,width=0.45\textwidth]{figures/EventDisplays.pdf} \\
-  \includegraphics[page=8,width=0.45\textwidth]{figures/EventDisplays.pdf}
-  \caption{An event display for an event which passes all cuts. For the reconstructed event (top left) and the particle level event (top right), the centre of the dilepton system is shown with a red X and the individual muons with a red dot.
-  Track jets are shown with a blue circle, and leading jet constituents are represented with a black X while other jet constituents are shown with a purple X. The leading jet is also shown (bottom), with the reconstructed constituents represented
-  by a black X, and truth charged hadrons represented by a blue circle.}
-  \label{fig:EventDisplay}
-\end{figure}
-
-\clearpage

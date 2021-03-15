@@ -1,0 +1,35 @@
+\section{Executive summary}
+\label{sec:exec}
+
+\subsection{Target}
+
+This analysis uses an innovative machine learning method~\cite{1911.09107} to perform an unbinned, variable- and high-dimensional unfolding using $Z$+jets events. As the first search using these new techniques, we limit the phase space to relatively high \pt{} $Z$~bosons in the $Z\to\mu\mu$ channel.   The analysis uses the full Run 2 dataset and targets summer/fall 2021.
+
+\subsection{Context}
+
+While there is no other measurement that is unbinned, variable- and high-dimensional, there are a variety of related binned measurements of specific observables.   These include track-based observables in inclusive $Z$+jets events at $\sqrt{s}=\SI{8}{\TeV}$~\cite{STDM-2015-14} and various measurements of hadronic final states using tracks~\cite{STDM-2018-57,STDM-2017-33,STDM-2017-16}.  None of these measurements are directly comparable to the one presented in this analysis because of the topology and/or the phase space.  However, as we are using a new methodology for the first time, one of the goals of this paper is to compare the method with standard techniques (e.g.\ Iterative Bayesian Unfolding~\cite{DAGOSTINI1995487,1974AJ.....79..745L,Richardson:72}) in addition to presenting the new unbinned data.
+
+\subsection{Contributors}
+
+\PrintAtlasContribute{0.30}
+
+\clearpage
+
+\input{changelog}
+
+\clearpage
+
+%-------------------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+%-------------------------------------------------------------------------------
+
+The goal of the Large Hadron Collider (LHC) is to infer properties of nature at subnuclear length scales.   One strategy for data analysis is to use models like the Standard Model (SM) and its extensions to fit parameter values to data.  This is an effective strategy that has been used to measure Standard Model couplings and masses as well as to constrain the strength of new physics extensions of the SM.  A key limitation of this parametric approach is that the final result cannot be easily used to infer properties of other parameters or reinterpreted in the context of a different model.  An alternative strategy is to correct data for detector effects in order to measure differential cross sections.  These \textit{unfolded} spectra can be reused for a variety of model interpretations.   Unfolding facilitates data preservation for reuse over time and comparisons across experiments.
+
+The most widely used unfolding methods use various forms of regularized matrix inversion~\cite{DAGOSTINI1995487,Hocker:1995kb,Schmitt:2012kp}.  There are four challenges with these approaches that limit their usefulness.   First, the target observables must be specified prior to unfolding and cannot be changed after the measurement.  Similarly, the binning of the observables must be fixed at the start of the measurement.  Due to the binned nature of existing techniques, most measurements are limited to a small number of observables (usually one) to be simultaneously unfolded.  Finally, the existing methods are not able to account for auxiliary features that determine the resolution of the target observables and thus limit the precision of the measurement.
+
+A variety of alternative unfolding method have been proposed to solve a subset of these challenges.   For example, some proposals avoid binning~\cite{Glazov:2017vni,Datta:2018mwd,Lindemann:1995ut,Aslan:2003vu} and others use machine learning to improve various aspects of the measurement precision~\cite{Gagunashvili:2010zw,Glazov:2017vni,Datta:2018mwd}.  Recently, three techniques have been proposed that have the potential to address all of the above challenges: OmniFold~\cite{1911.09107}, Conditional GAN Unfolding (CGU)~\cite{Bellagente:2019uyp}, and Conditional Normalizing Flow Unfolding (CNFU)~\cite{Bellagente:2020piv}.   The OmniFold approach scaffolds a simulation with a neural network to perform high- and variable-dimensional reweighting.  The CGU and CNFU methods use neural networks to generate corrected events given detector-level events.
+
+This analysis uses the OmniFold approach to perform the first high- and variable-dimensional unbinned measurement.  In contrast to the CFU and CNFU methods, OmniFold can naturally account for point-cloud nature of collider events.  Furthermore, OmniFold reduces to the widely studied Iterative Bayesian Unfolding approach~\cite{DAGOSTINI1995487} when the inputs are binned.  Finally, by using reweighting instead of direct generative modeling, the neural networks need to only learn small corrections to the simulation instead of learning the full probability density of the data.   The physical system chosen for the measurement is the hadronic activity in boosted $Z$ boson events.  Leptonically decaying $Z$ bosons can be identified with high purity and efficiency.  The rest of the event can then be studied with little bias from the event selection.  Charged particles are used due to the precision with which they can be measured.  These events have many tens of charged particles each with a momentum and electric charge and thus the target phase space is about 100-dimensional.
+
+This note is organized as follows.  First, Sec.~\ref{sec:samples} introduces the data and simulated event samples used for the analysis.  Then, Sec.~\ref{sec:objects} describes the objects used in the analysis (in particular, charged particles and tracks).  The analysis methodology is disucssed in Sec.~\ref{sec:strategy} and the prescription for systematic uncertainties appears in Sec.~\ref{sec:uncerts}.  Results are presented in Sec.~\ref{sec:result} and the note concludes in Sec.~\ref{sec:conclusion}.
