@@ -1,21 +1,22 @@
 \section{Particle composition and detector response of hadronic recoil}
+\label{app:jetcomp}
 
 This section examines the particle composition and the detector response of the leading jet that balance the $Z$~boson in the fiducial region of the analysis.
 The Powheg $Z\to \mu\mu$ sample is used. The particle origin of each track is obtained using the \texttt{truthParticleLink} to find the truth identification of each reconstructed track (see section~\ref{sec:samples}). In addition to the standard event preselection described in section~\ref{sec:selection}, extra cuts are used to make sure the leading reconstructed jet matches the leading particle jet in each event.
 %To ensure the closet matching between the leading reconstructed jet and leading truth jet, and always have very good DR between them, the cut on ratio of
-This is achieved by requiring $|y_\mathrm{j1}|<2.1$ and $\pTlj / \pTsj < 0.7$. The selection is applied on reconstructed level. However, due to the additional criterion, the leading particle-level (truth) jet will always match the leading reco jet. Note that the jets will have a very high \pt{} since the event selection includes the selection $\pTll > \SI{165}{\GeV}$, and the jet will have a similar \pt{} to that of the $Z$~boson. 
+This is achieved by requiring $|y_\mathrm{j1}|<2.1$ and $\pTlj / \pTsj < 0.7$. The selection is applied on reconstructed level. However, due to the additional criterion, the leading particle-level (truth) jet will always match the leading reco jet. Note that the jets will have a very high \pt{} since the event selection includes the selection $\pTll > \SI{165}{\GeV}$, and the jet will have a similar \pt{} to that of the $Z$~boson.
 
-Further events are required to pass track-to-vertex association (TTVA) recommendations as described in section~\ref{subsubsec:trigger}. There are three recommending working points for \texttt{TTVA}, however studies have been done for two only i.e \texttt{loose} and \texttt{tight TTVA} selection.  
+Further events are required to pass track-to-vertex association (TTVA) recommendations as described in section~\ref{subsubsec:trigger}. There are three recommending working points for \texttt{TTVA}, however studies have been done for two only i.e \texttt{loose} and \texttt{tight TTVA} selection.
 
 Particles are classified depending to their type in the following categories: \texttt{pion} for $\pi^+$ and $\pi^-$; \texttt{kaon} for charged kaons; \texttt{proton};
 \texttt{mu} for $\mu^-$ or $\mu^+$; \texttt{e} for $e^-$ or $e^+$;
 strange for any charge hadron with strange content other than kaons; \texttt{neutral} for any neutral hadron; \texttt{gam} for photons. As mentioned above, tracks are classified in the same categories using the \texttt{truthParticleLink}. In case there is no truth particle match, it is labelled unmatched. This includes contributions from pileup particles and fake tracks (and possibly secondaries).
 
-All of the reconstructed tracks inside leading jet as well as charged-particles in the associated particle-level jets that are not matched to reconstructed tracks are used for the plots shown in this section. 
+All of the reconstructed tracks inside leading jet as well as charged-particles in the associated particle-level jets that are not matched to reconstructed tracks are used for the plots shown in this section.
 
 Figures~\ref{fig:r_pion_kaon} to ~\ref{fig:r_trackjet} are showing the detector response for each particle category for tight and loose TTVA working point. The pion and kaon response for \texttt{loose} and \texttt{tight TTVA} is ~94\% and ~93\% respectively.
 
-Figure~\ref{fig:frac_unmatchedtracks} depicts fraction of unmatched track w.r.t reco level jet, which indicates ~3\% and ~8\% unmatched tracks for \texttt{tight} and \texttt{loose TTVA} working point respectively. Since \texttt{tight TTVA}  selection reduces ~5\% unmatched tracks as compare to \texttt{loose TTVA}, therefore for the current analysis we are using \texttt{tight TTVA} working point. 
+Figure~\ref{fig:frac_unmatchedtracks} depicts fraction of unmatched track w.r.t reco level jet, which indicates ~3\% and ~8\% unmatched tracks for \texttt{tight} and \texttt{loose TTVA} working point respectively. Since \texttt{tight TTVA}  selection reduces ~5\% unmatched tracks as compare to \texttt{loose TTVA}, therefore for the current analysis we are using \texttt{tight TTVA} working point.
 
 \begin{figure}[b]
 \centering
@@ -68,7 +69,7 @@ We can see that $\approx 42$\% of the jet \pt{} is carried by neutral particles.
 \label{fig:truthJetComp}
 \end{figure}
 
-Figure~\ref{fig:chargedparticles} shows the fraction of the particle multiplicity (left) and their \pT{} as a function of the truth jet \pT in the particle-level jet. 
+Figure~\ref{fig:chargedparticles} shows the fraction of the particle multiplicity (left) and their \pT{} as a function of the truth jet \pT in the particle-level jet.
 
 \begin{figure}[b]
 \centering
@@ -78,7 +79,7 @@ Figure~\ref{fig:chargedparticles} shows the fraction of the particle multiplicit
 \label{fig:chargedparticles}
 \end{figure}
 
-Figure~\ref{fig:chargedparticles_truthjet} shows similar plots for all the charged particles compositions in the leading jet. 
+Figure~\ref{fig:chargedparticles_truthjet} shows similar plots for all the charged particles compositions in the leading jet.
 
 \begin{figure}[b]
 \centering
