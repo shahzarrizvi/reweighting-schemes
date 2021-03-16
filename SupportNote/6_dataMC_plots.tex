@@ -2,7 +2,7 @@
 \subsection{Observed and predicted event yields}
 \label{sec:cutflow}
 
-Table~\ref{tab:CFComp} compares the event yields after applying the analysis cuts with data and the 2 MC samples for each year, and table~\ref{tab:RelCF} shows a relative comparison between the cuts.  Note that the event selection has been validated using an independent implementation of the analysis event selection using the $ZH\rightarrow aa\rightarrow gggg$ analysis framework\footnote{We thank Murtaza Safdari for helping with this.  The analysis code is built on the BHamAnalyaisFramework: \url{https://gitlab.cern.ch/atlas-physics/HDBS/HBSM/higgs_axion_axion/-/tree/workingCompile/BhamAnalysisFramework}.}.
+Table~\ref{tab:CFComp} presents the predicted and observed event yields after applying the analysis cuts consecutively to data and the 2 MC samples for each year, and table~\ref{tab:RelCF} shows the associated relative efficiency.  Note that the event selection has been validated using an independent implementation of the analysis event selection using the $ZH\rightarrow aa\rightarrow gggg$ analysis framework\footnote{We thank Murtaza Safdari for helping with this.  The analysis code is built on the BHamAnalyaisFramework: \url{https://gitlab.cern.ch/atlas-physics/HDBS/HBSM/higgs_axion_axion/-/tree/workingCompile/BhamAnalysisFramework}.}.
 
 \begin{table}[h!]
     \centering
@@ -11,7 +11,7 @@ Table~\ref{tab:CFComp} compares the event yields after applying the analysis cut
     \textbf{Sample} & \multicolumn{6}{c}{\textbf{Cuts}} \\ \hline
      & None & DQ & Trigger & Dilepton & $p_{\text{T},\ell\ell}$ & $p_{\text{T},\ell\ell}$ \\
      &  &  &  &  & $>165~\GeV$ & $>200~\GeV$ \\ \hline\hline
-    Data 2015-2016 & 475.7M & 462.5M & 72.89M & 20.27M & 103.5k & 54.92k \\ \hline
+    Data 2015--2016 & 475.7M & 462.5M & 72.89M & 20.27M & 103.5k & 54.92k \\ \hline
     Powheg Pythia 8 MC16a & 70.63M & 70.28M & 41.27M & 20.11M & 79.31k & 41.15k \\ \hline
     Sherpa 2.2.1 MC16a & 75.60M & 75.21M & 42.28M & 20.06M & 96.72k & 52.03k \\ \hline\hline
     Data 2017 & 282.8M & 270.5M & 84.38M & 24.15M & 124.2k & 65.87k \\ \hline
@@ -22,7 +22,7 @@ Table~\ref{tab:CFComp} compares the event yields after applying the analysis cut
     Sherpa 2.2.1 MC16e & 122.0M & 121.3M & 68.93M & 36.41M & 155.9k & 83.23k \\ \hline\hline
     \end{tabular}
     \caption{Number of events remaining after each cut applied during the analysis. Data Quality (DQ) includes the GRL and event cleaning criteria.
-    Dilepton includes the checks for 2 oppositely charged muons which pass TTVA and trigger matching requirements, as well as the $m_{\ell\ell}$ cut.
+    Dilepton includes the requirement of 2 oppositely charged muons which pass TTVA and trigger matching requirements, as well as the $m_{\ell\ell}$ cut.
     Differences between MC and data are expected up to the dilepton cut as data contains QCD background while the MC samples do not.}
     \label{tab:CFComp}
 \end{table}
@@ -34,7 +34,7 @@ Table~\ref{tab:CFComp} compares the event yields after applying the analysis cut
   \textbf{Sample} & \multicolumn{5}{c}{\textbf{Cuts}} \\ \hline
     & DQ & Trigger & Dilepton & $p_{\text{T},\ell\ell}$ & $p_{\text{T},\ell\ell}$ \\
     &  &  &  & $>165~\GeV$ & $>200~\GeV$ \\ \hline\hline
-   Data 2015-2016 & -2.46\% & -84.24\% & -72.20\% & -99.49\% & -46.93\% \\ \hline
+   Data 2015--2016 & -2.46\% & -84.24\% & -72.20\% & -99.49\% & -46.93\% \\ \hline
    Powheg Pythia 8 MC16a & -0.50\% & -41.27\% & -51.27\% & -99.61\% & -48.11\% \\ \hline
    Sherpa 2.2.1 MC16a & -0.50\% & -43.78\% & -52.56\% & -99.52\% & -46.21\% \\ \hline\hline
    Data 2017 & -4.35\% & -68.61\% & -71.38\% & -99.49\% & -46.93\% \\ \hline
@@ -44,7 +44,7 @@ Table~\ref{tab:CFComp} compares the event yields after applying the analysis cut
    Powheg Pythia 8 MC16e & -0.60\% & -40.69\% & -51.70\% & -99.61\% & -48.97\% \\ \hline
    Sherpa 2.2.1 MC16e & -0.60\% & -43.17\% & -52.95\% & -99.52\% & -46.63\% \\ \hline\hline
    \end{tabular}
-   \caption{The relative number of events rejected after each cut compared to the previous cut}
+   \caption{The relative number of events rejected after each cut relative to the previous cut}
    \label{tab:RelCF}
 \end{table}
 
@@ -138,7 +138,7 @@ selected jet substructure variables and the number of constituents, respectively
 \subsection{Event displays}
 \label{sec:event-displays}
 
-Figure~\ref{fig:EventDisplay} shows an event display for an event that passes the event selection. This event contains two muons and 45 charged hadrons at the truth level (with $\pt>\SI{0.5}{\GeV}$ and $|\eta|<2.5$). 37 tracks are reconstructed. Most tracks have a clear matching truth particles, but we can see many examples of charged hadrons that did not produce a track, and some examples of ``fake'' tracks that do not have any matching charged truth hadron. More event displays like this are listed in Appendix~\ref{app:event-displays}. 
+Figure~\ref{fig:EventDisplay} shows an event display for an event that passes the event selection. This event contains two muons and 45 charged hadrons at the truth level (with $\pt>\SI{0.5}{\GeV}$ and $|\eta|<2.5$). 37 tracks are reconstructed. Most tracks have a clear matching truth particles, but we can see many examples of charged hadrons that did not produce a track, and some examples of ``fake'' tracks that do not have any matching charged truth hadron. More event displays like this are listed in Appendix~\ref{app:event-displays}.
 
 \begin{figure}[h!]
   \centering
@@ -149,10 +149,9 @@ Figure~\ref{fig:EventDisplay} shows an event display for an event that passes th
   \caption{Displays of a simulated event that passes all cuts. Full event views are provided both at the reconstructed level (top left) and at the particle level (top right).
     Muons are shown as red dots, the charged particles (hadrons or tracks) are shown as gray or black crosses and the dilepton system is displayed as a red cross.
     Track jets are shown as blue circles, and leading jet constituents are represented with black crosses.
-    A zoomed view of the leading jet is shown at the bottom left simultaneously for reconstructed tracks and truth charged hadrons. The momenta for most particles in the event are also (bottom right). 
+    A zoomed view of the leading jet is shown at the bottom left simultaneously for reconstructed tracks and truth charged hadrons. The momenta for most particles in the event are also (bottom right).
     Note that the goal with this analysis is to provide unfolded events that contain a list of four vectors corresponding to all individual particles seen in the upper right figure: two muons, and a full list of charged hadrons particles.}
   \label{fig:EventDisplay}
 \end{figure}
 
 \clearpage
-
