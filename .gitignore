@@ -1,0 +1,16 @@
+# emacs things
+*~
+
+# macOS things
+.DS_Store
+
+# other stuff
+
+# MLB's venv folder and setup script
+omnifold/
+lcg.sh
+
+ntupleanalysis/__pycache__/
+.ipynb_checkpoints/
+
+fastjet-*
