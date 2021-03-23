@@ -8,8 +8,11 @@ matt.leblanc@cern.ch
 """
 
 import argparse
+import h5py
 
 import numpy as np
+import matplotlib.pyplot as plt
+
 import uproot3
 
 import fastjet as fj
@@ -28,6 +31,7 @@ def select_event(pass190,
                  m_trackj1,
                  y_trackj2,
                  m_trackj2):
+
     pass_event = True
 
     if not pass190: 
@@ -55,8 +59,9 @@ def get_tracks_in_leading_jet(pT_tracks, eta_tracks, phi_tracks, debug):
     if(debug): print("There are "+str(len(pT_tracks))+" tracks.")
 
     # set up our jet definition and a jet selector
-    jet_def = fj.JetDefinition(fj.antikt_algorithm, 0.6)
-    selector = fj.SelectorPtMin(5.0) & fj.SelectorAbsRapMax(2.1)
+    # R=1.0 jets, so stay within |rap|<1.5 for tracker acceptance
+    jet_def = fj.JetDefinition(fj.antikt_algorithm, 1.0)
+    selector = fj.SelectorPtMin(5.0) & fj.SelectorAbsRapMax(1.5)
 
     # get the event
     event = []
@@ -89,11 +94,75 @@ def get_tracks_in_leading_jet(pT_tracks, eta_tracks, phi_tracks, debug):
         if(jets[0].has_constituents()):
             if(debug): print("Leading jet has "+str(len(jets[0].constituents()))+" constituents")
             tracks = jets[0].constituents()
-    
-    #if(debug): print_jets(tracks)
 
-    return tracks
+        return tracks,jets[0]
+    else: return tracks,None
 
+def calc_jss(jet, observable, radii,  debug):
+
+    jss=[]
+
+    for R in radii:
+        jet_def = fj.JetDefinition(fj.antikt_algorithm, R)
+        selector = fj.SelectorPtMin(5.0) & fj.SelectorAbsRapMax(1.5)
+        jets = selector( jet_def( jet.constituents() ) )
+        if(len(jets)>0):
+            jet = jets[0]
+            if observable=='rho' :
+                jss.append( np.log( jet.m()*jet.m()/( jet.perp()*jet.perp() ) ) )
+            if observable=='ljp_zdr' : 
+                ljp_tuple_list = []
+                
+                jet_def_ca = fj.JetDefinition(fj.cambridge_algorithm, fj.JetDefinition.max_allowable_R)
+                rc = fj.Recluster(jet_def_ca)
+                jet = rc.result(jets[0])
+                
+                j1 = fj.PseudoJet()
+                j2 = fj.PseudoJet()
+                jj = jet
+                while jj.has_parents(j1,j2):
+                    if(j2.pt2() > j1.pt2()):
+                        print("oh no oh no")
+                    
+                    z  = j2.pt2() / ( j1.pt2()+j2.pt2() ) 
+                    dr = j1.delta_R(j2)
+
+                    ljp_tuple_list.append([ np.log(R/dr), np.log(1/z) ])
+
+                    # follow harder branch
+                    jj = j1;
+                    
+                #print(np.array(ljp_tuple_list).shape)
+                jss.append( ljp_tuple_list )
+
+        else:
+            if( observable=='ljp_zdr' ): jss.append([-100,-100])
+            else :                       jss.append(-100)
+            
+    return jss
+
+"""
+def calc_sd_jss(jet, observable, betas, zcuts, debug):
+
+    jss=[]
+
+    for beta in betas:
+        for zcut in zcuts:
+            R=fj.JetDefinition.max_allowable_R
+            jet_def = fj.JetDefinition(fj.antikt_algorithm, R)
+            selector = fj.SelectorPtMin(5.0) & fj.SelectorAbsRapMax(1.5)
+            jets = selector( jet_def( jet.constituents() ) )
+            sd = fj.contrib.softdrop(beta,zcut)
+            jets=sd(jets)
+            if(len(jets)>0):
+                jet = jets[0]
+                if observable=='rho' :
+                    jss.append( np.log( jet.m()*jet.m()/( jet.perp()*jet.perp() ) ) )
+            else:
+                jss.append(-1)
+
+    return jss
+"""
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="%prog [options]", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -108,11 +177,21 @@ if __name__ == "__main__":
 
     print("Input file is:\n"+str(args.inFile))
 
-    #print("Writing output events to ",args.inFile.split("/")[-1])
-    #out_file_str = args.outDir+args.label+"_"
+    print("Writing output events to ",args.inFile.split("/")[-1])
+    out_file_str = args.outDir+args.label+"_"+args.inFile.split("/")[-1]+".h5"
     
     tree = uproot3.open(str(args.inFile))[args.inTree]
     print("There are "+str(len(tree))+" events")
+
+    # this is the array of the tracks in the leading jet of each event, at reco- and truth-level
+    # it is written out as an .h5, as it is  needed downstream for EMD calculations
+    track_array = np.zeros( (len(tree), 100, 6 ) )
+
+    # substructure variables for plotting
+    reco_rhos = []
+    #reco_sd_rhos = []
+
+    reco_ljps = []
 
     start_at = args.startEvent
     stop_at = args.stopEvent
@@ -145,8 +224,7 @@ if __name__ == "__main__":
             entrystart=start_at,
             entrystop=stop_at,
     ):
-
-        for idx in range(0,len(tree)):
+        for idx in range(0, stop_at):
             debug=False
             if((idx==0) or (idx%1000==0)): debug=True
 
@@ -175,19 +253,97 @@ if __name__ == "__main__":
             reco_tracks = []
             truth_tracks = []
 
+            reco_mass = []
+
             if(pass_reco):
-                reco_tracks = get_tracks_in_leading_jet(pT_tracks[idx],
-                                                        y_tracks[idx],
-                                                        phi_tracks[idx],
-                                                        debug)
+                reco_tracks,reco_jet = get_tracks_in_leading_jet(pT_tracks[idx],
+                                                                 y_tracks[idx],
+                                                                 phi_tracks[idx],
+                                                                 debug)
+                if(len(reco_tracks)>0):
+                    for iTrack in range(0,len(reco_tracks)) :
+                        track_array[idx,iTrack,0] = reco_tracks[iTrack].pt()
+                        track_array[idx,iTrack,1] = reco_tracks[iTrack].rapidity()
+                        track_array[idx,iTrack,2] = reco_tracks[iTrack].phi()
+                        
+                    reco_rhos.append( calc_jss(reco_jet,
+                                               observable='rho',
+                                               radii=[1.0,0.8,0.6,0.4,0.2],
+                                               debug=debug) )
+
+                    reco_ljps.append( calc_jss(reco_jet,
+                                               observable='ljp_zdr',
+                                               radii=[1.0],
+                                               debug=debug) )                    
+
+                    '''
+                    reco_sd_rhos.append( calc_sd_jss(reco_jet,
+                                                     observable='sd_rho',
+                                                     betas=[2.0,1.8,1.6,1.4,1.2,1.0,0.8,0.6,0.4,0.2,0.0],
+                                                     zcuts=[0.1],
+                                                     debug=True) )
+                    '''
 
             if(pass_true):
-                truth_tracks = get_tracks_in_leading_jet(truth_pT_tracks[idx],
-                                                         truth_y_tracks[idx],
-                                                         truth_phi_tracks[idx],
-                                                         debug)
+                truth_tracks,truth_jet = get_tracks_in_leading_jet(truth_pT_tracks[idx],
+                                                                   truth_y_tracks[idx],
+                                                                   truth_phi_tracks[idx],
+                                                                   debug)
+                
+                if(len(truth_tracks)>0):
+                    for iTrack in range(0,len(truth_tracks)) :
+                        track_array[idx,iTrack,3] = truth_tracks[iTrack].pt()
+                        track_array[idx,iTrack,4] = truth_tracks[iTrack].rapidity()
+                        track_array[idx,iTrack,5] = truth_tracks[iTrack].phi()
 
-    print("Writing output.")
-    print("Closing output.")
+    if(debug): print(track_array[idx])
+    
+print("Plotting substructure observables ...")
+
+#for idx,R in enumerate([1.0, 0.8, 0.6, 0.4, 0.2]):
+
+print(np.array(reco_rhos, dtype=object).shape)
+
+# ungroomed mass
+plt.hist([np.array(reco_rhos)[:,0],
+          np.array(reco_rhos)[:,1],
+          np.array(reco_rhos)[:,2],
+          np.array(reco_rhos)[:,3],
+          np.array(reco_rhos)[:,4]], 
+         bins=50,
+         range=(-10.,0.0),
+         histtype='step',
+         label=['R=1.0','R=0.8','R=0.6','R=0.4','R=0.2'])
+
+plt.legend(loc='center right', frameon=False, fontsize="x-large")
+plt.xlabel('rho', fontsize="x-large");
+plt.show()
+plt.savefig("out_origami/reco_rhos.png")
+plt.close()
+
+# lund jet plane
+
+plt.hist2d(np.array(reco_ljps[:,0], dtype=object), 
+           np.array(reco_ljps[:,1], dtype=object),
+           bins=[50,50],
+           range=((0.0, 6.0), (0.0, 6.0)),
+           cmap=plt.get_cmap('inferno'))
+
+#plt.legend(loc='center right', frameon=False, fontsize="x-large")
+plt.xlabel('ln(R/DeltaR)', fontsize="x-large");
+plt.ylabel('ln(1/z)', fontsize="x-large");
+plt.show()
+plt.savefig("out_origami/ljp.png")
+plt.close()
+
+print("Writing output.")
+
+#h5f = h5py.File(out_file_str, 'w')
+#h5f.create_dataset('track_array', data=track_array)
+#h5f.close()
+
+print("Closing output.")
+
+
 
 print("All done!")
