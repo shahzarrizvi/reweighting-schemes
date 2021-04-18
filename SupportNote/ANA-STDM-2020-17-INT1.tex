@@ -134,11 +134,15 @@
 \textit{To be filled in once we have unblinded.}
 
 \section{Remaining items}
+
 \begin{itemize}
-  \item Systematic uncertainty inclusion for UniFold and MultiFold
+  \item Add in acceptance effects (right now, all results are done for events that pass both particle-level and detector-level).  This is straightforward to do (and acceptance effects are quite small due to the excellent muon ID and resolution), but we wanted to solve the more challenging part first.
+  \item Systematic uncertainty inclusion for UniFold and MultiFold (repeat the procedure, but with some aspects varied).  The experimental uncertainties are all setup and simply need to be propagated.
   \item Theory systematics (framework in place, working to include)
+  \item Modeling and unfolding uncertainties.
   \item Temporarily remove muon isolation statistical uncertainty (unusual values caused by a known bug, will update when a fix is in place)
   \item Include results from OmniFold
+  \item Statistical uncertainties
 \end{itemize}
 
 

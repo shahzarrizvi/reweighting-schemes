@@ -65,7 +65,13 @@ To check stability of data used for this analysis, rate for each year is calcula
 Figure~\ref{fig:MuActual} shows the actual interactions per bunch crossing $\mu$ for the individual data periods, as well as the full Run 2 dataset.
 Figure~\ref{fig:pTmll} gives the $\pt$ and $m$ distributions for the dilepton system, and figure~\ref{fig:pTetamus} gives the $\pt$ and $\eta$ distributions for both the leading and sub-leading muon.
 The $\pt$ and $y$ distributions for the leading and sub-leading track jet are shown in figure~\ref{fig:pTyjets}, and figure~\ref{fig:jetsubstructure} and~\ref{fig:ntrackinjets} show some
-selected jet substructure variables and the number of constituents, respectively. Finally, the properties of the tracks used for the analysis are shown in figure~\ref{fig:trackInfo}.
+selected jet substructure variables and the number of constituents, respectively.  The substructure variables are the $n$-subjettiness observables~\cite{Thaler:2010tr,Thaler:2011gf}, which have the form
+
+\begin{align}
+\tau_N=\left(\frac{1}{\sum_{i\in\text{jet}} R_0p_{T,i}}\right)\sum_{i\in\text{jet}} p_{T,i}\min_{j\in\{1,...,N\}}\left\{\Delta R_{j,n}\right\}\,,
+\end{align}
+%
+where $R_0$ is the jet algorithm radius and $\Delta R_{j,n}$ is the $\Delta R$ between the jet constituent and the $j^\text{th}$ subjet axis. Finally, the properties of the tracks used for the analysis are shown in figure~\ref{fig:trackInfo}.
 
 Additional figures with these distributions shown per year of data taking can be found in appendix~\ref{app:AddDataMC}.
 
@@ -150,7 +156,7 @@ Figure~\ref{fig:EventDisplay} shows an event display for an event that passes th
   \caption{Displays of a simulated event that passes all cuts. Full event views are provided both at the reconstructed level (top left) and at the particle level (top right).
     Muons are shown as red dots, the charged particles (hadrons or tracks) are shown as gray or black crosses and the dilepton system is displayed as a red cross.
     Track jets are shown as blue circles, and leading jet constituents are represented with black crosses.
-    A zoomed view of the leading jet is shown at the bottom left simultaneously for reconstructed tracks and truth charged hadrons. The momenta for most particles in the event are also (bottom right).
+    A zoomed view of the leading jet is shown at the bottom left simultaneously for reconstructed tracks and truth charged hadrons. The momenta for most particles in the event are also listed (bottom right).
     Note that the goal with this analysis is to provide unfolded events that contain a list of four vectors corresponding to all individual particles seen in the upper right figure: two muons, and a full list of charged hadrons particles.}
   \label{fig:EventDisplay}
 \end{figure}

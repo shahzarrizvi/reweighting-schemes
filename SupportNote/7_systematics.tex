@@ -1,3 +1,7 @@
+\subsection{Data and Monte Carlo Statistical Uncertainties}
+
+These uncertainties will be computed via bootstrapping.  A set of $N$ pseudodatasets are performed where each event has a weight $W_\text{pseudo}w_\text{nominal}$, where $w_\text{nominal}$ is one for data and $w_\text{MC}$ for simulation; $W_\text{pseudo}$ is a Poisson random variable that has a new value for each pseudodataset and has a mean of one.  To ensure that the uncertainty on the uncertainty is negligible, $N\gtrsim 100$.  These uncertainties are straightforward to compute, but are computationally expensive and thus we will compute them once all other results are finished.
+
 \subsection{Pileup reweighting uncertainties}
 As discussed in section~\ref{subsec:PRW}, a correction is applied to MC events such that the pileup modeling in the simulation corresponds to what is seen in data. As such, there are variations associated with this modeling
 that must be taken into account.
@@ -86,3 +90,7 @@ The sixth represents variations to the fake rate. The last varies the \pt of the
 \end{figure}
 
 \subsection{Modeling and unfolding uncertainties}
+
+Modeling uncertainties are determined by unfolding the data with simulations that have different physics models.  We will do this by first comparing the result when unfolding with \pythia and when unfolding with \sherpa.  This is a crude uncertainty because there are multiple differences between these generators.  We will supplement this comparison by unfolding with various \powheg+\pythia samples that have been re-weighted based on truth-level samples that have targeted variations (e.g. A14 tune variations).  Additional samples are being prepared by the PMG but will likely not be ready in time for this analysis.
+
+Unfolding uncertainties are designed to quantify the method closure.  We will do this by unfolding \pythia with \sherpa and then comparing to the \pythia truth (and vice versa).  This may have some double-counting with modeling uncertainties and is often mitigated by performing some reweighting\footnote{\url{https://twiki.cern.ch/twiki/bin/viewauth/AtlasProtected/StandardModelUnfolding}}~\cite{Malaescu:2009dm} (which actually is similar to OmniFold Step 1).  However, we will choose the more conservative approach for this first high-dimensional analysis.
