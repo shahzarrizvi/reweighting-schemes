@@ -94,3 +94,21 @@ The sixth represents variations to the fake rate. The last varies the \pt of the
 Modeling uncertainties are determined by unfolding the data with simulations that have different physics models.  We will do this by first comparing the result when unfolding with \pythia and when unfolding with \sherpa.  This is a crude uncertainty because there are multiple differences between these generators.  We will supplement this comparison by unfolding with various \powheg+\pythia samples that have been re-weighted based on truth-level samples that have targeted variations (e.g. A14 tune variations).  Additional samples are being prepared by the PMG but will likely not be ready in time for this analysis.
 
 Unfolding uncertainties are designed to quantify the method closure.  We will do this by unfolding \pythia with \sherpa and then comparing to the \pythia truth (and vice versa).  This may have some double-counting with modeling uncertainties and is often mitigated by performing some reweighting\footnote{\url{https://twiki.cern.ch/twiki/bin/viewauth/AtlasProtected/StandardModelUnfolding}}~\cite{Malaescu:2009dm} (which actually is similar to OmniFold Step 1).  However, we will choose the more conservative approach for this first high-dimensional analysis.
+
+
+\subsection{Theoretical uncertainties}
+\subsubsection{QCD renormalization and factorization scale variations}
+The variation of the QCD renormalization ($\mu_r$) and factorization ($\mu_f$) scale on the process was studied using the \sherpa\ event generator. This generator can vary each scale independently and provides combinations of up (2$\mu_(r,f)$) and down (0.5$\mu_(r,f)$) variations of each scale. The impact of these scale variations is shown in figure~\ref{fig:QCDscale_mjj}, increasing the scales results in less events in the observed dilepton \pt spectrum and vice versa.
+\begin{figure}[h!]
+  \centering
+  \subfloat[MC16a]{\includegraphics[page=2,width=0.45\textwidth]{figures/systQCD.pdf}}
+  \subfloat[MC16d]{\includegraphics[page=4,width=0.45\textwidth]{figures/systQCD.pdf}} \\
+  \subfloat[MC16e]{\includegraphics[page=6,width=0.45\textwidth]{figures/systQCD.pdf}}
+  \subfloat[Run 2]{\includegraphics[page=7,width=0.45\textwidth]{figures/systQCD.pdf}}
+  \caption{The fractional impact of the QCD scale variations for the \sherpa~samples on the dilepton \pt spectrum for all the years and full Run2. The result of varying $\mu_r$ and $\mu_f$ in the up direction is shown in red and the downwards shift is in blue.}
+  \label{fig:QCDscale_mjj}
+\end{figure}
+
+%\subsubsection{Parton Distribution Function (PDF) variations}
+
+
