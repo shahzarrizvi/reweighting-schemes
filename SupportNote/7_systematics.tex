@@ -1,6 +1,9 @@
-\subsection{Data and Monte Carlo Statistical Uncertainties}
+Uncertainties on the unfolded result are evaluated using error propagation, consitent with the standrard approach used at ATLAS.
+Uncertaintites are split into sources (sometimes called ``uncertaintiy components'') that are each treated as uncorrelated to each other.
+For each such uncertainty source, a pertubation is introduced either to the MC or data corresponding to its impact: $+1\,sigma$, and in case of two-sided uncertainties, also $-1\,\sigma$. The unfolding (``full analysis'') is then repeated using the modified samples, which results in a Omnifold weight $\nu'$ for each event that is slightly different from the nominal Omnifold weight $\nu$. Each event in the unfolded dataset is hence assigned one nominal weight and a list of alternative weights, each corresponding an systematic uncertainty source, or statistical replica variation.
 
-These uncertainties will be computed via bootstrapping.  A set of $N$ pseudodatasets are performed where each event has a weight $W_\text{pseudo}w_\text{nominal}$, where $w_\text{nominal}$ is one for data and $w_\text{MC}$ for simulation; $W_\text{pseudo}$ is a Poisson random variable that has a new value for each pseudodataset and has a mean of one.  To ensure that the uncertainty on the uncertainty is negligible, $N\gtrsim 100$.  These uncertainties are straightforward to compute, but are computationally expensive and thus we will compute them once all other results are finished.
+\subsection{Data and Monte Carlo statistical uncertainties}
+These uncertainties will be computed via bootstrapping.  A set of $N$ pseudodatasets are constructed where each event has a weight $W_\text{pseudo}\,w_\text{nominal}$, where $w_\text{nominal}$ is unity for data and $w_\text{MC}$ for simulation. $W_\text{pseudo}$ is a value sampled randomly from a Poisson distribution with a mean of unity.  To ensure that the ``uncertainty on the uncertainty'' is negligible an ensemble of $N\gtrsim 100$ such pseudodatasets can be used.  These uncertainties are straightforward to compute, but are computationally expensive and thus we will compute them once all other results are finished.
 
 \subsection{Pileup reweighting uncertainties}
 As discussed in section~\ref{subsec:PRW}, a correction is applied to MC events such that the pileup modeling in the simulation corresponds to what is seen in data. As such, there are variations associated with this modeling
@@ -14,6 +17,7 @@ In addition, a scaling correction is applied to the data during pileup reweighti
 As summarized in section~\ref{subsec:MCCorr} there are several scale factors associated with muon reconstruction related to efficiencies in the trigger, reconstruction, isolation and track-to-vertex association.
 Hence, there are 2 systematic variations associated with the trigger efficiency, 2 for the isolation efficiency, 4 for the reconstruction efficiency, and 2 for the TTVA efficiency:
 \begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}\setlength{\parsep}{0pt}
   \item MUON\_EFF\_TrigSystUncertainty
   \item MUON\_EFF\_TrigStatUncertainty
   \item MUON\_EFF\_ISO\_SYS
@@ -42,6 +46,7 @@ The impact of the efficiency systematics is summarized in figure~\ref{fig:PP8SFS
 There are also systematic variations associated with the calibration applied to the muons. These will have an affect on the muon kinematics. The systematic variations are listed below, and include
 one for momentum variations due to measurements made in the inner detector, one for momentum effects related to the muon spectrometer, one for the momentum scale, and 2 systematics related to the measured sagitta value.
 \begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}\setlength{\parsep}{0pt}
   \item MUON\_ID (inner detector track resolution)
   \item MUON\_MS (muon spectrometer track resolution)
   \item MUON\_SCALE (momentum scale)
@@ -66,6 +71,7 @@ The effects of these variations are shown in figure~\ref{fig:PP8MuCalSyst}.
 The systematic uncertainties associated with the tracks are:
 
 \begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}\setlength{\parsep}{0pt}
   \item InDet::TRK\_EFF\_TIGHT\_GLOBAL
   \item InDet::TRK\_EFF\_TIGHT\_IBL
   \item InDet::TRK\_EFF\_TIGHT\_PP0
@@ -91,14 +97,22 @@ The sixth represents variations to the fake rate. The last varies the \pt of the
 
 \subsection{Modeling and unfolding uncertainties}
 
-Modeling uncertainties are determined by unfolding the data with simulations that have different physics models.  We will do this by first comparing the result when unfolding with \pythia and when unfolding with \sherpa.  This is a crude uncertainty because there are multiple differences between these generators.  We will supplement this comparison by unfolding with various \powheg+\pythia samples that have been re-weighted based on truth-level samples that have targeted variations (e.g. A14 tune variations).  Additional samples are being prepared by the PMG but will likely not be ready in time for this analysis.
+Modeling uncertainties are determined by unfolding the data with simulations that have different physics models.  We will do this by first comparing the result when unfolding with \pythia{} and when unfolding with \sherpa.  This is a crude uncertainty because there are multiple differences between these generators.  We will supplement this comparison by unfolding with various \powheg+\pythia{} samples that have been re-weighted based on truth-level samples that have targeted variations (e.g.\ A14 tune variations).  Additional samples are being prepared by the PMG but will likely not be ready in time for this analysis.
 
-Unfolding uncertainties are designed to quantify the method closure.  We will do this by unfolding \pythia with \sherpa and then comparing to the \pythia truth (and vice versa).  This may have some double-counting with modeling uncertainties and is often mitigated by performing some reweighting\footnote{\url{https://twiki.cern.ch/twiki/bin/viewauth/AtlasProtected/StandardModelUnfolding}}~\cite{Malaescu:2009dm} (which actually is similar to OmniFold Step 1).  However, we will choose the more conservative approach for this first high-dimensional analysis.
+Unfolding uncertainties are designed to quantify the method closure.  We will do this by unfolding \pythia{} with \sherpa{} and then comparing to the \pythia{} truth (and vice versa).  This may have some double-counting with modeling uncertainties and is often mitigated by performing some reweighting\footnote{\url{https://twiki.cern.ch/twiki/bin/viewauth/AtlasProtected/StandardModelUnfolding}}~\cite{Malaescu:2009dm} (which actually is similar to OmniFold Step 1).  However, we will choose the more conservative approach for this first high-dimensional analysis.
 
+\clearpage
 
 \subsection{Theoretical uncertainties}
 \subsubsection{QCD renormalization and factorization scale variations}
-The variation of the QCD renormalization ($\mu_r$) and factorization ($\mu_f$) scale on the process was studied using the \sherpa\ event generator. This generator can vary each scale independently and provides combinations of up (2$\mu_(r,f)$) and down (0.5$\mu_(r,f)$) variations of each scale. The size of the maximal variations, either both $\mu_r$ and $\mu_f$ varied up (uu) or both varied down (dd), is shown by dark red and dark blue color respectively. The impact of these scale variations is shown in figure~\ref{fig:QCDscale_mjj}, increasing the scales results in less events in the observed dilepton \pt spectrum and vice versa.
+The variation of the QCD renormalization ($\mu_r$) and factorization ($\mu_f$) scale on the process was studied using the \sherpa\ event generator (our nominal sample). 
+This sample contains event weights corresponding to the standard variations of $\times 2$ and $\times 0.5$ for each scale.
+%This generator can vary each scale independently and provides combinations of up (2$\mu_(r,f)$) and down (0.5$\mu_(r,f)$) variations of each scale. 
+The impact of each variation relative to the nominal scale choice is shown in figure~\ref{fig:QCDscale_mjj}.
+Both $\mu_r$ and $\mu_f$ varied up is dentoted ``uu'' and both varied down ``dd'', etc. 
+A larger renormalization scales results in a smaller cross section and hence less events in the observed dilepton \pt spectrum, and vice versa.
+Varying the factorization scale has very little impact.
+
 \begin{figure}[h!]
   \centering
   \subfloat[MC16a]{\includegraphics[page=2,width=0.45\textwidth]{figures/systQCD.pdf}}
