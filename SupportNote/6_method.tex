@@ -1,6 +1,7 @@
 \subsection{Unfolding procedures}
 
 \subsubsection{Introduction}
+\label{sec:UnfoldIntro}
 
 Unfolding is the process of removing detector effects from data in order to infer the properties of particle-level spectra (see~\cite{Cowan:2002in,Blobel:2203257,doi:10.1002/9783527653416.ch6,Balasubramanian:2019itp} for reviews).  In other fields, this is often called \textit{deconvolution}, since one can think of detector effects as the convolution of a noise function with the spectrum of interest.  Unfolding needs to correct for many effects:
 
@@ -24,9 +25,9 @@ where bold letters denote vectors or matrices, $\cdot$ is the usual matrix produ
 \label{eq:unfolding}
 \textbf{t}_\text{measured} = \textbf{R}^{-1}\left( (\textbf{d}-\textbf{b})\odot \textbf{f}\right)\odot 1/\textbf{c}.
 \end{align}
-Many of the of the common unfolding methods follow the form in Eq.~\ref{eq:unfolding}. 
+Many of the of the common unfolding methods follow the form in Eq.~\ref{eq:unfolding}.
 Uncertainties on the measurement are obtained using uncertainty propagation. In particular, the unfolding uncertainties are evaluated by varying the response matrix term $\mathbf{R}^{-1}$, which typically is done coherently with the $\mathbf{f}$ and $\mathbf{c}$ terms (e.g.\ by switching MC generator or propagating an experimental or theoretical systematic that affect the event kinematics).
-%but vary in their estimation of $\textbf{R}^{-1}$.  
+%but vary in their estimation of $\textbf{R}^{-1}$.
 For a variety of reasons, it is advantageous to not directly invert the response matrix.  In particular, \textbf{R} may not be invertible because it is singular or not even a square matrix.  The simple matrix inverse is also susceptible to oscillations from significant off-diagonal components.
 
 One of the most widely used unfolding methods is the Iterative Bayesian Unfolding (IBU) technique\footnote{In other fields, this is called Lucy-Richardson deconvolution~\cite{1974AJ.....79..745L,Richardson:72}.}.   For simplicity, assume that $\textbf{b}=\textbf{0}$ and $\textbf{f}=\textbf{c}=\textbf{1}$.  When this is not the case, these are corrected for in the binned case as done in Eq.~\ref{eq:unfolding}.   The IBU method then proceeds as follows:
@@ -43,8 +44,8 @@ Typically, one choses the prior $\Pr^{(n)}(t_i)=t_i^{(n-1)}$ and $\Pr^{(0)}(t_i)
 
 IBU and other standard unfolding methods face three challenges.  First, they require the data to be binned.  This binning must be chosen ahead of time and is often chosen manually.  Second, only a small number of observables (or a small number of bins for a given number of observables) can be unfolded simultaneously in order to keep the total number of bins to a manageable level.  Finally, the matrix $\textbf{R}$ only depends on the unfolded features and not on any other auxiliary features that may be useful for determining the detector response.  Even though the inputs to the unfolding may be calibrated, if the detector response depends on additional features, the result will be suboptimal and potentially biased.
 
-OmniFold is an approach that addresses all three of the above challenges by using neural networks.  Like IBU, OmniFold is an iterative method.  Furthermore, OmniFold is a natural generalization of IBU in the sense that when the OmniFold method is applied to binned data, it reproduces IBU at each iteration.  
-As the Omnifold method is unbinned, it works directly with events and we will use $\vec{x}_i$ as the particle-level properties of event $i$, and $\vec{x}_{\mathrm{reco},i}$ would be the corresponding detector-level quantities ($i$ is no longer a bin index as in previous equations).  The properties could be a fixed set of observables or they could be a variable-length set of particles, each with their own properties.  OmniFold can handle any of these cases (with a suitably chosen neural network architecture). 
+OmniFold is an approach that addresses all three of the above challenges by using neural networks.  Like IBU, OmniFold is an iterative method.  Furthermore, OmniFold is a natural generalization of IBU in the sense that when the OmniFold method is applied to binned data, it reproduces IBU at each iteration.
+As the Omnifold method is unbinned, it works directly with events and we will use $\vec{x}_i$ as the particle-level properties of event $i$, and $\vec{x}_{\mathrm{reco},i}$ would be the corresponding detector-level quantities ($i$ is no longer a bin index as in previous equations).  The properties could be a fixed set of observables or they could be a variable-length set of particles, each with their own properties.  OmniFold can handle any of these cases (with a suitably chosen neural network architecture).
 The OmniFold method proceeds as follows:
 
 \begin{description}
@@ -55,7 +56,7 @@ The OmniFold method proceeds as follows:
  \end{enumerate}
 \end{description}
 %
-The final result after $n$ iterations is a function $\nu(\vec{x})$ that provides weights to a particle-level MC sample such that will become ``unfolded data'' for any observable constructed from the event features $\vec{x}$. 
+The final result after $n$ iterations is a function $\nu(\vec{x})$ that provides weights to a particle-level MC sample such that will become ``unfolded data'' for any observable constructed from the event features $\vec{x}$.
 
 As an algorithm, the OmniFold procedure does not require neural networks; however, these tools are well-suited to be the reweighting functions described above (more on this below).  Step (2) of the OmniFold algorithm is important because the weights from (1) are not a function of the particle-level phase space.  In particular, two events in the same particle-level phase space can be mapped to different detector-level events.  However, to be a proper unfolding, we require that two events with the same particle-level phase space have the same weight.  This is achieved with Step (2).
 
@@ -70,7 +71,7 @@ As mentioned, the output of the OmniFold method is a set of events with weights.
 \label{fig:omnifoldschematic}
 \end{figure}
 
-An effective strategy for implementing the OmniFold protocol is to use neural networks as reweighting functions.  A reweighting function is simply a ratio of two probability densities.  It is a fact that the optimal classifier between two event samples is the same quantity - the likelihood ratio (or any monotonic function of it).  Therefore, we build a reweighting function by training a classifier and properly interpreting the output. 
+An effective strategy for implementing the OmniFold protocol is to use neural networks as reweighting functions.  A reweighting function is simply a ratio of two probability densities.  It is a fact that the optimal classifier between two event samples is the same quantity - the likelihood ratio (or any monotonic function of it).  Therefore, we build a reweighting function by training a classifier and properly interpreting the output.
 In particular, a classifier $f$ trained using the standard binary cross entropy loss function on events with features $\vec{x}_i$ and event weights $w_i$
 %
 \begin{align}
@@ -332,7 +333,7 @@ In this section, we apply artificial weights to the events in order to shift the
 \subsubsection{Deterministic Weights}
 \label{sec:stress:deterministic}
 
-For a given event $x$ in sample $X$, the stress weights are given by 
+For a given event $x$ in sample $X$, the stress weights are given by
 
 \begin{align}
 \label{eq:stressweights}
@@ -351,7 +352,7 @@ Figures~\ref{fig:stressa_mass} and~\ref{fig:stressa_Ntracks_trackj1} are example
 \subfloat[Input histograms]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/m_trackj1/ATLASOmniFold-StressTestA-UniFold-m_trackj1-Distributions}}\\
 \subfloat[After 1 iteration]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/m_trackj1/ATLASOmniFold-StressTestA-UniFold-m_trackj1-Iteration01}}\\
 \subfloat[After 2 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/m_trackj1/ATLASOmniFold-StressTestA-UniFold-m_trackj1-Iteration02}}
-\phantomcaption 
+\phantomcaption
 \end{figure}
 
 \begin{figure}[h!]
@@ -371,7 +372,7 @@ Figures~\ref{fig:stressa_mass} and~\ref{fig:stressa_Ntracks_trackj1} are example
 \subfloat[Input histograms]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestA-UniFold-Ntracks_trackj1-Distributions}}\\
 \subfloat[After 1 iteration]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestA-UniFold-Ntracks_trackj1-Iteration01}}\\
 \subfloat[After 2 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestA-UniFold-Ntracks_trackj1-Iteration02}}
-\phantomcaption 
+\phantomcaption
 \end{figure}
 
 \begin{figure}[h!]
@@ -401,7 +402,7 @@ Figures~\ref{fig:stressa_mass} and~\ref{fig:stressa_Ntracks_trackj1} are example
 \subfloat[Input histograms]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/MultiFold/m_trackj1/ATLASOmniFold-StressTestA-MultiFold-m_trackj1-Distributions}}\\
 \subfloat[After 1 iteration]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/MultiFold/m_trackj1/ATLASOmniFold-StressTestA-MultiFold-m_trackj1-Iteration01}}\\
 \subfloat[After 2 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/MultiFold/m_trackj1/ATLASOmniFold-StressTestA-MultiFold-m_trackj1-Iteration02}}
-\phantomcaption 
+\phantomcaption
 \end{figure}
 
 \begin{figure}[h!]
@@ -420,7 +421,7 @@ Figures~\ref{fig:stressa_mass} and~\ref{fig:stressa_Ntracks_trackj1} are example
 \subfloat[Input histograms]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/MultiFold/Ntracks_trackj1/ATLASOmniFold-StressTestA-MultiFold-Ntracks_trackj1-Distributions}}\\
 \subfloat[After 1 iteration]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/MultiFold/Ntracks_trackj1/ATLASOmniFold-StressTestA-MultiFold-Ntracks_trackj1-Iteration01}}\\
 \subfloat[After 2 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestA/MultiFold/Ntracks_trackj1/ATLASOmniFold-StressTestA-MultiFold-Ntracks_trackj1-Iteration02}}
-\phantomcaption 
+\phantomcaption
 \end{figure}
 
 \begin{figure}[h!]
@@ -439,7 +440,7 @@ Figures~\ref{fig:stressa_mass} and~\ref{fig:stressa_Ntracks_trackj1} are example
 \subsubsection{Stochastic Weights}
 \label{sec:stress:stochastic}
 
-For a given event $x$ in sample $X$, the stress weights are given by 
+For a given event $x$ in sample $X$, the stress weights are given by
 
 \begin{align}
 \label{eq:stressBweights}
@@ -458,7 +459,7 @@ Figures~\ref{fig:stressb_mass} and~\ref{fig:stressb_Ntracks_trackj1} are example
 \subfloat[Input histograms]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestB/UniFold/m_trackj1/ATLASOmniFold-StressTestB-UniFold-m_trackj1-Distributions}}\\
 \subfloat[After 1 iteration]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestB/UniFold/m_trackj1/ATLASOmniFold-StressTestB-UniFold-m_trackj1-Iteration01}}\\
 \subfloat[After 2 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestB/UniFold/m_trackj1/ATLASOmniFold-StressTestB-UniFold-m_trackj1-Iteration02}}
-\phantomcaption 
+\phantomcaption
 \end{figure}
 
 \begin{figure}[h!]
@@ -478,7 +479,7 @@ Figures~\ref{fig:stressb_mass} and~\ref{fig:stressb_Ntracks_trackj1} are example
 \subfloat[Input histograms]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestB/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestB-UniFold-Ntracks_trackj1-Distributions}}\\
 \subfloat[After 1 iteration]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestB/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestB-UniFold-Ntracks_trackj1-Iteration01}}\\
 \subfloat[After 2 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestB/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestB-UniFold-Ntracks_trackj1-Iteration02}}
-\phantomcaption 
+\phantomcaption
 \end{figure}
 
 \begin{figure}[h!]
@@ -508,7 +509,7 @@ Figures~\ref{fig:stressb_mass} and~\ref{fig:stressb_Ntracks_trackj1} are example
 \subfloat[Input histograms]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestB/MultiFold/m_trackj1/ATLASOmniFold-StressTestB-MultiFold-m_trackj1-Distributions}}\\
 \subfloat[After 1 iteration]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestB/MultiFold/m_trackj1/ATLASOmniFold-StressTestB-MultiFold-m_trackj1-Iteration01}}\\
 \subfloat[After 2 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestB/MultiFold/m_trackj1/ATLASOmniFold-StressTestB-MultiFold-m_trackj1-Iteration02}}
-\phantomcaption 
+\phantomcaption
 \end{figure}
 
 \begin{figure}[h!]
@@ -527,7 +528,7 @@ Figures~\ref{fig:stressb_mass} and~\ref{fig:stressb_Ntracks_trackj1} are example
 \subfloat[Input histograms]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestB/MultiFold/Ntracks_trackj1/ATLASOmniFold-StressTestB-MultiFold-Ntracks_trackj1-Distributions}}\\
 \subfloat[After 1 iteration]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestB/MultiFold/Ntracks_trackj1/ATLASOmniFold-StressTestB-MultiFold-Ntracks_trackj1-Iteration01}}\\
 \subfloat[After 2 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestB/MultiFold/Ntracks_trackj1/ATLASOmniFold-StressTestB-MultiFold-Ntracks_trackj1-Iteration02}}
-\phantomcaption 
+\phantomcaption
 \end{figure}
 
 \begin{figure}[h!]
@@ -557,7 +558,7 @@ Figures~\ref{fig:stressc_mass} and~\ref{fig:stressc_Ntracks_trackj1} are example
 \subfloat[Input histograms]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestC/UniFold/m_trackj1/ATLASOmniFold-StressTestC-UniFold-m_trackj1-Distributions}}\\
 \subfloat[After 1 iteration]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestC/UniFold/m_trackj1/ATLASOmniFold-StressTestC-UniFold-m_trackj1-Iteration01}}\\
 \subfloat[After 2 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestC/UniFold/m_trackj1/ATLASOmniFold-StressTestC-UniFold-m_trackj1-Iteration02}}
-\phantomcaption 
+\phantomcaption
 \end{figure}
 
 \begin{figure}[h!]
@@ -576,7 +577,7 @@ Figures~\ref{fig:stressc_mass} and~\ref{fig:stressc_Ntracks_trackj1} are example
 \subfloat[Input histograms]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestC/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestC-UniFold-Ntracks_trackj1-Distributions}}\\
 \subfloat[After 1 iteration]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestC/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestC-UniFold-Ntracks_trackj1-Iteration01}}\\
 \subfloat[After 2 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestC/UniFold/Ntracks_trackj1/ATLASOmniFold-StressTestC-UniFold-Ntracks_trackj1-Iteration02}}
-\phantomcaption 
+\phantomcaption
 \end{figure}
 
 \begin{figure}[h!]
@@ -599,7 +600,7 @@ Figures~\ref{fig:stressc_mass} and~\ref{fig:stressc_Ntracks_trackj1} are example
 \subfloat[Input histograms]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestC/MultiFold/m_trackj1/ATLASOmniFold-StressTestC-MultiFold-m_trackj1-Distributions}}\\
 \subfloat[After 1 iteration]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestC/MultiFold/m_trackj1/ATLASOmniFold-StressTestC-MultiFold-m_trackj1-Iteration01}}\\
 \subfloat[After 2 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestC/MultiFold/m_trackj1/ATLASOmniFold-StressTestC-MultiFold-m_trackj1-Iteration02}}
-\phantomcaption 
+\phantomcaption
 \end{figure}
 
 \begin{figure}[h!]
@@ -618,7 +619,7 @@ Figures~\ref{fig:stressc_mass} and~\ref{fig:stressc_Ntracks_trackj1} are example
 \subfloat[Input histograms]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestC/MultiFold/Ntracks_trackj1/ATLASOmniFold-StressTestC-MultiFold-Ntracks_trackj1-Distributions}}\\
 \subfloat[After 1 iteration]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestC/MultiFold/Ntracks_trackj1/ATLASOmniFold-StressTestC-MultiFold-Ntracks_trackj1-Iteration01}}\\
 \subfloat[After 2 iterations]{\includegraphics[width=0.85\textwidth]{figures/ATLASOmniFold-StressTest/ATLASOmniFold-StressTestC/MultiFold/Ntracks_trackj1/ATLASOmniFold-StressTestC-MultiFold-Ntracks_trackj1-Iteration02}}
-\phantomcaption 
+\phantomcaption
 \end{figure}
 
 \begin{figure}[h!]
