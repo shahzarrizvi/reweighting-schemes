@@ -632,3 +632,11 @@ Figures~\ref{fig:stressc_mass} and~\ref{fig:stressc_Ntracks_trackj1} are example
 \caption{MultiFolding Sherpa with Pythia for the leading track jet constituent multiplicity.}
 \label{fig:stressc_Ntracks_trackj1Multi}
 \end{figure}
+
+\subsubsection{Neural Network Initialization Sensitivity}
+\label{sec:modeldep:NNinit}
+To determine the sensitivity of neural network initialization, we run the unfolding procedure for 100 different random initializations (for each observable's UniFold and MultiFold on all observables) to produce 100 different sets of weights.  Then after choosing some binning, we generate 100 different histograms based on these weights.  Finally, we take the average and standard deviation of the bin contents to probe the sensitivity to initialization.  \textbf{show unfolding results with error bars below}
+
+\subsubsection{Bootstrapping for Statistical Uncertainty}
+\label{sec:modeldep:bootstrap}
+To determine the effect of statistical uncertainty in the "data", we first take 100 bootstrapped samples from the "data" sample and then run all the unfolding procedures for each one to again produce 100 different sets of weights.  As above, after choosing some binning, we generate 100 different histograms based on these weights.  Then, we take the average and standard deviation of the bin contents to probe the effect of statistical uncertainty.  Note that we inadvertently take into account neural network initialization sensitivity as well, as we initialize a new model for each unfolding run.  Thus, one can see that compared to the sensitively to initialization (shown above), the effect of statistical uncertainty in the "data" sample is small, as the increase in bin contents standard deviation is marginal at best. \textbf{show unfolding results with error bars below}
