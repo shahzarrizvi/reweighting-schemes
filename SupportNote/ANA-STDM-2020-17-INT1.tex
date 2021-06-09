@@ -121,29 +121,46 @@
 
 \input{7_systematics}
 
-%-------------------------------------------------------------------------------
-\section{Results}
-\label{sec:result}
+\section{Blinding Strategy and Presentation of Results}
 \input{8_results}
 
-%-------------------------------------------------------------------------------
-\section{Conclusion}
-\label{sec:conclusion}
-%-------------------------------------------------------------------------------
+\clearpage
+
+\part{Analysis Part I: MultiFold}
+\label{part:multifold}
+
+\section{Unfolding Checks}
+\input{9_checks_multifold}
+
+\section{Results in Simulation}
+\input{10_results_sim_multifold}
+
+\section{Results in Data}
+
+\textit{We are currently blinded.}
+
+\section{Conclusions and Outlook}
 
 \textit{To be filled in once we have unblinded.}
 
-\section{Remaining items}
+\part{Analysis Part II: OmniFold}
+\label{part:omnifold}
 
-\begin{itemize}
-  \item Add in acceptance effects (right now, all results are done for events that pass both particle-level and detector-level).  This is straightforward to do (and acceptance effects are quite small due to the excellent muon ID and resolution), but we wanted to solve the more challenging part first.
-  \item Systematic uncertainty inclusion for UniFold and MultiFold (repeat the procedure, but with some aspects varied).  The experimental uncertainties are all setup and simply need to be propagated.
-  \item Theory systematics (framework in place, working to include)
-  \item Modeling and unfolding uncertainties.
-  \item Temporarily remove muon isolation statistical uncertainty (unusual values caused by a known bug, will update when a fix is in place)
-  \item Include results from OmniFold
-  \item Statistical uncertainties
-\end{itemize}
+\section{Unfolding Checks}
+\input{11_checks_omnifold}
+
+\section{Results in Simulation}
+\input{12_results_sim_omnifold}
+
+\section{Results in Data}
+
+\textit{We are currently blinded.}
+
+\section{Conclusions and Outlook}
+
+\textit{To be filled in once we have unblinded.}
+
+\clearpage
 
 
 %-------------------------------------------------------------------------------
@@ -172,6 +189,18 @@
 \part*{Appendices}
 \addcontentsline{toc}{part}{Appendices}
 %-------------------------------------------------------------------------------
+
+\section{Remaining items}
+
+\begin{itemize}
+  \item Add in acceptance effects (right now, all results are done for events that pass both particle-level and detector-level).  This is straightforward to do (and acceptance effects are quite small due to the excellent muon ID and resolution), but we wanted to solve the more challenging part first.
+  \item Systematic uncertainty inclusion for UniFold and MultiFold (repeat the procedure, but with some aspects varied).  The experimental uncertainties are all setup and simply need to be propagated.
+  \item Theory systematics (framework in place, working to include)
+  \item Modeling and unfolding uncertainties.
+  \item Temporarily remove muon isolation statistical uncertainty (unusual values caused by a known bug, will update when a fix is in place)
+  \item Include results from OmniFold
+  \item Statistical uncertainties
+\end{itemize}
 
 %% Appendix A
 \section{Software}

@@ -3,7 +3,9 @@
 
 \subsection{Target}
 
-This analysis uses an innovative machine learning method~\cite{1911.09107} to perform an unbinned, variable- and high-dimensional unfolding using $Z$+jets events. As the first analysis using these new techniques, we limit the phase space to relatively high \pt{} $Z$~bosons in the $Z\to\mu\mu$ channel.   The analysis uses the full Run 2 dataset and targets summer/fall 2021.  These data can be used for a variety of studies of Quantum Chromodynamics (QCD), including precision constraints of perturbative QCD, studies of fragmentation, and Monte Carlo event tuning.  New observables that can be constructed with the unfolded phase space can be studied after the measurement and with whatever binning is most natural for the downstream analysis.  This includes complex observables that cannot be unfolded using standard techniques such as the correlation dimension~\cite{Komiske:2019fks}.
+This analysis uses an innovative machine learning method~\cite{1911.09107} to perform an unbinned, variable- and high-dimensional unfolding using $Z$+jets events. As the first analysis using these new techniques, we limit the phase space to relatively high \pt{} $Z$~bosons in the $Z\to\mu\mu$ channel.   The analysis is broken into two parts, each a significant innovation.  A first round will consider the case of a fixed (but large) number of observables to be simultaneously unfolded (MultiFold).  This first part targets summer/fall 2021.  A second round will consider all charged particles (OmniFold) and targets end of 2021/early 2022.
+
+These data can be used for a variety of studies of Quantum Chromodynamics (QCD), including precision constraints of perturbative QCD, studies of fragmentation, and Monte Carlo event tuning.  New observables that can be constructed with the unfolded phase space can be studied after the measurement and with whatever binning is most natural for the downstream analysis.  This includes complex observables that cannot be unfolded using standard techniques such as the correlation dimension~\cite{Komiske:2019fks} (in the case of OmniFold).
 
 \subsection{Context}
 
@@ -18,6 +20,11 @@ While there is no other measurement that is unbinned, variable- and high-dimensi
 \input{changelog}
 
 \clearpage
+
+\part{Common Components}
+\label{part:common}
+
+\textit{All of the sections in this Part are common between the MultiFold and OmniFold analyses.}
 
 %-------------------------------------------------------------------------------
 \section{Introduction}

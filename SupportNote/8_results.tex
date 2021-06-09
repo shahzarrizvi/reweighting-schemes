@@ -1,17 +1,13 @@
 \subsection{Blinding Strategy}
 
-We have investigated data/MC differences at detector-level (Sec.~\ref{sec:datamc}), but we remain blinded to the unfolded data until following the Editorial Board's approval of the procedure.
+We have investigated data/MC differences at detector-level, but we remain blinded to the unfolded data until following the Editorial Board's approval of the procedure.
 
 \subsection{Proposed Presentation of Results}
 
-Unlike all other measurements, the results here are \textbf{unbinned}.  Clearly, we can represent the data as histograms, but that is restrictive.  We propose the following for the presentation of results:
+Unlike all other measurements, the results here are \textbf{unbinned}.  Clearly, we can represent the data as histograms, but that is restrictive.  
 
 \begin{itemize}
-        \item Our paper will contain a small number of unfolded histograms to illustrate the breadth of the result.  Concretely, we propose the following plots:
-        		\begin{itemize}
-			\item One figure with 16 plots that show the spectra of the multifold observables, using IBU, MultiFold, and OmniFold (uncertainties only on OmniFold).
-			\item One figure that shows the measured correlation dimension~\cite{Komiske:2019fks}.
-		\end{itemize}
+        \item Our paper will contain a small number of unfolded histograms to illustrate the breadth of the result.  We will show all 16 plots that show the spectra of the multifold observables, using IBU, MultiFold, and OmniFold in the support note (and also include the correlation dimension~\cite{Komiske:2019fks}) and then we will discuss with the Editorial Board which plots to go in the paper.
         \item We make public the weight function(s) (as a neural network, saving the model architecture and weights from TensorFlow) and the exact configuration used to generate the nominal MC events.  There will be one function per systematic uncertainty.  This, combined with a Rivet routine of the analysis selection, will ensure that the data can be used and readily and widely reinterpreted.
         \item (Alternative: we make public our simulated MC sample with a vector of weights for each event)
 \end{itemize}
