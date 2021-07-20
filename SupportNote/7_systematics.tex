@@ -1,6 +1,6 @@
 Uncertainties on the unfolded result are evaluated using error propagation, consitent with the standrard approach used at ATLAS.
-Uncertaintites are split into sources (sometimes called ``uncertaintiy components'') that are each treated as uncorrelated to each other.
-For each such uncertainty source, a pertubation is introduced either to the MC or data corresponding to its impact: $+1\,sigma$, and in case of two-sided uncertainties, also $-1\,\sigma$. The unfolding (``full analysis'') is then repeated using the modified samples, which results in a Omnifold weight $\nu'$ for each event that is slightly different from the nominal Omnifold weight $\nu$. Each event in the unfolded dataset is hence assigned one nominal weight and a list of alternative weights, each corresponding an systematic uncertainty source, or statistical replica variation.
+Uncertaintites are split into sources (sometimes called ``uncertainty components'') that are each treated as uncorrelated to each other.
+For each such uncertainty source, a pertubation is introduced either to the MC or data corresponding to its impact: $+1\sigma$, and in case of two-sided uncertainties, also $-1\,\sigma$. The unfolding (``full analysis'') is then repeated using the modified samples, which results in a Omnifold weight $\nu'$ for each event that is slightly different from the nominal Omnifold weight $\nu$. Each event in the unfolded dataset is hence assigned one nominal weight and a list of alternative weights, each corresponding an systematic uncertainty source, or statistical replica variation.
 
 \subsection{Data and Monte Carlo statistical uncertainties}
 These uncertainties will be computed via bootstrapping.  A set of $N$ pseudodatasets are constructed where each event has a weight $W_\text{pseudo}\,w_\text{nominal}$, where $w_\text{nominal}$ is unity for data and $w_\text{MC}$ for simulation. $W_\text{pseudo}$ is a value sampled randomly from a Poisson distribution with a mean of unity.  To ensure that the ``uncertainty on the uncertainty'' is negligible an ensemble of $N\gtrsim 100$ such pseudodatasets can be used.  These uncertainties are straightforward to compute, but are computationally expensive and thus we will compute them once all other results are finished.
@@ -10,6 +10,18 @@ As discussed in section~\ref{subsec:PRW}, a correction is applied to MC events s
 that must be taken into account.
 
 In addition, a scaling correction is applied to the data during pileup reweighting. Nominally, this scaling correction is equal to 1/1.03, and the up and down variations are set to 1/1.072 and 1/1.35 respectively.
+
+Figure~\ref{fig:PRWpTll} shows the effect of these variations for the dilepton \pt across all years.
+
+\begin{figure}[h!]
+  \centering
+  \subfloat[MC16a]{\includegraphics[page=1,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
+  \subfloat[MC16d]{\includegraphics[page=103,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
+  \subfloat[MC16e]{\includegraphics[page=205,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
+  \subfloat[Run 2]{\includegraphics[page=307,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
+  \caption{The fractional systematic impact of the up and down variations of the pileup reweighting across all years for the \powheg+\pythia~sample.}
+  \label{fig:PRWpTll}
+\end{figure}
 
 \subsection{Muon uncertainties}
 
@@ -34,11 +46,11 @@ The impact of the efficiency systematics is summarized in figure~\ref{fig:PP8SFS
 
 \begin{figure}[h!]
   \centering
-  \subfloat[MC16a]{\includegraphics[page=2,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
-  \subfloat[MC16d]{\includegraphics[page=9,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
-  \subfloat[MC16e]{\includegraphics[page=16,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
-  \subfloat[Run 2]{\includegraphics[page=22,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
-  \caption{The fractional systematic impact for the pileup efficiency and the muon efficiencies for the \powheg+\pythia~samples across all years as a function of the dilepton \pt. The upwards shift is presented in red, and the downwards shift in blue.}
+  \subfloat[MC16a]{\includegraphics[page=2,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
+  \subfloat[MC16d]{\includegraphics[page=104,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
+  \subfloat[MC16e]{\includegraphics[page=206,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
+  \subfloat[Run 2]{\includegraphics[page=308,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
+  \caption{The fractional systematic impact for the muon efficiencies for the \powheg+\pythia~samples across all years as a function of the dilepton \pt.}
   \label{fig:PP8SFSyst}
 \end{figure}
 
@@ -54,16 +66,26 @@ one for momentum variations due to measurements made in the inner detector, one 
   \item MUON\_SAGITTA\_RHO (combined measurement correction)
 \end{itemize}
 
-The effects of these variations are shown in figure~\ref{fig:PP8MuCalSyst}.
+The effects of these variations on the dilepton \pt and mass are shown in figure~\ref{fig:PP8MuCalSystpTll} and~\ref{fig:PP8MuCalSystmll}.
 
 \begin{figure}[h!]
   \centering
-  \subfloat{\includegraphics[page=5,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
-  \subfloat{\includegraphics[page=12,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
-  \subfloat{\includegraphics[page=19,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
-  \subfloat{\includegraphics[page=25,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
+  \subfloat[MC16a]{\includegraphics[page=97,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
+  \subfloat[MC16d]{\includegraphics[page=199,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
+  \subfloat[MC16e]{\includegraphics[page=301,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
+  \subfloat[Run 2]{\includegraphics[page=403,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
   \caption{The fractional systematic impact for variations to the muon calibration for the \powheg+\pythia~samples for all years as a function of the dilepton \pt. The upwards shift is presented in red, and the downwards shift in blue.}
-  \label{fig:PP8MuCalSyst}
+  \label{fig:PP8MuCalSystpTll}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \subfloat[MC16a]{\includegraphics[page=99,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
+  \subfloat[MC16d]{\includegraphics[page=201,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
+  \subfloat[MC16e]{\includegraphics[page=303,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
+  \subfloat[Run 2]{\includegraphics[page=405,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
+  \caption{The fractional systematic impact for variations to the muon calibration for the \powheg+\pythia~samples for all years as a function of the dilepton mass. The upwards shift is presented in red, and the downwards shift in blue.}
+  \label{fig:fig:PP8MuCalSystmll}
 \end{figure}
 
 \subsection{Track uncertainties}
@@ -86,13 +108,26 @@ The sixth represents variations to the fake rate. The last varies the \pt of the
 
 \begin{figure}[h!]
   \centering
-  \subfloat[MC16a]{\includegraphics[page=7,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
-  \subfloat[MC16d]{\includegraphics[page=14,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
-  \subfloat[MC16e]{\includegraphics[page=21,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
-  \subfloat[Run 2]{\includegraphics[page=27,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
+  \subfloat[MC16a]{\includegraphics[page=102,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
+  \subfloat[MC16d]{\includegraphics[page=204,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
+  \subfloat[MC16e]{\includegraphics[page=306,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
+  \subfloat[Run 2]{\includegraphics[page=408,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
   \caption{The fractional systematic impact for variations applied to the tracks for the \powheg+\pythia~samples for all years. Note that only the down variations are shown for the inclusive efficiency, inside jet efficiency and the fake rate.
   The variations are symmetrized for use in the analysis.}
   \label{fig:PP8TrackSyst}
+\end{figure}
+
+The track systematics will also have an effect on the track jet observables. Figure~\ref{fig:PP8TrackJetSyst} shows the fractional effect of the track systematics on the \pt, $y$, $m$, $\tau_1$, and $N_{\text{cons}}$ of the leading track jet.
+
+\begin{figure}[h!]
+  \centering
+  \subfloat{\includegraphics[page=332,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
+  \subfloat{\includegraphics[page=335,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
+  \subfloat{\includegraphics[page=341,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
+  \subfloat{\includegraphics[page=344,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
+  \subfloat{\includegraphics[page=374,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
+  \caption{The fractional systematic impact of the track variations on various track jet observables for the full Run 2 dataset of the \powheg+\pythia~sample.}
+  \label{fig:PP8TrackJetSyst}
 \end{figure}
 
 \subsection{Modeling and unfolding uncertainties}
@@ -105,11 +140,11 @@ Unfolding uncertainties are designed to quantify the method closure.  We will do
 
 \subsection{Theoretical uncertainties}
 \subsubsection{QCD renormalization and factorization scale variations}
-The variation of the QCD renormalization ($\mu_r$) and factorization ($\mu_f$) scale on the process was studied using the \sherpa\ event generator (our nominal sample). 
+The variation of the QCD renormalization ($\mu_r$) and factorization ($\mu_f$) scale on the process was studied using the \sherpa\ event generator (our nominal sample).
 This sample contains event weights corresponding to the standard variations of $\times 2$ and $\times 0.5$ for each scale.
-%This generator can vary each scale independently and provides combinations of up (2$\mu_(r,f)$) and down (0.5$\mu_(r,f)$) variations of each scale. 
+%This generator can vary each scale independently and provides combinations of up (2$\mu_(r,f)$) and down (0.5$\mu_(r,f)$) variations of each scale.
 The impact of each variation relative to the nominal scale choice is shown in figure~\ref{fig:QCDscale_mjj}.
-Both $\mu_r$ and $\mu_f$ varied up is dentoted ``uu'' and both varied down ``dd'', etc. 
+Both $\mu_r$ and $\mu_f$ varied up is dentoted ``uu'' and both varied down ``dd'', etc.
 A larger renormalization scales results in a smaller cross section and hence less events in the observed dilepton \pt spectrum, and vice versa.
 Varying the factorization scale has very little impact.
 
@@ -124,5 +159,3 @@ Varying the factorization scale has very little impact.
 \end{figure}
 
 %\subsubsection{Parton Distribution Function (PDF) variations}
-
-
