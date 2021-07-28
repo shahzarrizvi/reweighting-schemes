@@ -1,6 +1,6 @@
-Uncertainties on the unfolded result are evaluated using error propagation, consitent with the standrard approach used at ATLAS.
-Uncertaintites are split into sources (sometimes called ``uncertainty components'') that are each treated as uncorrelated to each other.
-For each such uncertainty source, a pertubation is introduced either to the MC or data corresponding to its impact: $+1\sigma$, and in case of two-sided uncertainties, also $-1\,\sigma$. The unfolding (``full analysis'') is then repeated using the modified samples, which results in a Omnifold weight $\nu'$ for each event that is slightly different from the nominal Omnifold weight $\nu$. Each event in the unfolded dataset is hence assigned one nominal weight and a list of alternative weights, each corresponding an systematic uncertainty source, or statistical replica variation.
+Uncertainties on the unfolded result are evaluated using error propagation, consistent with the standard approach used at ATLAS.
+Uncertainties are split into sources (sometimes called ``uncertainty components'') that are each treated as uncorrelated to each other.
+For each such uncertainty source, a pertubation is introduced either to the MC or data corresponding to its impact: $+1\sigma$, and in case of two-sided uncertainties, also $-1\,\sigma$. The unfolding (``full analysis'') is then repeated using the modified samples, which results in a OmniFold weight $\nu'$ for each event that is slightly different from the nominal OmniFold weight $\nu$. Each event in the unfolded dataset is hence assigned one nominal weight and a list of alternative weights, each corresponding to a systematic uncertainty source, or statistical replica variation.
 
 \subsection{Data and Monte Carlo statistical uncertainties}
 These uncertainties will be computed via bootstrapping.  A set of $N$ pseudodatasets are constructed where each event has a weight $W_\text{pseudo}\,w_\text{nominal}$, where $w_\text{nominal}$ is unity for data and $w_\text{MC}$ for simulation. $W_\text{pseudo}$ is a value sampled randomly from a Poisson distribution with a mean of unity.  To ensure that the ``uncertainty on the uncertainty'' is negligible an ensemble of $N\gtrsim 100$ such pseudodatasets can be used.  These uncertainties are straightforward to compute, but are computationally expensive and thus we will compute them once all other results are finished.
@@ -85,7 +85,7 @@ The effects of these variations on the dilepton \pt and mass are shown in figure
   \subfloat[MC16e]{\includegraphics[page=303,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
   \subfloat[Run 2]{\includegraphics[page=405,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
   \caption{The fractional systematic impact for variations to the muon calibration for the \powheg+\pythia~samples for all years as a function of the dilepton mass. The upwards shift is presented in red, and the downwards shift in blue.}
-  \label{fig:fig:PP8MuCalSystmll}
+  \label{fig:PP8MuCalSystmll}
 \end{figure}
 
 \subsection{Track uncertainties}
@@ -104,7 +104,7 @@ The systematic uncertainties associated with the tracks are:
 \end{itemize}
 
 The first four are combined into one nuisance parameter and are due to variations of the tracking efficiency. The fifth describes the variations to the tracking efficiency when the track is inside a jet.
-The sixth represents variations to the fake rate. The last varies the \pt of the track based on the residual alignment uncertainties.
+The sixth represents variations to the fake rate. The last varies the \pt of the track based on the residual alignment uncertainties. Figure~\ref{fig:PP8TrackSyst} shows the effect of these variations on the \pt of the tracks in the \powheg+\pythia~sample across all years.
 
 \begin{figure}[h!]
   \centering
