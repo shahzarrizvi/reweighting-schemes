@@ -1,10 +1,10 @@
 \subsection{Event selection}
 \label{sec:selection}
 
-The event selection is outlined in table~\ref{lab:eventsel}. 
-It is primarily designed to reject background events in favour of the $(Z\to\mu\mu)$+jets signal process. 
-Following the selection, contributions from processes other than strong $Z$+jet production is negligible as can be seen in appendix~\ref{app:bkg-processes}.
-The various criteria are discussed in more detail below. 
+The event selection is outlined in table~\ref{lab:eventsel}.
+It is primarily designed to reject background events in favour of the $(Z\to\mu\mu)$+jets signal process.
+Following the selection, contributions from processes other than strong $Z$+jet production are negligible as can be seen in appendix~\ref{app:bkg-processes}.
+The various criteria are discussed in more detail below.
 
 \begin{table}[h!]
     \centering
@@ -60,7 +60,7 @@ Additionally, the muons must pass track-to-vertex association recommendations\fo
     \item $|\Delta z_0^{\text{BL}}\sin\theta| < 0.5 $mm
 \end{itemize}
 
-and BL stands for beamline, and $d_0$ and $z_0$ represent the point along the track with the closest approach to the beamspot.
+where BL stands for beamline, and $d_0$ and $z_0$ represent the point along the track with the closest approach to the beamspot.
 
 The large $p_{\text{T},\ell\ell}$ cut of 200~GeV has been chosen to focus on events in which the balancing jet(s) have a high quantity of charged particles and to reduce the overall dataset size. Events with a $p_{\text{T},\ell\ell}$ larger than 165~GeV are saved in order to study migration effects between truth and reconstructed events (i.e. events where the reconstructed $p_{\text{T},\ell\ell}$
 is smaller than 200 GeV, but is larger than 200 GeV at truth level and vice versa).
@@ -72,8 +72,8 @@ The muons are required to pass Medium quality selection using the \texttt{MuonSe
 the \texttt{IsolationTool}\footnote{Information on the isolations WPs and the tool: \url{twiki: https://twiki.cern.ch/twiki/bin/view/AtlasProtected/RecommendedIsolationWPs}}. The simulated muons are also calibrated in order to correct for $p_\text{T}$ discrepancies between data and simulation~\cite{Aad:2016jkr}.
 Kinematically, muons are required to have a minimum $\pt$ of 25~GeV, and have $|\eta|<2.4$.
 
-\paragraph{Tracks} are reconstructed from charged-particle hits within the silicon- and straw-tube based inner tracking detectors. They are required to pass the Loose quality working point and to be associated with the primary vertex of the event using the Tight track-to-vertex association\footnote{Information on both the selection tool and the TTVA tool may be found here: \url{twiki: https://twiki.cern.ch/twiki/bin/view/AtlasProtected/TrackingCPRecsRun2Final}} (see appendix~\ref{app:jetcomp}).
-The primary vertex is defined as the reconstructed vertex with the highest sum of associated track $\pt^2$. Tracks are required to have a $\pt>500$~\MeV~ and to not have originated from a muon to be included in this measurement.  The track $\eta$ and $\phi$ coordinates come from the five-parameter track fit to $(\eta,\phi,q/p,d_0,z_0)$, and thus correspond to the track coordinates at the origin.
+\paragraph{Tracks} are reconstructed from charged-particle hits within the silicon- and straw-tube based inner tracking detectors. They are required to have a $\pt>500$~\MeV~and to pass the Loose quality working point. They must also be associated with the primary vertex of the event using the Tight track-to-vertex association\footnote{Information on both the selection tool and the TTVA tool may be found here: \url{twiki: https://twiki.cern.ch/twiki/bin/view/AtlasProtected/TrackingCPRecsRun2Final}} (see appendix~\ref{app:jetcomp}).
+The primary vertex is defined as the reconstructed vertex with the highest sum of associated track $\pt^2$. The track $\eta$ and $\phi$ coordinates come from the five-parameter track fit to $(\eta,\phi,q/p,d_0,z_0)$, and thus correspond to the track coordinates at the origin.
 In addition, tracks which are associated with the muons are not considered part of the final track collection.
 
 \paragraph{Track jets} are reconstructed using the anti-$k_t$ algorithm~\cite{Cacciari:2008gp} with a radius parameter of $R=0.4$. All tracks that pass the selection described above are used as input, and clustering is completed using \textsc{FastJet}~\cite{Cacciari:2011ma}.
