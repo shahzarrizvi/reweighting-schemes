@@ -1,4 +1,5 @@
 \section{Iterative Bayesian Unfolding}
+\label{app:IBU}
 
 As a cross-check and comparison, % bin-by-bin unfolding as well as
 Iterative Bayesian Unfolding (IBU) (described in section~\ref{sec:UnfoldIntro}) using the \texttt{RooUnfold} package~\cite{Adye:2011gm} was performed. At present, this uses the information from the \powheg+\pythia~samples to unfold the reconstructed events from the \sherpa~2.2.1 samples, analogous to what has been done with OmniFold up to this point.
@@ -6,7 +7,7 @@ Iterative Bayesian Unfolding (IBU) (described in section~\ref{sec:UnfoldIntro}) 
 
 First, various plots for the efficiency and purity of the \powheg+\pythia~sample are shown, and the results of the unfolding are shown in the following section.
 
-\subsection{Relevant Quantities}
+\subsection{Relevant quantities and choice of binning}
 The efficiency describes the probability that an event is reconstructed given that a truth event occurs. This can be written as,
 \begin{equation}
   % E=\frac{N({\text{truth | reco}})}{N({\text{truth}})}
@@ -135,6 +136,16 @@ The efficiency and purity can also be determined on a per-bin basis. In this cas
   \caption{Bin-by-bin purity for $m$, $\tau_1$, $\tau_2$, and $\tau_3$ for the leading and subleading track jet.}
   \label{fig:binPur2}
 \end{figure}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l|l|l|l|l|l|l}
+    \hline\hline
+    
+    \end{tabular}
+    \caption{IBU Binning}
+    \label{tab:IBUBins}
+\end{table}
 
 The response matrices, which are also defined in section~\ref{sec:UnfoldIntro}, are shown in figure~\ref{fig:migMat1} and~\ref{fig:migMat2}.
 
