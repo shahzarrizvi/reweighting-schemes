@@ -50,7 +50,7 @@ Table~\ref{tab:CFComp} presents the predicted and observed event yields after ap
 
 \subsection{Data stability tests}
 \label{sec:data-stability}
-To check stability of data used for this analysis, rate for each year is calculated by dividing event counts from a set of runs by their associated total integrated luminosity. Events are counted if they pass the event selection with $p_{\text{T},\ell\ell}>165$ GeV. Consecutive runs are combined until the integrated luminosity amount to at least 2 fb$^{-1}$. Figure~\ref{fig:DataStability} depicts the rate for year 2015 to 2018, where each time-ordered data bin contains data 2 fb$^{-1}$ luminosity. The first bin shows rate for year 2015, bins 2--16 are for year 2016, bins 17--37 and 38--64 represent rate for year 2017 and 2018 respectively. Further, to consider those residual runs having combined luminosities smaller than 2 fb$^{-1}$, the last bin for each year is merged with the previous bin. The calculated average rate for year 2015--2018 is 2812 $\pm$ 4 and shows reasonable consistency for each year. Figure~\ref{fig:DataStability} shows the stability of data for each year used in this analysis.
+To check the stability of data used for this analysis, the rate for each year is calculated by dividing event counts from a set of runs by their associated total integrated luminosity. Events are counted if they pass the event selection with $p_{\text{T},\ell\ell}>165$ GeV. Consecutive runs are combined until the integrated luminosity amounts to at least 2 fb$^{-1}$. Figure~\ref{fig:DataStability} depicts the rate for year 2015 to 2018, where each time-ordered data bin contains data 2 fb$^{-1}$ luminosity. The first bin shows the rate for year 2015, bins 2--16 are for year 2016, bins 17--37 and 38--64 represent rate for year 2017 and 2018 respectively. Further, to consider those residual runs having combined luminosities smaller than 2 fb$^{-1}$, the last bin for each year is merged with the previous bin. The calculated average rate for year 2015--2018 is 2812 $\pm$ 4 and shows reasonable consistency for each year. Figure~\ref{fig:DataStability} shows the stability of data for each year used in this analysis.
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.75\textwidth]{figures/DataStability.pdf}
@@ -63,8 +63,8 @@ To check stability of data used for this analysis, rate for each year is calcula
 \subsection{Observed and predicted kinematic distributions}
 \label{sec:datamc}
 Figure~\ref{fig:MuActual} shows the actual interactions per bunch crossing $\mu$ for the individual data periods, as well as the full Run 2 dataset.
-Figure~\ref{fig:pTmll} gives the $\pt$ and $m$ distributions for the dilepton system, and figure~\ref{fig:pTetamus} gives the $\pt$ and $\eta$ distributions for both the leading and sub-leading muon.
-The $\pt$ and $y$ distributions for the leading and sub-leading track jet are shown in figure~\ref{fig:pTyjets}, and figure~\ref{fig:jetsubstructure} and~\ref{fig:ntrackinjets} show some
+Figure~\ref{fig:DilepVars} gives the $\pt$, $y$, and $m$ distributions for the dilepton system, and figure~\ref{fig:pTetamus} gives the $\pt$, $\eta$, and $\phi$ distributions for both the leading and sub-leading muon.
+The $\pt$, $y$, and $\phi$ distributions for the leading and sub-leading track jet are shown in figure~\ref{fig:pTyjets}, and figure~\ref{fig:jetsubstructure} and~\ref{fig:ntrackinjets} show some
 selected jet substructure variables and the number of constituents, respectively.  The substructure variables are the $n$-subjettiness observables~\cite{Thaler:2010tr,Thaler:2011gf}, which have the form
 
 \begin{align}
@@ -81,31 +81,36 @@ Additional figures with these distributions shown per year of data taking can be
   \includegraphics[page=6,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
   \includegraphics[page=7,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
   \includegraphics[page=8,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \caption{The ``actual'' mean interactions per bunch crossing, $\mu$, for 2015--2016 data (top left), 2017 data (top right), 2018 data (bottom left), and the full Run-2 dataset (bottom right). Note that the pileup-reweighing uses actual $\mu$ for 2017 and 2018 data, while $\mu_\mathrm{avg}$, i.e.\ $\mu$ calculated by averaging the actual $\mu$ of all bunches, were used for 2015--2016 data. Hence a worse agreement is seen for this period.}
+  \caption{The ``actual'' mean interactions per bunch crossing, $\mu$, for 2015--2016 data (top left), 2017 data (top right), 2018 data (bottom left), and the full Run-2 dataset (bottom right). Note that the pileup reweighting uses actual $\mu$ for 2017 and 2018 data, while $\mu_\mathrm{avg}$, i.e.\ $\mu$ calculated by averaging the actual $\mu$ of all bunches, is used for 2015--2016 data hence a worse agreement is seen for this period.}
   \label{fig:MuActual}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
   \includegraphics[page=12,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
+  \includegraphics[page=20,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
   \includegraphics[page=16,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \caption{Distributions for the $\pt$ and $m$ of the dilepton system. Due to the high $\pt$ phase space, it is expected that the MC simulation will underpredict the data.}
-  \label{fig:pTmll}
+  \caption{Distributions for the $\pt$, $y$, and $m$ of the dilepton system. Due to the high $\pt$ phase space, it is expected that the MC simulation will underpredict the data.}
+  \label{fig:DilepVars}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \subfloat[Leading muon]{\includegraphics[page=24,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=32,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}} \\
-  \subfloat[Sub-leading muon]{\includegraphics[page=28,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=36,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}}
-  \caption{The $\pt$ and $\eta$ distributions for the (a) leading and (b) the sub-leading muon}
+  \includegraphics[page=24,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=32,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
+  \subfloat[Leading muon]{\includegraphics[page=40,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}} \\
+  \includegraphics[page=28,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=36,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
+  \subfloat[Sub-leading muon]{\includegraphics[page=44,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}}
+  \caption{The $\pt$, $\eta$, and $\phi$ distributions for the (a) leading and the (b) sub-leading muon.}
   \label{fig:pTetamus}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \subfloat[Leading track jet]{\includegraphics[page=72,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=76,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}} \\
-  \subfloat[Sub-leading track jet]{\includegraphics[page=88,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=92,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}}
-  \caption{The $\pt$ and $y$ distributions for the (a) leading and (b) the sub-leading jet}
+  \includegraphics[page=72,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=76,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
+  \subfloat[Leading track jet]{\includegraphics[page=80,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}} \\
+  \includegraphics[page=88,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=92,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
+  \subfloat[Sub-leading track jet]{\includegraphics[page=96,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}}
+  \caption{The $\pt$, $y$, and $\phi$ distributions for the (a) leading and the (b) sub-leading track jet.}
   \label{fig:pTyjets}
 \end{figure}
 
@@ -119,7 +124,7 @@ Additional figures with these distributions shown per year of data taking can be
       \includegraphics[page=120,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\\
   \includegraphics[page=112,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
       \includegraphics[page=124,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \caption{Jet substructure features for the leading (left) and subleading (right) track jets.}
+  \caption{Jet substructure features for the leading (left) and sub-leading (right) track jets.}
   \label{fig:jetsubstructure}
 \end{figure}
 
@@ -127,7 +132,7 @@ Additional figures with these distributions shown per year of data taking can be
   \centering
   \includegraphics[page=136,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
   \includegraphics[page=140,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
-  \caption{The number of constituents in the leading (left) and subleading (right) track jets.}
+  \caption{The number of constituents in the leading (left) and sub-leading (right) track jets.}
   \label{fig:ntrackinjets}
 \end{figure}
 
@@ -137,7 +142,7 @@ Additional figures with these distributions shown per year of data taking can be
   \includegraphics[page=144,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
   \includegraphics[page=148,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
   \includegraphics[page=152,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \caption{Distributions for the number of tracks per event (top left), and the $\pt$ (top right), $\eta$ (bottom left), and $\phi$ (bottom right) for each reconstructed track}
+  \caption{Distributions for the number of tracks per event (top left), and the $\pt$ (top right), $\eta$ (bottom left), and $\phi$ (bottom right) for each reconstructed track.}
   \label{fig:trackInfo}
 \end{figure}
 
@@ -145,7 +150,7 @@ Additional figures with these distributions shown per year of data taking can be
 \subsection{Event displays}
 \label{sec:event-displays}
 
-Figure~\ref{fig:EventDisplay} shows an event display for an event that passes the event selection. This event contains two muons and 45 charged hadrons at the truth level (with $\pt>\SI{0.5}{\GeV}$ and $|\eta|<2.5$). 37 tracks are reconstructed. Most tracks have a clear matching truth particles, but we can see many examples of charged hadrons that did not produce a track, and some examples of ``fake'' tracks that do not have any matching charged truth hadron. More event displays like this are listed in Appendix~\ref{app:event-displays}.
+Figure~\ref{fig:EventDisplay} shows an event display for an event that passes the event selection. This event contains two muons and 45 charged hadrons at the truth level (with $\pt>\SI{0.5}{\GeV}$ and $|\eta|<2.5$). 37 tracks are reconstructed. Most tracks have a clear matching truth particle, but we can see many examples of charged hadrons that did not produce a track, and some examples of ``fake'' tracks that do not have any matching charged truth hadron. More event displays like this are listed in Appendix~\ref{app:event-displays}.
 
 \begin{figure}[h!]
   \centering
