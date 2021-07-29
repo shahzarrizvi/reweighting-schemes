@@ -158,4 +158,21 @@ Varying the factorization scale has very little impact.
   \label{fig:QCDscale_mjj}
 \end{figure}
 
-%\subsubsection{Parton Distribution Function (PDF) variations}
+\subsubsection{Parton Shower (PS) uncertainties}
+To compute uncertainty for PS, the \powheg$+$\pythia~sample with AZNLO tune are used [listed in~\ref{app:datasets}]. A set of systematic variations is provided for the AZNLO tune, based on the eigentune method. In order to cover the full range of PS uncertainties, a subset of tune variations which together provide maximal coverage of the observables: one pair mainly for underlying event effects (Var1), one pair mainly for jet structure effects (Var2), along with scale variations (RenUp and RenDown) and MultipartonInteractions (MPI) variations (MPIUp and MPIDown) is used. The impact of these variation relative to the nominal sample is shown in figure~\ref{fig:PS_MPI}.
+
+\begin{figure}[h!]
+  \centering
+  \subfloat[]{\includegraphics[page=1,width=0.45\textwidth]{figures/ShowerVartions_pTll.pdf}}
+  \subfloat[]{\includegraphics[page=1,width=0.45\textwidth]{figures/ShowerVartions_Ntracks.pdf}} \\
+  \subfloat[]{\includegraphics[page=2,width=0.45\textwidth]{figures/ShowerVartions_Ntracks.pdf}}
+  \subfloat[]{\includegraphics[page=3,width=0.45\textwidth]{figures/ShowerVartions_Ntracks.pdf}}\\ 
+  \subfloat[]{\includegraphics[page=4,width=0.45\textwidth]{figures/ShowerVartions_Ntracks.pdf}}
+  \subfloat[]{\includegraphics[page=2,width=0.45\textwidth]{figures/ShowerVartions_etaTracks.pdf}}
+  \caption{The fractional impact of the MC tuning and MPI variations for the \pythia~samples on the track jet properties and dilepton \pt for full Run2. Systematic effect evaluated by varying different parameters of the MC samples. The statistical uncertainties on these uncertainties are about .. (to be added)\%, ..\% and ..\% in the three bins.}
+  \label{fig:PS_MPI}
+\end{figure}
+
+\subsubsection{Parton Distribution Function (PDF) variations}
+
+
