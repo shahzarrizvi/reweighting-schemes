@@ -9,7 +9,7 @@ Table~\ref{tab:CFComp} presents the predicted and observed event yields after ap
     \begin{tabular}{l|l|l|l|l|l|l}
     \hline\hline
     \textbf{Sample} & \multicolumn{6}{c}{\textbf{Cuts}} \\ \hline
-     & None & DQ & Trigger & Dilepton & $p_{\text{T},\ell\ell}$ & $p_{\text{T},\ell\ell}$ \\
+     & None & DQ & Trigger & Dilepton & $\pTll$ & $\pTll$ \\
      &  &  &  &  & $>165~\GeV$ & $>200~\GeV$ \\ \hline\hline
     Data 2015--2016 & 475.7M & 462.5M & 72.89M & 20.27M & 103.5k & 54.92k \\ \hline
     Powheg Pythia 8 MC16a & 70.63M & 70.28M & 41.76M & 20.13M & 79.34k & 41.17k \\ \hline
@@ -22,7 +22,7 @@ Table~\ref{tab:CFComp} presents the predicted and observed event yields after ap
     Sherpa 2.2.1 MC16e & 122.0M & 121.3M & 68.93M & 36.41M & 155.9k & 83.23k \\ \hline\hline
     \end{tabular}
     \caption{Number of events remaining after each cut applied during the analysis. Data Quality (DQ) includes the GRL and event cleaning criteria.
-    Dilepton includes the requirement of 2 oppositely charged muons which pass TTVA and trigger matching requirements, as well as the $m_{\ell\ell}$ cut.
+    Dilepton includes the requirement of 2 oppositely charged muons which pass TTVA and trigger matching requirements, as well as the $m_{\mu\mu}$ cut.
     Differences between MC and data are expected up to the dilepton cut as data contains QCD background while the MC samples do not.}
     \label{tab:CFComp}
 \end{table}
@@ -32,7 +32,7 @@ Table~\ref{tab:CFComp} presents the predicted and observed event yields after ap
   \begin{tabular}{l|l|l|l|l|l}
   \hline\hline
   \textbf{Sample} & \multicolumn{5}{c}{\textbf{Cuts}} \\ \hline
-    & DQ & Trigger & Dilepton & $p_{\text{T},\ell\ell}$ & $p_{\text{T},\ell\ell}$ \\
+    & DQ & Trigger & Dilepton & $\pTll$ & $\pTll$ \\
     &  &  &  & $>165~\GeV$ & $>200~\GeV$ \\ \hline\hline
    Data 2015--2016 & -2.46\% & -84.24\% & -72.20\% & -99.49\% & -46.93\% \\ \hline
    Powheg Pythia 8 MC16a & -0.50\% & -40.58\% & -51.80\% & -99.61\% & -48.11\% \\ \hline
@@ -50,7 +50,7 @@ Table~\ref{tab:CFComp} presents the predicted and observed event yields after ap
 
 \subsection{Data stability tests}
 \label{sec:data-stability}
-To check the stability of data used for this analysis, the rate for each year is calculated by dividing event counts from a set of runs by their associated total integrated luminosity. Events are counted if they pass the event selection with $p_{\text{T},\ell\ell}>165$ GeV. Consecutive runs are combined until the integrated luminosity amounts to at least 2 fb$^{-1}$. Figure~\ref{fig:DataStability} depicts the rate for year 2015 to 2018, where each time-ordered data bin contains data 2 fb$^{-1}$ luminosity. The first bin shows the rate for year 2015, bins 2--16 are for year 2016, bins 17--37 and 38--64 represent rate for year 2017 and 2018 respectively. Further, to consider those residual runs having combined luminosities smaller than 2 fb$^{-1}$, the last bin for each year is merged with the previous bin. The calculated average rate for year 2015--2018 is 2812 $\pm$ 4 and shows reasonable consistency for each year. Figure~\ref{fig:DataStability} shows the stability of data for each year used in this analysis.
+To check the stability of data used for this analysis, the rate for each year is calculated by dividing event counts from a set of runs by their associated total integrated luminosity. Events are counted if they pass the event selection with $\pTll>165$ GeV. Consecutive runs are combined until the integrated luminosity amounts to at least 2 fb$^{-1}$. Figure~\ref{fig:DataStability} depicts the rate for year 2015 to 2018, where each time-ordered data bin contains data 2 fb$^{-1}$ luminosity. The first bin shows the rate for year 2015, bins 2--16 are for year 2016, bins 17--37 and 38--64 represent rate for year 2017 and 2018 respectively. Further, to consider those residual runs having combined luminosities smaller than 2 fb$^{-1}$, the last bin for each year is merged with the previous bin. The calculated average rate for year 2015--2018 is 2812 $\pm$ 4 and shows reasonable consistency for each year. Figure~\ref{fig:DataStability} shows the stability of data for each year used in this analysis.
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.75\textwidth]{figures/DataStability.pdf}
@@ -63,8 +63,8 @@ To check the stability of data used for this analysis, the rate for each year is
 \subsection{Observed and predicted kinematic distributions}
 \label{sec:datamc}
 Figure~\ref{fig:MuActual} shows the actual interactions per bunch crossing $\mu$ for the individual data periods, as well as the full Run 2 dataset.
-Figure~\ref{fig:DilepVars} gives the $\pt$, $y$, and $m$ distributions for the dilepton system, and figure~\ref{fig:pTetamus} gives the $\pt$, $\eta$, and $\phi$ distributions for both the leading and sub-leading muon.
-The $\pt$, $y$, and $\phi$ distributions for the leading and sub-leading track jet are shown in figure~\ref{fig:pTyjets}, and figure~\ref{fig:jetsubstructure} and~\ref{fig:ntrackinjets} show some
+Figure~\ref{fig:DilepVars} gives the $\pt$, $y$, and $m$ distributions for the dilepton system, and figure~\ref{fig:pTetamus} gives the $\pt$, $\eta$, and $\phi$ distributions for both the leading and subleading muon.
+The $\pt$, $y$, and $\phi$ distributions for the leading and subleading track jet are shown in figure~\ref{fig:pTyjets}, and figure~\ref{fig:jetsubstructure} and~\ref{fig:ntrackinjets} show some
 selected jet substructure variables and the number of constituents, respectively.  The substructure variables are the $n$-subjettiness observables~\cite{Thaler:2010tr,Thaler:2011gf}, which have the form
 
 \begin{align}
@@ -99,8 +99,8 @@ Additional figures with these distributions shown per year of data taking can be
   \includegraphics[page=24,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=32,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
   \subfloat[Leading muon]{\includegraphics[page=40,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}} \\
   \includegraphics[page=28,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=36,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
-  \subfloat[Sub-leading muon]{\includegraphics[page=44,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}}
-  \caption{The $\pt$, $\eta$, and $\phi$ distributions for the (a) leading and the (b) sub-leading muon.}
+  \subfloat[Subleading muon]{\includegraphics[page=44,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}}
+  \caption{The $\pt$, $\eta$, and $\phi$ distributions for the (a) leading and the (b) subleading muon.}
   \label{fig:pTetamus}
 \end{figure}
 
@@ -110,7 +110,7 @@ Additional figures with these distributions shown per year of data taking can be
   \subfloat[Leading track jet]{\includegraphics[page=80,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}} \\
   \includegraphics[page=88,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=92,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
   \subfloat[Sub-leading track jet]{\includegraphics[page=96,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}}
-  \caption{The $\pt$, $y$, and $\phi$ distributions for the (a) leading and the (b) sub-leading track jet.}
+  \caption{The $\pt$, $y$, and $\phi$ distributions for the (a) leading and the (b) subleading track jet.}
   \label{fig:pTyjets}
 \end{figure}
 
