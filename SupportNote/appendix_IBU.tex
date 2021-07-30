@@ -1,40 +1,50 @@
 \section{Iterative Bayesian Unfolding}
 \label{app:IBU}
 
-As a cross-check and comparison, % bin-by-bin unfolding as well as
-Iterative Bayesian Unfolding (IBU) (described in section~\ref{sec:UnfoldIntro}) using the \texttt{RooUnfold} package~\cite{Adye:2011gm} was performed. At present, this uses the information from the \powheg+\pythia~samples to unfold the reconstructed events from the \sherpa~2.2.1 samples, analogous to what has been done with OmniFold up to this point.
-%Various plots for the efficiency and purity of the \powheg+\pythia~sample can be found in section~\ref{}, and some comments on the efficiency can be found in section~\ref{}. Finally, the unfolded distributions can be found in section~\ref{}.
+As a cross-check and comparison, Iterative Bayesian Unfolding (IBU) (described in section~\ref{sec:UnfoldIntro}) using the \texttt{RooUnfold} package~\cite{Adye:2011gm} was performed. At present, this uses the information from the \powheg+\pythia~samples to unfold the reconstructed events from the \sherpa~2.2.1 samples with $p_{\text{T},\ell\ell} > 190$~GeV, analogous to what has been done with OmniFold up to this point.
 
 First, various plots for the efficiency and purity of the \powheg+\pythia~sample are shown, and the results of the unfolding are shown in the following section.
 
 \subsection{Relevant quantities and choice of binning}
 The efficiency describes the probability that an event is reconstructed given that a truth event occurs. This can be written as,
 \begin{equation}
-  % E=\frac{N({\text{truth | reco}})}{N({\text{truth}})}
   E=\frac{N^{\text{truth$_i$, reco}}}{N^{\text{truth$_i$}}}
 \end{equation}
 
 where $i$ is the truth bin. The purity describes the probability that a reconstructed event has a matching truth event. This can be written as,
 \begin{equation}
-  % P=\frac{N({\text{reco | truth}})}{N({\text{reco}})}
   P=\frac{N^{\text{reco$_i$, truth}}}{N^{\text{reco$_i$}}}
 \end{equation}
 where $i$ is the reconstructed bin.
 
-Figure~\ref{fig:Eff1} and~\ref{fig:Eff2} shows the efficiency measurements for the 16 variables that were outlined for UniFold and MultiFold, and figure~\ref{fig:Pur1} and~\ref{fig:Pur2} shows the purity for the same variables.
+Figure~\ref{fig:EffDilep},~\ref{fig:EffTJ1} and~\ref{fig:EffTJ2} shows the efficiency measurements for the 24 variables that were outlined for UniFold and MultiFold, and figure~\ref{fig:PurDilep},~\ref{fig:PurTJ1}, and~\ref{fig:PurTJ2} shows the purity for the same variables.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[page=533,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=539,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=551,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=557,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=563,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=569,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=575,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=581,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \caption{Efficiency measurements for $p_{\text{T},\ell\ell}$, $y_{\ell\ell}$, and $\pt$, $\eta$, and $\phi$ for the leading and subleading muon.}
+  \label{fig:EffDilep}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
   \includegraphics[page=587,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=629,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
   \includegraphics[page=593,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=635,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=599,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=641,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
   \includegraphics[page=671,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=677,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \caption{Efficiency measurements for $p_{\text{T},\ell\ell}$, $y_{\ell\ell}$, and $\pt$, $y$, and $N_{cons}$ for the leading and subleading track jets.}
-  \label{fig:Eff1}
+  \caption{Efficiency measurements for $\pt$, $y$, $\phi$, and $N_{\text{cons}}$ for the leading and subleading track jet.}
+  \label{fig:EffTJ1}
 \end{figure}
 
 \begin{figure}[h!]
@@ -48,21 +58,35 @@ Figure~\ref{fig:Eff1} and~\ref{fig:Eff2} shows the efficiency measurements for t
   \includegraphics[page=623,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=665,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \caption{Efficiency measurements for $m$, $\tau_1$, $\tau_2$, and $\tau_3$ for the leading and subleading track jet.}
-  \label{fig:Eff2}
+  \label{fig:EffTJ2}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
   \includegraphics[page=534,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=540,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=552,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=558,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=564,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=570,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=576,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=582,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \caption{Purity measurements for $p_{\text{T},\ell\ell}$, $y_{\ell\ell}$, and $\pt$, $\eta$, and $\phi$ for the leading and subleading muon.}
+  \label{fig:PurDilep}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
   \includegraphics[page=588,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=630,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
   \includegraphics[page=594,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=636,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=600,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=642,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
   \includegraphics[page=672,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=678,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \caption{Purity measurements for $p_{\text{T},\ell\ell}$, $y_{\ell\ell}$, and $\pt$, $y$, and $N_{cons}$ for the leading and subleading track jets.}
-  \label{fig:Pur1}
+  \caption{Purity measurements for $\pt$, $y$, $\phi$, and $N_{\text{cons}}$ for the leading and subleading track jet.}
+  \label{fig:PurTJ1}
 \end{figure}
 
 \begin{figure}[h!]
@@ -76,23 +100,37 @@ Figure~\ref{fig:Eff1} and~\ref{fig:Eff2} shows the efficiency measurements for t
   \includegraphics[page=624,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=666,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \caption{Purity measurements for $m$, $\tau_1$, $\tau_2$, and $\tau_3$ for the leading and subleading track jet.}
-  \label{fig:Pur2}
+  \label{fig:PurTJ2}
 \end{figure}
 
-The efficiency and purity can also be determined on a per-bin basis. In this case, the bin efficiency is defined as the probability that a truth event in bin $i$ is also reconstructed in bin $i$ and can be seen in figure~\ref{fig:binEff1} and~\ref{fig:binEff2}. The bin purity is then defined as the probability that a reconstructed event in bin $i$ originated from a truth event that is also in bin $i$ and can be seen in figure~\ref{fig:binPur1} and~\ref{fig:binPur2}.
+The efficiency and purity can also be determined on a per-bin basis. In this case, the bin efficiency is defined as the probability that a truth event in bin $i$ is also reconstructed in bin $i$ and can be seen in figure~\ref{fig:binEffDilep},~\ref{fig:binEffTJ1}, and~\ref{fig:binEffTJ2}. The bin purity is then defined as the probability that a reconstructed event in bin $i$ originated from a truth event that is also in bin $i$ and can be seen in figure~\ref{fig:binPurDilep},~\ref{fig:binPurTJ1}, and~\ref{fig:binPurTJ2}.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[page=535,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=541,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=553,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=559,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=565,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=571,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=577,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=583,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \caption{Bin-by-bin efficiency for $p_{\text{T},\ell\ell}$, $y_{\ell\ell}$, and $\pt$, $\eta$, and $\phi$ for the leading and subleading muon.}
+  \label{fig:binEffDilep}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
   \includegraphics[page=589,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=631,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
   \includegraphics[page=595,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=637,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=601,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=643,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
   \includegraphics[page=673,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=679,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \caption{Bin-by-bin efficiency for $p_{\text{T},\ell\ell}$, $y_{\ell\ell}$, and $\pt$, $y$, and $N_{cons}$ for the leading and subleading track jet.}
-  \label{fig:binEff1}
+  \caption{Bin-by-bin efficiency for $\pt$, $y$, $\phi$, and $N_{\text{cons}}$ for the leading and subleading track jet.}
+  \label{fig:binEffTJ1}
 \end{figure}
 
 \begin{figure}[h!]
@@ -106,21 +144,49 @@ The efficiency and purity can also be determined on a per-bin basis. In this cas
   \includegraphics[page=625,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=667,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \caption{Bin-by-bin efficiency for $m$, $\tau_1$, $\tau_2$, and $\tau_3$ for the leading and subleading track jet.}
-  \label{fig:binEff2}
+  \label{fig:binEffTJ2}
 \end{figure}
+
+%\begin{figure}[h!]
+%  \centering
+%  \includegraphics[page=536,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+%  \includegraphics[page=542,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+%  \includegraphics[page=590,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+%  \includegraphics[page=632,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+%  \includegraphics[page=596,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+%  \includegraphics[page=638,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+%  \includegraphics[page=674,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+%  \includegraphics[page=680,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+%  \caption{Bin-by-bin purity for $p_{\text{T},\ell\ell}$, $y_{\ell\ell}$, and $\pt$, $y$, and $N_{cons}$ for the leading and subleading track jet.}
+%  \label{fig:binPur1}
+%\end{figure}
 
 \begin{figure}[h!]
   \centering
   \includegraphics[page=536,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=542,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=554,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=560,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=566,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=572,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=578,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=584,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \caption{Bin-by-bin purity for $p_{\text{T},\ell\ell}$, $y_{\ell\ell}$, and $\pt$, $\eta$, and $\phi$ for the leading and subleading muon.}
+  \label{fig:binPurDilep}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
   \includegraphics[page=590,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=632,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
   \includegraphics[page=596,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=638,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=602,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=644,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
   \includegraphics[page=674,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=680,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \caption{Bin-by-bin purity for $p_{\text{T},\ell\ell}$, $y_{\ell\ell}$, and $\pt$, $y$, and $N_{cons}$ for the leading and subleading track jet.}
-  \label{fig:binPur1}
+  \caption{Bin-by-bin purity for $\pt$, $y$, $\phi$, and $N_{\text{cons}}$ for the leading and subleading track jet.}
+  \label{fig:binPurTJ1}
 \end{figure}
 
 \begin{figure}[h!]
@@ -134,33 +200,82 @@ The efficiency and purity can also be determined on a per-bin basis. In this cas
   \includegraphics[page=626,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=668,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \caption{Bin-by-bin purity for $m$, $\tau_1$, $\tau_2$, and $\tau_3$ for the leading and subleading track jet.}
-  \label{fig:binPur2}
+  \label{fig:binPurTJ2}
 \end{figure}
+
+The bin purity values are the relevant quantity used to determine if the chosen binning is appropriate for a given variable. Ideally, each bin will have a purity of $\sim$60\%--70\%. The bins chosen for each variable are outlined in table~\ref{tab:IBUBins}.
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{l|l|l|l|l|l|l}
+    \begin{tabular}{l|l}
     \hline\hline
-    
+    \textbf{Variable} & \textbf{Bin Edges} \\ \hline\hline
+    $p_{\text{T},\ell\ell}$ [GeV]           & 190~ 230~ 300~ 450~ 600~ 1000~ 2000 \\ \hline
+    $y_{\ell\ell}$                          & -2.5~ -2~ -1.5~ -1~ -0.75~ -0.5~ -0.25~ 0~ 0.25~ 0.5~ 0.75~ 1~ 1.5~ 2~ 2.5 \\ \hline
+    $p_{\text{T},\ell_1}$ [GeV]             & 25~ 125~ 200~ 300~ 400~ 600~ 2000 \\ \hline
+    $p_{\text{T},\ell_2}$ [GeV]             & 25~ 40~ 60~ 80~ 100~ 150~ 200~ 300~ 500~ 1000 \\ \hline
+    $\eta_{\ell_1}$                         & -2.5~ -2~ -1.5~ -1~ -0.75~ -0.5~ -0.25~ 0~ 0.25~ 0.5~ 0.75~ 1~ 1.5~ 2~ 2.5 \\ \hline
+    $\eta_{\ell_2}$                         & -2.5~ -2~ -1.5~ -1~ -0.75~ -0.5~ -0.25~ 0~ 0.25~ 0.5~ 0.75~ 1~ 1.5~ 2~ 2.5 \\ \hline
+    $\phi_{\ell_1}$                         & -3.2~ -3.0~ -2.8~ -2.6~ -2.4~ -2.2~ -2.0~ -1.8~ -1.6~ -1.4~ -1.2~ -1.0~ -0.8~ \\
+                                            & -0.6~ -0.4~ -0.2~ 0~ 0.2~ 0.4~ 0.6~ 0.8~ 1.0~ 1.2~ 1.4~ 1.6~ 1.8~ 2.0~ 2.2~ \\
+                                            & 2.4~ 2.6~ 2.8~ 3.0~ 3.2 \\ \hline
+    $\phi_{\ell_2}$                         & -3.2~ -3.0~ -2.8~ -2.6~ -2.4~ -2.2~ -2.0~ -1.8~ -1.6~ -1.4~ -1.2~ -1.0~ -0.8~ \\
+                                            & -0.6~ -0.4~ -0.2~ 0~ 0.2~ 0.4~ 0.6~ 0.8~ 1.0~ 1.2~ 1.4~ 1.6~ 1.8~ 2.0~ 2.2~ \\
+                                            & 2.4~ 2.6~ 2.8~ 3.0~ 3.2 \\ \hline
+    Leading track jet \pt [GeV]             & 0~ 50~ 100~ 150~ 200~ 300~ 1000 \\ \hline
+    Subleading track jet \pt [GeV]          & 0~ 25~ 50~ 100~ 700 \\ \hline
+    Leading track jet $y$                   & -2.5~ -2.25~ -2.0~ -1.75~ -1.5~ -1.25~ -1.0~ -0.75~ -0.5~ -0.25~ 0~ \\
+                                            & 0.25~ 0.5~ 0.75~ 1.0~ 1.25~ 1.5~ 1.75~ 2.0~ 2.25~ 2.5 \\ \hline
+    Subleading track jet $y$                & -2.5~ -2~ -1.5~ -1~ -0.75~ -0.5~ -0.25~ 0~ 0.25~ 0.5~ 0.75~ 1~ 1.5~ 2~ 2.5 \\ \hline
+    Leading track jet $\phi$                & -3.2~ -3.0~ -2.8~ -2.6~ -2.4~ -2.2~ -2.0~ -1.8~ -1.6~ -1.4~ -1.2~ -1.0~ -0.8~ \\
+                                            & -0.6~ -0.4~ -0.2~ 0~ 0.2~ 0.4~ 0.6~ 0.8~ 1.0~ 1.2~ 1.4~ 1.6~ 1.8~ 2.0~ 2.2~ \\
+                                            & 2.4~ 2.6~ 2.8~ 3.0~ 3.2 \\ \hline
+    Subleading track jet $\phi$             & -3.2~ -2.8~ -2.4~ -2.0~ -1.6~ -1.2~ -0.8~ -0.4~ 0~ 0.4~ 0.8~ 1.2~ 1.6~ 2.0~ \\
+                                            & 2.4~ 2.6~ 2.8~ 3.0~ 3.2 \\ \hline
+    Leading track jet $N_{\text{cons}}$     & 1~ 5~ 7~ 10~ 13~ 16~ 20~ 30~ 40~ 55~ 90 \\ \hline
+    Subleading track jet $N_{\text{cons}}$  & 1~ 2~ 3~ 5~ 7~ 9~ 11~ 15~ 20~ 30~ 50~ 85 \\ \hline
+    Leading track jet $m$ [GeV]             & 0~ 10~ 20~ 30~ 40~ 80 \\ \hline
+    Subleading track jet $m$ [GeV]          & 0~ 2.5~ 5~ 10~ 20~ 70 \\ \hline
+    Leading track jet $\tau_1$              & 0~ 0.05~ 0.1~ 0.15~ 0.2~ 0.3~ 0.5~ 1 \\ \hline
+    Subleading track jet $\tau_1$           & 0~ 0.1~ 0.2~ 0.3~ 0.4~ 0.5~ 1 \\ \hline
+    Leading track jet $\tau_2$              & 0~ 0.05~ 0.1~ 0.15~ 0.2~ 0.3~ 0.6 \\ \hline
+    Subleading track jet $\tau_2$           & 0~ 0.05~ 0.1~ 0.15~ 0.2~ 0.3~ 0.6 \\ \hline
+    Leading track jet $\tau_3$              & 0~ 0.025~ 0.05~ 0.1~ 0.2~ 0.4 \\ \hline
+    Subleading track jet $\tau_3$           & 0~ 0.05~ 0.1~ 0.15~ 0.2~ 0.4 \\ \hline
+
     \end{tabular}
-    \caption{IBU Binning}
+    \caption{The chosen bins for each of the 24 variables being unfolded.}
     \label{tab:IBUBins}
 \end{table}
 
-The response matrices, which are also defined in section~\ref{sec:UnfoldIntro}, are shown in figure~\ref{fig:migMat1} and~\ref{fig:migMat2}.
+The response matrices, which are also defined in section~\ref{sec:UnfoldIntro}, are shown in figure~\ref{fig:migMatDilep},~\ref{fig:migMatTJ1}, and~\ref{fig:migMatTJ2}.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[page=682,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=683,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=685,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=686,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=687,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=688,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=689,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=690,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \caption{The response matrices for $p_{\text{T},\ell\ell}$, $y_{\ell\ell}$, and $\pt$, $\eta$, and $\phi$ for the leading and subleading muon.}
+  \label{fig:migMatDilep}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
   \includegraphics[page=691,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=698,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
   \includegraphics[page=692,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=699,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=693,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=700,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
   \includegraphics[page=705,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=706,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \caption{The response matrices for $p_{\text{T},\ell\ell}$, $y_{\ell\ell}$ and $\pT$, $y$, and $N_{cons}$ for the leading and subleading track jet.}
-  \label{fig:migMat1}
+  \caption{The response matrices for $\pt$, $y$, $\phi$, and $N_{\text{cons}}$ for the leading and subleading track jet.}
+  \label{fig:migMatTJ1}
 \end{figure}
 
 \begin{figure}[h!]
@@ -174,17 +289,12 @@ The response matrices, which are also defined in section~\ref{sec:UnfoldIntro}, 
   \includegraphics[page=697,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=704,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \caption{The response matrices for $m$, $\tau_1$, $\tau_2$, and $\tau_3$ for the leading and subleading track jet.}
-  \label{fig:migMat2}
+  \label{fig:migMatTJ2}
 \end{figure}
 
-% For bin-by-bin unfolding, the correction factor applied to the reconstructed quantities can be defined as
-%\begin{equation}
-%  c_i=\frac{N^{\text{truth, reco}}_i}{N^{\text{truth}}_i}
-%\end{equation}
+\subsection{Efficiency studies}
 
-\subsection{Efficiency Studies}
-
-As can be seen in Figure~\ref{fig:Eff1}, there is a drop in efficiency at higher values of $p_{\text{T},\ell\ell}$. This is a result of \pt misreconstruction for higher \pt muons, which results in the dilepton mass falling out of acceptance.
+As can be seen in Figure~\ref{fig:EffDilep}, there is a drop in efficiency at higher values of $p_{\text{T},\ell\ell}$. This is a result of \pt misreconstruction for higher \pt muons, which results in the dilepton mass falling out of acceptance.
 The resolution plots for $p_{\text{T},\ell\ell}$ and $m_{\ell\ell}$ can be seen in Figure~\ref{fig:Resmll}.
 
 \begin{figure}
@@ -197,21 +307,35 @@ The resolution plots for $p_{\text{T},\ell\ell}$ and $m_{\ell\ell}$ can be seen 
   \label{fig:Resmll}
 \end{figure}
 
-\subsection{Unfolding Results}
-Figure~\ref{fig:UnfoldIBU1} and~\ref{fig:UnfoldIBU2} show the results for unfolding \sherpa~2.2.1 using \powheg+\pythia~using IBU with 4 iterations.
+\subsection{Unfolding results}
+Figure~\ref{fig:UnfoldIBUDilep},~\ref{fig:UnfoldIBUTJ1}, and~\ref{fig:UnfoldIBUTJ2} show the results for unfolding \sherpa~2.2.1 using \powheg+\pythia~using IBU with 4 iterations.
 
-\begin{figure}
+\begin{figure}[h!]
   \centering
   \includegraphics[page=76,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \includegraphics[page=77,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=79,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=80,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=81,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=82,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=83,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=84,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \caption{The results of the IBU for $p_{\text{T},\ell\ell}$, $y_{\ell\ell}$, and $\pt$, $\eta$, and $\phi$ for the leading and subleading muon. The truth distribution for the \sherpa~2.2.1 sample is shown in red, and the unfolded distribution is shown in black. The reconstructed distribution for \sherpa~2.2.1 is also shown in blue for reference.}
+  \label{fig:UnfoldIBUDilep}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
   \includegraphics[page=85,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \includegraphics[page=92,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
   \includegraphics[page=86,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \includegraphics[page=93,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=87,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=94,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
   \includegraphics[page=99,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \includegraphics[page=100,width=0.45\textwidth]{figures/IBUPlots.pdf}
-  \caption{The results of the IBU for $p_{\text{T},\ell\ell}$, $y_{\ell\ell}$, and the $\pt$, $y$, and $N_{cons}$ for the leading and subleading track jet. The truth distribution for the \sherpa~2.2.1 sample is shown in red, and the unfolded distribution is shown in black. The reconstructed distribution for \sherpa~2.2.1 is also shown in blue for reference.}
-  \label{fig:UnfoldIBU1}
+  \caption{The results of the IBU for $\pt$, $y$, $\phi$, and $N_{\text{cons}}$ for the leading and subleading track jet. The truth distribution for the \sherpa~2.2.1 sample is shown in red, and the unfolded distribution is shown in black. The reconstructed distribution for \sherpa~2.2.1 is also shown in blue for reference.}
+  \label{fig:UnfoldIBUTJ1}
 \end{figure}
 
 \begin{figure}
@@ -225,5 +349,125 @@ Figure~\ref{fig:UnfoldIBU1} and~\ref{fig:UnfoldIBU2} show the results for unfold
   \includegraphics[page=91,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \includegraphics[page=98,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \caption{The results of the IBU for $m$, $\tau_1$, $\tau_2$, and $\tau_3$ for the leading and subleading track jet. The truth distribution for the \sherpa~2.2.1 sample is shown in red, and the unfolded distribution is shown in black. The reconstructed distribution for \sherpa~2.2.1 is also shown in blue for reference.}
-  \label{fig:UnfoldIBU2}
+  \label{fig:UnfoldIBUTJ2}
+\end{figure}
+\clearpage
+
+\subsection{Systematic and statistical errors}
+The various systematics applied to the samples are outlined in detail in section~\ref{sec:uncerts}. In order to determine the effect of the variations, they are individually propagated through the unfolding procedure. This is outlined in more detail for the different systematics below.
+\subsubsection{Statistical uncertainties}
+For both the MC and data statistical uncertainties, 100 pseudodatasets are constructed as described in section~\ref{sec:uncerts}. Each pseudodataset is unfolded, and the final uncertainty in each bin is obtained by calculating the root mean square (RMS) of the 100 values. In this case \sherpa~2.2.1 is treated as data, and the \powheg+\pythia~is treated as MC.
+
+The data and MC statistical errors for $p_{\text{T},\ell\ell}$ are shown in figure~\ref{fig:MCDataStatErr}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=26,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=27,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \caption{The MC statistical error (left) and data statistical error (right) on the unfolded distribution for $p_{\text{T},\ell\ell}$.}
+  \label{fig:MCDataStatErr}
+\end{figure}
+
+\subsubsection{Pileup reweighting and muon efficiency uncertainties}
+As previously discussed, these systematics effect the MC event weight and as such are applied to the reconstructed \powheg+\pythia~distributions before being propagated through the unfolding procedure.
+
+The combined effect of these variations on the dilepton \pt can be seen in figure~\ref{fig:SFSystErr}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=22,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \caption{The effect of the scale factor systematic errors on the unfolded distribution for $p_{\text{T},\ell\ell}$.}
+  \label{fig:SFSystErr}
+\end{figure}
+
+\subsubsection{Muon calibration uncertainties}
+The variations due to the muon calibration procedure will effect variables associated with the muon \pt values. For these variables, the effects are applied to the reconstructed \powheg+\pythia~distributions before being propagated through the unfolding procedure.
+
+The combined effect of these variations on the dilepton \pt can be seen in figure~\ref{fig:muCalSystErr}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=25,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \caption{The effect of the muon calibration systematic errors on the unfolded distribution for $p_{\text{T},\ell\ell}$.}
+  \label{fig:muCalSystErr}
+\end{figure}
+
+\subsubsection{Track uncertainties}
+The variations due to the track systematics will effect variables associated with the track jets. For these variables, the effects are applied to the reconstructed \powheg+\pythia~distributions before being propagated through the unfolding procedure. As these variations are one-sided, they are also symmetrized.
+
+The combined effect of these variations on the leading track jet \pt can be seen in figure~\ref{fig:trackSystErr}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=261,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \caption{The effect of the track systematics on the unfolded distribution for the leading track jet \pt.}
+  \label{fig:trackSystErr}
+\end{figure}
+
+\subsubsection{QCD renormalization and factorization scale variations}
+For this error, the largest variation is selected (both the renormalization and factorization scale varied downwards). These variations are applied to the truth \powheg+\pythia~distributions and propagated through the unfolding. As these variations are readily available for the \sherpa~2.2.1 samples, the ratio between the nominal truth \sherpa distribution and the varied truth \sherpa distribution was taken and used to scale the appropriate bin in the \powheg+\pythia~truth distribution.
+
+The effect of this variation on the dilepton \pt can be seen in figure~\ref{fig:qcdSystErr}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=23,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \caption{The effect of the QCD renormalization and factorization scale variations on the unfolded distribution for $p_{\text{T},\ell\ell}$.}
+  \label{fig:qcdSystErr}
+\end{figure}
+
+\subsubsection{Shower shape variations}
+These variations are not available in the nominal samples used for the majority of the analysis. As such, in order to determine the magnitude of these variations, the ratio of the nominal distribution and the varied distributions is calculated using an independent sample. This ration is then used to scale the truth distribution for the \powheg+\pythia~sample appropriately.
+
+The effect of this variation on the dilepton \pt can be seen in figure~\ref{fig:showerSystErr}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=24,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \caption{The combined effect of the shower shape variations on the dilepton \pt.}
+  \label{fig:showerSystErr}
+\end{figure}
+
+The distributions for the 24 unfolded variables with the combined statistical and systematic errors is shown in figure~\ref{fig:unfoldErr1},~\ref{fig:unfoldErr2}, and~\ref{fig:unfoldErr3}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=28,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=56,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
+  \includegraphics[page=112,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=140,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
+  \includegraphics[page=164,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=188,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
+  \includegraphics[page=212,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=236,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \caption{The unfolded distribution with errors for the dilepton \pt, dilepton $y$, and \pt, $\eta$, and $\phi$ for the leading and subleading muon.}
+  \label{fig:unfoldErr1}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=264,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=460,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
+  \includegraphics[page=292,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=488,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
+  \includegraphics[page=320,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=516,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
+  \includegraphics[page=656,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=684,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \caption{The unfolded distribution with errors for the \pt, $y$, $\phi$, and $N_{\text{cons}}$ for the leading and subleading track jet.}
+  \label{fig:unfoldErr2}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=348,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=544,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
+  \includegraphics[page=376,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=572,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
+  \includegraphics[page=404,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=600,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
+  \includegraphics[page=432,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=628,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \caption{The unfolded distribution with errors for the $m$, $\tau_1$, $\tau_2$, and $\tau_3$ for the leading and subleading track jet.}
+  \label{fig:unfoldErr3}
 \end{figure}
