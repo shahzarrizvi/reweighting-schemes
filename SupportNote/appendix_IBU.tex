@@ -356,7 +356,7 @@ Figure~\ref{fig:UnfoldIBUDilep},~\ref{fig:UnfoldIBUTJ1}, and~\ref{fig:UnfoldIBUT
 \subsection{Systematic and statistical errors}
 The various systematics applied to the samples are outlined in detail in section~\ref{sec:uncerts}. In order to determine the effect of the variations, they are individually propagated through the unfolding procedure. This is outlined in more detail for the different systematics below.
 \subsubsection{Statistical uncertainties}
-For both the MC and data statistical uncertainties, 100 pseudodatasets are constructed as described in section~\ref{sec:uncerts}. Each pseudodataset is unfolded, and the final uncertainty in each bin is obtained by calculating the root mean square (RMS) of the 100 values. In this case \sherpa~2.2.1 is treated as data, and the \powheg+\pythia~is treated as MC.
+For both the MC and data statistical uncertainties, 100 pseudodatasets are constructed as described in section~\ref{sec:uncerts}. Each pseudodataset is unfolded, and the final statistical uncertainty in each bin is obtained by calculating the root mean square (RMS) of the 100 values in that bin. In this case \sherpa~2.2.1 is treated as data, and the \powheg+\pythia~is treated as MC.
 
 The data and MC statistical errors for $p_{\text{T},\ell\ell}$ are shown in figure~\ref{fig:MCDataStatErr}.
 
@@ -369,7 +369,7 @@ The data and MC statistical errors for $p_{\text{T},\ell\ell}$ are shown in figu
 \end{figure}
 
 \subsubsection{Pileup reweighting and muon efficiency uncertainties}
-As previously discussed, these systematics effect the MC event weight and as such are applied to the reconstructed \powheg+\pythia~distributions before being propagated through the unfolding procedure.
+As previously discussed, these systematics affect the reconstructed MC event weight and as such are applied to the reconstructed \powheg+\pythia~distributions before being propagated through the unfolding procedure.
 
 The combined effect of these variations on the dilepton \pt can be seen in figure~\ref{fig:SFSystErr}.
 
@@ -381,7 +381,7 @@ The combined effect of these variations on the dilepton \pt can be seen in figur
 \end{figure}
 
 \subsubsection{Muon calibration uncertainties}
-The variations due to the muon calibration procedure will effect variables associated with the muon \pt values. For these variables, the effects are applied to the reconstructed \powheg+\pythia~distributions before being propagated through the unfolding procedure.
+The variations due to the muon calibration procedure will affect variables whose calculation is related to the muon \pt values. For these variables, the effects are applied to the reconstructed \powheg+\pythia~distributions before being propagated through the unfolding procedure.
 
 The combined effect of these variations on the dilepton \pt can be seen in figure~\ref{fig:muCalSystErr}.
 
@@ -405,7 +405,7 @@ The combined effect of these variations on the leading track jet \pt can be seen
 \end{figure}
 
 \subsubsection{QCD renormalization and factorization scale variations}
-For this error, the largest variation is selected (both the renormalization and factorization scale varied downwards). These variations are applied to the truth \powheg+\pythia~distributions and propagated through the unfolding. As these variations are readily available for the \sherpa~2.2.1 samples, the ratio between the nominal truth \sherpa distribution and the varied truth \sherpa distribution was taken and used to scale the appropriate bin in the \powheg+\pythia~truth distribution.
+For this error, the largest variation is selected (both the renormalization and factorization scale varied downwards). These variations are applied to the truth \powheg+\pythia~distributions and propagated through the unfolding. As these variations are readily available for the \sherpa~2.2.1 samples, the ratio between the nominal truth \sherpa~distribution and the varied truth \sherpa~distribution was taken and used to scale the appropriate bin in the \powheg+\pythia~truth distribution.
 
 The effect of this variation on the dilepton \pt can be seen in figure~\ref{fig:qcdSystErr}.
 
@@ -417,7 +417,7 @@ The effect of this variation on the dilepton \pt can be seen in figure~\ref{fig:
 \end{figure}
 
 \subsubsection{Shower shape variations}
-These variations are not available in the nominal samples used for the majority of the analysis. As such, in order to determine the magnitude of these variations, the ratio of the nominal distribution and the varied distributions is calculated using an independent sample. This ration is then used to scale the truth distribution for the \powheg+\pythia~sample appropriately.
+These variations are not available in the nominal samples used for the majority of the analysis. As such, in order to determine the magnitude of these variations, the ratio of the nominal distribution to the varied distributions is calculated using an independent sample. These ratios is then used to appropriately scale the truth distribution for the \powheg+\pythia~sample before it is propagated through the unfolding procedure.
 
 The effect of this variation on the dilepton \pt can be seen in figure~\ref{fig:showerSystErr}.
 
@@ -428,7 +428,7 @@ The effect of this variation on the dilepton \pt can be seen in figure~\ref{fig:
   \label{fig:showerSystErr}
 \end{figure}
 
-The distributions for the 24 unfolded variables with the combined statistical and systematic errors is shown in figure~\ref{fig:unfoldErr1},~\ref{fig:unfoldErr2}, and~\ref{fig:unfoldErr3}.
+The distributions for the 24 unfolded variables with the combined statistical and systematic errors are shown in figure~\ref{fig:unfoldErr1},~\ref{fig:unfoldErr2}, and~\ref{fig:unfoldErr3}.
 
 \begin{figure}[h!]
   \centering
