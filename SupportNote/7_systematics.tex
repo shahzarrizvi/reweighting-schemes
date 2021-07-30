@@ -174,3 +174,20 @@ To compute uncertainty for PS, the \powheg$+$\pythia~sample with AZNLO tune are 
 \end{figure}
 
 \subsubsection{Parton Distribution Function (PDF) variations}
+The variability of the underlying pdf is calculated using the \sherpa~samples. The nominal pdf used by the generator is the central value of some underlying pdf distribution, the \sherpa~generator provides 100 variations to this nominal pdf that are generated from this underlying statistical distribution.  The RMS of these 100 results is interpreted as a systematic uncertainty, this spread is shown for the measurement in figure~\ref{fig:PDF_RMS}. Also the fractional impact of the $\alpha_{s}$ variations and two alternative PDF sets is shown in figure~\ref{fig:alpha_S}.
+\begin{figure}[h!]
+  \centering
+  \subfloat[]{\includegraphics[page=2,width=0.45\textwidth]{figures/systAlphaS.pdf}}
+  \subfloat[]{\includegraphics[page=2,width=0.45\textwidth]{figures/syst_alphaS.pdf}} \\
+
+  \caption{Spread of the impact of 100 pdf variations per bin (left) and impact of systematic uncertainty as RMS of these 100 results (right) on dilepton \pt.}
+  \label{fig:PDF_RMS}
+\end{figure}
+
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=2,width=0.45\textwidth]{figures/syst_alphaS.pdf} \\
+  \caption{The fractional impact of the $\alpha_{s}$ variations for the \sherpa~samples on the dilepton \pt spectrum. The result of varying $\alpha_{s}$ in the up direction is shown in dark red and the downwards shift is in dark blue color. The lighter green and black color show uncertainty for the two alternative PDF sets.}
+  \label{fig:alpha_S}
+\end{figure}

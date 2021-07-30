@@ -29,14 +29,19 @@ The proposed main results to be included in the first paper is:
   \end{itemize}  
 \item
    A plot will be produced for each observable comparing the unfolded spectrum with a measurement performed using IBU (i.e.\ the standard technique used in ATLAS SM measurements).
-   IBU requires a predefined binning, which has been derived for each observable as described in appendix~\ref{app:IBU}. This binning is presented in table~\ref{tab:IBUBins}.
+   IBU requires a predefined binning, which has been derived for each observable as described in appendix~\ref{app:IBU} to achieve reasonable purity of each bin. 
+   This binning is presented in table~\ref{tab:IBUBins}.
 %Our paper will contain a small number of unfolded histograms to illustrate the breadth of the result.
 %We will show plots that show the spectra of the multifold observables, using IBU, MultiFold, and OmniFold in the support note (and also include the correlation dimension~\cite{Komiske:2019fks}) and then we will discuss with the Editorial Board which plots to go in the paper.
 \item
-  \todo{This is only for OmniFold, right? We'd need to make a flat n-tuple with 24 branches, I think, which should be stated here}
-  We make public the weight function(s) (as a neural network, saving the model architecture and weights from TensorFlow) and the exact configuration used to generate the nominal MC events.  There will be one function per systematic uncertainty.  This, combined with a Rivet routine of the analysis selection, will ensure that the data can be used and readily and widely reinterpreted.
-\item (Alternative: we make public our simulated MC sample with a vector of weights for each event)
+  Make public a simulated MC sample (truth-only) that contain a vector of weights for each event: both a nominal MultiFold weight that corrects the MC sample to match the data (i.e.\ provides the central value), and a long list of weight each corresponding to either a systematic or statistical uncertainty source. We will also make public a Rivet routine that reproduce the event selection, calculates the observables and fills histograms to make prediction with the correct binning.
 \end{itemize}
 
+\subsection{Planned content of second paper}
+For a second, future paper, the goal is to use true Omnifold and unfold the four momenta of the two muons from the $Z$-boson and a list of the four momenta of all charged hadrons in the event.
+This means that there is a different number of observables for each event. The main results would hence be a set of four vectors, and jets can be built from them (using any algorithm). 
+For visualization, a similar (or the same) set of histograms will be created as from the first paper.
 
-For a second, future paper, the idea is to include...
+%  \todo{This is only for OmniFold, right? We'd need to make a flat n-tuple with 24 branches, I think, which should be stated here}
+For this paper, we plan to make public the weight function(s) (as a neural network, saving the model architecture and weights from TensorFlow) and the exact configuration used to generate the nominal MC events.  There will be one function per systematic uncertainty.  This, combined with a Rivet routine of the analysis selection, will ensure that the data can be used and readily and widely reinterpreted.
+%(Alternative: we make public our simulated MC sample with a vector of weights for each event)
