@@ -8,12 +8,12 @@ First, various plots for the efficiency and purity of the \powheg+\pythia~sample
 \subsection{Relevant quantities and choice of binning}
 The efficiency describes the probability that an event that fulfills the fiducial requirement passes the analysis selection. This can be written as,
 \begin{equation}
-  E=\frac{N^{\text{truth$_i$, reco}}}{N^{\text{truth$_i$}}}
+  \varepsilon_i=\frac{N^{\text{truth$_i$, reco}}}{N^{\text{truth$_i$}}}
 \end{equation}
-where $N^{\text{truth$_i$, reco}}$ represents the number of events in truth bin $i$ that pass the analysis selection, and $N^{\text{truth$_i$}}$ is the total number of truth events in bin $i$. The purity describes the probability that a reconstructed event in bin $i$ corresponds to a truth event also in bin $i$. This can be written as:
+where $N^{\text{truth$_i$, reco}}$ represents the number of events in truth bin $i$ that pass the analysis selection, and $N^{\text{truth$_i$}}$ is the total number of truth events in bin $i$. The purity describes the probability that an event reconstructed in bin $i$ also falls in truth bin $i$. This can be written as:
 
 \begin{equation}
-  P=\frac{N^{\text{reco$_i$, truth$_i$}}}{N^{\text{reco$_i$}}}
+  P_i=\frac{N^{\text{reco$_i$, truth$_i$}}}{N^{\text{reco$_i$}}}
 \end{equation}
 where $N^{\text{reco$_i$, truth$_i$}}$ represents the number of reconstructed events in bin $i$ with a truth event also in bin $i$, and $N^{\text{reco$_i$}}$ represents the total reconstructed events in bin $i$.
 
@@ -29,7 +29,7 @@ Figure~\ref{fig:EffDilep},~\ref{fig:EffTJ1} and~\ref{fig:EffTJ2} shows the effic
   \includegraphics[page=569,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
   \includegraphics[page=575,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=581,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \caption{Efficiency as a function of $\pTll$, $\yll$, and $\pt$, $\eta$, and $\phi$ for the leading and subleading muon. This quantity estimates the probability that a truth event passes the analysis selection.}
+  \caption{Efficiency as a function of $\pTll$, $\yll$, and $\pt$, $\eta$, and $\phi$ for the leading and subleading muon. This quantity estimates the probability that an event which passes the fiducial selection also passes the analysis selection.}
   \label{fig:EffDilep}
 \end{figure}
 
@@ -104,49 +104,6 @@ Figure~\ref{fig:EffDilep},~\ref{fig:EffTJ1} and~\ref{fig:EffTJ2} shows the effic
 \end{figure}
 
 The purity values are the relevant quantity used to determine if the chosen binning is appropriate for a given variable. Ideally, each bin will have a purity of $\sim$60\%--70\%. The bins chosen for each variable are outlined in table~\ref{tab:IBUBins}.
-
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{l|l}
-    \hline\hline
-    \textbf{Variable} & \textbf{Bin Edges} \\ \hline\hline
-    $\pTll$ [GeV]                           & 190~ 230~ 300~ 450~ 600~ 1000~ 2000 \\ \hline
-    $\yll$                                  & -2.5~ -2~ -1.5~ -1~ -0.75~ -0.5~ -0.25~ 0~ 0.25~ 0.5~ 0.75~ 1~ 1.5~ 2~ 2.5 \\ \hline
-    $\pTlm$ [GeV]                           & 25~ 125~ 200~ 300~ 400~ 600~ 2000 \\ \hline
-    $\pTsm$ [GeV]                           & 25~ 40~ 60~ 80~ 100~ 150~ 200~ 300~ 500~ 1000 \\ \hline
-    $\eta_{\mu1}$                           & -2.5~ -2~ -1.5~ -1~ -0.75~ -0.5~ -0.25~ 0~ 0.25~ 0.5~ 0.75~ 1~ 1.5~ 2~ 2.5 \\ \hline
-    $\eta_{\mu2}$                           & -2.5~ -2~ -1.5~ -1~ -0.75~ -0.5~ -0.25~ 0~ 0.25~ 0.5~ 0.75~ 1~ 1.5~ 2~ 2.5 \\ \hline
-    $\phi_{\mu1}$                           & -3.2~ -3.0~ -2.8~ -2.6~ -2.4~ -2.2~ -2.0~ -1.8~ -1.6~ -1.4~ -1.2~ -1.0~ -0.8~ \\
-                                            & -0.6~ -0.4~ -0.2~ 0~ 0.2~ 0.4~ 0.6~ 0.8~ 1.0~ 1.2~ 1.4~ 1.6~ 1.8~ 2.0~ 2.2~ \\
-                                            & 2.4~ 2.6~ 2.8~ 3.0~ 3.2 \\ \hline
-    $\phi_{\mu2}$                           & -3.2~ -3.0~ -2.8~ -2.6~ -2.4~ -2.2~ -2.0~ -1.8~ -1.6~ -1.4~ -1.2~ -1.0~ -0.8~ \\
-                                            & -0.6~ -0.4~ -0.2~ 0~ 0.2~ 0.4~ 0.6~ 0.8~ 1.0~ 1.2~ 1.4~ 1.6~ 1.8~ 2.0~ 2.2~ \\
-                                            & 2.4~ 2.6~ 2.8~ 3.0~ 3.2 \\ \hline
-    Leading track jet \pt [GeV]             & 0~ 50~ 100~ 150~ 200~ 300~ 1000 \\ \hline
-    Subleading track jet \pt [GeV]          & 0~ 25~ 50~ 100~ 700 \\ \hline
-    Leading track jet $y$                   & -2.5~ -2.25~ -2.0~ -1.75~ -1.5~ -1.25~ -1.0~ -0.75~ -0.5~ -0.25~ 0~ \\
-                                            & 0.25~ 0.5~ 0.75~ 1.0~ 1.25~ 1.5~ 1.75~ 2.0~ 2.25~ 2.5 \\ \hline
-    Subleading track jet $y$                & -2.5~ -2~ -1.5~ -1~ -0.75~ -0.5~ -0.25~ 0~ 0.25~ 0.5~ 0.75~ 1~ 1.5~ 2~ 2.5 \\ \hline
-    Leading track jet $\phi$                & -3.2~ -3.0~ -2.8~ -2.6~ -2.4~ -2.2~ -2.0~ -1.8~ -1.6~ -1.4~ -1.2~ -1.0~ -0.8~ \\
-                                            & -0.6~ -0.4~ -0.2~ 0~ 0.2~ 0.4~ 0.6~ 0.8~ 1.0~ 1.2~ 1.4~ 1.6~ 1.8~ 2.0~ 2.2~ \\
-                                            & 2.4~ 2.6~ 2.8~ 3.0~ 3.2 \\ \hline
-    Subleading track jet $\phi$             & -3.2~ -2.8~ -2.4~ -2.0~ -1.6~ -1.2~ -0.8~ -0.4~ 0~ 0.4~ 0.8~ 1.2~ 1.6~ 2.0~ \\
-                                            & 2.4~ 2.6~ 2.8~ 3.0~ 3.2 \\ \hline
-    Leading track jet $n_{\text{ch}}$       & 1~ 5~ 7~ 10~ 13~ 16~ 20~ 30~ 40~ 55~ 90 \\ \hline
-    Subleading track jet $n_{\text{ch}}$    & 1~ 2~ 3~ 5~ 7~ 9~ 11~ 15~ 20~ 30~ 50~ 85 \\ \hline
-    Leading track jet $m$ [GeV]             & 0~ 10~ 20~ 30~ 40~ 80 \\ \hline
-    Subleading track jet $m$ [GeV]          & 0~ 2.5~ 5~ 10~ 20~ 70 \\ \hline
-    Leading track jet $\tau_1$              & 0~ 0.05~ 0.1~ 0.15~ 0.2~ 0.3~ 0.5~ 1 \\ \hline
-    Subleading track jet $\tau_1$           & 0~ 0.1~ 0.2~ 0.3~ 0.4~ 0.5~ 1 \\ \hline
-    Leading track jet $\tau_2$              & 0~ 0.05~ 0.1~ 0.15~ 0.2~ 0.3~ 0.6 \\ \hline
-    Subleading track jet $\tau_2$           & 0~ 0.05~ 0.1~ 0.15~ 0.2~ 0.3~ 0.6 \\ \hline
-    Leading track jet $\tau_3$              & 0~ 0.025~ 0.05~ 0.1~ 0.2~ 0.4 \\ \hline
-    Subleading track jet $\tau_3$           & 0~ 0.05~ 0.1~ 0.15~ 0.2~ 0.4 \\ \hline
-
-    \end{tabular}
-    \caption{The chosen bins for each of the 24 variables being unfolded.}
-    \label{tab:IBUBins}
-\end{table}
 
 The response matrices, which are also defined in section~\ref{sec:UnfoldIntro}, are shown in figure~\ref{fig:migMatDilep},~\ref{fig:migMatTJ1}, and~\ref{fig:migMatTJ2}.
 
