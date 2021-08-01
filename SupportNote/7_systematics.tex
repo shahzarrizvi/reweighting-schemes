@@ -24,6 +24,7 @@ Figure~\ref{fig:PRWpTll} shows the effect of these variations for the dilepton \
 \end{figure}
 
 \subsection{Muon uncertainties}
+\label{sec:muonuncerts}
 
 \subsubsection{Muon efficiency uncertainties}
 As summarized in section~\ref{subsec:MCCorr} there are several scale factors associated with muon reconstruction related to efficiencies in the trigger, reconstruction, isolation and track-to-vertex association.
@@ -132,15 +133,16 @@ The track systematics will also have an effect on the track jet observables. Fig
 
 \subsection{Modeling and unfolding uncertainties}
 
-Modeling uncertainties are determined by unfolding the data with simulations that have different physics models.  We will do this by first comparing the result when unfolding with \pythia{} and when unfolding with \sherpa.  This is a crude uncertainty because there are multiple differences between these generators.  We will supplement this comparison by unfolding with various \powheg+\pythia{} samples that have been re-weighted based on truth-level samples that have targeted variations (e.g.\ A14 tune variations).  Additional samples are being prepared by the PMG but will likely not be ready in time for this analysis.
+Modeling uncertainties are determined by unfolding the data with simulations that have different physics models.  We will do this by first comparing the result when unfolding with \pythia{} and when unfolding with \sherpa.  This is a crude uncertainty because there are multiple differences between these generators.  We will complement this comparison by unfolding with various \powheg+\pythia{} samples (see Sec.~\ref{sec:theoryuncerts}) that have been re-weighted based on truth-level samples that have targeted variations (e.g.\ A14 tune variations).  Additional samples are being prepared by the PMG but will likely not be ready in time for this analysis.
 
 Unfolding uncertainties are designed to quantify the method closure.  We will do this by unfolding \pythia{} with \sherpa{} and then comparing to the \pythia{} truth (and vice versa).  This may have some double-counting with modeling uncertainties and is often mitigated by performing some reweighting\footnote{\url{https://twiki.cern.ch/twiki/bin/viewauth/AtlasProtected/StandardModelUnfolding}}~\cite{Malaescu:2009dm} (which actually is similar to OmniFold Step 1).  However, we will choose the more conservative approach for this first high-dimensional analysis.
 
 \clearpage
 
 \subsection{Theoretical uncertainties}
+\label{sec:theoryuncerts}
 \subsubsection{QCD renormalization and factorization scale variations}
-The variation of the QCD renormalization ($\mu_r$) and factorization ($\mu_f$) scale on the process was studied using the \sherpa\ event generator (our nominal sample).
+The variation of the QCD renormalization ($\mu_r$) and factorization ($\mu_f$) scale on the process was studied using the \sherpa\ event generator (one of our nominal samples).
 This sample contains event weights corresponding to the standard variations of $\times 2$ and $\times 0.5$ for each scale.
 %This generator can vary each scale independently and provides combinations of up (2$\mu_(r,f)$) and down (0.5$\mu_(r,f)$) variations of each scale.
 The impact of each variation relative to the nominal scale choice is shown in figure~\ref{fig:QCDscale_mjj}.
@@ -174,12 +176,12 @@ To compute uncertainty for PS, the \powheg$+$\pythia~sample with AZNLO tune are 
 \end{figure}
 
 \subsubsection{Parton Distribution Function (PDF) variations}
-The variability of the underlying pdf is calculated using the \sherpa~samples. The nominal pdf used by the generator is the central value of some underlying pdf distribution, the \sherpa~generator provides 100 variations to this nominal pdf that are generated from this underlying statistical distribution.  The RMS of these 100 results is interpreted as a systematic uncertainty, this spread is shown for the measurement in figure~\ref{fig:PDF_RMS}. Also the fractional impact of the $\alpha_{s}$ variations and two alternative PDF sets is shown in figure~\ref{fig:alpha_S}.
+The variability of the underlying PDF is calculated using the \sherpa~samples. The nominal PDF used by the generator is the central value of some underlying PDF distribution, the \sherpa~generator provides 100 variations to this nominal pdf that are generated from this underlying statistical distribution.  The RMS of these 100 results is interpreted as a systematic uncertainty, this spread is shown for the measurement in figure~\ref{fig:PDF_RMS}. Also the fractional impact of the $\alpha_{s}$ variations and two alternative PDF sets is shown in figure~\ref{fig:alpha_S}.
 \begin{figure}[h!]
   \centering
   \subfloat[]{\includegraphics[page=1,width=0.45\textwidth]{figures/systPDF_100.pdf}}
   \subfloat[]{\includegraphics[page=1,width=0.45\textwidth]{figures/systPDF_RMS.pdf}} \\
-  \caption{Spread of 100 pdf variations per bin (left) and impact of systematic uncertainty as RMS of these 100 results (right) on dilepton \pt. To show smooth variations in these plots, some events with large negative weights are skipped.}
+  \caption{Spread of 100 PDF variations per bin (left) and impact of systematic uncertainty as RMS of these 100 results (right) on dilepton \pt. To show smooth variations in these plots, some events with large negative weights are skipped.}
   \label{fig:PDF_RMS}
 \end{figure}
 
