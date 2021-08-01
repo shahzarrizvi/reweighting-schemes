@@ -24,13 +24,57 @@ The proposed main results to be included in the first paper is:
     \item
       the transverse momentum (\ptlj, \ptsj), rapidity (\ylj{}, \ysj), azimuth (\philj, \phisj) of the two highest-\pt{} charged hadron jets in the event, which probes the jet kinematics; and
     \item
-      the mass (\mlj, \msj), charged hadron multiplicity (\Nclj, \Ncsj) and $N$-subjettiness quantities \taulj{1}, %$\tau_1(j1)$, $\tau_{1,\mathrm{j1}}$ 
-      \tausj{1}, \taulj{2}, \tausj{2}, \taulj{3} and \tausj{3} that measures the substructure of the leading two charged-hadron jets. 
-  \end{itemize}  
+      the mass (\mlj, \msj), charged hadron multiplicity (\Nclj, \Ncsj) and $N$-subjettiness quantities \taulj{1}, %$\tau_1(j1)$, $\tau_{1,\mathrm{j1}}$
+      \tausj{1}, \taulj{2}, \tausj{2}, \taulj{3} and \tausj{3} that measures the substructure of the leading two charged-hadron jets.
+  \end{itemize}
 \item
    A plot will be produced for each observable comparing the unfolded spectrum with a measurement performed using IBU (i.e.\ the standard technique used in ATLAS SM measurements).
-   IBU requires a predefined binning, which has been derived for each observable as described in appendix~\ref{app:IBU} to achieve reasonable purity of each bin. 
+   IBU requires a predefined binning, which has been derived for each observable as described in appendix~\ref{app:IBU} to achieve reasonable purity of each bin.
    This binning is presented in table~\ref{tab:IBUBins}.
+
+   \begin{table}[h!]
+       \centering
+       \begin{tabular}{l|l}
+       \hline\hline
+       \textbf{Variable} & \textbf{Bin Edges} \\ \hline\hline
+       $\pTll$ [GeV]                           & 190~ 230~ 300~ 450~ 600~ 1000~ 2000 \\ \hline
+       $\yll$                                  & -2.5~ -2~ -1.5~ -1~ -0.75~ -0.5~ -0.25~ 0~ 0.25~ 0.5~ 0.75~ 1~ 1.5~ 2~ 2.5 \\ \hline
+       $\pTlm$ [GeV]                           & 25~ 125~ 200~ 300~ 400~ 600~ 2000 \\ \hline
+       $\pTsm$ [GeV]                           & 25~ 40~ 60~ 80~ 100~ 150~ 200~ 300~ 500~ 1000 \\ \hline
+       $\eta_{\mu1}$                           & -2.5~ -2~ -1.5~ -1~ -0.75~ -0.5~ -0.25~ 0~ 0.25~ 0.5~ 0.75~ 1~ 1.5~ 2~ 2.5 \\ \hline
+       $\eta_{\mu2}$                           & -2.5~ -2~ -1.5~ -1~ -0.75~ -0.5~ -0.25~ 0~ 0.25~ 0.5~ 0.75~ 1~ 1.5~ 2~ 2.5 \\ \hline
+       $\phi_{\mu1}$                           & -3.2~ -3.0~ -2.8~ -2.6~ -2.4~ -2.2~ -2.0~ -1.8~ -1.6~ -1.4~ -1.2~ -1.0~ -0.8~ \\
+                                               & -0.6~ -0.4~ -0.2~ 0~ 0.2~ 0.4~ 0.6~ 0.8~ 1.0~ 1.2~ 1.4~ 1.6~ 1.8~ 2.0~ 2.2~ \\
+                                               & 2.4~ 2.6~ 2.8~ 3.0~ 3.2 \\ \hline
+       $\phi_{\mu2}$                           & -3.2~ -3.0~ -2.8~ -2.6~ -2.4~ -2.2~ -2.0~ -1.8~ -1.6~ -1.4~ -1.2~ -1.0~ -0.8~ \\
+                                               & -0.6~ -0.4~ -0.2~ 0~ 0.2~ 0.4~ 0.6~ 0.8~ 1.0~ 1.2~ 1.4~ 1.6~ 1.8~ 2.0~ 2.2~ \\
+                                               & 2.4~ 2.6~ 2.8~ 3.0~ 3.2 \\ \hline
+       Leading track jet \pt [GeV]             & 0~ 50~ 100~ 150~ 200~ 300~ 1000 \\ \hline
+       Subleading track jet \pt [GeV]          & 0~ 25~ 50~ 100~ 700 \\ \hline
+       Leading track jet $y$                   & -2.5~ -2.25~ -2.0~ -1.75~ -1.5~ -1.25~ -1.0~ -0.75~ -0.5~ -0.25~ 0~ \\
+                                               & 0.25~ 0.5~ 0.75~ 1.0~ 1.25~ 1.5~ 1.75~ 2.0~ 2.25~ 2.5 \\ \hline
+       Subleading track jet $y$                & -2.5~ -2~ -1.5~ -1~ -0.75~ -0.5~ -0.25~ 0~ 0.25~ 0.5~ 0.75~ 1~ 1.5~ 2~ 2.5 \\ \hline
+       Leading track jet $\phi$                & -3.2~ -3.0~ -2.8~ -2.6~ -2.4~ -2.2~ -2.0~ -1.8~ -1.6~ -1.4~ -1.2~ -1.0~ -0.8~ \\
+                                               & -0.6~ -0.4~ -0.2~ 0~ 0.2~ 0.4~ 0.6~ 0.8~ 1.0~ 1.2~ 1.4~ 1.6~ 1.8~ 2.0~ 2.2~ \\
+                                               & 2.4~ 2.6~ 2.8~ 3.0~ 3.2 \\ \hline
+       Subleading track jet $\phi$             & -3.2~ -2.8~ -2.4~ -2.0~ -1.6~ -1.2~ -0.8~ -0.4~ 0~ 0.4~ 0.8~ 1.2~ 1.6~ 2.0~ \\
+                                               & 2.4~ 2.6~ 2.8~ 3.0~ 3.2 \\ \hline
+       Leading track jet $n_{\text{ch}}$       & 1~ 5~ 7~ 10~ 13~ 16~ 20~ 30~ 40~ 55~$^{(*)}$ \\ \hline
+       Subleading track jet $n_{\text{ch}}$    & 1~ 2~ 3~ 5~ 7~ 9~ 11~ 15~ 20~ 30~ 50~$^{(*)}$ \\ \hline
+       Leading track jet $m$ [GeV]             & 0~ 10~ 20~ 30~ 40~ 80 \\ \hline
+       Subleading track jet $m$ [GeV]          & 0~ 2.5~ 5~ 10~ 20~ 70 \\ \hline
+       Leading track jet $\tau_1$              & 0~ 0.05~ 0.1~ 0.15~ 0.2~ 0.3~ 0.5~ 1 \\ \hline
+       Subleading track jet $\tau_1$           & 0~ 0.1~ 0.2~ 0.3~ 0.4~ 0.5~ 1 \\ \hline
+       Leading track jet $\tau_2$              & 0~ 0.05~ 0.1~ 0.15~ 0.2~ 0.3~ 0.6 \\ \hline
+       Subleading track jet $\tau_2$           & 0~ 0.05~ 0.1~ 0.15~ 0.2~ 0.3~ 0.6 \\ \hline
+       Leading track jet $\tau_3$              & 0~ 0.025~ 0.05~ 0.1~ 0.2~ 0.4 \\ \hline
+       Subleading track jet $\tau_3$           & 0~ 0.05~ 0.1~ 0.15~ 0.2~ 0.4 \\ \hline
+
+       \end{tabular}
+       \caption{The chosen bins for each of the 24 variables being unfolded. (*) There is an additional bin for these variables added for technical reasons. This bin is included in plots but will not be considered as a part of the final result.}
+       \label{tab:IBUBins}
+   \end{table}
+
 %Our paper will contain a small number of unfolded histograms to illustrate the breadth of the result.
 %We will show plots that show the spectra of the multifold observables, using IBU, MultiFold, and OmniFold in the support note (and also include the correlation dimension~\cite{Komiske:2019fks}) and then we will discuss with the Editorial Board which plots to go in the paper.
 \item
@@ -38,8 +82,8 @@ The proposed main results to be included in the first paper is:
 \end{itemize}
 
 \subsection{Planned content of second paper}
-For a second, future paper, the goal is to use true Omnifold and unfold the four momenta of the two muons from the $Z$-boson and a list of the four momenta of all charged hadrons in the event.
-This means that there is a different number of observables for each event. The main results would hence be a set of four vectors, and jets can be built from them (using any algorithm). 
+For a second, future paper, the goal is to use true OmniFold and unfold the four momenta of the two muons from the $Z$-boson and a list of the four momenta of all charged hadrons in the event.
+This means that there is a different number of observables for each event. The main results would hence be a set of four vectors, and jets can be built from them (using any algorithm).
 For visualization, a similar (or the same) set of histograms will be created as from the first paper.
 
 %  \todo{This is only for OmniFold, right? We'd need to make a flat n-tuple with 24 branches, I think, which should be stated here}
