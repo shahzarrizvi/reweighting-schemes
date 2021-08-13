@@ -1,6 +1,6 @@
 Uncertainties on the unfolded result are evaluated using error propagation, consistent with the standard approach used at ATLAS.
 Uncertainties are split into sources (sometimes called ``uncertainty components'') that are each treated as uncorrelated to each other.
-For each such uncertainty source, a pertubation is introduced either to the MC or data corresponding to its impact: $+1\sigma$, and in case of two-sided uncertainties, also $-1\,\sigma$. The unfolding (``full analysis'') is then repeated using the modified samples, which results in a OmniFold weight $\nu'$ for each event that is slightly different from the nominal OmniFold weight $\nu$. Each event in the unfolded dataset is hence assigned one nominal weight and a list of alternative weights, each corresponding to a systematic uncertainty source, or statistical replica variation.
+For each such uncertainty source, a perturbation is introduced either to the MC or data corresponding to its impact: $+1\sigma$, and in case of two-sided uncertainties, also $-1\,\sigma$. The unfolding (``full analysis'') is then repeated using the modified samples, which results in a OmniFold weight $\nu'$ for each event that is slightly different from the nominal OmniFold weight $\nu$. Each event in the unfolded dataset is hence assigned one nominal weight and a list of alternative weights, each corresponding to a systematic uncertainty source, or statistical replica variation.
 
 \subsection{Data and Monte Carlo statistical uncertainties}
 These uncertainties will be computed via bootstrapping.  A set of $N$ pseudodatasets are constructed where each event has a weight $W_\text{pseudo}\,w_\text{nominal}$, where $w_\text{nominal}$ is unity for data and $w_\text{MC}$ for simulation. $W_\text{pseudo}$ is a value sampled randomly from a Poisson distribution with a mean of unity.  To ensure that the ``uncertainty on the uncertainty'' is negligible an ensemble of $N\gtrsim 100$ such pseudodatasets can be used.  These uncertainties are straightforward to compute, but are computationally expensive and thus we will compute them once all other results are finished.
@@ -146,7 +146,7 @@ The variation of the QCD renormalization ($\mu_r$) and factorization ($\mu_f$) s
 This sample contains event weights corresponding to the standard variations of $\times 2$ and $\times 0.5$ for each scale.
 %This generator can vary each scale independently and provides combinations of up (2$\mu_(r,f)$) and down (0.5$\mu_(r,f)$) variations of each scale.
 The impact of each variation relative to the nominal scale choice is shown in figure~\ref{fig:QCDscale_mjj}.
-Both $\mu_r$ and $\mu_f$ varied up is dentoted ``uu'' and both varied down ``dd'', etc.
+Both $\mu_r$ and $\mu_f$ varied up is denoted ``uu'' and both varied down ``dd'', while ``n" indicates the nominal quantity etc.
 A larger renormalization scales results in a smaller cross section and hence less events in the observed dilepton \pt spectrum, and vice versa.
 Varying the factorization scale has very little impact.
 
