@@ -161,7 +161,7 @@ Varying the factorization scale has very little impact.
 \end{figure}
 
 \subsubsection{Parton Shower (PS) uncertainties}
-To compute uncertainty for PS, the \powheg$+$\pythia~sample with AZNLO tune are used [listed in~\ref{app:datasets}]. A set of systematic variations is provided for the AZNLO tune, based on the eigentune method. In order to cover the full range of PS uncertainties, a subset of tune variations which together provide maximal coverage of the observables: one pair mainly for underlying event effects (Var1), one pair mainly for jet structure effects (Var2), along with scale variations (RenUp and RenDown) and MultipartonInteractions (MPI) variations (MPIUp and MPIDown) is used. The impact of these variation relative to the nominal sample is shown in figure~\ref{fig:PS_MPI}.
+To compute uncertainty for PS, the \powheg$+$\pythia~sample with AZNLO tune are used (listed in appendix~\ref{app:datasets}). These samples are customized using standard dilepton \pt filter ($p_{\text{T},\ell\ell}\geq100$ GeV), the detailed JOs and preliminarily validation plots can be found at jira~\url{https://its.cern.ch/jira/browse/ATLMCPROD-9320}. A set of systematic variations is provided for the AZNLO tune, based on the eigentune method. In order to cover the full range of PS uncertainties, a subset of tune variations which together provide maximal coverage of the observables: one pair mainly for underlying event effects (Var1), one pair mainly for jet structure effects (Var2), along with scale variations (RenUp and RenDown) and MultipartonInteractions (MPI) variations (MPIUp and MPIDown) is used. The impact of these variation relative to the nominal sample is shown in figure~\ref{fig:PS_MPI}.
 
 \begin{figure}[h!]
   \centering
@@ -176,7 +176,7 @@ To compute uncertainty for PS, the \powheg$+$\pythia~sample with AZNLO tune are 
 \end{figure}
 
 \subsubsection{Parton Distribution Function (PDF) variations}
-The variability of the underlying PDF is calculated using the \sherpa~samples. The nominal PDF used by the generator is the central value of some underlying PDF distribution, the \sherpa~generator provides 100 variations to this nominal pdf that are generated from this underlying statistical distribution.  The RMS of these 100 results is interpreted as a systematic uncertainty, this spread is shown for the measurement in figure~\ref{fig:PDF_RMS}. Also the fractional impact of the $\alpha_{s}$ variations and two alternative PDF sets is shown in figure~\ref{fig:alpha_S}.
+The variability of the underlying PDF is calculated using the \sherpa~samples (listed in appendix~\ref{app:datasets}). The nominal PDF used by the generator is the central value of some underlying PDF distribution, the \sherpa~generator provides 100 variations to this nominal pdf that are generated from this underlying statistical distribution.  The RMS of these 100 results is interpreted as a systematic uncertainty, this spread is shown for the measurement in figure~\ref{fig:PDF_RMS}. Also the fractional impact of the $\alpha_{s}$ variations and two alternative PDF sets is shown in figure~\ref{fig:alpha_S}.
 \begin{figure}[h!]
   \centering
   \subfloat[]{\includegraphics[page=1,width=0.45\textwidth]{figures/systPDF_100.pdf}}
