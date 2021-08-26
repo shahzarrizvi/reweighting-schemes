@@ -5,6 +5,16 @@ For each such uncertainty source, a perturbation is introduced either to the MC 
 \subsection{Data and Monte Carlo statistical uncertainties}
 These uncertainties will be computed via bootstrapping.  A set of $N$ pseudodatasets are constructed where each event has a weight $W_\text{pseudo}\,w_\text{nominal}$, where $w_\text{nominal}$ is unity for data and $w_\text{MC}$ for simulation. $W_\text{pseudo}$ is a value sampled randomly from a Poisson distribution with a mean of unity.  To ensure that the ``uncertainty on the uncertainty'' is negligible an ensemble of $N\gtrsim 100$ such pseudodatasets can be used.  These uncertainties are straightforward to compute, but are computationally expensive and thus we will compute them once all other results are finished.
 
+Each event will have $N$ weights associated with the data statistical uncertainty and from this, one can compute the covariance matrix for any particular binning scheme $b(x)\in\{0,1,2,...,n_\text{bins}\}$:
+
+\begin{align}
+\mathbb{E}_k &= \frac{1}{N}\sum_{j=1}^N\sum_{i=1}^{N_\text{events}} w_{ij} \mathbb{I}[b(x_i)=k]\\
+\mathbb{E}_{kk'} &= \frac{1}{N}\sum_{j=1}^N \left(\sum_{i=1}^{N_\text{events}} w_{ij} \mathbb{I}[b(x_i)=k]\right)\left(\sum_{i=1}^{N_\text{events}} w_{ij} \mathbb{I}[b(x_i)=k']\right)\\
+\Sigma_{kk'}&=\mathbb{E}_{kk'} - \mathbb{E}_k\mathbb{E}_{k'}\,,
+\end{align}
+%
+where $0\leq k,k'\leq n_\text{bins}$ and $\mathcal{I}[\cdot]$ is the indicator function that is 1 when $\cdot$ is true and zero otherwise.
+
 \subsection{Pileup reweighting uncertainties}
 As discussed in section~\ref{subsec:PRW}, a correction is applied to MC events such that the pileup modeling in the simulation corresponds to what is seen in data. As such, there are variations associated with this modeling
 that must be taken into account.
