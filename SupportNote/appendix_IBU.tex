@@ -6,7 +6,7 @@ As a cross-check and comparison, Iterative Bayesian Unfolding (IBU) (described i
 First, various plots for the efficiency and purity of the \powheg+\pythia~sample are shown, and the results of the unfolding are shown in the following section.
 
 \subsection{Relevant quantities and choice of binning}
-The efficiency describes the probability that an event that fulfills the fiducial requirement passes the analysis selection. This can be written as,
+The efficiency, or the correction factor \textbf{c} as defined in section~\ref{sec:UnfoldIntro}, describes the probability that an event that fulfills the fiducial requirement passes the analysis selection. This can be written as,
 \begin{equation}
   \varepsilon_i=\frac{N^{\text{truth$_i$, reco}}}{N^{\text{truth$_i$}}}
 \end{equation}
@@ -17,134 +17,182 @@ where $N^{\text{truth$_i$, reco}}$ represents the number of events in truth bin 
 \end{equation}
 where $N^{\text{reco$_i$, truth$_i$}}$ represents the number of reconstructed events in bin $i$ with a truth event also in bin $i$, and $N^{\text{reco$_i$}}$ represents the total reconstructed events in bin $i$.
 
-Figure~\ref{fig:EffDilep},~\ref{fig:EffTJ1} and~\ref{fig:EffTJ2} shows the efficiency measurements for the 24 variables that were outlined for UniFold and MultiFold, and figure~\ref{fig:binPurDilep},~\ref{fig:binPurTJ1}, and~\ref{fig:binPurTJ2} shows the purity for the same variables.
+Lastly, the fake factor \textbf{f} as defined in section~\ref{sec:UnfoldIntro} describes the probability that a reconstructed event in bin $i$ also passes the fiducial selection. It can be written as:
+
+\begin{equation}
+  \textbf{f}_i = \frac{N^{\text{reco$_i$, truth}}}{N^{\text{reco$_i$}}}
+\end{equation}
+
+Figure~\ref{fig:EffDilep},~\ref{fig:EffTJ1} and~\ref{fig:EffTJ2} shows the efficiency measurements for the 24 variables that were outlined for UniFold and MultiFold, and figure~\ref{fig:binPurDilep},~\ref{fig:binPurTJ1}, and~\ref{fig:binPurTJ2} shows the purity for the same variables. Figures~\ref{fig:ffDilep},~\ref{fig:ffTJ1}, and~\ref{fig:ffTJ2} show the fake factor.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=533,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=539,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=551,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=557,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=563,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=569,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=575,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=581,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=443,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=447,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=455,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=459,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=463,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=467,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=471,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=475,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
   \caption{Efficiency as a function of $\pTll$, $\yll$, and $\pt$, $\eta$, and $\phi$ for the leading and subleading muon. This quantity estimates the probability that an event which passes the fiducial selection also passes the analysis selection.}
   \label{fig:EffDilep}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=587,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=629,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=593,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=635,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=599,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=641,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=671,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=677,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=479,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=507,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=483,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=511,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=487,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=515,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=535,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=539,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \caption{Efficiency as a function $\pt$, $y$, $\phi$, and $n_{\text{ch}}$ for the leading and subleading track jet.}
   \label{fig:EffTJ1}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=605,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=647,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=611,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=653,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=617,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=659,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=623,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=665,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=491,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=519,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=495,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=523,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=499,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=527,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=503,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=531,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \caption{Efficiency as a function for $m$, $\tau_1$, $\tau_2$, and $\tau_3$ for the leading and subleading track jet.}
   \label{fig:EffTJ2}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=536,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=542,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=554,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=560,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=566,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=572,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=578,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=584,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=444,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=448,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=456,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=460,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=464,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=468,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=472,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=476,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \caption{Purity for $\pTll$, $\yll$, and $\pt$, $\eta$, and $\phi$ for the leading and subleading muon. This quantity provides the probability that an event in a given reconstructed bin occurs in the same truth bin.}
   \label{fig:binPurDilep}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=590,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=632,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=596,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=638,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=602,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=644,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=674,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=680,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=480,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=508,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=484,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=512,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=488,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=516,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=536,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=540,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \caption{Purity for $\pt$, $y$, $\phi$, and $n_{\text{ch}}$ for the leading and subleading track jet.}
   \label{fig:binPurTJ1}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=608,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=650,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=614,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=656,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=620,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=662,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=626,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=668,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=492,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=520,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=496,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=524,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=500,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=528,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=504,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=532,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \caption{Purity for $m$, $\tau_1$, $\tau_2$, and $\tau_3$ for the leading and subleading track jet.}
   \label{fig:binPurTJ2}
 \end{figure}
 
 The purity values are the relevant quantity used to determine if the chosen binning is appropriate for a given variable. Ideally, each bin will have a purity of $\sim$60\%--70\%. The bins chosen for each variable are outlined in table~\ref{tab:IBUBins}.
 
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=445,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=449,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=457,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=461,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=465,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=469,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=473,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=477,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \caption{Fake factor for $\pTll$, $\yll$, and $\pt$, $\eta$, and $\phi$ for the leading and subleading muon. This quantity provides the probability that an event in a given reconstructed bin occurs in the same truth bin.}
+  \label{fig:ffDilep}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=481,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=509,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=485,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=513,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=489,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=517,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=537,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=541,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \caption{Fake factor for $\pt$, $y$, $\phi$, and $n_{\text{ch}}$ for the leading and subleading track jet.}
+  \label{fig:ffTJ1}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=493,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=521,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=497,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=525,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=501,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=529,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=505,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=533,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \caption{Purity for $m$, $\tau_1$, $\tau_2$, and $\tau_3$ for the leading and subleading track jet.}
+  \label{fig:ffTJ2}
+\end{figure}
+
 The response matrices, which are also defined in section~\ref{sec:UnfoldIntro}, are shown in figure~\ref{fig:migMatDilep},~\ref{fig:migMatTJ1}, and~\ref{fig:migMatTJ2}.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=682,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=683,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=685,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=686,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=687,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=688,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=689,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=690,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=558,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=559,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=561,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=562,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=563,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=564,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=565,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=566,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \caption{The response matrices for $\pTll$, $\yll$, and $\pt$, $\eta$, and $\phi$ for the leading and subleading muon.}
   \label{fig:migMatDilep}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=691,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=698,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=692,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=699,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=693,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=700,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=705,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=706,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=567,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=574,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=568,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=575,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=569,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=576,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=581,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=582,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \caption{The response matrices for $\pt$, $y$, $\phi$, and $n_{\text{ch}}$ for the leading and subleading track jet.}
   \label{fig:migMatTJ1}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=694,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=701,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=695,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=702,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=696,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=703,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
-  \includegraphics[page=697,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=704,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=570,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=577,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=571,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=578,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=572,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=579,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf} \\
+  \includegraphics[page=573,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=580,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \caption{The response matrices for $m$, $\tau_1$, $\tau_2$, and $\tau_3$ for the leading and subleading track jet.}
   \label{fig:migMatTJ2}
 \end{figure}
@@ -156,10 +204,10 @@ The resolution plots for $\pTll$ and $m_{\mu\mu}$ can be seen in Figure~\ref{fig
 
 \begin{figure}
   \centering
-  \includegraphics[page=707,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=708,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=1415,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
-  \includegraphics[page=1416,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=587,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=588,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=1175,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
+  \includegraphics[page=1176,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   %\caption{The ratio of reconstructed $m_{\mu\mu}$ to truth $m_{\mu\mu}$ for \powheg+\pythia~(top left) and \sherpa~2.2.1 (bottom left), and similarly for $\pTll$ (right).}
   \caption{The detector resolution of $m_{\mu\mu}$ (left) and $\pTll$ (right) determined using \powheg+\pythia~(top) and \sherpa~2.2.1 (bottom) as a function of $\pTll$.}
   \label{fig:Resmll}
@@ -170,42 +218,42 @@ Figure~\ref{fig:UnfoldIBUDilep},~\ref{fig:UnfoldIBUTJ1}, and~\ref{fig:UnfoldIBUT
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=76,width=0.45\textwidth]{figures/IBUPlots.pdf}
-  \includegraphics[page=77,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
-  \includegraphics[page=79,width=0.45\textwidth]{figures/IBUPlots.pdf}
-  \includegraphics[page=80,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
-  \includegraphics[page=81,width=0.45\textwidth]{figures/IBUPlots.pdf}
-  \includegraphics[page=82,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
-  \includegraphics[page=83,width=0.45\textwidth]{figures/IBUPlots.pdf}
-  \includegraphics[page=84,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=88,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=89,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=91,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=92,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=93,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=94,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=95,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=96,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
   \caption{The results of the IBU for $\pTll$, $\yll$, and $\pt$, $\eta$, and $\phi$ for the leading and subleading muon. The truth distribution for the \sherpa~2.2.1 sample is shown in red, and the unfolded distribution is shown in black. The reconstructed distribution for \sherpa~2.2.1 is also shown in blue for reference.}
   \label{fig:UnfoldIBUDilep}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=85,width=0.45\textwidth]{figures/IBUPlots.pdf}
-  \includegraphics[page=92,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
-  \includegraphics[page=86,width=0.45\textwidth]{figures/IBUPlots.pdf}
-  \includegraphics[page=93,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
-  \includegraphics[page=87,width=0.45\textwidth]{figures/IBUPlots.pdf}
-  \includegraphics[page=94,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=97,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=104,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=98,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=105,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
   \includegraphics[page=99,width=0.45\textwidth]{figures/IBUPlots.pdf}
-  \includegraphics[page=100,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=106,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=111,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=112,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \caption{The results of the IBU for $\pt$, $y$, $\phi$, and $n_{\text{ch}}$ for the leading and subleading track jet. The truth distribution for the \sherpa~2.2.1 sample is shown in red, and the unfolded distribution is shown in black. The reconstructed distribution for \sherpa~2.2.1 is also shown in blue for reference.}
   \label{fig:UnfoldIBUTJ1}
 \end{figure}
 
 \begin{figure}
   \centering
-  \includegraphics[page=88,width=0.45\textwidth]{figures/IBUPlots.pdf}
-  \includegraphics[page=95,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
-  \includegraphics[page=89,width=0.45\textwidth]{figures/IBUPlots.pdf}
-  \includegraphics[page=96,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
-  \includegraphics[page=90,width=0.45\textwidth]{figures/IBUPlots.pdf}
-  \includegraphics[page=97,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
-  \includegraphics[page=91,width=0.45\textwidth]{figures/IBUPlots.pdf}
-  \includegraphics[page=98,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=100,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=107,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=101,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=108,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=102,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=109,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=103,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=110,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \caption{The results of the IBU for $m$, $\tau_1$, $\tau_2$, and $\tau_3$ for the leading and subleading track jet. The truth distribution for the \sherpa~2.2.1 sample is shown in red, and the unfolded distribution is shown in black. The reconstructed distribution for \sherpa~2.2.1 is also shown in blue for reference.}
   \label{fig:UnfoldIBUTJ2}
 \end{figure}
@@ -220,8 +268,8 @@ The data and MC statistical errors for $\pTll$ are shown in figure~\ref{fig:MCDa
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=29,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
-  \includegraphics[page=30,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=152,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=154,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \caption{The MC statistical error (left) and data statistical error (right) on the unfolded distribution for $\pTll$.}
   \label{fig:MCDataStatErr}
 \end{figure}
@@ -233,7 +281,7 @@ The combined effect of these variations on the dilepton \pt can be seen in figur
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=25,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=148,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \caption{The effect of the scale factor systematic errors on the unfolded distribution for $\pTll$.}
   \label{fig:SFSystErr}
 \end{figure}
@@ -245,7 +293,7 @@ The combined effect of these variations on the dilepton \pt can be seen in figur
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=28,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=150,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \caption{The effect of the muon calibration systematic errors on the unfolded distribution for $\pTll$.}
   \label{fig:muCalSystErr}
 \end{figure}
@@ -257,75 +305,75 @@ The combined effect of these variations on the leading track jet \pt can be seen
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=300,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=478,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \caption{The effect of the track systematics on the unfolded distribution for the leading track jet \pt.}
   \label{fig:trackSystErr}
 \end{figure}
 
-\subsubsection{QCD renormalization and factorization scale variations}
-For this error, the largest variation is selected (both the renormalization and factorization scale varied downwards). These variations are applied to the truth \powheg+\pythia~distributions and propagated through the unfolding. As these variations are readily available for the \sherpa~2.2.1 samples, the ratio between the nominal truth \sherpa~distribution and the varied truth \sherpa~distribution was taken and used to scale the appropriate bin in the \powheg+\pythia~truth distribution.
+%\subsubsection{QCD renormalization and factorization scale variations}
+%For this error, the largest variation is selected (both the renormalization and factorization scale varied downwards). These variations are applied to the truth \powheg+\pythia~distributions and propagated through the unfolding. As these variations are readily available for the \sherpa~2.2.1 samples, the ratio between the nominal truth \sherpa~distribution and the varied truth \sherpa~distribution was taken and used to scale the appropriate bin in the \powheg+\pythia~truth distribution.
 
-The effect of this variation on the dilepton \pt can be seen in figure~\ref{fig:qcdSystErr}.
+%The effect of this variation on the dilepton \pt can be seen in figure~\ref{fig:qcdSystErr}.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[page=26,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
-  \caption{The effect of the QCD renormalization and factorization scale variations on the unfolded distribution for $p_{\text{T},\ell\ell}$.}
-  \label{fig:qcdSystErr}
-\end{figure}
+%\begin{figure}[h!]
+%  \centering
+%  \includegraphics[page=26,width=0.45\textwidth]{figures/IBUPlots.pdf}
+%  \caption{The effect of the QCD renormalization and factorization scale variations on the unfolded distribution for $p_{\text{T},\ell\ell}$.}
+%  \label{fig:qcdSystErr}
+%\end{figure}
 
-\subsubsection{Shower shape variations}
-These variations are not available in the nominal samples used for the majority of the analysis. As such, in order to determine the magnitude of these variations, the ratio of the nominal distribution to the varied distributions is calculated using an independent sample. These ratios is then used to appropriately scale the truth distribution for the \powheg+\pythia~sample before it is propagated through the unfolding procedure.
+%\subsubsection{Shower shape variations}
+%These variations are not available in the nominal samples used for the majority of the analysis. As such, in order to determine the magnitude of these variations, the ratio of the nominal distribution to the varied distributions is calculated using an independent sample. These ratios is then used to appropriately scale the truth distribution for the \powheg+\pythia~sample before it is propagated through the unfolding procedure.
 
-The effect of this variation on the dilepton \pt can be seen in figure~\ref{fig:showerSystErr}.
+%The effect of this variation on the dilepton \pt can be seen in figure~\ref{fig:showerSystErr}.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[page=28,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
-  \caption{The combined effect of the shower shape variations on the dilepton \pt.}
-  \label{fig:showerSystErr}
-\end{figure}
+%\begin{figure}[h!]
+%  \centering
+%  \includegraphics[page=28,width=0.45\textwidth]{figures/IBUPlots.pdf}
+%  \caption{The combined effect of the shower shape variations on the dilepton \pt.}
+%  \label{fig:showerSystErr}
+%\end{figure}
 
 The distributions for the 24 unfolded variables with the combined statistical and systematic errors are shown in figure~\ref{fig:unfoldErr1},~\ref{fig:unfoldErr2}, and~\ref{fig:unfoldErr3}.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=32,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
-  \includegraphics[page=64,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
-  \includegraphics[page=128,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
-  \includegraphics[page=160,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
-  \includegraphics[page=188,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
-  \includegraphics[page=216,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
-  \includegraphics[page=244,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
-  \includegraphics[page=272,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=156,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=196,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=276,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=316,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=348,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=380,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=412,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=444,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \caption{The unfolded differential distribution with errors for $\pTll$, $\yll$, and \pt, $\eta$, and $\phi$ for the leading and subleading muon.}
   \label{fig:unfoldErr1}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=304,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
-  \includegraphics[page=528,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
-  \includegraphics[page=336,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
-  \includegraphics[page=560,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
-  \includegraphics[page=368,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
-  \includegraphics[page=592,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
-  \includegraphics[page=752,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
-  \includegraphics[page=784,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=484,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=764,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=524,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=804,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=564,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=844,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=1044,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=1084,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \caption{The unfolded differential distribution with errors for the \pt, $y$, $\phi$, and $n_{\text{ch}}$ for the leading and subleading track jet.}
   \label{fig:unfoldErr2}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=400,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
-  \includegraphics[page=624,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
-  \includegraphics[page=432,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
-  \includegraphics[page=656,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
-  \includegraphics[page=464,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
-  \includegraphics[page=688,width=0.45\textwidth]{figures/unfoldErrPlots.pdf} \\
-  \includegraphics[page=496,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
-  \includegraphics[page=720,width=0.45\textwidth]{figures/unfoldErrPlots.pdf}
+  \includegraphics[page=604,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=884,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=644,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=924,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=684,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=964,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
+  \includegraphics[page=724,width=0.45\textwidth]{figures/IBUPlots.pdf}
+  \includegraphics[page=1004,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \caption{The unfolded differential distribution with errors for the $m$, $\tau_1$, $\tau_2$, and $\tau_3$ for the leading and subleading track jet.}
   \label{fig:unfoldErr3}
 \end{figure}
