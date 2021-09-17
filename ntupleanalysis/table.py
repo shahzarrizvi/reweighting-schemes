@@ -1,6 +1,6 @@
 import awkward
 import uproot
-import uproot_methods
+import uproot3_methods
 
 import time
 

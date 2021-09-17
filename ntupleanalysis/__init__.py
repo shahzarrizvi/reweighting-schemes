@@ -20,7 +20,7 @@ import itertools
 
 import awkward
 import uproot
-import uproot_methods
+import uproot3_methods
 
 from scipy.optimize import curve_fit
 from scipy.stats import binned_statistic
