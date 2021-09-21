@@ -1,4 +1,4 @@
-name: omnifold
+name: omnifold1
 channels:
   - conda-forge
   - defaults

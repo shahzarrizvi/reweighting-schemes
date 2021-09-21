@@ -90,8 +90,7 @@ def plot_distributions(sim_truth,
     if save_label is not None:
         fig.savefig(save_label + '-Distributions.pdf',
                     bbox_inches='tight',
-                    backend='pgf'
-                   )
+                    backend='pgf')
     fig.show()
     
 def plot_results(sim_truth,
@@ -185,6 +184,6 @@ def plot_results(sim_truth,
         if save_label is not None:
             fig.savefig(save_label + '-Iteration{:02}.pdf'.format(i + 1),
                         bbox_inches='tight',
-                        backend='pgf'
-                       )
+                        backend='pgf')
         plt.show()
+        
