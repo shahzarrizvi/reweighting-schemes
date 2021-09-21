@@ -186,4 +186,3 @@ def plot_results(sim_truth,
                         bbox_inches='tight',
                         backend='pgf')
         plt.show()
-        
