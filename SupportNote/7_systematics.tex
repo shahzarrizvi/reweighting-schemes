@@ -13,7 +13,19 @@ Each event will have $N$ weights associated with the data statistical uncertaint
 \Sigma_{kk'}&=\mathbb{E}_{kk'} - \mathbb{E}_k\mathbb{E}_{k'}\,,
 \end{align}
 %
-where $0\leq k,k'\leq n_\text{bins}$ and $\mathcal{I}[\cdot]$ is the indicator function that is 1 when $\cdot$ is true and zero otherwise.
+where $w_{ij}$ is the OmniFold weight for bootstrap $j$ and event $i$, $0\leq k,k'\leq n_\text{bins}$ and $\mathcal{I}[\cdot]$ is the indicator function that is 1 when $\cdot$ is true and zero otherwise.
+
+\subsubsection{Statistical Uncertainties on the Systematic Uncertainties}
+
+In order to determine if a particular systematic uncertainty is statistically significant and/or to perform uncertainty smoothing, it is necessary to have a statistical uncertainty on the systematic uncertainties.   The overall uncertainty is given by the MC statistical uncertainty described in the previous section.  However, the experimental uncertainties are highly correlated and so additional boostrapping is required.  In particular, the same $W_\text{pseudo}$ is used for all uncertainty variations and a set of bootstrap weights from the unfolding are produced: $W_\text{pseudo}\times\{w_\text{nominal},w_\text{syst 1}, w_\text{syst 2},...\}$.  In cases where the systematic uncertainty weight is the same as the nominal, then only the features change while the weights are the same.  Then, in a given bin $k$, we can compute 
+
+\begin{align}
+\mathbb{E}_k^\text{nominal} &= \frac{1}{N}\sum_{j=1}^N\sum_{i=1}^{N_\text{events}} w_{ij,\text{nominal}} \mathbb{I}[b(x_i)=k]\\
+\mathbb{E}_k^\text{$\ell$} &= \frac{1}{N}\sum_{j=1}^N\sum_{i=1}^{N_\text{events}} w_{ij,\text{syst $\ell$}} \mathbb{I}[b(x_i)=k]\\
+\mathbb{E}_{k}^\text{nominal,$\ell$} &= \frac{1}{N}\sum_{j=1}^N \left(\sum_{i=1}^{N_\text{events}} w_{ij,\text{nominal}}\mathbb{I}[b(x_i)=k]\right)\left(\sum_{i=1}^{N_\text{events}} w_{ij,\text{syst $\ell$}}\mathbb{I}[b(x_i)=k]\right)\\
+\Sigma_{k}^\text{nominal,$\ell$}&=\mathbb{E}_{k}^\text{nominal,$\ell$}- \mathbb{E}_k^\text{nominal}\mathbb{E}_k^\text{$\ell$} \,,
+\end{align}
+where $w_{ij,\text{nominal}}$ ($w_{ij,\text{syst $\ell$}}$) is the nominal (systematic uncertainty) OmniFold weight for bootstrap $j$ and event $i$, $0\leq '=k\leq n_\text{bins}$ and $\mathcal{I}[\cdot]$ is the indicator function that is 1 when $\cdot$ is true and zero otherwise.   The statistical uncertainty on the systematic uncertainty is then the square root of $\Sigma_{k}^\text{nominal,$\ell$}$. Note that this requires storing all $N$ weights for each uncertainty\footnote{It is likely that we could store only the average weight and the correlation coefficient with respect to the weight from the nominal unfolding.}.
 
 \subsection{Pileup reweighting uncertainties}
 As discussed in section~\ref{subsec:PRW}, a correction is applied to MC events such that the pileup modeling in the simulation corresponds to what is seen in data. As such, there are variations associated with this modeling
