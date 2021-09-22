@@ -1,6 +1,7 @@
-# z-score standardization of data
+import sklearn.preprocessing as preprocessing
 
 def standardize(sim_truth, sim_reco, data_reco, dummyval=-99):
+    # z-score standardization of data
     scaler_truth = preprocessing.StandardScaler()
     scaler_reco = preprocessing.StandardScaler()
 
