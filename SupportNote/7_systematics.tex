@@ -16,6 +16,7 @@ Each event will have $N$ weights associated with the data statistical uncertaint
 where $w_{ij}$ is the OmniFold weight for bootstrap $j$ and event $i$, $0\leq k,k'\leq n_\text{bins}$ and $\mathcal{I}[\cdot]$ is the indicator function that is 1 when $\cdot$ is true and zero otherwise.
 
 \subsubsection{Statistical Uncertainties on the Systematic Uncertainties}
+\label{sec:uncertaintyuncertainty}
 
 In order to determine if a particular systematic uncertainty is statistically significant and/or to perform uncertainty smoothing, it is necessary to have a statistical uncertainty on the systematic uncertainties.   The overall uncertainty is given by the MC statistical uncertainty described in the previous section.  However, the experimental uncertainties are highly correlated and so additional boostrapping is required.  In particular, the same $W_\text{pseudo}$ is used for all uncertainty variations and a set of bootstrap weights from the unfolding are produced: $W_\text{pseudo}\times\{w_\text{nominal},w_\text{syst 1}, w_\text{syst 2},...\}$.  In cases where the systematic uncertainty weight is the same as the nominal, then only the features change while the weights are the same.  Then, in a given bin $k$, we can compute 
 
