@@ -91,7 +91,7 @@ def plot_distributions(sim_truth,
         fig.savefig(save_label + '-Distributions.pdf',
                     bbox_inches='tight',
                     backend='pgf')
-    fig.show()
+#     fig.show()
     
 def plot_results(sim_truth,
                  sim_reco,
@@ -180,9 +180,9 @@ def plot_results(sim_truth,
         ax[1].set_xlabel(x_label)
         ax[1].set_ylim([0, 1.5 * np.max(np.concatenate((hT0, hT1, hT2)))])
         draw_atlas_text(ax=ax[1])
-        fig.show()
+#         fig.show()
         if save_label is not None:
             fig.savefig(save_label + '-Iteration{:02}.pdf'.format(i + 1),
                         bbox_inches='tight',
                         backend='pgf')
-        plt.show()
+#         plt.show()
