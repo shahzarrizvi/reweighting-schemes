@@ -73,7 +73,7 @@ def plot_distributions(sim_truth,
     hT1, _, _ = ax[1].hist(data_truth,
                            weights=data_truth_weights_MC,
                            bins=bins,
-                           label='"Data" Truth',
+                           label='``Data" Truth',
                            **plot_style_2,
                            color='C2')
     hR1, _, _ = ax[1].hist(data_reco,
@@ -84,7 +84,7 @@ def plot_distributions(sim_truth,
                            color='k')
     ax[1].set_xlabel(x_label)
     ax[1].set_ylim([0, 1.5 * np.max((hT0, hR0, hT1, hR1))])
-    legend = ax[1].legend(title='"Data"', loc='upper right', frameon=False)
+    legend = ax[1].legend(title='``Data"', loc='upper right', frameon=False)
     plt.setp(legend.get_title(), multialignment='center')
     draw_atlas_text(ax=ax[1])
     if save_label is not None:
@@ -149,7 +149,7 @@ def plot_results(sim_truth,
         hR2, _, _ = ax[0].hist(data_reco[data_reco!=dummyval],
                                weights=data_reco_weights_MC[data_reco!=dummyval],
                                bins=bins,
-                               label='"Data" Reco (Target)',
+                               label='``Data" Reco (Target)',
                                **plot_style_2,
                                color='k')
         ax[0].set_xlabel(x_label)
@@ -166,14 +166,14 @@ def plot_results(sim_truth,
         hT1, _, _ = ax[1].hist(sim_truth[sim_truth!=dummyval],
                                weights=(sim_truth_weights_MC * weights[i, 1, :])[sim_truth!=dummyval],
                                bins=bins,
-                               label=flavor_label + 'ed "Data"' + label1 +
+                               label=flavor_label + 'ed ``Data"' + label1 +
                                '\n' + r'(wgt.$=\nu_{{{}}}$)'.format(i + 1),
                                **plot_style_1)
         if data_truth is not None:
             hT2, _, _ = ax[1].hist(data_truth[data_truth!=dummyval],
                                    weights=data_truth_weights_MC[data_truth!=dummyval],
                                    bins=bins,
-                                   label='"Data" Truth (Target)',
+                                   label='``Data" Truth (Target)',
                                    **plot_style_2,
                                    color='C2')
         ax[1].legend()

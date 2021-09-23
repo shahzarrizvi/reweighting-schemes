@@ -1,4 +1,5 @@
 import numpy as np
+from livelossplot import PlotLossesKeras
 from sklearn.model_selection import train_test_split
 
 import tensorflow as tf
@@ -135,6 +136,8 @@ def unifold(iterations,
     earlystopping = EarlyStopping(patience=10,
                                   verbose=verbose,
                                   restore_best_weights=True)
+    
+    
 
     for i in range(iterations):
         if verbose == 1:
@@ -166,7 +169,9 @@ def unifold(iterations,
                   epochs=1000,
                   batch_size=10000,
                   validation_data=(X_test_1, Y_test_1),
-                  callbacks=[earlystopping],
+                  callbacks=[earlystopping,
+#                              PlotLossesKeras()
+                            ],
                   verbose=verbose)
 
         # calculate, normalize, and clip weights
@@ -200,7 +205,9 @@ def unifold(iterations,
                           epochs=1000,
                           batch_size=10000,
                           validation_data=(X_test_1b, Y_test_1b),
-                          callbacks=[earlystopping],
+                          callbacks=[earlystopping,
+#                                      PlotLossesKeras()
+                                    ],
                           verbose=verbose)
 
                 weights_pull[np.invert(sim_reco_mask)] = reweight(
@@ -239,7 +246,9 @@ def unifold(iterations,
                   epochs=1000,
                   batch_size=10000,
                   validation_data=(X_test_2, Y_test_2),
-                  callbacks=[earlystopping],
+                  callbacks=[earlystopping,
+#                              PlotLossesKeras()
+                            ],
                   verbose=verbose)
 
         # calculate, normalize, and clip weights
@@ -272,7 +281,9 @@ def unifold(iterations,
                           epochs=1000,
                           batch_size=10000,
                           validation_data=(X_test_2b, Y_test_2b),
-                          callbacks=[earlystopping],
+                          callbacks=[earlystopping,
+#                                      PlotLossesKeras()
+                                    ],
                           verbose=verbose)
 
                 weights_push[np.invert(sim_truth_mask)] = reweight(

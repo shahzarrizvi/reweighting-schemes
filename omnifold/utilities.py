@@ -1,3 +1,4 @@
+import numpy as np
 import sklearn.preprocessing as preprocessing
 
 def standardize(sim_truth, sim_reco, data_reco, dummyval=-99):
