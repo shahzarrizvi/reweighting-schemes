@@ -1,5 +1,5 @@
 from ntupleanalysis import *
-
+from tqdm import tqdm
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
@@ -74,9 +74,10 @@ def plot_distributions(sim_truth,
     legend = ax[0,0].legend(title='Simulation', loc='upper right', frameon=False)
     plt.setp(legend.get_title(), multialignment='center')
 #     draw_atlas_text(ax=ax[0,0])
+#     print("MC distance (normalized): {:.5f}".format(0.5*np.sum((hT0-hR0)**2/(hT0+hR0))))
     
     ### Ratio plot, with a rectangle marking the +/- 10% band around a ratio of 1
-    ratio_reco = np.divide(hR0, hT0, where=(hT0 != 0))
+    ratio = np.divide(hR0, hT0, where=(hT0 != 0))
     bin_centers = 0.5 * (bins[1:] + bins[:-1])
     
     ### Calculate the error by taking the square root of the ratio of the two histograms in question (bin-by-bin), but with squared weights
@@ -84,18 +85,32 @@ def plot_distributions(sim_truth,
                         sim_truth,
                         bins=bins, 
                         weights=sim_truth_weights_MC**2,
-                        density=True)[0])
+                        density=False)[0])
     error_hR0 = np.sqrt(np.histogram(
                         sim_reco,
                         bins=bins, 
                         weights=sim_reco_weights_MC**2,
-                        density=True)[0])
-    errors = np.sqrt(error_hR0**2+error_hT0**2) # sum in quadrature
+                        density=False)[0])
+    not_normalized_hT0 = np.histogram(
+                        sim_truth,
+                        bins=bins, 
+                        weights=sim_truth_weights_MC,
+                        density=False)[0]
+    not_normalized_hR0 = np.histogram(
+                    sim_reco,
+                    bins=bins, 
+                    weights=sim_reco_weights_MC,
+                    density=False)[0]
+#     print("MC distance: {:.2f}".format(0.5*np.sum((not_normalized_hT0-not_normalized_hR0)**2/(not_normalized_hT0+not_normalized_hR0))))
+
+    rel_errors_hT0 = np.divide(error_hT0, not_normalized_hT0, where=(not_normalized_hT0 != 0))
+    rel_errors_hR0 = np.divide(error_hR0, not_normalized_hR0, where=(not_normalized_hR0 != 0))
+    errors = np.sqrt(rel_errors_hR0**2+rel_errors_hT0**2)
     ax[1,0].add_patch(matplotlib.patches.Rectangle((0., 0.9), width=bins[-1]-bins[0], height=0.2,
                  facecolor = 'mistyrose',
                  fill=True,
                 ))
-    ax[1,0].errorbar(bin_centers,ratio_reco, yerr=errors, color='black',marker='.',capsize=3)
+    ax[1,0].errorbar(bin_centers,ratio, yerr=errors, color='black',marker='.',capsize=3)
     ax[1,0].set_ylabel('Ratio', fontsize=22)
     ax[1,0].set_ylim([0.5, 1.5])
     ax[1,0].set_title('MC Reco / MC Truth')
@@ -117,9 +132,11 @@ def plot_distributions(sim_truth,
     legend = ax[0,1].legend(title='``Data"', loc='upper right', frameon=False)
     plt.setp(legend.get_title(), multialignment='center')
 #     draw_atlas_text(ax=ax[0,1])
+#     print("Data distance (normalized): {:.5f}".format(0.5*np.sum((hT1-hR1)**2/(hT1+hR1))))
+
     
     ### Ratio plot, with a rectangle marking the +/- 10% band around a ratio of 1
-    ratio_reco = np.divide(hR1, hT1, where=(hT1 != 0))
+    ratio = np.divide(hR1, hT1, where=(hT1 != 0))
     bin_centers = 0.5 * (bins[1:] + bins[:-1])
     
     ### Calculate the error by taking the square root of the ratio of the two histograms in question (bin-by-bin), but with squared weights
@@ -127,18 +144,31 @@ def plot_distributions(sim_truth,
                         data_truth,
                         bins=bins, 
                         weights=data_truth_weights_MC**2,
-                        density=True)[0])
+                        density=False)[0])
     error_hR1 = np.sqrt(np.histogram(
                         data_reco,
                         bins=bins, 
                         weights=data_reco_weights_MC**2,
-                        density=True)[0])
-    errors = np.sqrt(error_hR1**2+error_hT1**2) # sum in quadrature
+                        density=False)[0])
+    not_normalized_hT1 = np.histogram(
+                        data_truth,
+                        bins=bins, 
+                        weights=data_truth_weights_MC,
+                        density=False)[0]
+    not_normalized_hR1 = np.histogram(
+                        data_reco,
+                        bins=bins, 
+                        weights=data_reco_weights_MC,
+                        density=False)[0]
+#     print("Data distance: {:.2f}".format(0.5*np.sum((not_normalized_hT1-not_normalized_hR1)**2/(not_normalized_hT1+not_normalized_hR1))))
+    rel_errors_hT1 = np.divide(error_hT1, not_normalized_hT1, where=(not_normalized_hT1 != 0))
+    rel_errors_hR1 = np.divide(error_hR1, not_normalized_hR1, where=(not_normalized_hR1 != 0))
+    errors = np.sqrt(rel_errors_hR1**2+rel_errors_hT1**2)
     ax[1,1].add_patch(matplotlib.patches.Rectangle((0., 0.9), width=bins[-1]-bins[0], height=0.2,
                  facecolor = 'mistyrose',
                  fill=True,
                 ))
-    ax[1,1].errorbar(bin_centers,ratio_reco, yerr=errors, color='black',marker='.',capsize=3)
+    ax[1,1].errorbar(bin_centers,ratio, yerr=errors, color='black',marker='.',capsize=3)
     ax[1,1].set_ylim([0.5, 1.5])
     ax[1,1].set_title('``Data" Reco / ``Data" Truth')
     
@@ -148,7 +178,7 @@ def plot_distributions(sim_truth,
 #                     backend='pgf')
         fig.savefig(save_label + '-Distributions.png',
                     bbox_inches='tight',
-                    backend='pgf',
+#                     backend='pgf',
                     dpi=100)
 
 def plot_results(sim_truth,
@@ -176,8 +206,9 @@ def plot_results(sim_truth,
     if data_reco_weights_MC is None:
         data_reco_weights_MC = np.ones(len(data_reco))
 
-    average_errors = []
-    for i in range(len(weights)):
+    mc_distances = []
+    data_distances = []
+    for i in tqdm(range(len(weights))):
         fig, ax = plt.subplots(nrows=2, ncols=2, sharex=True, sharey=False, gridspec_kw = {'height_ratios':[3, 1]}, figsize=(20, 6), constrained_layout=True)
 
         if i == 0:
@@ -211,7 +242,7 @@ def plot_results(sim_truth,
                                **plot_style_2,
                                color='k')
         ax[0,0].set_title(x_label, pad=pad)
-        ax[0,0].set_ylabel("Events per bin (normalized)")
+        ax[0,0].set_ylabel("Events per bin (normalized)", fontsize=22)
         ax[0,0].set_ylim([0, 1.5 * np.max(np.concatenate((hR0, hR1, hR2)))])
 #         draw_atlas_text(ax=ax[0,0])
         ax[0,0].legend()
@@ -224,22 +255,38 @@ def plot_results(sim_truth,
                             sim_reco[sim_reco!=dummyval],
                             bins=bins, 
                             weights=(sim_reco_weights_MC * weights[i, 0, :])[sim_reco!=dummyval]**2,
-                            density=True)[0])
+                            density=False)[0])
         error_hR2 = np.sqrt(np.histogram(
                             data_reco[data_reco!=dummyval],
                             bins=bins, 
                             weights=data_reco_weights_MC[data_reco!=dummyval]**2,
-                            density=True)[0])
-        errors = np.sqrt(error_hR1**2+error_hR2**2) # sum in quadrature
+                            density=False)[0])
+        not_normalized_hR1 = np.histogram(
+                            sim_reco[sim_reco!=dummyval],
+                            bins=bins, 
+                            weights=(sim_reco_weights_MC * weights[i, 0, :])[sim_reco!=dummyval],
+                            density=False)[0]
+        not_normalized_hR2 = np.histogram(
+                            data_reco[data_reco!=dummyval],
+                            bins=bins, 
+                            weights=data_reco_weights_MC[data_reco!=dummyval],
+                            density=False)[0]
+        rel_errors_hR1 = np.divide(error_hR1, not_normalized_hR1, where=(not_normalized_hR1 != 0))
+        rel_errors_hR2 = np.divide(error_hR2, not_normalized_hR2, where=(not_normalized_hR2 != 0))
+        errors = np.sqrt(rel_errors_hR1**2+rel_errors_hR2**2)
         ax[1,0].add_patch(matplotlib.patches.Rectangle((0., 0.9), width=bins[-1]-bins[0], height=0.2,
                      facecolor = 'mistyrose',
                      fill=True,
                     ))
         ax[1,0].errorbar(bin_centers,ratio_reco, yerr=errors, color='black',marker='.',capsize=3)
         ax[1,0].set_ylim([0.5, 1.5])
-        ax[1,0].set_ylabel('Events per bin (normalized)', fontsize=22)
+        ax[1,0].set_ylabel('Ratio', fontsize=22)
         ax[1,0].set_title('MC Reco' + label1 +
                                r'(wgt.$=\omega_{{{}}}$)'.format(i + 1)+'/Target')
+        
+        mc_distance = 0.5*np.sum((hR1-hR2)**2/(hR1+hR2))
+#         print("MC distance (normalized): {:.10f}".format(mc_distance))
+        mc_distances.append(mc_distance)
 
         ### Truth
         hT0, _, _ = ax[0,1].hist(sim_truth[sim_truth!=dummyval],
@@ -276,13 +323,25 @@ def plot_results(sim_truth,
                             sim_truth[sim_truth!=dummyval], 
                             bins=bins, 
                             weights=(sim_truth_weights_MC * weights[i, 1, :])[sim_truth!=dummyval]**2,
-                            density=True)[0])
+                            density=False)[0])
         error_hT2 = np.sqrt(np.histogram(
                             data_truth[data_truth!=dummyval],
                             bins=bins, 
                             weights=data_truth_weights_MC[data_truth!=dummyval]**2,
-                            density=True)[0])
-        errors = np.sqrt(error_hT1**2+error_hT2**2) # sum in quadrature
+                            density=False)[0])
+        not_normalized_hT1 = np.histogram(
+                            sim_truth[sim_truth!=dummyval], 
+                            bins=bins, 
+                            weights=(sim_truth_weights_MC * weights[i, 1, :])[sim_truth!=dummyval],
+                            density=False)[0]
+        not_normalized_hT2 = np.histogram(
+                            data_truth[data_truth!=dummyval],
+                            bins=bins, 
+                            weights=data_truth_weights_MC[data_truth!=dummyval],
+                            density=False)[0]
+        rel_errors_hT1 = np.divide(error_hT1, not_normalized_hT1, where=(not_normalized_hT1 != 0))
+        rel_errors_hT2 = np.divide(error_hT2, not_normalized_hT2, where=(not_normalized_hT2 != 0))
+        errors = np.sqrt(rel_errors_hT1**2+rel_errors_hT2**2)
         ax[1,1].add_patch(matplotlib.patches.Rectangle((0., 0.9), width=bins[-1]-bins[0], height=0.2,
                      facecolor = 'mistyrose',
                      fill=True,
@@ -290,18 +349,31 @@ def plot_results(sim_truth,
         ax[1,1].errorbar(bin_centers,ratio_truth, yerr=errors, color='black',marker='.',capsize=3)
         ax[1,1].set_ylim([0.5, 1.5])
         ax[1,1].set_title(flavor_label+'ed ``Data"/Target')
+        data_distance = 0.5*np.sum((hT1-hT2)**2/(hT1+hT2))
+#         print("Data distance (normalized): {:.10f}".format(data_distance))
+        data_distances.append(data_distance)
         if save_label is not None:
 #             fig.savefig(save_label + '-Iteration{:02}.pdf'.format(i+1),
 #                         bbox_inches='tight',
 #                         backend='pgf')
             fig.savefig(save_label + '-Iteration{:02}.png'.format(i+1),
                     bbox_inches='tight',
-                    backend='pgf',
+#                     backend='pgf',
                     dpi=100)
-            
-        average_errors.append(np.mean(errors))
-        
-    plt.figure()
-    plt.plot(np.arange(len(weights)), average_errors)
+                        
+    fig = plt.figure()
+    plt.plot(np.arange(len(weights)), mc_distances, label=r"MC $\chi^2$ Distance", linewidth=2, )
+    plt.plot(np.arange(len(weights)), data_distances, label=r"Data $\chi^2$ Distance", linewidth=2, )
     plt.xlabel("Iteration")
-    plt.ylabel("Average Error")
+    plt.ylabel("Distance")
+    plt.legend(fontsize=22)
+    if save_label is not None:
+        fig.savefig(save_label + '-distances.png',
+                    bbox_inches='tight',
+#                     backend='pgf',
+                    dpi=100)
+        
+    print(data_distances) 
+    print("Minimum data distance = {} at iteration #{}".format(np.min(data_distances), np.argmin(data_distances)+1))
+    
+    return data_distances, mc_distances
