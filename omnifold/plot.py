@@ -206,8 +206,8 @@ def plot_results(sim_truth,
     if data_reco_weights_MC is None:
         data_reco_weights_MC = np.ones(len(data_reco))
 
-    mc_distances = []
-    data_distances = []
+    reco_distances = []
+    truth_distances = []
     for i in tqdm(range(len(weights))):
         fig, ax = plt.subplots(nrows=2, ncols=2, sharex=True, sharey=False, gridspec_kw = {'height_ratios':[3, 1]}, figsize=(20, 6), constrained_layout=True)
 
@@ -284,9 +284,9 @@ def plot_results(sim_truth,
         ax[1,0].set_title('MC Reco' + label1 +
                                r'(wgt.$=\omega_{{{}}}$)'.format(i + 1)+'/Target')
         
-        mc_distance = 0.5*np.sum((hR1-hR2)**2/(hR1+hR2))
-#         print("MC distance (normalized): {:.10f}".format(mc_distance))
-        mc_distances.append(mc_distance)
+        reco_distance = 0.5*np.sum((hR1-hR2)**2/(hR1+hR2))
+#         print("MC distance (normalized): {:.10f}".format(reco_distance))
+        reco_distances.append(reco_distance)
 
         ### Truth
         hT0, _, _ = ax[0,1].hist(sim_truth[sim_truth!=dummyval],
@@ -349,9 +349,9 @@ def plot_results(sim_truth,
         ax[1,1].errorbar(bin_centers,ratio_truth, yerr=errors, color='black',marker='.',capsize=3)
         ax[1,1].set_ylim([0.5, 1.5])
         ax[1,1].set_title(flavor_label+'ed ``Data"/Target')
-        data_distance = 0.5*np.sum((hT1-hT2)**2/(hT1+hT2))
-#         print("Data distance (normalized): {:.10f}".format(data_distance))
-        data_distances.append(data_distance)
+        truth_distance = 0.5*np.sum((hT1-hT2)**2/(hT1+hT2))
+#         print("Data distance (normalized): {:.10f}".format(truth_distance))
+        truth_distances.append(truth_distance)
         if save_label is not None:
 #             fig.savefig(save_label + '-Iteration{:02}.pdf'.format(i+1),
 #                         bbox_inches='tight',
@@ -362,8 +362,8 @@ def plot_results(sim_truth,
                     dpi=100)
                         
     fig = plt.figure()
-    plt.plot(np.arange(len(weights)), mc_distances, label=r"MC $\chi^2$ Distance", linewidth=2, )
-    plt.plot(np.arange(len(weights)), data_distances, label=r"Data $\chi^2$ Distance", linewidth=2, )
+    plt.plot(np.arange(len(weights)), reco_distances, label=r"MC $\chi^2$ Distance", linewidth=2, )
+    plt.plot(np.arange(len(weights)), truth_distances, label=r"Data $\chi^2$ Distance", linewidth=2, )
     plt.xlabel("Iteration")
     plt.ylabel("Distance")
     plt.legend(fontsize=22)
@@ -373,7 +373,7 @@ def plot_results(sim_truth,
 #                     backend='pgf',
                     dpi=100)
         
-    print(data_distances) 
-    print("Minimum data distance = {} at iteration #{}".format(np.min(data_distances), np.argmin(data_distances)+1))
+#     print(truth_distances) 
+#     print("Minimum truth distance = {} at iteration #{}".format(np.min(truth_distances), np.argmin(truth_distances)+1))
     
-    return data_distances, mc_distances
+    return truth_distances, reco_distances
