@@ -20,8 +20,7 @@ def plot_setup():
     internal_fd = dict(size=24, **text_fd)
     text_fd = dict(size=18, **text_fd)
 
-def draw_atlas_text(ax=None, simStatus='Internal', lines=[r'$\sqrt{s} = $13 TeV, $\langle\mu\rangle = $40, Pythia 8',
-                                                           r'anti-k$_{t}$ R=0.4, H$\rightarrow$aa$\rightarrow$gggg'],
+def draw_atlas_text(ax=None, simStatus='Internal', lines=[r'$\sqrt{s} = $13 TeV, MC16e', r'$Z\rightarrow\mu\mu$+jets, $p_T^{\mu\mu} > 190$ GeV'],
                     side='left'):
     if ax is None:
         ax = plt.gca()
