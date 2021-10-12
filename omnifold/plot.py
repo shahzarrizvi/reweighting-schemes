@@ -175,10 +175,10 @@ def plot_distributions(sim_truth,
     ax[1,1].set_title('``Data" Reco / ``Data" Truth')
     
     if save_label is not None:
-#         fig.savefig(save_label + '-Distributions.pdf',
+#         fig.savefig(save_label + '-distributions.pdf',
 #                     bbox_inches='tight',
 #                     backend='pgf')
-        fig.savefig(save_label + '-Distributions.png',
+        fig.savefig(save_label + '-distributions.png',
                     bbox_inches='tight',
 #                     backend='pgf',
                     dpi=100)
