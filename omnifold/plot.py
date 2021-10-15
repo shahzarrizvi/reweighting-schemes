@@ -494,13 +494,14 @@ def plot_results(sim_truth,
         
     from matplotlib.ticker import MaxNLocator
 
-    fig = plt.figure()
-    plt.plot(np.arange(len(reco_distances)), reco_distances, label=r"Reco-level $\chi^2$ Distance", linewidth=2, color="saddlebrown")
-    plt.plot(np.arange(len(truth_distances)), truth_distances, label=r"Truth-level $\chi^2$ Distance", linewidth=2, color="mediumseagreen")
-    plt.axes().xaxis.set_major_locator(MaxNLocator(integer=True))
-    plt.xlabel("Iteration")
-    plt.ylabel("Distance")
-    plt.legend(fontsize=22)
+    fig, ax = plt.subplots(1,1)
+    ax.plot(np.arange(len(reco_distances)), reco_distances, label=r"Reco-level $\chi^2$ Distance", linewidth=2, color="saddlebrown")
+    ax.plot(np.arange(len(truth_distances)), truth_distances, label=r"Truth-level $\chi^2$ Distance", linewidth=2, color="mediumseagreen")
+#     plt.axes().xaxis.set_major_locator(MaxNLocator(integer=True))
+    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+    ax.set_xlabel("Iteration")
+    ax.set_ylabel("Distance")
+    ax.legend(fontsize=22)
     if save_label is not None:
         fig.savefig(save_label + '-distances.png',
                     bbox_inches='tight',
