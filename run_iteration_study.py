@@ -282,25 +282,31 @@ if __name__ == "__main__":
     fig, axs = plt.subplots(nrows = 1, ncols = 2, figsize=(15,6), tight_layout=True)
     fig.suptitle("Trajectory of Final Bin", fontsize=40)
     ax=axs[0]
-    ax.axhline(y=1, color='gray', linestyle='--')
+    ax.axhline(y=1, color='gray', linestyle='--', label="Target Ratio")
     for i in range(n_trials):
-        ax.plot(reco_unfolded_hists[i,:,-1]/reco_target_hists[i,:,-1], label="Trial \#{}".format(i))
+        ax.plot(reco_unfolded_hists[i,:,-1]/reco_target_hists[i,:,-1], alpha=0.5)
+    ax.plot(np.mean(reco_unfolded_hists[:,:,-1]/reco_target_hists[:,:,-1], axis=0), 
+            label="Average Trajectory",
+            color="black")
     ax.set_xlabel("Iteration")
     ax.set_title("Reco-Level")
     ax.set_ylabel("Ratio", fontsize=22)
-    ax.legend(fontsize=22)
+    ax.legend()
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
     ax=axs[1]
-    ax.axhline(y=1, color='gray', linestyle='--')
+    ax.axhline(y=1, color='gray', linestyle='--', label="Target Ratio")
     for i in range(n_trials):
-        ax.plot(truth_unfolded_hists[i,:,-1]/truth_target_hists[i,:,-1], label="Trial \#{}".format(i))
+        ax.plot(truth_unfolded_hists[i,:,-1]/truth_target_hists[i,:,-1], alpha=0.5)
+    ax.plot(np.mean(truth_unfolded_hists[:,:,-1]/truth_target_hists[:,:,-1], axis=0), 
+            label="Average Trajectory",
+            color="black")
     ax.set_xlabel("Iteration")
     ax.set_ylabel("Ratio", fontsize=22)
     ax.set_title("Truth-Level")
-    ax.legend(fontsize=22)
+    ax.legend()
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
-    if save_label is not None:
-        fig.savefig(save_label + '-final_bin.png',
-                    bbox_inches='tight',
-                    dpi=100)
+        if save_label is not None:
+            fig.savefig(save_label + '-final_bin.png',
+                        bbox_inches='tight',
+                        dpi=100)
