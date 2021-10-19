@@ -253,8 +253,10 @@ if __name__ == "__main__":
     mean_truth_distances = np.mean(truth_distances, axis=(0,2))
     reco_ave_variance = np.mean(np.var(reco_unfolded_hists, axis=0), axis=1)
     truth_ave_variance = np.mean(np.var(truth_unfolded_hists, axis=0), axis=1)
-    relative_reco_stat_uncert = reco_ave_variance/np.mean(reco_unfolded_hists, axis=(0,2))
-    relative_truth_stat_uncert = truth_ave_variance/np.mean(truth_unfolded_hists, axis=(0,2))
+    relative_reco_stat_var = reco_ave_variance/np.mean(reco_unfolded_hists, axis=(0,2))
+    relative_truth_stat_var = truth_ave_variance/np.mean(truth_unfolded_hists, axis=(0,2))
+    relative_reco_stat_uncert = np.sqrt(reco_ave_variance)/np.mean(reco_unfolded_hists, axis=(0,2))
+    relative_truth_stat_uncert = np.sqrt(truth_ave_variance)/np.mean(truth_unfolded_hists, axis=(0,2))
 
     ### Make summary plots
     fig, axs = plt.subplots(nrows = 1, ncols = 2, figsize=(15,6), tight_layout=True)
@@ -267,15 +269,37 @@ if __name__ == "__main__":
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
     ax = axs[1]
-    ax.plot(np.arange(len(weights)+1), 100*relative_reco_stat_uncert, label=r"Reco-level $\sigma^2/N$", linewidth=2, color="saddlebrown")
-    ax.plot(np.arange(len(weights)+1), 100*relative_truth_stat_uncert, label=r"Truth-level $\sigma^2/N$", linewidth=2, color="mediumseagreen")
+    ax.plot(np.arange(len(weights)+1), relative_reco_stat_var, label=r"Reco-level $\sigma^2/N$", linewidth=2, color="saddlebrown")
+    ax.plot(np.arange(len(weights)+1), relative_truth_stat_var, label=r"Truth-level $\sigma^2/N$", linewidth=2, color="mediumseagreen")
+    ax.set_xlabel("Iteration")
+    ax.set_ylabel("Average Relative Variance", fontsize=22)
+    ax.legend(fontsize=22)
+    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+
+    if save_label is not None:
+        fig.savefig(save_label + '-distances-and-variance.png',
+                    bbox_inches='tight',
+                    dpi=100)
+
+    fig, axs = plt.subplots(nrows = 1, ncols = 2, figsize=(15,6), tight_layout=True)
+    ax = axs[0]
+    ax.plot(np.arange(len(weights)+1), mean_reco_distances, label=r"Reco-level $\chi^2$ Distance", linewidth=2, color="saddlebrown")
+    ax.plot(np.arange(len(weights)+1), mean_truth_distances, label=r"Truth-level $\chi^2$ Distance", linewidth=2, color="mediumseagreen")
+    ax.set_xlabel("Iteration")
+    ax.set_ylabel("Average Distance")
+    ax.legend(fontsize=22)
+    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+
+    ax = axs[1]
+    ax.plot(np.arange(len(weights)+1), 100*relative_reco_stat_uncert, label=r"Reco-level $\sigma/N$", linewidth=2, color="saddlebrown")
+    ax.plot(np.arange(len(weights)+1), 100*relative_truth_stat_uncert, label=r"Truth-level $\sigma/N$", linewidth=2, color="mediumseagreen")
     ax.set_xlabel("Iteration")
     ax.set_ylabel("Average Relative Stat. Uncert. [\%]", fontsize=22)
     ax.legend(fontsize=22)
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
     if save_label is not None:
-        fig.savefig(save_label + '-distances-and-uncert.png',
+        fig.savefig(save_label + '-distances-and-stat-uncert.png',
                     bbox_inches='tight',
                     dpi=100)
         
@@ -306,7 +330,7 @@ if __name__ == "__main__":
     ax.set_title("Truth-Level")
     ax.legend()
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
-        if save_label is not None:
-            fig.savefig(save_label + '-final_bin.png',
-                        bbox_inches='tight',
-                        dpi=100)
+    if save_label is not None:
+        fig.savefig(save_label + '-final_bin.png',
+                bbox_inches='tight',
+                dpi=100)
