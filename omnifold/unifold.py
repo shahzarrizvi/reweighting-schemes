@@ -1,6 +1,7 @@
 import numpy as np
+from livelossplot import PlotLossesKeras
 from sklearn.model_selection import train_test_split
-
+from tqdm import tqdm
 import tensorflow as tf
 import tensorflow.keras
 import tensorflow.keras.backend as K
@@ -41,7 +42,8 @@ def unifold(iterations,
             dummyval=None,
             average_weight=True,
             model_init_filepath=None,
-            verbose=0):
+            verbose=0,
+            callbacks=None):
     """    
     Arguments:
 
@@ -135,8 +137,12 @@ def unifold(iterations,
     earlystopping = EarlyStopping(patience=10,
                                   verbose=verbose,
                                   restore_best_weights=True)
+    
+    callbacks_list = [ earlystopping ]
+    if callbacks is not None:
+        callbacks_list.append(callbacks)
 
-    for i in range(iterations):
+    for i in tqdm(range(iterations)):
         if verbose == 1:
             print("\nITERATION: {}\n".format(i + 1))
 
@@ -166,7 +172,7 @@ def unifold(iterations,
                   epochs=1000,
                   batch_size=10000,
                   validation_data=(X_test_1, Y_test_1),
-                  callbacks=[earlystopping],
+                  callbacks=callbacks_list,
                   verbose=verbose)
 
         # calculate, normalize, and clip weights
@@ -200,7 +206,7 @@ def unifold(iterations,
                           epochs=1000,
                           batch_size=10000,
                           validation_data=(X_test_1b, Y_test_1b),
-                          callbacks=[earlystopping],
+                          callbacks=callbacks_list,
                           verbose=verbose)
 
                 weights_pull[np.invert(sim_reco_mask)] = reweight(
@@ -239,7 +245,7 @@ def unifold(iterations,
                   epochs=1000,
                   batch_size=10000,
                   validation_data=(X_test_2, Y_test_2),
-                  callbacks=[earlystopping],
+                  callbacks=callbacks_list,
                   verbose=verbose)
 
         # calculate, normalize, and clip weights
@@ -272,7 +278,7 @@ def unifold(iterations,
                           epochs=1000,
                           batch_size=10000,
                           validation_data=(X_test_2b, Y_test_2b),
-                          callbacks=[earlystopping],
+                          callbacks=callbacks_list,
                           verbose=verbose)
 
                 weights_push[np.invert(sim_truth_mask)] = reweight(
