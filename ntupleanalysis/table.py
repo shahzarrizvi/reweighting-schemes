@@ -1,6 +1,6 @@
 import awkward
 import uproot
-# from uproot_methods import TLorentzVectorArray
+import uproot_methods
 
 import time
 
