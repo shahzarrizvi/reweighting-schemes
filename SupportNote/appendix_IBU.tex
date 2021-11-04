@@ -202,7 +202,7 @@ The response matrices, which are also defined in section~\ref{sec:UnfoldIntro}, 
 As can be seen in Figure~\ref{fig:EffDilep}, there is a drop in efficiency at higher values of the inidividual muon \pt and $\pTll$. This is a result of \pt misreconstruction for higher \pt muons, which results in the dilepton mass falling out of acceptance.
 The resolution plots for $\pTll$ and $m_{\mu\mu}$ can be seen in Figure~\ref{fig:Resmll}.
 
-\begin{figure}
+\begin{figure}[h!]
   \centering
   \includegraphics[page=587,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
   \includegraphics[page=588,width=0.45\textwidth]{figures/UnfoldingRelatedPlots.pdf}
@@ -244,7 +244,7 @@ Figure~\ref{fig:UnfoldIBUDilep},~\ref{fig:UnfoldIBUTJ1}, and~\ref{fig:UnfoldIBUT
   \label{fig:UnfoldIBUTJ1}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h!]
   \centering
   \includegraphics[page=13,width=0.45\textwidth]{figures/IBUPlots.pdf}
   \includegraphics[page=20,width=0.45\textwidth]{figures/IBUPlots.pdf} \\
@@ -257,6 +257,130 @@ Figure~\ref{fig:UnfoldIBUDilep},~\ref{fig:UnfoldIBUTJ1}, and~\ref{fig:UnfoldIBUT
   \caption{The results of the IBU for $m$, $\tau_1$, $\tau_2$, and $\tau_3$ for the leading and subleading track jet. The truth distribution for the \sherpa~2.2.1 sample is shown in red, and the unfolded distribution is shown in black. The reconstructed distribution for \sherpa~2.2.1 is also shown in blue for reference.}
   \label{fig:UnfoldIBUTJ2}
 \end{figure}
+\clearpage
+
+\subsection{Closure tests}
+In order to ensure proper results are obtained from the iterative Bayesian unfolding method, a series of closure tests are performed as outlined below\footnote{Information on the unfolding procedure and the closure tests can be found at \url{twiki: https://twiki.cern.ch/twiki/bin/viewauth/AtlasProtected/StandardModelUnfoldingNew}}.
+\subsubsection{Technical closure test}
+In the technical closure test, the reconstructed \powheg+\pythia~sample (which is the MC used for the regular unfolding procedure) is unfolded using the transfer matrix from the same sample. Ideally, this results in perfect agreement between the unfolded result and the truth distribution for the \powheg+\pythia~sample.
+A subset of results is shown below in figure~\ref{fig:TechClo}, but perfect agreement is seen for all observables.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=524,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=530,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=542,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=554,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=578,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=584,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=596,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=602,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \caption{The results of the technical closure test for the \powheg+\pythia~sample shown for $\pTll$, $\yll$, $\ptlm$, $\eta_{\mu1}$, $\ptlj$, $\ylj$, $\mlj$, and $\taulj{1}$. The truth distribution is represented in red, and the unfolded result in black. As expected, perfect agreement is achieved.}
+  \label{fig:TechClo}
+\end{figure}
+
+\subsubsection{Hidden variable closure test}
+The hidden variable test is designed to check for any dependence on variables that effect the detector response but are not included in the unfolding procedure.
+In order to evaluate this, the nominal unfolded result obtained using the \powheg+\pythia~sample as the MC is compared with an alternative unfolding result using a \sherpa~2.2.11 sample which has been reweighted such that the truth distribution for each variable being unfolded matches the truth distribution from the \powheg+\pythia~sample.
+
+To reweight the \sherpa~2.2.11 sample, the ratio between the truth distribution from \powheg+\pythia~and \sherpa~2.2.11 is taken and the resulting histogram is smoothed. The \sherpa~2.2.11 truth distribution is then scaled appropriately, and the scaling is propagated to both the transfer matrix and the reconstructed distribution by taking into account the fiducial factor.
+The data is then unfolded using the reweighted \sherpa~2.2.11 transfer matrix and compared with the nominal data unfolded with \powheg+\pythia.
+
+The results of this test for the 24 observables used in this analysis are shown in figures~\ref{fig:HVTestDilep},~\ref{fig:HVTestTJ1}, and~\ref{fig:HVTestTJ2}. As expected some minor discrepancies are observed and will contribute to the error associated with the unfolding.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=528,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=534,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=546,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=552,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=558,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=564,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=570,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=576,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \caption{The results for the hidden variable test for $\pTll$, $\yll$, and the $\pt$, $\eta$, and $\phi$ of the leading and subleading muon. The nominal result of the \sherpa~2.2.1 sample unfolded with the \powheg+\pythia~sample is shown in red, and the alternative result of the \sherpa~2.2.1 sample unfolded with the reweighted \sherpa~2.2.11 sample is shown in black.}
+  \label{fig:HVTestDilep}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=582,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=624,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=588,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=630,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=594,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=636,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=666,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=672,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \caption{The results for the hidden variable test for the $\pt$, $y$, $\phi$ and $n_{\text{ch}}$ for the leading and subleading track jet. The nominal result of the \sherpa~2.2.1 sample unfolded with the \powheg+\pythia~sample is shown in red, and the alternative result of the \sherpa~2.2.1 sample unfolded with the reweighted \sherpa~2.2.11 sample is shown in black.}
+  \label{fig:HVTestTJ1}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=600,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=642,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=606,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=648,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=612,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=654,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=618,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=660,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \caption{The results for the hidden variable test for the $m$, $\tau_1$, $\tau_2$ and $\tau_3$ for the leading and subleading track jet. The nominal result of the \sherpa~2.2.1 sample unfolded with the \powheg+\pythia~sample is shown in red, and the alternative result of the \sherpa~2.2.1 sample unfolded with the reweighted \sherpa~2.2.11 sample is shown in black.}
+  \label{fig:HVTestTJ2}
+\end{figure}
+
+\subsubsection{Data-driven closure test}
+The data-driven closure test is designed to examine the sensitivity of the unfolding method to shape differences between the ``data" and the MC sample.
+
+In order to evaluate this, the truth distribution for each observable is reweighted such that the reconstructed MC distribution better matches the data distribution.
+In order to perform this reweighting, the ratio is taken between the reconstructed \sherpa~2.2.1 (data) and the reconstructed \powheg+\pythia~distribution. The resulting histogram is then smoothed using the TH1::Smooth function included in ROOT with 3 iterations. This ratio and the fiducial correction are
+then used to reweight the transfer matrix and the reconstructed distribution for \powheg+\pythia. This reweighted reconstructed distribution is then unfolded using the original transfer matrix. Ideally the results will be the same when compared with the nominal unfolding result.
+
+The results of the data-driven closure test for the 24 observables are shown in figure~\ref{fig:DDTestDilep},~\ref{fig:DDTestTJ1} and~\ref{fig:DDTestTJ2}. Small discrepancies are present, which will contribute to the error associated with the unfolding.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=525,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=531,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=543,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=549,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=555,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=561,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=567,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=573,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \caption{Stuff}
+  \label{fig:DDTestDilep}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=579,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=621,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=585,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=627,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=591,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=633,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=663,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=669,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \caption{Stuff}
+  \label{fig:DDTestTJ1}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[page=597,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=639,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=603,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=645,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=609,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=651,width=0.45\textwidth]{figures/IBUClosureTests.pdf} \\
+  \includegraphics[page=615,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \includegraphics[page=657,width=0.45\textwidth]{figures/IBUClosureTests.pdf}
+  \caption{Stuff}
+  \label{fig:DDTestTJ2}
+\end{figure}
+
 \clearpage
 
 \subsection{Systematic and statistical errors}
@@ -325,7 +449,7 @@ The fractional impact of this variation on the dilepton \pt can be seen in figur
 \end{figure}
 
 \subsubsection{Shower shape variations}
-These variations are not available in the nominal samples used for the majority of the analysis and are instead derived from a separate set of truth-only \powheg+\pythia~samples. As such, in order to determine the magnitude of these variations, the ratio between the nominal distribution and the varied distribution is determined as a function of $n_{\text{ch}}^{j1}$ and both the reconstructed and truth \powheg+\pythia~events are scaled appropriately based on the value of $n_{\text{ch}}^{j1}$. 
+These variations are not available in the nominal samples used for the majority of the analysis and are instead derived from a separate set of truth-only \powheg+\pythia~samples. As such, in order to determine the magnitude of these variations, the ratio between the nominal distribution and the varied distribution is determined as a function of $n_{\text{ch}}^{j1}$ and both the reconstructed and truth \powheg+\pythia~events are scaled appropriately based on the value of $n_{\text{ch}}^{j1}$.
 
 The fractional impact of these variations on the dilepton \pt can be seen in figure~\ref{fig:showerSystErr}.
 
