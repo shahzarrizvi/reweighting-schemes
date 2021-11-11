@@ -183,8 +183,8 @@ def unifold(iterations,
                 # STEP 1b: Efficiency factors (estimate <w|x_true>)
                 if verbose == 1:
                     print("\nSTEP 1b\n")
-                weights_pull = np.nan_to_num(weights_pull)
-                weights_pull = np.clip(weights_pull, -100, 100)
+                # weights_pull = np.nan_to_num(weights_pull)
+                # weights_pull = np.clip(weights_pull, -100, 100)
                 weights_1b = np.concatenate(
                     (sim_truth_weights_MC[sim_mask],
                      (weights_pull *
@@ -213,8 +213,8 @@ def unifold(iterations,
                     model, sim_truth[np.invert(sim_reco_mask)])
             else:
                 weights_pull[np.invert(sim_reco_mask)] = 1
-        weights_pull = np.nan_to_num(weights_pull)
-        weights_pull = np.clip(weights_pull, -100, 100)
+        # weights_pull = np.nan_to_num(weights_pull)
+        # weights_pull = np.clip(weights_pull, -100, 100)
         weights_pull /= np.mean(weights_pull)
         weights[i, :1, :] = weights_pull
 
@@ -256,8 +256,8 @@ def unifold(iterations,
                 # STEP 2b: Fake factors (estimate <w|x_reco>)
                 if verbose == 1:
                     print("\nSTEP 2b\n")
-                weights_push = np.nan_to_num(weights_push)
-                weights_push = np.clip(weights_push, -100, 100)
+                # weights_push = np.nan_to_num(weights_push)
+                # weights_push = np.clip(weights_push, -100, 100)
                 weights_2b = np.concatenate(
                     (sim_reco_weights_MC[sim_mask],
                      (weights_push *
@@ -286,8 +286,8 @@ def unifold(iterations,
             else:
                 # STEP 2b: Fake factors (take the prior weight w=1)
                 weights_push[np.invert(sim_truth_mask)] = 1
-        weights_push = np.nan_to_num(weights_push)
-        weights_push = np.clip(weights_push, -100, 100)
+        # weights_push = np.nan_to_num(weights_push)
+        # weights_push = np.clip(weights_push, -100, 100)
         weights_push /= np.mean(weights_push)
         weights[i, 1:2, :] = weights_push
     return weights, model
