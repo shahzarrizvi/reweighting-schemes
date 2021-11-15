@@ -1,7 +1,22 @@
 \section{Changelog}
 
 \begin{itemize}
+\item Version 0.4: Integrating feedback from conveners; version for EB request.
 \item Version 0.3: Integrated feedback from the EB request talk.
 \item Version 0.2: Integrated feedback on v0.1 and split into MultiFold/OmniFold parts. Systematic uncertainties updated and theoretical uncertainties completed. Additional variables added to unfolding. Acceptance effects now included in the OmniFold results. Appendices on background processes and iterative Bayesian unfolding added.  Full results with errors now included for UniFold and MultiFold. To be used for the editorial board request.
 \item Version 0.1: Initial version, for feedback from Standard Model (sub)group conveners.
+\end{itemize}
+
+\section{TODO List}
+\label{sec:todo}
+
+\begin{itemize}
+%\item Directly compare (overlay) IBU and UniFold results.
+%\item Compare Unifold and MultiFold results as a probe of hidden variables (they are not hidden in the MultiFold case).
+\item Apply Step 1 of OmniFold to the leading jet and apply MultiFold to probe hidden variables.
+\item Study the response of non-strong $Z$+jets to determine the best course of action for how to deal with them (they all interfere).   This could include adding them to the unfolding or ignoring them in the unfolding (if the response is sufficiently similar).
+\item Compute the MC stat uncertainty via bootstrapping.
+\item Added studies that compare derived variables with dedicated 1D unfolding and from MultiFold (e.g. $\tau_{21}=\tau_2/\tau_1$ and $\Delta R(\ell\ell,j_1)$.
+\item Apply the standard data-driven non-closure uncertainty for Pythia and for Sherpa.
+\item Understand why there are large differences between the nominal and varied results in e.g. Fig.~\ref{fig:simresultsmulti_trackjetuncertsl1}.
 \end{itemize}

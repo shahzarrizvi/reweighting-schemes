@@ -2,7 +2,7 @@
 
 \subsection{Overview}
 
-Figure~\ref{fig:simresultsmulti_nominal} shows the complete MultiFolded results, with all 24 observables and their total systematic uncertainty (see Sec.~\ref{sec:multifolduncerts} for details).  Note that the results are unbinned and simultaneous, but for illustration, we use the binning introduced in Sec.~\ref{sec:pres} and plot one observable at a time.  Sherpa is used as data and Pythia is used as the simulation.  Overall, the closure (comparison of filled and unfilled histograms) is excellent across the entire phase space.
+Figure~\ref{fig:simresultsmulti_nominal} shows the complete MultiFolded results, with all 24 observables and their total systematic uncertainty (see Sec.~\ref{sec:multifolduncerts} for details).  Note that the results are unbinned and simultaneous, but for illustration, we use the binning introduced in Sec.~\ref{sec:pres} and plot one observable at a time.  Sherpa is used as data and Pythia is used as the simulation.  Overall, the closure (comparison of filled and unfilled histograms) is excellent across the entire phase space.  For reference, we also compare with IBU and UniFold, which are unfolded one observable at a time.  The three methods agree well.
 
 \begin{figure}[h!]
 \centering
@@ -27,15 +27,17 @@ Figure~\ref{fig:simresultsmulti_nominal} shows the complete MultiFolded results,
 \includegraphics[width=0.25\textwidth,page=13]{figures/SimResults/MultiFoldTotalErrors.pdf}\includegraphics[width=0.25\textwidth,page=14]{figures/SimResults/MultiFoldTotalErrors.pdf}\includegraphics[width=0.25\textwidth,page=15]{figures/SimResults/MultiFoldTotalErrors.pdf}\includegraphics[width=0.25\textwidth,page=16]{figures/SimResults/MultiFoldTotalErrors.pdf}\\
 \includegraphics[width=0.25\textwidth,page=17]{figures/SimResults/MultiFoldTotalErrors.pdf}\includegraphics[width=0.25\textwidth,page=18]{figures/SimResults/MultiFoldTotalErrors.pdf}\includegraphics[width=0.25\textwidth,page=19]{figures/SimResults/MultiFoldTotalErrors.pdf}\includegraphics[width=0.25\textwidth,page=20]{figures/SimResults/MultiFoldTotalErrors.pdf}\\
 \includegraphics[width=0.25\textwidth,page=21]{figures/SimResults/MultiFoldTotalErrors.pdf}\includegraphics[width=0.25\textwidth,page=22]{figures/SimResults/MultiFoldTotalErrors.pdf}\includegraphics[width=0.25\textwidth,page=23]{figures/SimResults/MultiFoldTotalErrors.pdf}\includegraphics[width=0.25\textwidth,page=24]{figures/SimResults/MultiFoldTotalErrors.pdf}
-\caption{The nominal MultiFolded results where Sherpa is used as data and Pythia is used as the simulation. The error bars represent the total uncertainty, which each component added in quadrature.}
+\caption{The nominal MultiFolded, UniFold, and IBU results where Sherpa is used as data and Pythia is used as the simulation. The error bars represent the total uncertainty, which each component added in quadrature.}
 \label{fig:simresultsmulti_nominal}
 \end{figure}
 \end{comment}
 
-\subsection{Systematic Uncertainites}
+\subsection{Systematic Uncertainties}
 \label{sec:multifolduncerts}
 
-This section contains a per-observable systematic uncertainty breakdown.  Note that like the central values from the previous section, the uncertainties are unbinned.  The binning is for illustration only and matches the one used in the previous section.  The experimental systematic uncertainties are illustrated in Figs.~\ref{fig:simresultsmulti_trackjetuncertsl} and~\ref{fig:simresultsmulti_muonuncerts}, for the inclusive tracking and muon reconstruction, respectively.  For the inclusive tracking uncertainties, the most important are the inclusive tracking efficiency (\texttt{sys\_TrackFilter}) and the sagitta bias (\texttt{sys\_pTScale}).  For some of the uncertainties, we do not expect a large dependence on $\phi$ and therefore the fluctuations seen for the jet and lepton $\phi$ observables are an indication of the small $\mathcal{O}(1\%)$ variations introduced by the neural network training.  This may be improved with further regularization.
+This section contains a per-observable systematic uncertainty breakdown.  Note that like the central values from the previous section, the uncertainties are unbinned.  The binning is for illustration only and matches the one used in the previous section.  For example, the tracking uncertainties are shown in Figs.~\ref{fig:simresultsmulti_trackjetuncertsl1}-\ref{fig:simresultsmulti_trackjetuncertsl4}.  Figures for the other uncertainties can be found in App.~\ref{app:multiuncerts}.  \textbf{N.B. still identifying a bug that makes the uncertainties too large for the NN methods.}. We have narrowed down the source to be related to the treatment of acceptance effects for the variations, so this should be solved soon.
+
+%The experimental systematic uncertainties are illustrated in Figs.~\ref{fig:simresultsmulti_trackjetuncertsl1}-\ref{fig:simresultsmulti_trackjetuncertsl4} and~\ref{fig:simresultsmulti_muonuncerts}, for the inclusive tracking and muon reconstruction, respectively.  For the inclusive tracking uncertainties, the most important are the inclusive tracking efficiency (\texttt{sys\_TrackFilter}) and the sagitta bias (\texttt{sys\_pTScale}).  For some of the uncertainties, we do not expect a large dependence on $\phi$ and therefore the fluctuations seen for the jet and lepton $\phi$ observables are an indication of the small $\mathcal{O}(1\%)$ variations introduced by the neural network training.  This may be improved with further regularization.
 
 \begin{figure}[h!]
 \centering
@@ -45,8 +47,8 @@ This section contains a per-observable systematic uncertainty breakdown.  Note t
 \includegraphics[width=0.25\textwidth,page=49]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=53]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=57]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=61]{figures/SimResults/TrackJet_SystEffect.pdf}\\
 \includegraphics[width=0.25\textwidth,page=65]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=69]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=73]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=77]{figures/SimResults/TrackJet_SystEffect.pdf}\\
 \includegraphics[width=0.25\textwidth,page=81]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=85]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=89]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=93]{figures/SimResults/TrackJet_SystEffect.pdf}
-\caption{The nominal MultiFolded results where Sherpa is used as data and Pythia is used as the simulation. The error bars represent the total uncertainty, which each component added in quadrature.}
-\label{fig:simresultsmulti_nominal}
+\caption{The inclusive tracking efficiency uncertainty for MultiFold, UniFold, and IBU.  \textbf{N.B. still identifying a bug that makes the uncertainties too large for the NN methods.}}
+\label{fig:simresultsmulti_trackjetuncertsl1}
 \end{figure}
 
 \begin{figure}[h!]
@@ -57,8 +59,8 @@ This section contains a per-observable systematic uncertainty breakdown.  Note t
 \includegraphics[width=0.25\textwidth,page=50]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=54]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=58]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=62]{figures/SimResults/TrackJet_SystEffect.pdf}\\
 \includegraphics[width=0.25\textwidth,page=66]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=70]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=74]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=78]{figures/SimResults/TrackJet_SystEffect.pdf}\\
 \includegraphics[width=0.25\textwidth,page=82]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=86]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=90]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=94]{figures/SimResults/TrackJet_SystEffect.pdf}
-\caption{The nominal MultiFolded results where Sherpa is used as data and Pythia is used as the simulation. The error bars represent the total uncertainty, which each component added in quadrature.}
-\label{fig:simresultsmulti_nominal}
+\caption{The inside jet tracking efficiency uncertainty for MultiFold, UniFold, and IBU.  \textbf{N.B. still identifying a bug that makes the uncertainties too large for the NN methods.}}
+\label{fig:simresultsmulti_trackjetuncertsl2}
 \end{figure}
 
 \begin{figure}[h!]
@@ -69,8 +71,8 @@ This section contains a per-observable systematic uncertainty breakdown.  Note t
 \includegraphics[width=0.25\textwidth,page=51]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=55]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=59]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=63]{figures/SimResults/TrackJet_SystEffect.pdf}\\
 \includegraphics[width=0.25\textwidth,page=67]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=71]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=75]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=79]{figures/SimResults/TrackJet_SystEffect.pdf}\\
 \includegraphics[width=0.25\textwidth,page=83]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=87]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=91]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=95]{figures/SimResults/TrackJet_SystEffect.pdf}
-\caption{The nominal MultiFolded results where Sherpa is used as data and Pythia is used as the simulation. The error bars represent the total uncertainty, which each component added in quadrature.}
-\label{fig:simresultsmulti_nominal}
+\caption{The track fake rate uncertainty for MultiFold, UniFold, and IBU.  \textbf{N.B. still identifying a bug that makes the uncertainties too large for the NN methods.}}
+\label{fig:simresultsmulti_trackjetuncertsl3}
 \end{figure}
 
 \begin{figure}[h!]
@@ -81,8 +83,8 @@ This section contains a per-observable systematic uncertainty breakdown.  Note t
 \includegraphics[width=0.25\textwidth,page=52]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=56]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=60]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=64]{figures/SimResults/TrackJet_SystEffect.pdf}\\
 \includegraphics[width=0.25\textwidth,page=68]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=72]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=76]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=80]{figures/SimResults/TrackJet_SystEffect.pdf}\\
 \includegraphics[width=0.25\textwidth,page=84]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=88]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=92]{figures/SimResults/TrackJet_SystEffect.pdf}\includegraphics[width=0.25\textwidth,page=96]{figures/SimResults/TrackJet_SystEffect.pdf}
-\caption{The nominal MultiFolded results where Sherpa is used as data and Pythia is used as the simulation. The error bars represent the total uncertainty, which each component added in quadrature.}
-\label{fig:simresultsmulti_nominal}
+\caption{The track $p_T$ scale uncertainty for MultiFold, UniFold, and IBU.  \textbf{N.B. still identifying a bug that makes the uncertainties too large for the NN methods.}}
+\label{fig:simresultsmulti_trackjetuncertsl4}
 \end{figure}
 
 \begin{comment}
