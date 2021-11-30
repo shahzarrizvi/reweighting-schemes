@@ -1,5 +1,4 @@
 from ntupleanalysis import *
-from tqdm import tqdm
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
@@ -107,7 +106,7 @@ def plot_distributions(sim_truth,
     rel_errors_hT0 = np.divide(error_hT0, not_normalized_hT0, where=(not_normalized_hT0 != 0))
     rel_errors_hR0 = np.divide(error_hR0, not_normalized_hR0, where=(not_normalized_hR0 != 0))
     errors = np.sqrt(rel_errors_hR0**2+rel_errors_hT0**2)
-    ax[1,0].add_patch(matplotlib.patches.Rectangle((0., 0.9), width=bins[-1]-bins[0], height=0.2,
+    ax[1,0].add_patch(matplotlib.patches.Rectangle((np.min([0.,bins[0]]), 0.95), width=bins[-1]-bins[0], height=0.1,
                  facecolor = 'mistyrose',
                  fill=True,
                 ))
@@ -166,7 +165,7 @@ def plot_distributions(sim_truth,
     rel_errors_hT1 = np.divide(error_hT1, not_normalized_hT1, where=(not_normalized_hT1 != 0))
     rel_errors_hR1 = np.divide(error_hR1, not_normalized_hR1, where=(not_normalized_hR1 != 0))
     errors = np.sqrt(rel_errors_hR1**2+rel_errors_hT1**2)
-    ax[1,1].add_patch(matplotlib.patches.Rectangle((0., 0.9), width=bins[-1]-bins[0], height=0.2,
+    ax[1,1].add_patch(matplotlib.patches.Rectangle((np.min([0.,bins[0]]), 0.95), width=bins[-1]-bins[0], height=0.1,
                  facecolor = 'mistyrose',
                  fill=True,
                 ))
@@ -262,7 +261,7 @@ def plot_results(sim_truth,
     rel_errors_hR0 = np.divide(error_hR0, not_normalized_hR0, where=(not_normalized_hR0 != 0))
     rel_errors_hR2 = np.divide(error_hR2, not_normalized_hR2, where=(not_normalized_hR2 != 0))
     errors = np.sqrt(rel_errors_hR0**2+rel_errors_hR2**2)
-    ax[1,0].add_patch(matplotlib.patches.Rectangle((0., 0.95), width=bins[-1]-bins[0], height=0.1,
+    ax[1,0].add_patch(matplotlib.patches.Rectangle((np.min([0.,bins[0]]), 0.95), width=bins[-1]-bins[0], height=0.1,
                  facecolor = 'mistyrose',
                  fill=True,
                 ))
@@ -321,7 +320,7 @@ def plot_results(sim_truth,
     rel_errors_hT0 = np.divide(error_hT0, not_normalized_hT0, where=(not_normalized_hT0 != 0))
     rel_errors_hT2 = np.divide(error_hT2, not_normalized_hT2, where=(not_normalized_hT2 != 0))
     errors = np.sqrt(rel_errors_hT0**2+rel_errors_hT2**2)
-    ax[1,1].add_patch(matplotlib.patches.Rectangle((0., 0.95), width=bins[-1]-bins[0], height=0.1,
+    ax[1,1].add_patch(matplotlib.patches.Rectangle((np.min([0.,bins[0]]), 0.95), width=bins[-1]-bins[0], height=0.1,
                  facecolor = 'mistyrose',
                  fill=True,
                 ))
@@ -339,7 +338,7 @@ def plot_results(sim_truth,
                 dpi=100)
     
     ### Now plot OmniFold results
-    for i in tqdm(range(len(weights))):
+    for i in range(len(weights)):
         fig, ax = plt.subplots(nrows=2, ncols=2, sharex=True, sharey=False, gridspec_kw = {'height_ratios':[3, 1]}, figsize=(20, 6), constrained_layout=True)
 
         if i == 0:
@@ -405,7 +404,7 @@ def plot_results(sim_truth,
         rel_errors_hR1 = np.divide(error_hR1, not_normalized_hR1, where=(not_normalized_hR1 != 0))
         rel_errors_hR2 = np.divide(error_hR2, not_normalized_hR2, where=(not_normalized_hR2 != 0))
         errors = np.sqrt(rel_errors_hR1**2+rel_errors_hR2**2)
-        ax[1,0].add_patch(matplotlib.patches.Rectangle((0., 0.95), width=bins[-1]-bins[0], height=0.1,
+        ax[1,0].add_patch(matplotlib.patches.Rectangle((np.min([0.,bins[0]]), 0.95), width=bins[-1]-bins[0], height=0.1,
                      facecolor = 'mistyrose',
                      fill=True,
                     ))
@@ -473,7 +472,7 @@ def plot_results(sim_truth,
         rel_errors_hT1 = np.divide(error_hT1, not_normalized_hT1, where=(not_normalized_hT1 != 0))
         rel_errors_hT2 = np.divide(error_hT2, not_normalized_hT2, where=(not_normalized_hT2 != 0))
         errors = np.sqrt(rel_errors_hT1**2+rel_errors_hT2**2)
-        ax[1,1].add_patch(matplotlib.patches.Rectangle((0., 0.95), width=bins[-1]-bins[0], height=0.1,
+        ax[1,1].add_patch(matplotlib.patches.Rectangle((np.min([0.,bins[0]]), 0.95), width=bins[-1]-bins[0], height=0.1,
                      facecolor = 'mistyrose',
                      fill=True,
                     ))

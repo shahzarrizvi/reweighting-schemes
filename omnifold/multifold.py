@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
-
+from tqdm import tqdm
 import tensorflow as tf
 import tensorflow.keras
 import tensorflow.keras.backend as K
@@ -32,10 +32,11 @@ def weighted_binary_crossentropy(y_true, y_pred):
     return K.mean(t_loss)
 
 
-def multifold(iterations,
+def multifold(
             sim_truth,
             sim_reco,
             data_reco,
+            iterations=5,
             sim_truth_weights_MC=None,
             sim_reco_weights_MC=None,
             data_reco_weights_MC=None,
@@ -152,7 +153,7 @@ def multifold(iterations,
                                   verbose=verbose,
                                   restore_best_weights=True)
 
-    for i in range(iterations):
+    for i in tqdm(range(iterations), desc="Iterations:"):
         if verbose == 1:
             print("\nITERATION: {}\n".format(i + 1))
 
