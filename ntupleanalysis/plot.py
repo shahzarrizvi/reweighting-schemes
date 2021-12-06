@@ -1,5 +1,7 @@
 import os
-stylepath = os.path.realpath(os.path.join(os.path.dirname(__file__),'atlas.mplstyle'))
+
+stylepath = os.path.realpath(
+    os.path.join(os.path.dirname(__file__), 'atlas.mplstyle'))
 # import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
@@ -11,6 +13,7 @@ from matplotlib.colors import LogNorm
 from matplotlib import rc
 import matplotlib.gridspec as gridspec
 
+
 def plot_setup():
     plt.style.use(stylepath)
     rcParams['pdf.fonttype'] = 42
@@ -20,26 +23,66 @@ def plot_setup():
     internal_fd = dict(size=24, **text_fd)
     text_fd = dict(size=18, **text_fd)
 
-def draw_atlas_text(ax=None, simStatus='Internal', lines=[r'$\sqrt{s} = $13 TeV, MC16e', r'$Z\rightarrow\mu\mu$+jets, $p_T^{\mu\mu} > 200$ GeV'],
+
+def draw_atlas_text(ax=None,
+                    simStatus='Internal',
+                    lines=[
+                        r'$\sqrt{s} = $13 TeV, MC16e',
+                        r'$Z\rightarrow\mu\mu$+jets, $p_T^{\mu\mu} > 200$ GeV'
+                    ],
                     side='left'):
     if ax is None:
         ax = plt.gca()
-    if side=='left':
+    if side == 'left':
         xCoord = 0.04
-        alignment='left'
+        alignment = 'left'
         shift1 = .185
         shift0 = 0.
     else:
         xCoord = .96
-        alignment='right'
+        alignment = 'right'
         shift1 = 0.
         shift0 = -.47
-    shift  = .92-.84
+    shift = .92 - .84
     ytop = .92
-    ax.text(xCoord+shift0,ytop,'ATLAS', transform=ax.transAxes, weight='bold', style='italic', size=24, ha=alignment, va='center',
-            bbox=dict(facecolor='white',edgecolor='none', alpha=0.7))
-    ax.text(xCoord+shift1,ytop, 'Simulation '+simStatus, transform=ax.transAxes, size=24, ha=alignment, va='center',
-            bbox=dict(facecolor='white',edgecolor='none', alpha=0.7))
+
+    plt.rcParams.update({"text.usetex": False})
+
+    plot_setup()
+    ax.text(xCoord + shift0,
+            ytop,
+            'ATLAS',
+            transform=ax.transAxes,
+            weight='bold',
+            style='italic',
+            size=24,
+            ha=alignment,
+            va='center',
+            bbox=dict(facecolor='white', edgecolor='none', alpha=0.7))
+    ax.text(xCoord + shift1,
+            ytop,
+            'Simulation ' + simStatus,
+            transform=ax.transAxes,
+            size=24,
+            ha=alignment,
+            va='center',
+            bbox=dict(facecolor='white', edgecolor='none', alpha=0.7))
+    plt.rcParams.update({
+        "text.usetex": True,
+        'text.latex.preamble': r'\usepackage{amsmath}',
+        "pgf.rcfonts": False,
+        "font.family": "serif",
+        "font.size": 22,
+        "xtick.labelsize": 15,
+        "ytick.labelsize": 15,
+        "legend.fontsize": 15
+    })
     for i, line in enumerate(lines):
-        ax.text(xCoord, ytop-(i+1)*shift, line, ha=alignment, va='center', 
-                transform=ax.transAxes, size=18, bbox=dict(facecolor='white',edgecolor='none', alpha=0.7))
+        ax.text(xCoord,
+                ytop - (i + 1) * shift,
+                line,
+                ha=alignment,
+                va='center',
+                transform=ax.transAxes,
+                size=18,
+                bbox=dict(facecolor='white', edgecolor='none', alpha=0.7))
