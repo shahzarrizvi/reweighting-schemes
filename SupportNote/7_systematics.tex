@@ -72,7 +72,7 @@ In order to determine if a particular systematic uncertainty is statistically si
 The uncertainty of bin $k$ for systematic source $u$ is hence given by: $\Delta_{ku} \pm \delta_{ku}$ \todo{or we probably should use the mean variation?: $\bar{\Delta}_{ku} \pm \delta_{ku}$?}. 
 Note that the per-bootstrap uncertainties $\Delta_{kub}$ need to be evaluated according to equation~\ref{eq:unc} using the same bootstrap sample.
 That is, the bootstrap weights $W_{ib}$ that defines the bootstrap dataset needs to be identical to evaluate the nominal 
-($\hat{\sigma_{kb}$) and perturbed ($\hat{\sigma}_{kub}$) cross sections.
+($\hat{\sigma}_{kb}$) and perturbed ($\hat{\sigma}_{kub}$) cross sections.
 %The overall uncertainty is given by the MC statistical uncertainty described in the previous section.  However, the experimental uncertainties are highly correlated and so additional boostrapping is required.  In particular, the same bootstrap weights $W_{ib}$ are used for all uncertainty variations and a set of bootstrap weights from the unfolding are produced: $W_\text{pseudo}\times\{w_\text{nominal},w_\text{syst 1}, w_\text{syst 2},...\}$.  In cases where the systematic uncertainty weight is the same as the nominal, then only the features change while the weights are the same.  Then, in a given bin $k$, we can compute 
 % \begin{align}
 % \mathbb{E}_k^\text{nominal} &= \frac{1}{N}\sum_{j=1}^N\sum_{i=1}^{N_\text{events}} w_{ij,\text{nominal}} \mathbb{I}[b(x_i)=k]\\
