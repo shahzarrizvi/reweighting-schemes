@@ -222,3 +222,42 @@ Again, six iterations resulting in successful unfolding using the OmniFold proce
 \end{figure}
 
 \clearpage
+
+\subsubsection{Event weights and normalization}
+\label{sec:weights}
+
+Each MC event $i$ is assigned a weight $w^\mathrm{MC}_i$ by the MC generator, and we further normalize this weight to the cross section times the integrated luminosity according to the standard procedure used at ATLAS to arrive at
+\begin{equation}
+  \label{eq:mc-norm}
+  w^\mathrm{y}_i = w^\mathrm{MC}_i \frac{\mathcal{L}\,k\,\sigma_\mathrm{MC}\,\varepsilon}{\sum_i w^\mathrm{MC}_i},
+\end{equation} 
+where $\mathcal{L}$ is the integrated luminosity of the data and $k$, $\sigma_\mathrm{MC}$ and $\varepsilon$ are the $k$-factor, MC cross section and filter efficiency, respectively, for the MC sample in question, and the sum in the denominator runs over all generated MC events. This normalization is done for each MC sample, i.e.\ separately for the three different MC campaigns (each with different $\mathcal{L}$) and also separately for different 'slices', if applicable.
+
+At reconstructed level, the event weight is further corrected as described in section~\ref{subsec:MCCorr}, and we get
+\begin{equation}
+  \label{eq:mc-norm-reco}
+  w^\mathrm{reco}_i = w^\mathrm{y}_i \prod_c\,w^\mathrm{corr}_{ci},
+\end{equation} 
+where the product runs over the (five) different corrections, each with index $c$, namely: the pileup reweighing, the trigger efficiency SF, and the three muon efficiency SFs. When plotting any reconstructed distribution, such as the ones seen in figures~\ref{fig:MuActual}-\ref{fig:trackInfo}, we use $w^\mathrm{reco}$ to arrive at the MC predicted event yields, and similarly when plotting a truth distribution, $w^\mathrm{y}$ is used such that we get truth fiducial event yields in each bin.
+
+
+At reco level, each MC event is hence represented by $(w^\mathrm{reco},\vec{x}_\mathrm{reco})$ and at truth level by $(w^\mathrm{y},\vec{x})$.
+The unfolding procedure will correct the event weights of the truth events (keeping the features $\vec{x}$ the same), and we get: $(\nu(\vec{x})\,w^\mathrm{y},\vec{x})$.
+
+
+We can further normalize the event weight according to:
+\begin{equation}
+  \label{eq:xsec-norm}
+  w_{i} = \frac{\nu(\vec{x})\,w^\mathrm{y}_{i}}{\mathcal{L}},
+\end{equation}
+where $\mathcal{L}$ is the full Run-2 integrated luminosity. The weights $w_i$ defined according to equation~\ref{eq:xsec-norm} now has units of cross section and the sum of such weights of all events that fall in any fiduciary region will constitute a measurement of the associated fiducial cross section. This can be written as:
+\begin{equation}
+  \label{eq:fid-xsec}
+  \hat{\sigma}_{k} = \sum_{i}^{N_\mathrm{events}}w_{i}\,\mathcal{I}[b(\vec{x}_{i})=k] = \sum_{i\in B_k} w_i,
+\end{equation}
+where $b(\vec{x}_{i})$ returns an index $k\in\{0,1,2,...,n_\text{bins}\}$ corresponding to the fiducial region event $i$ falls in (based on its features $\vec{x}_i$), 
+and $\mathcal{I}[\cdot]$ is the indicator function that is 1 when $\cdot$ is true and zero otherwise. The last equality use a more sloppy notation: the sum runs over all events $i$ that fall in bin $k$, where $B_k$ denote the set of events that fall in the bin (based on their $\vec{x}$). 
+\todo{We are planning to normalize all provided events according to equation~\ref{eq:xsec-norm} such that plotting any distribution immediately results in a differential cross section.}
+\clearpage
+
+
