@@ -1,32 +1,88 @@
 Uncertainties on the unfolded result are evaluated using error propagation, consistent with the standard approach used at ATLAS.
 Uncertainties are split into sources (sometimes called ``uncertainty components'') that are each treated as uncorrelated to each other.
-For each such uncertainty source, a perturbation is introduced either to the MC or data corresponding to its impact: $+1\sigma$, and in case of two-sided uncertainties, also $-1\,\sigma$. The unfolding (``full analysis'') is then repeated using the modified samples, which results in a OmniFold weight $\nu'$ for each event that is slightly different from the nominal OmniFold weight $\nu$. Each event in the unfolded dataset is hence assigned one nominal weight and a list of alternative weights, each corresponding to a systematic uncertainty source, or statistical replica variation.
+For each such uncertainty source, a perturbation is introduced either to the MC or data corresponding to its impact: $+1\sigma$, and in case of two-sided uncertainties, also $-1\,\sigma$. For each uncertainty perturbation $u$, the unfolding (``full analysis'') is then repeated using the modified samples, which results in a OmniFold weight $\nu_{u}(\vec{x})$ that is slightly different from the nominal OmniFold weight $\nu(\vec{x})$. 
+Each event $i$ in the unfolded dataset is hence assigned one nominal weight $w_{i}$ and a list of alternative weights $w_{iu}$, where the index $u$ corresponds either to a systematic uncertainty source, or statistical replica variation. 
+
+The uncertainty amplitude $\Delta_{ku}$ of any bin $k$ associated with uncertainty source $u$ is now evaluated as the different between the perturbed and nominal result:
+\begin{equation}
+  \label{eq:unc}
+  \Delta_{ku} = \hat{\sigma}_{ku} - \hat{\sigma_k},
+\end{equation}
+where both $\hat{\sigma}_k$ terms are evaluated according to equation~\ref{eq:fid-xsec}.
+
+% These weights can be normalized according to:
+% \begin{equation}
+%   \label{eq:xsec-norm}
+%   w_{i} = \frac{\nu_{i}\,w^\mathrm{nom}_{i}}{\mathcal{L}},
+% \end{equation}
+% where $w^\mathrm{nom}_{i}$ is the nominal MC weight that includes the normalization according to $\sigma\,\mathcal{L}$ (i.e.\ used in figures~\ref{fig:MuActual}-\ref{fig:trackInfo}), $\nu_{i}$ is the OmniFold (or MultiFold) weight that corrects (unfolds) the MC prediction to data, and $\mathcal{L}$ is the integrated luminosity of the dataset. The weights $w_i$ defined according to Eq.~\ref{eq:xsec-norm} now has units of cross section and the sum of such weights of all events that fall in any fiduciary region will constitute a measurement of the associated fiducial cross section. This can be written as:
+% \begin{equation}
+%   \label{eq:fid-xsec}
+%   \hat{\sigma}_{k} = \sum_{i}^{N_\mathrm{events}}w_{i}\,\mathcal{I}[b(\vec{x}_{i})=k],
+% \end{equation}
+% where $b(\vec{x}_{i})$ returns an index $k\in\{0,1,2,...,n_\text{bins}\}$ corresponding to the fiducial region event $i$ falls in (based on its features $\vec{x}_i$), 
+% and $\mathcal{I}[\cdot]$ is the indicator function that is 1 when $\cdot$ is true and zero otherwise.
+
 
 \subsection{Data and Monte Carlo statistical uncertainties}
-These uncertainties will be computed via bootstrapping.  A set of $N$ pseudodatasets are constructed where each event has a weight $W_\text{pseudo}\,w_\text{nominal}$, where $w_\text{nominal}$ is unity for data and $w_\text{MC}$ for simulation. $W_\text{pseudo}$ is a value sampled randomly from a Poisson distribution with a mean of unity.  To ensure that the ``uncertainty on the uncertainty'' is negligible an ensemble of $N\gtrsim 100$ such pseudodatasets can be used.  These uncertainties are straightforward to compute, but are computationally expensive and thus we will compute them once all other results are finished.
+Statistical uncertainties will be evaluated using bootstrapping~\cite{ATLAS-bootstrap}.  A set of $N_\mathrm{BS}$ pseudo-datasets are constructed where each event $i$ has a weight $W_{ib}\,w^\text{nom}_i$, where $w^\text{nom}_{i}$ is unity for data and assigned according to equations~\ref{eq:mc-norm} or~\ref{eq:mc-norm-reco} for simulation. $W_{ib}$ is a value sampled randomly from a Poisson distribution with a mean of unity, which is done separately for each event $i$ and bootstrap replica $b$.  To ensure that the ``uncertainty on the uncertainty'' is negligible an ensemble of $N_\mathrm{BS} \gtrsim 100$ such pseudo-datasets can be used.
+Using these ensembles, uncertainties are straightforward to compute as outlined below, however it is computationally expensive to perform the full analysis on each of the $N_\mathrm{BS}$ bootstrap replicas, and thus we will compute them once all other results are finished.
 
-Each event will have $N$ weights associated with the data statistical uncertainty and from this, one can compute the covariance matrix for any particular binning scheme $b(x)\in\{0,1,2,...,n_\text{bins}\}$:
+As described above, for data statistical uncertainties, $N_\mathrm{BS}^\mathrm{ds} \approx 100$ bootstrap replica datasets are produced from actual data events.
+The difference between these datasets, which can be seen by plotting any distribution, will reflect the data statistical uncertainty.
+The full analysis will be performed for each such datasets with the nominal MC sample, and each event $i$ will hence get $N_\mathrm{BS}$ OmniFold weights $\nu_{ip}$. 
+Similarly, the MC statistical uncertainties is evaluated using the nominal data, but with MC events fluctuated $N_\mathrm{BS}^\mathrm{ms}$ times, which will result in $N_\mathrm{BS}^\mathrm{ms}$ different OmniFold weights.
 
-\begin{align}
-\mathbb{E}_k &= \frac{1}{N}\sum_{j=1}^N\sum_{i=1}^{N_\text{events}} w_{ij} \mathbb{I}[b(x_i)=k]\\
-\mathbb{E}_{kk'} &= \frac{1}{N}\sum_{j=1}^N \left(\sum_{i=1}^{N_\text{events}} w_{ij} \mathbb{I}[b(x_i)=k]\right)\left(\sum_{i=1}^{N_\text{events}} w_{ij} \mathbb{I}[b(x_i)=k']\right)\\
-\Sigma_{kk'}&=\mathbb{E}_{kk'} - \mathbb{E}_k\mathbb{E}_{k'}\,,
-\end{align}
-%
-where $w_{ij}$ is the OmniFold weight for bootstrap $j$ and event $i$, $0\leq k,k'\leq n_\text{bins}$ and $\mathcal{I}[\cdot]$ is the indicator function that is 1 when $\cdot$ is true and zero otherwise.
+The unfolded cross section $\sigma_{kb}$ for any given bin $k$ can be evaluated for each bootstrap replica $b$ (see equation~\ref{eq:fid-xsec}), and the standard  deviation of such estimates $\Delta_{k}$ constitutes the associated statistical uncertainty:
+\begin{eqnarray}
+  \label{eq:bs}
+  \bar{\sigma}_k = \frac{1}{N_\mathrm{BS}}\sum_{b=1}^{N_\mathrm{BS}} \hat{\sigma}_{kb} 
+  & & \text{(bootstrap mean)}\\
+  V_k = V[\hat{\sigma}_k] = \Delta_k^2 = \frac{1}{N_\mathrm{BS}}\sum_{b=1}^{N_\mathrm{BS}} \left(\hat{\sigma}_{kb} - \bar{\sigma}_k\right)^2 
+  & & \text{(stat. variance)}\\
+  C_{kl} = \mathrm{COV}[\hat{\sigma}_k,\hat{\sigma}_l] = \frac{1}{N_\mathrm{BS}}\sum_{b=1}^{N_\mathrm{BS}} \left(\hat{\sigma}_{kb} - \bar{\sigma}_k\right)\,\left(\hat{\sigma}_{lb} - \bar{\sigma}_l\right) 
+  & & \text{(stat. covariance)}
+\end{eqnarray}
 
-\subsubsection{Statistical Uncertainties on the Systematic Uncertainties}
+Any bin $k$ will hence have a data statistical uncertainty $\Delta_k^\mathrm{ds}$ and MC statistical uncertainty $\Delta_k^\mathrm{ms}$.
+Note also that the statistical correlation between two bins is given by $\rho_{kl} = C_{kl}/(\Delta_k\,\Delta_l).$
+
+
+% Each event will have $N$ weights associated with the data statistical uncertainty and from this, one can compute the covariance matrix for any particular binning scheme $b(x)\in\{0,1,2,...,n_\text{bins}\}$:
+
+% \begin{align}
+% \mathbb{E}_k &= \frac{1}{N}\sum_{j=1}^N\sum_{i=1}^{N_\text{events}} w_{ij} \mathbb{I}[b(x_i)=k]\\
+% \mathbb{E}_{kk'} &= \frac{1}{N}\sum_{j=1}^N \left(\sum_{i=1}^{N_\text{events}} w_{ij} \mathbb{I}[b(x_i)=k]\right)\left(\sum_{i=1}^{N_\text{events}} w_{ij} \mathbb{I}[b(x_i)=k']\right)\\
+% \Sigma_{kk'}&=\mathbb{E}_{kk'} - \mathbb{E}_k\mathbb{E}_{k'}\,,
+% \end{align}
+% %
+% where $w_{ij}$ is the OmniFold weight for bootstrap $j$ and event $i$, $0\leq k,k'\leq n_\text{bins}$ and $\mathcal{I}[\cdot]$ is the indicator function that is 1 when $\cdot$ is true and zero otherwise.
+
+\subsubsection{Statistical uncertainties on the systematic uncertainties}
 \label{sec:uncertaintyuncertainty}
 
-In order to determine if a particular systematic uncertainty is statistically significant and/or to perform uncertainty smoothing, it is necessary to have a statistical uncertainty on the systematic uncertainties.   The overall uncertainty is given by the MC statistical uncertainty described in the previous section.  However, the experimental uncertainties are highly correlated and so additional boostrapping is required.  In particular, the same $W_\text{pseudo}$ is used for all uncertainty variations and a set of bootstrap weights from the unfolding are produced: $W_\text{pseudo}\times\{w_\text{nominal},w_\text{syst 1}, w_\text{syst 2},...\}$.  In cases where the systematic uncertainty weight is the same as the nominal, then only the features change while the weights are the same.  Then, in a given bin $k$, we can compute 
+In order to determine if a particular systematic uncertainty is statistically significant and/or to perform uncertainty smoothing, it is necessary to have a statistical uncertainty on the systematic uncertainties. This can be also be achieved using bootstrapping (see section 3.6 of Ref.~\cite{ATLAS-bootstrap}), in fact using the same ensemble of $N_\mathrm{BS}^\mathrm{ms}$ bootstrap replicas as used for the MC statistical uncertainty. The procedure is analogous to the one described in the previous section: evaluate the uncertainty $\Delta_{kub}$ on bin $k$ from source $u$ for each bootstrap replica $b$ and take the standard deviation $\delta_{ku}$ across all bootstrap replicas as the 'uncertainty on the uncertainty'. That is:
+\begin{eqnarray}
+  \label{eq:unc-on-unc}
+  \bar{\Delta}_{ku} = \frac{1}{N_\mathrm{BS}}\sum_{b=1}^{N_\mathrm{BS}} \Delta_{kub} 
+  & & \text{(bootstrap uncertainty mean)}\\
+  \delta_{ku}^2 = \frac{1}{N_\mathrm{BS}}\sum_{b=1}^{N_\mathrm{BS}} \left(\Delta_{kub} - \bar{\Delta}_{ku}\right)^2 
+  & & \text{(stat.~unc.~on systematics)}.
+\end{eqnarray}
+The uncertainty of bin $k$ for systematic source $u$ is hence given by: $\Delta_{ku} \pm \delta_{ku}$ \todo{or we probably should use the mean variation?: $\bar{\Delta}_{ku} \pm \delta_{ku}$?}. 
+Note that the per-bootstrap uncertainties $\Delta_{kub}$ need to be evaluated according to equation~\ref{eq:unc} using the same bootstrap sample.
+That is, the bootstrap weights $W_{ib}$ that defines the bootstrap dataset needs to be identical to evaluate the nominal 
+($\hat{\sigma}_{kb}$) and perturbed ($\hat{\sigma}_{kub}$) cross sections.
+%The overall uncertainty is given by the MC statistical uncertainty described in the previous section.  However, the experimental uncertainties are highly correlated and so additional boostrapping is required.  In particular, the same bootstrap weights $W_{ib}$ are used for all uncertainty variations and a set of bootstrap weights from the unfolding are produced: $W_\text{pseudo}\times\{w_\text{nominal},w_\text{syst 1}, w_\text{syst 2},...\}$.  In cases where the systematic uncertainty weight is the same as the nominal, then only the features change while the weights are the same.  Then, in a given bin $k$, we can compute 
+% \begin{align}
+% \mathbb{E}_k^\text{nominal} &= \frac{1}{N}\sum_{j=1}^N\sum_{i=1}^{N_\text{events}} w_{ij,\text{nominal}} \mathbb{I}[b(x_i)=k]\\
+% \mathbb{E}_k^\text{$\ell$} &= \frac{1}{N}\sum_{j=1}^N\sum_{i=1}^{N_\text{events}} w_{ij,\text{syst $\ell$}} \mathbb{I}[b(x_i)=k]\\
+% \mathbb{E}_{k}^\text{nominal,$\ell$} &= \frac{1}{N}\sum_{j=1}^N \left(\sum_{i=1}^{N_\text{events}} w_{ij,\text{nominal}}\mathbb{I}[b(x_i)=k]\right)\left(\sum_{i=1}^{N_\text{events}} w_{ij,\text{syst $\ell$}}\mathbb{I}[b(x_i)=k]\right)\\
+% \Sigma_{k}^\text{nominal,$\ell$}&=\mathbb{E}_{k}^\text{nominal,$\ell$}- \mathbb{E}_k^\text{nominal}\mathbb{E}_k^\text{$\ell$} \,,
+% \end{align}
+% where $w_{ij,\text{nominal}}$ ($w_{ij,\text{syst $\ell$}}$) is the nominal (systematic uncertainty) OmniFold weight for bootstrap $j$ and event $i$, $0\leq '=k\leq n_\text{bins}$ and $\mathcal{I}[\cdot]$ is the indicator function that is 1 when $\cdot$ is true and zero otherwise.   The statistical uncertainty on the systematic uncertainty is then the square root of $\Sigma_{k}^\text{nominal,$\ell$}$. Note that this requires storing all $N$ weights for each uncertainty\footnote{It is likely that we could store only the average weight and the correlation coefficient with respect to the weight from the nominal unfolding.}.
+Note that this requires storing all $N_\mathrm{BS}$ weights for each uncertainty source\footnote{It is likely that we could store only the average weight and the correlation coefficient with respect to the weight from the nominal unfolding.}.
 
-\begin{align}
-\mathbb{E}_k^\text{nominal} &= \frac{1}{N}\sum_{j=1}^N\sum_{i=1}^{N_\text{events}} w_{ij,\text{nominal}} \mathbb{I}[b(x_i)=k]\\
-\mathbb{E}_k^\text{$\ell$} &= \frac{1}{N}\sum_{j=1}^N\sum_{i=1}^{N_\text{events}} w_{ij,\text{syst $\ell$}} \mathbb{I}[b(x_i)=k]\\
-\mathbb{E}_{k}^\text{nominal,$\ell$} &= \frac{1}{N}\sum_{j=1}^N \left(\sum_{i=1}^{N_\text{events}} w_{ij,\text{nominal}}\mathbb{I}[b(x_i)=k]\right)\left(\sum_{i=1}^{N_\text{events}} w_{ij,\text{syst $\ell$}}\mathbb{I}[b(x_i)=k]\right)\\
-\Sigma_{k}^\text{nominal,$\ell$}&=\mathbb{E}_{k}^\text{nominal,$\ell$}- \mathbb{E}_k^\text{nominal}\mathbb{E}_k^\text{$\ell$} \,,
-\end{align}
-where $w_{ij,\text{nominal}}$ ($w_{ij,\text{syst $\ell$}}$) is the nominal (systematic uncertainty) OmniFold weight for bootstrap $j$ and event $i$, $0\leq '=k\leq n_\text{bins}$ and $\mathcal{I}[\cdot]$ is the indicator function that is 1 when $\cdot$ is true and zero otherwise.   The statistical uncertainty on the systematic uncertainty is then the square root of $\Sigma_{k}^\text{nominal,$\ell$}$. Note that this requires storing all $N$ weights for each uncertainty\footnote{It is likely that we could store only the average weight and the correlation coefficient with respect to the weight from the nominal unfolding.}.
 
 \subsection{Pileup reweighting uncertainties}
 As discussed in section~\ref{subsec:PRW}, a correction is applied to MC events such that the pileup modeling in the simulation corresponds to what is seen in data. As such, there are variations associated with this modeling
