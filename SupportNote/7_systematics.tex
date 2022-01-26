@@ -1,7 +1,7 @@
 Uncertainties on the unfolded result are evaluated using error propagation, consistent with the standard approach used at ATLAS.
 Uncertainties are split into sources (sometimes called ``uncertainty components'') that are each treated as uncorrelated to each other.
-For each such uncertainty source, a perturbation is introduced either to the MC or data corresponding to its impact: $+1\sigma$, and in case of two-sided uncertainties, also $-1\,\sigma$. For each uncertainty perturbation $u$, the unfolding (``full analysis'') is then repeated using the modified samples, which results in a OmniFold weight $\nu_{u}(\vec{x})$ that is slightly different from the nominal OmniFold weight $\nu(\vec{x})$. 
-Each event $i$ in the unfolded dataset is hence assigned one nominal weight $w_{i}$ and a list of alternative weights $w_{iu}$, where the index $u$ corresponds either to a systematic uncertainty source, or statistical replica variation. 
+For each such uncertainty source, a perturbation is introduced either to the MC or data corresponding to its impact: $+1\sigma$, and in case of two-sided uncertainties, also $-1\,\sigma$. For each uncertainty perturbation $u$, the unfolding (``full analysis'') is then repeated using the modified samples, which results in a OmniFold weight $\nu_{u}(\vec{x})$ that is slightly different from the nominal OmniFold weight $\nu(\vec{x})$.
+Each event $i$ in the unfolded dataset is hence assigned one nominal weight $w_{i}$ and a list of alternative weights $w_{iu}$, where the index $u$ corresponds either to a systematic uncertainty source, or statistical replica variation.
 
 The uncertainty amplitude $\Delta_{ku}$ of any bin $k$ associated with uncertainty source $u$ is now evaluated as the different between the perturbed and nominal result:
 \begin{equation}
@@ -20,7 +20,7 @@ where both $\hat{\sigma}_k$ terms are evaluated according to equation~\ref{eq:fi
 %   \label{eq:fid-xsec}
 %   \hat{\sigma}_{k} = \sum_{i}^{N_\mathrm{events}}w_{i}\,\mathcal{I}[b(\vec{x}_{i})=k],
 % \end{equation}
-% where $b(\vec{x}_{i})$ returns an index $k\in\{0,1,2,...,n_\text{bins}\}$ corresponding to the fiducial region event $i$ falls in (based on its features $\vec{x}_i$), 
+% where $b(\vec{x}_{i})$ returns an index $k\in\{0,1,2,...,n_\text{bins}\}$ corresponding to the fiducial region event $i$ falls in (based on its features $\vec{x}_i$),
 % and $\mathcal{I}[\cdot]$ is the indicator function that is 1 when $\cdot$ is true and zero otherwise.
 
 
@@ -30,17 +30,17 @@ Using these ensembles, uncertainties are straightforward to compute as outlined 
 
 As described above, for data statistical uncertainties, $N_\mathrm{BS}^\mathrm{ds} \approx 100$ bootstrap replica datasets are produced from actual data events.
 The difference between these datasets, which can be seen by plotting any distribution, will reflect the data statistical uncertainty.
-The full analysis will be performed for each such datasets with the nominal MC sample, and each event $i$ will hence get $N_\mathrm{BS}$ OmniFold weights $\nu_{ip}$. 
+The full analysis will be performed for each such datasets with the nominal MC sample, and each event $i$ will hence get $N_\mathrm{BS}$ OmniFold weights $\nu_{ip}$.
 Similarly, the MC statistical uncertainties is evaluated using the nominal data, but with MC events fluctuated $N_\mathrm{BS}^\mathrm{ms}$ times, which will result in $N_\mathrm{BS}^\mathrm{ms}$ different OmniFold weights.
 
 The unfolded cross section $\sigma_{kb}$ for any given bin $k$ can be evaluated for each bootstrap replica $b$ (see equation~\ref{eq:fid-xsec}), and the standard  deviation of such estimates $\Delta_{k}$ constitutes the associated statistical uncertainty:
 \begin{eqnarray}
   \label{eq:bs}
-  \bar{\sigma}_k = \frac{1}{N_\mathrm{BS}}\sum_{b=1}^{N_\mathrm{BS}} \hat{\sigma}_{kb} 
+  \bar{\sigma}_k = \frac{1}{N_\mathrm{BS}}\sum_{b=1}^{N_\mathrm{BS}} \hat{\sigma}_{kb}
   & & \text{(bootstrap mean)}\\
-  V_k = V[\hat{\sigma}_k] = \Delta_k^2 = \frac{1}{N_\mathrm{BS}}\sum_{b=1}^{N_\mathrm{BS}} \left(\hat{\sigma}_{kb} - \bar{\sigma}_k\right)^2 
+  V_k = V[\hat{\sigma}_k] = \Delta_k^2 = \frac{1}{N_\mathrm{BS}}\sum_{b=1}^{N_\mathrm{BS}} \left(\hat{\sigma}_{kb} - \bar{\sigma}_k\right)^2
   & & \text{(stat. variance)}\\
-  C_{kl} = \mathrm{COV}[\hat{\sigma}_k,\hat{\sigma}_l] = \frac{1}{N_\mathrm{BS}}\sum_{b=1}^{N_\mathrm{BS}} \left(\hat{\sigma}_{kb} - \bar{\sigma}_k\right)\,\left(\hat{\sigma}_{lb} - \bar{\sigma}_l\right) 
+  C_{kl} = \mathrm{COV}[\hat{\sigma}_k,\hat{\sigma}_l] = \frac{1}{N_\mathrm{BS}}\sum_{b=1}^{N_\mathrm{BS}} \left(\hat{\sigma}_{kb} - \bar{\sigma}_k\right)\,\left(\hat{\sigma}_{lb} - \bar{\sigma}_l\right)
   & & \text{(stat. covariance)}
 \end{eqnarray}
 
@@ -64,16 +64,16 @@ Note also that the statistical correlation between two bins is given by $\rho_{k
 In order to determine if a particular systematic uncertainty is statistically significant and/or to perform uncertainty smoothing, it is necessary to have a statistical uncertainty on the systematic uncertainties. This can be also be achieved using bootstrapping (see section 3.6 of Ref.~\cite{ATLAS-bootstrap}), in fact using the same ensemble of $N_\mathrm{BS}^\mathrm{ms}$ bootstrap replicas as used for the MC statistical uncertainty. The procedure is analogous to the one described in the previous section: evaluate the uncertainty $\Delta_{kub}$ on bin $k$ from source $u$ for each bootstrap replica $b$ and take the standard deviation $\delta_{ku}$ across all bootstrap replicas as the 'uncertainty on the uncertainty'. That is:
 \begin{eqnarray}
   \label{eq:unc-on-unc}
-  \bar{\Delta}_{ku} = \frac{1}{N_\mathrm{BS}}\sum_{b=1}^{N_\mathrm{BS}} \Delta_{kub} 
+  \bar{\Delta}_{ku} = \frac{1}{N_\mathrm{BS}}\sum_{b=1}^{N_\mathrm{BS}} \Delta_{kub}
   & & \text{(bootstrap uncertainty mean)}\\
-  \delta_{ku}^2 = \frac{1}{N_\mathrm{BS}}\sum_{b=1}^{N_\mathrm{BS}} \left(\Delta_{kub} - \bar{\Delta}_{ku}\right)^2 
+  \delta_{ku}^2 = \frac{1}{N_\mathrm{BS}}\sum_{b=1}^{N_\mathrm{BS}} \left(\Delta_{kub} - \bar{\Delta}_{ku}\right)^2
   & & \text{(stat.~unc.~on systematics)}.
 \end{eqnarray}
-The uncertainty of bin $k$ for systematic source $u$ is hence given by: $\Delta_{ku} \pm \delta_{ku}$ \todo{or we probably should use the mean variation?: $\bar{\Delta}_{ku} \pm \delta_{ku}$?}. 
+The uncertainty of bin $k$ for systematic source $u$ is hence given by: $\Delta_{ku} \pm \delta_{ku}$ \todo{or we probably should use the mean variation?: $\bar{\Delta}_{ku} \pm \delta_{ku}$?}.
 Note that the per-bootstrap uncertainties $\Delta_{kub}$ need to be evaluated according to equation~\ref{eq:unc} using the same bootstrap sample.
-That is, the bootstrap weights $W_{ib}$ that defines the bootstrap dataset needs to be identical to evaluate the nominal 
+That is, the bootstrap weights $W_{ib}$ that defines the bootstrap dataset needs to be identical to evaluate the nominal
 ($\hat{\sigma}_{kb}$) and perturbed ($\hat{\sigma}_{kub}$) cross sections.
-%The overall uncertainty is given by the MC statistical uncertainty described in the previous section.  However, the experimental uncertainties are highly correlated and so additional boostrapping is required.  In particular, the same bootstrap weights $W_{ib}$ are used for all uncertainty variations and a set of bootstrap weights from the unfolding are produced: $W_\text{pseudo}\times\{w_\text{nominal},w_\text{syst 1}, w_\text{syst 2},...\}$.  In cases where the systematic uncertainty weight is the same as the nominal, then only the features change while the weights are the same.  Then, in a given bin $k$, we can compute 
+%The overall uncertainty is given by the MC statistical uncertainty described in the previous section.  However, the experimental uncertainties are highly correlated and so additional boostrapping is required.  In particular, the same bootstrap weights $W_{ib}$ are used for all uncertainty variations and a set of bootstrap weights from the unfolding are produced: $W_\text{pseudo}\times\{w_\text{nominal},w_\text{syst 1}, w_\text{syst 2},...\}$.  In cases where the systematic uncertainty weight is the same as the nominal, then only the features change while the weights are the same.  Then, in a given bin $k$, we can compute
 % \begin{align}
 % \mathbb{E}_k^\text{nominal} &= \frac{1}{N}\sum_{j=1}^N\sum_{i=1}^{N_\text{events}} w_{ij,\text{nominal}} \mathbb{I}[b(x_i)=k]\\
 % \mathbb{E}_k^\text{$\ell$} &= \frac{1}{N}\sum_{j=1}^N\sum_{i=1}^{N_\text{events}} w_{ij,\text{syst $\ell$}} \mathbb{I}[b(x_i)=k]\\
@@ -90,7 +90,7 @@ that must be taken into account.
 
 In addition, a scaling correction is applied to the data during pileup reweighting. Nominally, this scaling correction is equal to 1/1.03, and the up and down variations are set to 1/1.072 and 1/0.988 respectively.
 
-Figure~\ref{fig:PRWpTll} shows the effect of these variations for the dilepton \pt across all years.
+Figure~\ref{fig:PRWpTll} shows the effect of these variations for the dilepton \pt across all years prior to unfolding.
 
 \begin{figure}[h!]
   \centering
@@ -98,7 +98,7 @@ Figure~\ref{fig:PRWpTll} shows the effect of these variations for the dilepton \
   \subfloat[MC16d]{\includegraphics[page=103,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
   \subfloat[MC16e]{\includegraphics[page=205,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
   \subfloat[Run 2]{\includegraphics[page=307,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
-  \caption{The fractional systematic impact of the up and down variations of the pileup reweighting across all years for the \powheg+\pythia~sample.}
+  \caption{The fractional systematic impact of the up and down variations of the pileup reweighting across all years for the \powheg+\pythia~sample prior to unfolding.}
   \label{fig:PRWpTll}
 \end{figure}
 
@@ -122,7 +122,7 @@ Hence, there are 2 systematic variations associated with the trigger efficiency,
   \item MUON\_EFF\_TTVA\_STAT
 \end{itemize}
 
-The impact of the efficiency systematics is summarized in figure~\ref{fig:PP8SFSyst}.
+The impact of the efficiency systematics prior to unfolding is summarized in figure~\ref{fig:PP8SFSyst}.
 
 \begin{figure}[h!]
   \centering
@@ -130,23 +130,23 @@ The impact of the efficiency systematics is summarized in figure~\ref{fig:PP8SFS
   \subfloat[MC16d]{\includegraphics[page=104,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
   \subfloat[MC16e]{\includegraphics[page=206,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
   \subfloat[Run 2]{\includegraphics[page=308,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
-  \caption{The fractional systematic impact for the muon efficiencies for the \powheg+\pythia~samples across all years as a function of the dilepton \pt.}
+  \caption{The fractional systematic impact for the muon efficiencies for the \powheg+\pythia~samples across all years as a function of the dilepton \pt prior to unfolding.}
   \label{fig:PP8SFSyst}
 \end{figure}
 
 \subsubsection{Muon calibration uncertainties}
 There are also systematic variations associated with the calibration applied to the muons. These will have an affect on the muon kinematics. The systematic variations are listed below, and include
-one for momentum variations due to measurements made in the inner detector, one for momentum effects related to the muon spectrometer, one for the momentum scale, and 2 systematics related to the measured sagitta value.
+one for momentum variations due to measurements made in the inner detector, one for momentum effects related to the muon spectrometer, one for the momentum scale, and one related to the measured sagitta value.
 \begin{itemize}
   \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}\setlength{\parsep}{0pt}
   \item MUON\_ID (inner detector track resolution)
   \item MUON\_MS (muon spectrometer track resolution)
   \item MUON\_SCALE (momentum scale)
   \item MUON\_SAGITTA\_RESBIAS (residual bias correction)
-  \item MUON\_SAGITTA\_RHO (combined measurement correction)
+  %\item MUON\_SAGITTA\_RHO (combined measurement correction)
 \end{itemize}
 
-The effects of these variations on the dilepton \pt and mass are shown in figure~\ref{fig:PP8MuCalSystpTll} and~\ref{fig:PP8MuCalSystmll}.
+The effects of these variations on the dilepton \pt and mass prior to unfolding are shown in figure~\ref{fig:PP8MuCalSystpTll} and~\ref{fig:PP8MuCalSystmll}.
 
 \begin{figure}[h!]
   \centering
@@ -154,7 +154,7 @@ The effects of these variations on the dilepton \pt and mass are shown in figure
   \subfloat[MC16d]{\includegraphics[page=199,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
   \subfloat[MC16e]{\includegraphics[page=301,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
   \subfloat[Run 2]{\includegraphics[page=403,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
-  \caption{The fractional systematic impact for variations to the muon calibration for the \powheg+\pythia~samples for all years as a function of the dilepton \pt. The upwards shift is presented in red, and the downwards shift in blue.}
+  \caption{The fractional systematic impact for variations to the muon calibration for the \powheg+\pythia~samples for all years prior to unfolding as a function of the dilepton \pt. The upwards shift is presented in red, and the downwards shift in blue.}
   \label{fig:PP8MuCalSystpTll}
 \end{figure}
 
@@ -164,11 +164,12 @@ The effects of these variations on the dilepton \pt and mass are shown in figure
   \subfloat[MC16d]{\includegraphics[page=201,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
   \subfloat[MC16e]{\includegraphics[page=303,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
   \subfloat[Run 2]{\includegraphics[page=405,width=\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
-  \caption{The fractional systematic impact for variations to the muon calibration for the \powheg+\pythia~samples for all years as a function of the dilepton mass. The upwards shift is presented in red, and the downwards shift in blue.}
+  \caption{The fractional systematic impact for variations to the muon calibration for the \powheg+\pythia~samples for all years prior to unfolding as a function of the dilepton mass. The upwards shift is presented in red, and the downwards shift in blue.}
   \label{fig:PP8MuCalSystmll}
 \end{figure}
 
 \subsection{Track uncertainties}
+\label{subsec:Tracksysts}
 
 The systematic uncertainties associated with the tracks are:
 
@@ -184,7 +185,7 @@ The systematic uncertainties associated with the tracks are:
 \end{itemize}
 
 The first four are combined into one nuisance parameter and are due to variations of the tracking efficiency. The fifth describes the variations to the tracking efficiency when the track is inside a jet.
-The sixth represents variations to the fake rate. The last varies the \pt of the track based on the residual alignment uncertainties. Figure~\ref{fig:PP8TrackSyst} shows the effect of these variations on the \pt of the tracks in the \powheg+\pythia~sample across all years.
+The sixth represents variations to the fake rate. The last varies the \pt of the track based on the residual alignment uncertainties. Figure~\ref{fig:PP8TrackSyst} shows the effect of these variations on the \pt of the tracks in the \powheg+\pythia~sample across all years prior to unfolding.
 
 \begin{figure}[h!]
   \centering
@@ -192,12 +193,12 @@ The sixth represents variations to the fake rate. The last varies the \pt of the
   \subfloat[MC16d]{\includegraphics[page=204,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
   \subfloat[MC16e]{\includegraphics[page=306,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
   \subfloat[Run 2]{\includegraphics[page=408,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
-  \caption{The fractional systematic impact for variations applied to the tracks for the \powheg+\pythia~samples for all years. Note that only the down variations are shown for the inclusive efficiency, inside jet efficiency and the fake rate.
+  \caption{The fractional systematic impact for variations applied to the tracks for the \powheg+\pythia~samples for all years prior to unfolding. Note that only the down variations are shown for the inclusive efficiency, inside jet efficiency and the fake rate.
   The variations are symmetrized for use in the analysis.}
   \label{fig:PP8TrackSyst}
 \end{figure}
 
-The track systematics will also have an effect on the track jet observables. Figure~\ref{fig:PP8TrackJetSyst} shows the fractional effect of the track systematics on the \pt, $y$, $m$, $\tau_1$, and the number of constituents of the leading track jet.
+The track systematics will also have an effect on the track jet observables. Figure~\ref{fig:PP8TrackJetSyst} shows the fractional effect of the track systematics on the \pt, $y$, $m$, $\tau_1$, and the number of constituents of the leading track jet prior to unfolding.
 
 \begin{figure}[h!]
   \centering
@@ -206,7 +207,7 @@ The track systematics will also have an effect on the track jet observables. Fig
   \subfloat{\includegraphics[page=341,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
   \subfloat{\includegraphics[page=344,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}} \\
   \subfloat{\includegraphics[page=374,width=0.45\textwidth]{figures/ZjetOmnifoldSystematics.pdf}}
-  \caption{The fractional systematic impact of the track variations on various track jet observables for the full Run 2 dataset of the \powheg+\pythia~sample.}
+  \caption{The fractional systematic impact of the track variations on various track jet observables for the full Run 2 dataset of the \powheg+\pythia~sample prior to unfolding.}
   \label{fig:PP8TrackJetSyst}
 \end{figure}
 
