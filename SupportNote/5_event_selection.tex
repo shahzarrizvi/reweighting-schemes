@@ -81,6 +81,8 @@ In addition, tracks which are associated with the muons are not considered part 
 \paragraph{Jets (saved in Ntuples, but not used in the analysis)} are also reconstructed using the anti-$k_t$ algorithm with a radius parameter of $R=0.4$. Particle flow objects~\cite{Aaboud:2017aca} are used as input. The jets are calibrated using the recommended procedure for small-$R$ jets, this includes: MCJES calibration, global sequential calibration, and in-situ calibration.
 Jets are required to have a calibrated $p_\text{T} > 20~\text{GeV}$ and rapidity $|y| < 4.4$\footnote{General recommendations are found here: \url{twiki: https://twiki.cern.ch/twiki/bin/view/AtlasProtected/JetEtmissRecommendationsR21}}.
 
+Track jets are utilized in the analysis as uncertainties are available at a per-constituent level (see section~\ref{subsec:Tracksysts} for a full description of the track uncertainties). For jets, there exist no well-defined uncertainties for the neutral clusters and thus per-constituent uncertainties are impossible to define. Having access to per-constituent uncertainties allows for the derivation of errors for any general jet observable, including jet substructure quantities, that would not be possible or robust otherwise.
+
 \subsubsection{Overlap removal}
 
 As mentioned above, the PFlow jets are not currently being used as part of the analysis so the overlap removal described below will not have an effect on results.

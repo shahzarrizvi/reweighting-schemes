@@ -64,8 +64,8 @@ To check the stability of data used for this analysis, the rate for each year is
 \label{sec:datamc}
 Figure~\ref{fig:MuActual} shows the actual interactions per bunch crossing $\mu$ for the individual data periods, as well as the full Run 2 dataset.
 Figure~\ref{fig:DilepVars} gives the $\pt$, $y$, and $m$ distributions for the dilepton system, and figure~\ref{fig:pTetamus} gives the $\pt$, $\eta$, and $\phi$ distributions for both the leading and subleading muon.
-The $\pt$, $y$, and $\phi$ distributions for the leading and subleading track jet are shown in figure~\ref{fig:pTyjets}, and figure~\ref{fig:jetsubstructure} and~\ref{fig:ntrackinjets} show some
-selected jet substructure variables and the number of constituents, respectively.  The substructure variables are the $n$-subjettiness observables~\cite{Thaler:2010tr,Thaler:2011gf}, which have the form
+The $\pt$, $y$, $\phi$, and the number of constituents distributions for the leading and subleading track jet are shown in figure~\ref{fig:pTyjets}, and figure~\ref{fig:jetsubstructure} shows some
+selected jet substructure variables. The substructure variables are the $n$-subjettiness observables~\cite{Thaler:2010tr,Thaler:2011gf}, which have the form
 
 \begin{align}
 \tau_N=\left(\frac{1}{\sum_{i\in\text{jet}} R_0p_{T,i}}\right)\sum_{i\in\text{jet}} p_{T,i}\min_{j\in\{1,...,N\}}\left\{\Delta R_{j,n}\right\}\,,
@@ -75,13 +75,15 @@ where $R_0$ is the jet algorithm radius and $\Delta R_{j,n}$ is the $\Delta R$ b
 
 Additional figures with these distributions shown per year of data taking can be found in appendix~\ref{app:AddDataMC}.
 
+The MC simulation for both \powheg+\pythia~and \sherpa~2.2.1 is expected to underpredict higher order processes, leading to a discrepancy between the MC and data due to the high $\pt^{\mu\mu}$ phase space.\footnote{This underprediction by the Monte Carlo has been observed in other $Z+$jets analyses, see for example~\cite{ATLAS:2019zci} or~\cite{Blumenschein:2744872}, which examines a similar phase space (note that \sherpa~2.2.1 and \sherpa~2.2.11 exhibit nearly identical distributions for the observables presented in this analysis).}.
+
 \begin{figure}[h!]
   \centering
   \includegraphics[page=5,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
   \includegraphics[page=6,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
   \includegraphics[page=7,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
   \includegraphics[page=8,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \caption{The ``actual'' mean interactions per bunch crossing, $\mu$, for 2015--2016 data (top left), 2017 data (top right), 2018 data (bottom left), and the full Run-2 dataset (bottom right). Note that the pileup reweighting uses actual $\mu$ for 2017 and 2018 data, while $\mu_\mathrm{avg}$, i.e.\ $\mu$ calculated by averaging the actual $\mu$ of all bunches, is used for 2015--2016 data hence a worse agreement is seen for this period.}
+  \caption{The ``actual'' mean interactions per bunch crossing, $\mu$, for 2015--2016 data (top left), 2017 data (top right), 2018 data (bottom left), and the full Run-2 dataset (bottom right). Note that the pileup reweighting uses actual $\mu$ for 2017 and 2018 data, while $\mu_\mathrm{avg}$, i.e.\ $\mu$ calculated by averaging the actual $\mu$ of all bunches, is used for 2015--2016 data hence a worse agreement is seen for this period. Note that the error bars reflect only the statistical uncertainty on the data or MC.}
   \label{fig:MuActual}
 \end{figure}
 
@@ -90,27 +92,26 @@ Additional figures with these distributions shown per year of data taking can be
   \includegraphics[page=12,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
   \includegraphics[page=20,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
   \includegraphics[page=16,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \caption{Distributions for the $\pt$, $y$, and $m$ of the dilepton system. Due to the high $\pt$ phase space, it is expected that the MC simulation will underpredict the data.}
+  \caption{Distributions for the $\pt$, $y$, and $m$ of the dilepton system. Due to the high $\pt$ phase space, it is expected that the MC simulation will underpredict the data. Note that the error bars reflect only the statistical uncertainty on the data or MC.}
   \label{fig:DilepVars}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=24,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=32,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
-  \subfloat[Leading muon]{\includegraphics[page=40,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}} \\
-  \includegraphics[page=28,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=36,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
-  \subfloat[Subleading muon]{\includegraphics[page=44,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}}
-  \caption{The $\pt$, $\eta$, and $\phi$ distributions for the (a) leading and the (b) subleading muon.}
+  \includegraphics[page=24,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=28,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
+  \includegraphics[page=32,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=36,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
+  \includegraphics[page=40,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=44,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
+  \caption{The $\pt$, $\eta$, and $\phi$ distributions for the leading muon (left) and the subleading muon (right). Note that the error bars reflect only the statistical uncertainty on the data or MC.}
   \label{fig:pTetamus}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[page=72,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=76,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
-  \subfloat[Leading track jet]{\includegraphics[page=80,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}} \\
-  \includegraphics[page=88,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=92,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
-  \subfloat[Sub-leading track jet]{\includegraphics[page=96,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}}
-  \caption{The $\pt$, $y$, and $\phi$ distributions for the (a) leading and the (b) subleading track jet.}
+  \includegraphics[page=72,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=88,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
+  \includegraphics[page=76,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=92,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
+  \includegraphics[page=80,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=96,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
+  \includegraphics[page=136,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\includegraphics[page=140,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
+  \caption{The $\pt$, $y$, $\phi$, and the number of constituents distributions for the leading (left) and the subleading (right) track jet. Note that the error bars reflect only the statistical uncertainty on the data or MC.}
   \label{fig:pTyjets}
 \end{figure}
 
@@ -119,21 +120,13 @@ Additional figures with these distributions shown per year of data taking can be
   \includegraphics[page=84,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
   \includegraphics[page=100,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
   \includegraphics[page=104,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-    \includegraphics[page=116,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\\
+  \includegraphics[page=116,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\\
   \includegraphics[page=108,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-      \includegraphics[page=120,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\\
+  \includegraphics[page=120,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}\\
   \includegraphics[page=112,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-      \includegraphics[page=124,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \caption{Jet substructure features for the leading (left) and sub-leading (right) track jets.}
+  \includegraphics[page=124,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
+  \caption{Jet substructure features for the leading (left) and sub-leading (right) track jets. Note that the error bars reflect only the statistical uncertainty on the data or MC.}
   \label{fig:jetsubstructure}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[page=136,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \includegraphics[page=140,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
-  \caption{The number of constituents in the leading (left) and sub-leading (right) track jets.}
-  \label{fig:ntrackinjets}
 \end{figure}
 
 \begin{figure}[h!]
@@ -142,7 +135,7 @@ Additional figures with these distributions shown per year of data taking can be
   \includegraphics[page=144,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf} \\
   \includegraphics[page=148,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
   \includegraphics[page=152,width=0.45\textwidth]{figures/ZjetOmnifoldMCDataComp.pdf}
-  \caption{Distributions for the number of tracks per event (top left), and the $\pt$ (top right), $\eta$ (bottom left), and $\phi$ (bottom right) for each reconstructed track.}
+  \caption{Distributions for the number of tracks per event (top left), and the $\pt$ (top right), $\eta$ (bottom left), and $\phi$ (bottom right) for each reconstructed track. Note that the error bars reflect only the statistical uncertainty on the data or MC.}
   \label{fig:trackInfo}
 \end{figure}
 
