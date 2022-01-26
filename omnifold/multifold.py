@@ -8,6 +8,7 @@ from tensorflow.keras.layers import Dense, Input
 from tensorflow.keras.models import Model
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.callbacks import EarlyStopping
+from livelossplot import PlotLossesKeras
 
 # from NN (DCTR)
 def reweight(model, events):
@@ -37,13 +38,19 @@ def multifold(
             sim_reco,
             data_reco,
             iterations=5,
+            layer_size=50,
+            n_layers=3,
+            epochs=1000,
+            patience=10,
+            batch_size=10000,
             sim_truth_weights_MC=None,
             sim_reco_weights_MC=None,
             data_reco_weights_MC=None,
             dummyval=None,
             average_weight=True,
             model_init_filepath=None,
-            verbose=0):
+            verbose=0,
+            livelossplot=False,):
     """    
     Arguments:
 
@@ -139,19 +146,23 @@ def multifold(
 
     # initialize model
     inputs = Input((num_observables, ))
-    hidden_layer_1 = Dense(50, activation='relu')(inputs)
-    hidden_layer_2 = Dense(50, activation='relu')(hidden_layer_1)
-    hidden_layer_3 = Dense(50, activation='relu')(hidden_layer_2)
-    outputs = Dense(1, activation='sigmoid')(hidden_layer_3)
+    hidden = Dense(layer_size, activation='relu')(inputs)
+    for layer in range(n_layers-1):
+        hidden = Dense(layer_size, activation='relu')(hidden)
+    outputs = Dense(1, activation='sigmoid')(hidden)
 
     model = Model(inputs=inputs, outputs=outputs)
     
     if model_init_filepath is not None:
         model.load_weights(model_init_filepath)
         
-    earlystopping = EarlyStopping(patience=10,
+    earlystopping = EarlyStopping(patience=patience,
                                   verbose=verbose,
                                   restore_best_weights=True)
+    
+    callbacks_list = [earlystopping]
+    if livelossplot: 
+        callbacks_list += [PlotLossesKeras()]
 
     for i in tqdm(range(iterations), desc="Iterations:"):
         if verbose == 1:
@@ -180,10 +191,10 @@ def multifold(
                       metrics=['accuracy'])
         model.fit(X_train_1,
                   Y_train_1,
-                  epochs=1000,
-                  batch_size=10000,
+                  epochs=epochs,
+                  batch_size=batch_size,
                   validation_data=(X_test_1, Y_test_1),
-                  callbacks=[earlystopping],
+                  callbacks=callbacks_list,
                   verbose=verbose)
 
         # calculate, normalize, and clip weights
@@ -214,10 +225,10 @@ def multifold(
                               metrics=['accuracy'])
                 model.fit(X_train_1b,
                           Y_train_1b,
-                          epochs=1000,
-                          batch_size=10000,
+                          epochs=epochs,
+                          batch_size=batch_size,
                           validation_data=(X_test_1b, Y_test_1b),
-                          callbacks=[earlystopping],
+                          callbacks=callbacks_list,
                           verbose=verbose)
 
                 weights_pull[np.invert(sim_reco_mask)] = reweight(
@@ -253,10 +264,10 @@ def multifold(
                       metrics=['accuracy'])
         model.fit(X_train_2,
                   Y_train_2,
-                  epochs=1000,
-                  batch_size=10000,
+                  epochs=epochs,
+                  batch_size=batch_size,
                   validation_data=(X_test_2, Y_test_2),
-                  callbacks=[earlystopping],
+                  callbacks=callbacks_list,
                   verbose=verbose)
 
         # calculate, normalize, and clip weights
@@ -286,10 +297,10 @@ def multifold(
                               metrics=['accuracy'])
                 model.fit(X_train_2b,
                           Y_train_2b,
-                          epochs=1000,
-                          batch_size=10000,
+                          epochs=epochs,
+                          batch_size=batch_size,
                           validation_data=(X_test_2b, Y_test_2b),
-                          callbacks=[earlystopping],
+                          callbacks=callbacks_list,
                           verbose=verbose)
 
                 weights_push[np.invert(sim_truth_mask)] = reweight(
