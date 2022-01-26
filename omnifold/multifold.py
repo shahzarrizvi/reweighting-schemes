@@ -9,6 +9,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.callbacks import EarlyStopping
 from livelossplot import PlotLossesKeras
+from wandb.keras import WandbCallback
 
 # from NN (DCTR)
 def reweight(model, events):
@@ -50,7 +51,9 @@ def multifold(
             average_weight=True,
             model_init_filepath=None,
             verbose=0,
-            livelossplot=False,):
+            livelossplot=False,
+            hpo=False,
+            ):
     """    
     Arguments:
 
@@ -157,14 +160,10 @@ def multifold(
         model.load_weights(model_init_filepath)
         
     earlystopping = EarlyStopping(patience=patience,
-                                  verbose=verbose,
+                                  verbose=0,
                                   restore_best_weights=True)
     
-    callbacks_list = [earlystopping]
-    if livelossplot: 
-        callbacks_list += [PlotLossesKeras()]
-
-    for i in tqdm(range(iterations), desc="Iterations:"):
+    for i in tqdm(range(iterations), desc="Iterations"):
         if verbose == 1:
             print("\nITERATION: {}\n".format(i + 1))
 
@@ -185,6 +184,10 @@ def multifold(
         Y_train_1 = np.stack((Y_train_1, w_train_1), axis=1)
         Y_test_1 = np.stack((Y_test_1, w_test_1), axis=1)
 
+        callbacks_list = [earlystopping]
+        if livelossplot:
+            callbacks_list += [PlotLossesKeras()]
+        
         # compile and train model
         model.compile(loss=weighted_binary_crossentropy,
                       optimizer='Adam',
@@ -219,6 +222,10 @@ def multifold(
                 Y_train_1b = np.stack((Y_train_1b, w_train_1b), axis=1)
                 Y_test_1b = np.stack((Y_test_1b, w_test_1b), axis=1)
 
+                callbacks_list = [earlystopping]
+                if livelossplot:
+                    callbacks_list += [PlotLossesKeras()]
+                
                 # compile and train model
                 model.compile(loss=weighted_binary_crossentropy,
                               optimizer='Adam',
@@ -258,6 +265,10 @@ def multifold(
         Y_train_2 = np.stack((Y_train_2, w_train_2), axis=1)
         Y_test_2 = np.stack((Y_test_2, w_test_2), axis=1)
 
+        callbacks_list = [earlystopping]
+        if livelossplot:
+            callbacks_list += [PlotLossesKeras()]
+        
         # compile and train model
         model.compile(loss=weighted_binary_crossentropy,
                       optimizer='Adam',
@@ -291,6 +302,12 @@ def multifold(
                 Y_train_2b = np.stack((Y_train_2b, w_train_2b), axis=1)
                 Y_test_2b = np.stack((Y_test_2b, w_test_2b), axis=1)
 
+                callbacks_list = [earlystopping]
+                if livelossplot:
+                    callbacks_list += [PlotLossesKeras()]
+                if i == 4 and hpo:  # 5th iteration only
+                    callbacks_list += [WandbCallback()]
+            
                 # compile and train model
                 model.compile(loss=weighted_binary_crossentropy,
                               optimizer='Adam',

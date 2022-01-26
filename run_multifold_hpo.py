@@ -23,18 +23,13 @@ from omnifold import *
 from omnifold.utilities import *
 
 ### GPU Setup
-os.environ["CUDA_VISIBLE_DEVICES"] = "0" # pick a number < 4 on ML4HEP; < 3 on Voltan 
+# os.environ["CUDA_VISIBLE_DEVICES"] = "0" # pick a number < 4 on ML4HEP; < 3 on Voltan 
 physical_devices = tf.config.list_physical_devices('GPU') 
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 ### Plot setup
 plot_setup()
 plot_dir = './plots/'
-
-### GPU Setup
-os.environ["CUDA_VISIBLE_DEVICES"] = "1" # pick a number < 4 on ML4HEP; < 3 on Voltan 
-physical_devices = tf.config.list_physical_devices('GPU') 
-tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -137,13 +132,14 @@ if __name__ == "__main__":
                      data_reco_weights_MC=data.weight,
                      dummyval=dummyval,
                      verbose=1,
-                     iterations=1,
+                     iterations=5,
                      layer_size=args.layer_size,
                      n_layers=args.n_layers,
                      epochs=args.epochs,
                      patience=args.patience,
                      batch_size=args.batch_size,
                      livelossplot=args.livelossplot,
+                     hpo=True,
                     )
     
     # Plot DeltaR 
