@@ -94,14 +94,13 @@ earlystopping = EarlyStopping(patience=10,
                               verbose=0,
                               restore_best_weights=True)
 
-# Models
-def create_model(loss,
-                 hidden='relu', 
-                 output='sigmoid', 
-                 dropout=True, 
-                 optimizer='adam', 
-                 metrics=['accuracy'], 
-                 verbose=0):
+def train(loss,
+          hidden='relu', 
+          output='sigmoid', 
+          dropout=True, 
+          optimizer='adam', 
+          metrics=['accuracy'], 
+          verbose=0):
     model = Sequential()
     if dropout:
         model.add(Dense(64, activation=hidden, input_shape=(1, )))
@@ -120,17 +119,6 @@ def create_model(loss,
     model.compile(loss=loss,
                   optimizer=optimizer, 
                   metrics=metrics)
-    
-    return model
-
-def train(loss,
-          hidden='relu', 
-          output='sigmoid', 
-          dropout=True, 
-          optimizer='adam', 
-          metrics=['accuracy'], 
-          verbose=0):
-    model = create_model(loss, hidden, output, dropout, optimizer, verbose)
     
     trace = model.fit(X_train, 
                       y_train,
@@ -262,7 +250,7 @@ for p in ps:
     exp_lrs[p] = [None] * reps
     sqr_params = {'loss': get_sqr(p), 'output':'relu'}
     exp_params = {'loss': get_exp_sqr(p), 'output':'linear'}
-    for i in range(10):
+    for i in range(reps):
         print(i, end = '\t')
         sqr_model = train(**sqr_params)
         exp_model = train(**exp_params)
