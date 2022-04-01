@@ -1,0 +1,20 @@
+in both plots/ and models/, there are a number of directories. each directory corresponds to one experiment. each experiment contains multiple files of the form "set_[num]", which contains the experiment data for that particular run of that experiment.
+
+mlc_c_param: different parametrizations for C(f).
+    set_0: mu = 0.1
+    set_1: mu = 1.1
+    
+sqr_c_parm: different parametrizations for C(f).
+    set_0: mu = 0.1
+    set_1: mu = 1.1
+    
+interp: running with different values of mu.
+    set_0: mu = 0.1
+    set_1: mu = 1.1
+    set_2: mu = 1.2
+    set_3: mu = 1.5
+    set_4: mu = 5
+    
+loss_comp: comparing all losses together.
+    set_0: mu = 0.1
+    set_1: mu = 1.1
