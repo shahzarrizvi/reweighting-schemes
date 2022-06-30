@@ -13,12 +13,17 @@ earlystopping = EarlyStopping(patience=10,
                               verbose=0,
                               restore_best_weights=True)
 
-def create_model(hidden='relu', 
+def create_model(loss,
+                 d=1,
+                 hidden='relu', 
                  output='sigmoid', 
-                 dropout=True):
+                 dropout=True, 
+                 optimizer='adam', 
+                 metrics=['accuracy'], 
+                 verbose=0):
     model = Sequential()
     if dropout:
-        model.add(Dense(64, activation=hidden, input_shape=(1, )))
+        model.add(Dense(64, activation=hidden, input_shape=(d, )))
         model.add(Dropout(0.1))
         model.add(Dense(128, activation=hidden))
         model.add(Dropout(0.1))
@@ -26,7 +31,7 @@ def create_model(hidden='relu',
         model.add(Dropout(0.1))
         model.add(Dense(1, activation=output))
     else: 
-        model.add(Dense(64, activation=hidden, input_shape=(1, )))
+        model.add(Dense(64, activation=hidden, input_shape=(d, )))
         model.add(Dense(128, activation=hidden))
         model.add(Dense(64, activation=hidden))
         model.add(Dense(1, activation=output))        
@@ -35,6 +40,7 @@ def create_model(hidden='relu',
 
 def train(data_args, 
           loss,
+          d=1,
           hidden='relu', 
           output='sigmoid', 
           dropout=True, 
@@ -43,7 +49,7 @@ def train(data_args,
           verbose=0):
     X_train, X_test, y_train, y_test, N = data_args
     
-    model = create_model(hidden, output, dropout)      
+    model = create_model(loss, d, hidden, output, dropout, optimizer, metrics, verbose)      
     
     model.compile(loss=loss,
                   optimizer=optimizer, 
@@ -56,17 +62,18 @@ def train(data_args,
                       validation_data=(X_test, y_test),
                       callbacks=[earlystopping], 
                       verbose=verbose)
-    print(trace.history['val_loss'][-1], end = ' ')
+    print(trace.history['val_loss'][-1], '\t', len(trace.history['val_loss']), end = '\t')
     
-    return model
+    return model, trace
 
 def make_data(bkgd, sgnl, N):
     X_bkgd = bkgd.rvs(size = N)
-    X_sgnl = bkgd.rvs(size = N)
+    X_sgnl = sgnl.rvs(size = N)
     y_bkgd = np.zeros(N)
     y_sgnl = np.ones(N)
     
     X = np.concatenate([X_bkgd, X_sgnl])
+    X = (X - np.mean(X)) / np.std(X)
     y = np.concatenate([y_bkgd, y_sgnl])
     
     return train_test_split(X, y)

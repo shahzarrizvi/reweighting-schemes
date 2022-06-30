@@ -13,9 +13,12 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "2" # pick a number < 4 on ML4HEP; < 3 on V
 physical_devices = tf.config.list_physical_devices('GPU') 
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
-#num = 3          # bkgd: beta(3, 2)          sgnl: beta(2, 3)
-#num = 4         # bkgd: gamma(5, 1)         sgnl: gamma(6, 1)
-num = 5          # bkgf: normal(-0.2, 1)     sgnl: normal(0.2, 1)
+#num = 3          # bkgd: beta(2, 3)          sgnl: beta(3, 2)
+#num = 4          # bkgd: gamma(5, 1)         sgnl: gamma(6, 1)
+#num = 5          # bkgd: normal(-0.2, 1)     sgnl: normal(0.2, 1)
+num = 6          # bkgd: normal(-0.3, 1)     sgnl: normal(0.3, 1)
+#num = 7          # bkgd: normal(-0.4, 1)     sgnl: normal(0.4, 1)
+#num = 8          # bkgd: normal(-0.5, 1)     sgnl: normal(0.5, 1)
 reps = 20
 
 # Data generation
@@ -24,8 +27,14 @@ N = 10**6
 #sgnl = stats.beta(3, 2)
 #bkgd = stats.gamma(5, 1)
 #sgnl = stats.gamma(6, 1)
-bkgd = stats.norm(-0.2, 1)
-sgnl = stats.norm(0.2, 1)
+#bkgd = stats.norm(-0.2, 1)
+#sgnl = stats.norm(0.2, 1)
+bkgd = stats.norm(-0.3, 1)
+sgnl = stats.norm(0.3, 1)
+#bkgd = stats.norm(-0.4, 1)
+#sgnl = stats.norm(0.4, 1)
+#bkgd = stats.norm(-0.5, 1)
+#sgnl = stats.norm(0.5, 1)
 
 lr = make_lr(bkgd, sgnl)
 mae = make_mae(bkgd, sgnl)
@@ -66,6 +75,10 @@ for r in rs:
 sqr_avgs = np.array(sqr_avgs)
 exp_avgs = np.array(exp_avgs)
 
+np.save('models/sqr_ab_param/set_' + str(num) + '/lin_shift', sqr_avgs)
+np.save('models/sqr_ab_param/set_' + str(num) + '/exp_shift', exp_avgs)
+
+'''
 fig, ax = plt.subplots(figsize = (10, 8))
 
 plt.plot(rs, sqr_avgs, c='blue', label='linear')
@@ -92,3 +105,4 @@ plt.title(r"SQR $A/B$ Parametrization",loc="left",fontsize=20);
 plt.savefig('plots/sqr_ab_norms_0.2.png'.format(num), 
             dpi=1200, 
             bbox_inches='tight')
+'''

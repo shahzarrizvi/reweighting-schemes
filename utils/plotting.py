@@ -37,14 +37,17 @@ def lr_plot(ensembles,
             sgnl,
             title=None,
             filename=None,
+            params=r"$\mu_{\rm{sgnl}}="+str(0.1)+r", \mu_{\rm{bkgd}}="+str(-0.1)+r"$",
+            figsize = (10, 6),
             cs = ['brown', 'green', 'red', 'blue'],
-            lss = ['-', '--', '-.', ':'],
-            xs=np.linspace(-6, 6, 1000)):
+            lss = [':', '--', '-.', ':'],
+            xs=np.linspace(-6, 6, 1000), 
+            bins=np.linspace(-6, 6, 100)):
             #xs=np.linspace(0, 20, 1000)):
             #xs=np.linspace(4, 16, 1000)):
     # Takes in a list of pairs (lr_avg, lr_err). Plots them against the true 
     # likelihood.
-    fig, ax_1 = plt.subplots(figsize = (10, 6))
+    fig, ax_1 = plt.subplots(figsize = figsize)
     
     # Plot true likelihood
     plt.plot(xs, lr(xs), label = 'Exact', c='k', ls='-')
@@ -58,12 +61,12 @@ def lr_plot(ensembles,
     ax_1.minorticks_on()
     ax_1.tick_params(direction='in', which='both',length=5)
     plt.ylabel('Likelihood Ratio')
+    plt.ylim(0, 10)
 
     # Plot background and signal
     ax_2 = ax_1.twinx()
     #bins = np.linspace(4, 16, 100)
     #bins = np.linspace(0, 20, 100)
-    bins = np.linspace(-6, 6, 100)
     X_bkgd = bkgd.rvs(size = 10**6)
     X_sgnl = sgnl.rvs(size = 10**6)
     plt.hist(X_sgnl, alpha=0.1, bins=bins)
@@ -76,7 +79,7 @@ def lr_plot(ensembles,
     plt.xlabel(r'$x$')
     #plt.title(r"$\mu_{\rm{sgnl}}="+str(10.1)+r", \mu_{\rm{bkgd}}="+str(9.9)+r"$",loc="right",fontsize=20)
     #plt.title(r"$r_{\rm{sgnl}}="+str(r)+r", r_{\rm{bkgd}}="+str(r+1)+r"$",loc="right",fontsize=20)
-    plt.title(r"$\mu_{\rm{sgnl}}="+str(0.1)+r", \mu_{\rm{bkgd}}="+str(-0.1)+r"$",loc="right",fontsize=20)
+    plt.title(params,loc="right",fontsize=20)
     if title != None:
         plt.title(title, loc="left", fontsize=20)
     if filename != None:
@@ -87,13 +90,16 @@ def lrr_plot(ensembles,
              bkgd, sgnl,
              title=None,
              filename=None,
+             params=r"$\mu_{\rm{sgnl}}="+str(0.1)+r", \mu_{\rm{bkgd}}="+str(-0.1)+r"$",
+             figsize = (10, 6),
              cs = ['brown', 'green', 'red', 'blue'],
              lss = [':', '--', '-.', ':'],
-             xs=np.linspace(-6, 6, 1000)):
+             xs=np.linspace(-6, 6, 1000),
+             bins=np.linspace(-6, 6, 100)):
              #xs=np.linspace(0, 20, 1000)):
              #xs=np.linspace(4, 16, 1000)):
     # Takes in a list of pairs (lrr_avg, lrr_err). Plots them.
-    fig, ax_1 = plt.subplots(figsize = (10, 6))
+    fig, ax_1 = plt.subplots(figsize = figsize)
     
     # Plot ratios of likelihood ratios
     for i in range(len(ensembles)):
@@ -112,7 +118,6 @@ def lrr_plot(ensembles,
     ax_2 = ax_1.twinx()
     #bins = np.linspace(4, 16, 100)
     #bins = np.linspace(0, 20, 100)
-    bins = np.linspace(-6, 6, 100)
     X_bkgd = bkgd.rvs(size = 10**6)
     X_sgnl = sgnl.rvs(size = 10**6)
     plt.hist(X_sgnl, alpha=0.1, bins=bins)
@@ -125,7 +130,7 @@ def lrr_plot(ensembles,
     plt.xlabel(r'$x$')
     #plt.title(r"$\mu_{\rm{sgnl}}="+str(10.1)+r", \mu_{\rm{bkgd}}="+str(9.9)+r"$",loc="right",fontsize=20)
     #plt.title(r"$r_{\rm{sgnl}}="+str(r)+r", r_{\rm{bkgd}}="+str(r+1)+r"$",loc="right",fontsize=20)
-    plt.title(r"$\mu_{\rm{sgnl}}="+str(0.1)+r", \mu_{\rm{bkgd}}="+str(-0.1)+r"$",loc="right",fontsize=20)
+    plt.title(params, loc="right", fontsize=20)
     if title != None:
         plt.title(title, loc="left", fontsize=20)
     if filename != None:
