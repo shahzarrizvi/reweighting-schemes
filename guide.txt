@@ -1,20 +1,99 @@
 in both plots/ and models/, there are a number of directories. each directory corresponds to one experiment. each experiment contains multiple files of the form "set_[num]", which contains the experiment data for that particular run of that experiment.
 
-mlc_c_param: different parametrizations for C(f).
-    set_0: mu = 0.1
-    set_1: mu = 1.1
+unless otherwise noted, the sample size was N = 10**6.
+
+univariate:
+bce_c_param: different parametrizations for C(f) for the BCE loss.
+    set_0:  bkgd = normal(-0.1, 1)    
+            sgnl = normal(+0.1, 1)
+    set_1:  bkgd = normal(-1.1, 1)    
+            sgnl = normal(+1.1, 1)
     
-sqr_c_parm: different parametrizations for C(f).
-    set_0: mu = 0.1
-    set_1: mu = 1.1
+mse_c_param: different parametrizations for C(f) for the MSE loss.
+    set_0:  bkgd = normal(-0.1, 1)     
+            sgnl = normal(+0.1, 1)
+    set_1:  bkgd = normal(-1.1, 1)     
+            sgnl = normal(+1.1, 1)
+
+mlc_c_param: different parametrizations for C(f) for the MLC loss.
+    set_0:  bkgd = normal(-0.1, 1)     
+            sgnl = normal(+0.1, 1)
+    set_1:  bkgd = normal(-1.1, 1)     
+            sgnl = normal(+1.1, 1)
+    set_2:  
+    set_3:  
+    set_4:  
     
+sqr_c_param: different parametrizations for C(f) for the SQR loss.
+    set_0:  bkgd = normal(-0.1, 1)     
+            sgnl = normal(+0.1, 1)
+    set_1:  bkgd = normal(-1.1, 1)     
+            sgnl = normal(+1.1, 1)
+    set_2:  
+    set_3:  
+    set_4:  
+   
+mse_ab_param: different parametrizations for A(f) and B(f) for the MSE loss.
+    set_0:  bkgd = normal(-0.1, 1)     
+            sgnl = normal(+0.1, 1)
+            ps = np.round(np.linspace(-4, 4, 161), 2)
+    
+sqr_ab_param: different parametrizations for A(f) and B(f) for the linear and exponential SQR losses.
+    set_0:  bkgd = normal(-0.1, 1)     
+            sgnl = normal(+0.1, 1)
+            rs = np.linspace(-2, 2, 100)
+    set_1:  bkgd = normal(-0.1, 1)     
+            sgnl = normal(+0.1, 1)
+            rs = np.linspace(-6, 6, 121)
+    set_2:  bkgd = normal(-0.1, 1)     
+            sgnl = normal(+0.1, 1)
+            rs = np.round(np.sort(np.append(np.linspace(-2, 2, 81), np.linspace(-0.046, 0.046, 24))), 3)
+    set_3:  bkgd = beta(2, 3)
+            sgnl = beta(3, 2)
+            rs = np.round(np.sort(np.append(np.linspace(-2, 2, 81), np.linspace(-0.046, 0.046, 24))), 3)
+    set_4:  bkgd = gamma(5, 1)
+            sgnl = gamma(6, 1)
+            rs = np.round(np.sort(np.append(np.linspace(-2, 2, 81), np.linspace(-0.046, 0.046, 24))), 3)
+    set_5:  bkgd = normal(-0.2, 1)     
+            sgnl = normal(+0.2, 1)
+            rs = np.round(np.sort(np.append(np.linspace(-2, 2, 81), np.linspace(-0.046, 0.046, 24))), 3)
+    set_6:  bkgd = normal(-0.3, 1)     
+            sgnl = normal(+0.3, 1)
+            rs = np.round(np.sort(np.append(np.linspace(-2, 2, 81), np.linspace(-0.046, 0.046, 24))), 3)
+    set_7:  bkgd = normal(-0.4, 1)     
+            sgnl = normal(+0.4, 1)
+            rs = np.round(np.sort(np.append(np.linspace(-2, 2, 81), np.linspace(-0.046, 0.046, 24))), 3)
+    set_8:  bkgd = normal(-0.5, 1)     
+            sgnl = normal(+0.5, 1)
+            rs = np.round(np.sort(np.append(np.linspace(-2, 2, 81), np.linspace(-0.046, 0.046, 24))), 3)
+
 interp: running with different values of mu.
-    set_0: mu = 0.1
-    set_1: mu = 1.1
-    set_2: mu = 1.2
-    set_3: mu = 1.5
-    set_4: mu = 5
+    set_0:  mus = np.round(np.linspace(0.1, 1.5, 15), 2)
+            mlc_params = {'loss':exp_mlc, 'output':'linear', 'verbose':0}
+            sqr_params = {'loss':exp_sqr, 'output':'linear', 'verbose':0}
     
 loss_comp: comparing all losses together.
-    set_0: mu = 0.1
-    set_1: mu = 1.1
+    set_0:  bkgd = normal(-0.1, 1)     
+            sgnl = normal(+0.1, 1)
+            bce_params = {'loss':bce}
+            mse_params = {'loss':get_mse(1.25)}
+            mlc_params = {'loss':exp_mlc, 'output':'linear'}
+            sqr_params = {'loss':get_exp_sqr(0.05), 'output':'linear'}
+    set_1:  bkgd = normal(-1.1, 1)     
+            sgnl = normal(+1.1, 1)
+            mlc_params = {'loss':mlc, 'output':'relu'}
+            sqr_params = {'loss':sqr, 'output':'relu'}
+    set_2:  bkgd = normal(-0.1, 1)     
+            sgnl = normal(+0.1, 1)
+            mlc_params = {'loss':mlc, 'output':'relu'}
+            sqr_params = {'loss':sqr, 'output':'relu'}
+
+gammas: computing likelihood ratios for gamma distributed data.
+    set_0:  bkgd = stats.gamma(5, 1)
+            sgnl = stats.gamma(6, 1)
+
+betas: computing likelihood ratios for beta distributed data.
+    set_0:  bkgd = stats.beta(2, 3)
+            sgnl = stats.beta(3, 2)
+            
+multivariate:
