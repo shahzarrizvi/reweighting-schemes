@@ -22,7 +22,8 @@ mlc_c_param: different parametrizations for C(f) for the MLC loss.
             sgnl = normal(+1.1, 1)
     set_2:  
     set_3:  
-    set_4:  
+    set_4:  bkgd = gamma(5, 1)
+            sgnl = gamma(6, 1)
     
 sqr_c_param: different parametrizations for C(f) for the SQR loss.
     set_0:  bkgd = normal(-0.1, 1)     
@@ -31,7 +32,8 @@ sqr_c_param: different parametrizations for C(f) for the SQR loss.
             sgnl = normal(+1.1, 1)
     set_2:  
     set_3:  
-    set_4:  
+    set_4:  bkgd = gamma(5, 1)
+            sgnl = gamma(6, 1)
    
 mse_ab_param: different parametrizations for A(f) and B(f) for the MSE loss.
     set_0:  bkgd = normal(-0.1, 1)     
@@ -69,8 +71,8 @@ sqr_ab_param: different parametrizations for A(f) and B(f) for the linear and ex
 
 interp: running with different values of mu.
     set_0:  mus = np.round(np.linspace(0.1, 1.5, 15), 2)
-            mlc_params = {'loss':exp_mlc, 'output':'linear', 'verbose':0}
-            sqr_params = {'loss':exp_sqr, 'output':'linear', 'verbose':0}
+            mlc_params = {'loss':exp_mlc, 'output':'linear'}
+            sqr_params = {'loss':exp_sqr, 'output':'linear'}
     
 loss_comp: comparing all losses together.
     set_0:  bkgd = normal(-0.1, 1)     
@@ -81,8 +83,8 @@ loss_comp: comparing all losses together.
             sqr_params = {'loss':get_exp_sqr(0.05), 'output':'linear'}
     set_1:  bkgd = normal(-1.1, 1)     
             sgnl = normal(+1.1, 1)
-            mlc_params = {'loss':mlc, 'output':'relu'}
-            sqr_params = {'loss':sqr, 'output':'relu'}
+            mlc_params = {'loss':exp_mlc, 'output':'linear'}
+            sqr_params = {'loss':exp_sqr, 'output':'linear'}
     set_2:  bkgd = normal(-0.1, 1)     
             sgnl = normal(+0.1, 1)
             mlc_params = {'loss':mlc, 'output':'relu'}

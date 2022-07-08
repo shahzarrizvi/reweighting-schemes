@@ -61,7 +61,7 @@ def lr_plot(ensembles,
     ax_1.minorticks_on()
     ax_1.tick_params(direction='in', which='both',length=5)
     plt.ylabel('Likelihood Ratio')
-    plt.ylim(0, 10)
+    #plt.ylim(0, 10)
 
     # Plot background and signal
     ax_2 = ax_1.twinx()
