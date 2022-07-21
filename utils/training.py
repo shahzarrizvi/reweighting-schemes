@@ -158,3 +158,36 @@ def pow_odds_lr(model, p):
         f = model.predict(x)
         return np.squeeze( (f / (1. - f))**(p - 1))
     return model_lr
+
+#bkgd sgnl maybe an array
+# distribution primarily only needed for plotting
+def compare(params, bkgd, sgnl, reps=100, N = 10**6, num, filestrs):
+    #assert len(params) == len(filestrs)
+    data = make_data(bkgd, sgnl, N) + [N]
+    for i in range(reps):
+        for j in len(params):
+            model, trace = train(data, **params[i])
+            model.save_weights(filestrs[i])
+
+match = {bce: [bce, square_bce, exp_bce],
+         mse: [mse, square_mse, exp_mse],
+         mlc: [mlc, square_mlc, exp_mlc],
+         sqr: [sqr, square_sqr, exp_sqr]
+        }
+def c_param(loss, bkgd, sgnl):
+    losses = match[loss]
+    linear_param = {losses[0], ...}   # the remaining information will have to be put into match as well
+    square_param = {losses[1], ...}   # such as whether the activation is relu, sigmoid, or linear
+    exponl_param = {losses[2], ...}
+    
+    params = [linear_param, square_param, exponl_param]
+    
+    linear_filestr = 'models/demo/...' # need some way to figure out num and other values, like the loss
+    square_filestr = 'models/demo/...' # possibly also included in match
+    exponl_filestr = 'models/demo/...'
+    
+    filestrs = [linear_filestr, square_filestr, exponl_filestr]
+    
+    compare(params, filestrs, bkgd, sgnl, num = ..., filestrs)
+    #print statement like "you can find your models in [path to dir]
+        
