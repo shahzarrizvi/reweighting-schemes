@@ -159,6 +159,7 @@ def pow_odds_lr(model, p):
         return np.squeeze( (f / (1. - f))**(p - 1))
     return model_lr
 
+'''
 #bkgd sgnl maybe an array
 # distribution primarily only needed for plotting
 def compare(params, bkgd, sgnl, reps=100, N = 10**6, num, filestrs):
@@ -190,4 +191,5 @@ def c_param(loss, bkgd, sgnl):
     
     compare(params, filestrs, bkgd, sgnl, num = ..., filestrs)
     #print statement like "you can find your models in [path to dir]
+'''
         
