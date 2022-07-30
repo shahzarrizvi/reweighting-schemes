@@ -73,7 +73,7 @@ def make_data(bkgd, sgnl, N):
     y_sgnl = np.ones(N)
     
     X = np.concatenate([X_bkgd, X_sgnl])
-    X = (X - np.mean(X)) / np.std(X)
+    X = (X - np.mean(X, axis = 0)) / np.std(X, axis = 0)
     y = np.concatenate([y_bkgd, y_sgnl])
     
     return train_test_split(X, y)
