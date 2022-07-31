@@ -4,7 +4,7 @@ import tensorflow.keras.backend as K
 
 # Loss functions
 def bce(y_true, y_pred):
-    # Clipping to (ɛ, 1 - ɛ) is fine since the final activation is sigmoid.
+    # Clipping to (ɛ, 1 - ɛ) is fine since the final activation is sigmoid, so y_pred is in [0, 1]
     y_pred = K.clip(y_pred, K.epsilon(), 1. - K.epsilon())
     
     return -((y_true) * K.log(y_pred + K.epsilon()) + 
@@ -15,6 +15,7 @@ def square_bce(y_true, y_pred):
              (1. - y_true) * K.log(1. - y_pred**2))
 
 def exp_bce(y_true, y_pred):
+    # Clipping to (ɛ, 1 - ɛ) is fine since the final activation is sigmoid, so y_pred is in [0, 1]
     return -((y_true) * (y_pred) + 
              (1. - y_true) * (1. - y_pred))
 

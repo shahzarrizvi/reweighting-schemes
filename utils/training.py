@@ -14,13 +14,13 @@ earlystopping = EarlyStopping(patience=10,
                               restore_best_weights=True)
 
 def create_model(loss,
-                 d=1,
-                 hidden='relu', 
-                 output='sigmoid', 
-                 dropout=True, 
-                 optimizer='adam', 
-                 metrics=['accuracy'], 
-                 verbose=0):
+                 d = 1,
+                 hidden = 'relu', 
+                 output = 'sigmoid', 
+                 dropout = True, 
+                 optimizer = 'adam', 
+                 metrics = ['accuracy'], 
+                 verbose = 0):
     model = Sequential()
     if dropout:
         model.add(Dense(64, activation=hidden, input_shape=(d, )))
@@ -38,30 +38,32 @@ def create_model(loss,
     
     return model
 
-def train(data_args, 
+def train(data, 
           loss,
-          d=1,
-          hidden='relu', 
-          output='sigmoid', 
-          dropout=True, 
-          optimizer='adam', 
-          metrics=['accuracy'], 
-          verbose=0):
-    X_train, X_test, y_train, y_test, N = data_args
+          d = 1,
+          hidden = 'relu', 
+          output = 'sigmoid', 
+          dropout = True, 
+          optimizer = 'adam', 
+          metrics = ['accuracy'], 
+          verbose = 0):
+    X_train, X_test, y_train, y_test = data
+    
+    N = (len(X_train) + len(X_test)) / 2
     
     model = create_model(loss, d, hidden, output, dropout, optimizer, metrics, verbose)      
     
-    model.compile(loss=loss,
-                  optimizer=optimizer, 
-                  metrics=metrics)
+    model.compile(loss = loss,
+                  optimizer = optimizer, 
+                  metrics = metrics)
     
     trace = model.fit(X_train, 
                       y_train,
                       epochs = 100, 
-                      batch_size=int(0.1*N), 
-                      validation_data=(X_test, y_test),
-                      callbacks=[earlystopping], 
-                      verbose=verbose)
+                      batch_size = int(0.1*N), 
+                      validation_data = (X_test, y_test),
+                      callbacks = [earlystopping], 
+                      verbose = verbose)
     print(trace.history['val_loss'][-1], '\t', len(trace.history['val_loss']), end = '\t')
     
     return model, trace
@@ -73,15 +75,23 @@ def make_data(bkgd, sgnl, N):
     y_sgnl = np.ones(N)
     
     X = np.concatenate([X_bkgd, X_sgnl])
-    X = (X - np.mean(X, axis = 0)) / np.std(X, axis = 0)
     y = np.concatenate([y_bkgd, y_sgnl])
     
-    return train_test_split(X, y)
+    # Split in train and test sets.
+    X_train, X_test, y_train, y_test = train_test_split(X, y)
+    
+    # Normalize both the train and the test set.
+    m = np.mean(X_train, axis = 0)
+    s = np.std(X_train, axis = 0)
+    X_train = (X_train - m) / s
+    X_test = (X_test - m) / s
+    
+    return (X_train, X_test, y_train, y_test), m, s
 
 def make_lr(bkgd, sgnl):
     return lambda x: sgnl.pdf(x) / bkgd.pdf(x)
 
-def make_mae(bkgd, sgnl, N_mae=10**4):
+def make_mae(bkgd, sgnl, N_mae = 10**4):
     bkgd_mae = bkgd.rvs(size = N_mae)
     sgnl_mae = sgnl.rvs(size = N_mae)
     X_mae = np.concatenate([bkgd_mae, sgnl_mae])
@@ -93,7 +103,7 @@ def make_mae(bkgd, sgnl, N_mae=10**4):
         return np.abs(model_lr(X_mae) - lr(X_mae)).mean()
     return mae
 
-def make_mpe(bkgd, sgnl, N_mpe=10**4):
+def make_mpe(bkgd, sgnl, N_mpe = 10**4):
     bkgd_mpe = bkgd.rvs(size = N_mpe)
     sgnl_mpe = sgnl.rvs(size = N_mpe)
     X_mpe = np.concatenate([bkgd_mpe, sgnl_mpe])
@@ -105,57 +115,57 @@ def make_mpe(bkgd, sgnl, N_mpe=10**4):
         return np.abs((model_lr(X_mpe) - lr(X_mpe)) / lr(X_mpe)).mean() * 100
     return mae
     
-def odds_lr(model):
+def odds_lr(model, m = 0, s = 1):
     def model_lr(x):
-        f = model.predict(x)
+        f = model.predict((x - m) / s)
         return np.squeeze(f / (1. - f))
     return model_lr
 
-def square_odds_lr(model):
+def square_odds_lr(model, m = 0, s = 1):
     def model_lr(x):
-        f = model.predict(x)
+        f = model.predict((x - m) / s)
         return np.squeeze(f**2 / (1. - f**2))
     return model_lr
 
-def exp_odds_lr(model):
+def exp_odds_lr(model, m = 0, s = 1):
     def model_lr(x):
-        f = model.predict(x)
+        f = model.predict((x - m) / s)
         return np.squeeze(np.exp(f) / (1. - np.exp(f)))
     return model_lr
 
-def pure_lr(model):
+def pure_lr(model, m = 0, s = 1):
     def model_lr(x):
-        f = model.predict(x)
+        f = model.predict((x - m) / s)
         return np.squeeze(f)
     return model_lr
 
-def square_lr(model):
+def square_lr(model, m = 0, s = 1):
     def model_lr(x):
-        f = model.predict(x)
+        f = model.predict((x - m) / s)
         return np.squeeze(f**2)
     return model_lr
 
-def exp_lr(model):
+def exp_lr(model, m = 0, s = 1):
     def model_lr(x):
-        f = model.predict(x)
+        f = model.predict((x - m) / s)
         return np.squeeze(np.exp(f))
     return model_lr
 
-def pow_lr(model, p):
+def pow_lr(model, p, m = 0, s = 1):
     def model_lr(x):
-        f = model.predict(x)
+        f = model.predict((x - m) / s)
         return np.squeeze(f**p)
     return model_lr
 
-def exp_pow_lr(model, p):
+def exp_pow_lr(model, p, m = 0, s = 1):
     def model_lr(x):
-        f = model.predict(x)
+        f = model.predict((x - m) / s)
         return np.squeeze(np.exp(f)**p)
     return model_lr
 
-def pow_odds_lr(model, p):
+def pow_odds_lr(model, p, m = 0, s = 1):
     def model_lr(x):
-        f = model.predict(x)
+        f = model.predict((x - m) / s)
         return np.squeeze( (f / (1. - f))**(p - 1))
     return model_lr
 
