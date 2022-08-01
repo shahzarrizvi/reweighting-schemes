@@ -15,18 +15,18 @@ physical_devices = tf.config.list_physical_devices('GPU')
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 # Experiment parameters
-num = 3    # bkgd: beta(2, 3)          sgnl: beta(3, 2)
+#num = 3    # bkgd: beta(2, 3)          sgnl: beta(3, 2)
 #num = 4    # bkgd: gamma(5, 1)         sgnl: gamma(6, 1)
 #num = 5    # bkgd: normal(-0.2, 1)     sgnl: normal(0.2, 1)
 #num = 6    # bkgd: normal(-0.3, 1)     sgnl: normal(0.3, 1)
 #num = 7    # bkgd: normal(-0.4, 1)     sgnl: normal(0.4, 1)
-#num = 8    # bkgd: normal(-0.5, 1)     sgnl: normal(0.5, 1)
+num = 8    # bkgd: normal(-0.5, 1)     sgnl: normal(0.5, 1)
 reps = 20
 
 # Data generation
 N = 10**6
-bkgd = stats.beta(2, 3)
-sgnl = stats.beta(3, 2)
+#bkgd = stats.beta(2, 3)
+#sgnl = stats.beta(3, 2)
 #bkgd = stats.gamma(5, 1)
 #sgnl = stats.gamma(6, 1)
 #bkgd = stats.norm(-0.2, 1)
@@ -35,8 +35,8 @@ sgnl = stats.beta(3, 2)
 #sgnl = stats.norm(0.3, 1)
 #bkgd = stats.norm(-0.4, 1)
 #sgnl = stats.norm(0.4, 1)
-#bkgd = stats.norm(-0.5, 1)
-#sgnl = stats.norm(0.5, 1)
+bkgd = stats.norm(-0.5, 1)
+sgnl = stats.norm(0.5, 1)
 
 filestr = 'models/univariate/sqr_ab_param/set_{}/'.format(num)
 sqr_filestr = filestr + 'linear/model_{}_{}.h5'
@@ -51,7 +51,8 @@ np.save(filestr + 's.npy', s)
 
 rs = np.sort(np.append(np.round(np.linspace(-2, 2, 81), 2),
                        np.round(np.linspace(-0.05, 0.05, 26), 3)[1:-1]))
-rs = rs[rs >= 0.8]
+#rs = rs[rs < 0]
+rs = rs[rs >= 0]
 
 for r in rs:
     print('===================================================\n{}'.format(r))
