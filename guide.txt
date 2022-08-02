@@ -83,10 +83,14 @@ loss_comp: comparing all losses together.
             sqr_params = {'loss':get_exp_sqr(0.05), 'output':'linear'}
     set_1:  bkgd = normal(-1.1, 1)     
             sgnl = normal(+1.1, 1)
+            bce_params = {'loss':bce}
+            mse_params = {'loss':mse}
             mlc_params = {'loss':exp_mlc, 'output':'linear'}
             sqr_params = {'loss':exp_sqr, 'output':'linear'}
     set_2:  bkgd = normal(-0.1, 1)     
             sgnl = normal(+0.1, 1)
+            bce_params = {'loss':bce}
+            mse_params = {'loss':mse}
             mlc_params = {'loss':mlc, 'output':'relu'}
             sqr_params = {'loss':sqr, 'output':'relu'}
 

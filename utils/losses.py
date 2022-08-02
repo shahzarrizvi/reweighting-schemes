@@ -19,6 +19,26 @@ def exp_bce(y_true, y_pred):
     return -((y_true) * (y_pred) + 
              (1. - y_true) * (1. - y_pred))
 
+def t_tanh(x):
+    return 0.5 * (K.tanh(x) + 1)
+
+def tanh_bce(y_true, y_pred):
+    y_pred = t_tanh(y_pred)
+    y_pred = K.clip(y_pred, K.epsilon(), 1. - K.epsilon())
+    
+    return -((y_true) * K.log(y_pred + K.epsilon()) + 
+             (1. - y_true) * K.log(1. - y_pred))
+
+def t_atan(x):
+    return 0.5 + (tf.math.atan(x) / np.pi)
+
+def atan_bce(y_true, y_pred):
+    y_pred = t_atan(y_pred)
+    y_pred = K.clip(y_pred, K.epsilon(), 1. - K.epsilon())
+    
+    return -((y_true) * K.log(y_pred + K.epsilon()) + 
+             (1. - y_true) * K.log(1. - y_pred))
+
 def mse(y_true, y_pred):
     # Clipping to (ɛ, 1 - ɛ) is fine since the final activation is sigmoid.
     y_pred = K.clip(y_pred, K.epsilon(), 1. - K.epsilon())
@@ -33,6 +53,20 @@ def square_mse(y_true, y_pred):
 def exp_mse(y_true, y_pred):
     return -((y_true) * -K.square(1. - K.exp(y_pred)) + 
              (1. - y_true) * -K.square(K.exp(y_pred))) 
+
+def tanh_mse(y_true, y_pred):
+    y_pred = t_tanh(y_pred)
+    y_pred = K.clip(y_pred, K.epsilon(), 1. - K.epsilon())
+    
+    return -((y_true) * -K.square(1. - y_pred) + 
+             (1. - y_true) * -K.square(y_pred))
+
+def atan_mse(y_true, y_pred):
+    y_pred = t_atan(y_pred)
+    y_pred = K.clip(y_pred, K.epsilon(), 1. - K.epsilon())
+    
+    return -((y_true) * -K.square(1. - y_pred) + 
+             (1. - y_true) * -K.square(y_pred))
 
 def get_mse(p):
     def mse_p(y_true, y_pred):

@@ -169,6 +169,18 @@ def pow_odds_lr(model, p, m = 0, s = 1):
         return np.squeeze( (f / (1. - f))**(p - 1))
     return model_lr
 
+def tanh_lr(model, m = 0, s = 1):
+    def model_lr(x):
+        f = model.predict((x - m) / s)
+        return np.squeeze(t_tanh(f) / (1. - t_tanh(f)))
+    return model_lr
+
+def atan_lr(model, m = 0, s = 1):
+    def model_lr(x):
+        f = model.predict((x - m) / s)
+        return np.squeeze(t_atan(f) / (1. - t_atan(f)))
+    return model_lr
+
 '''
 #bkgd sgnl maybe an array
 # distribution primarily only needed for plotting
