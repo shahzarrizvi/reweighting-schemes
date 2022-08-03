@@ -20,9 +20,9 @@ Ns = [10**7]
 
 # Model parameters
 bce_params = {'loss':bce}
-mse_params = {'loss':mse}
-mlc_params = {'loss':mlc, 'output':'relu'}
-sqr_params = {'loss':sqr, 'output':'relu'}
+mse_params = {'loss':get_mse(1.25)}
+mlc_params = {'loss':exp_mlc, 'output':'linear'}
+sqr_params = {'loss':get_sqr(0.05), 'output':'linear'}
 
 filestr = 'models/univariate/loss_comp/set_{}/'.format(num)
 bce_filestr = filestr + 'bce/model_{}_{}.h5'

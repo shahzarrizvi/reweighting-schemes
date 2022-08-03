@@ -9,16 +9,17 @@ from utils.training import *
 
 np.random.seed(666) # Need to do more to ensure data is the same across runs.
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "2" # pick a number < 4 on ML4HEP; < 3 on Voltan 
+os.environ["CUDA_VISIBLE_DEVICES"] = "0" # pick a number < 4 on ML4HEP; < 3 on Voltan 
 physical_devices = tf.config.list_physical_devices('GPU') 
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
+num = 2          # bkgd: normal(-0.1, 1)     sgnl: normal(0.1, 1)
 #num = 3          # bkgd: beta(2, 3)          sgnl: beta(3, 2)
 #num = 4          # bkgd: gamma(5, 1)         sgnl: gamma(6, 1)
 #num = 5          # bkgd: normal(-0.2, 1)     sgnl: normal(0.2, 1)
 #num = 6          # bkgd: normal(-0.3, 1)     sgnl: normal(0.3, 1)
 #num = 7          # bkgd: normal(-0.4, 1)     sgnl: normal(0.4, 1)
-num = 8          # bkgd: normal(-0.5, 1)     sgnl: normal(0.5, 1)
+#num = 8          # bkgd: normal(-0.5, 1)     sgnl: normal(0.5, 1)
 reps = 20
 
 # Data generation
@@ -27,6 +28,8 @@ N = 10**6
 #sgnl = stats.beta(3, 2)
 #bkgd = stats.gamma(5, 1)
 #sgnl = stats.gamma(6, 1)
+bkgd = stats.norm(-0.1, 1)
+sgnl = stats.norm(0.1, 1)
 #bkgd = stats.norm(-0.2, 1)
 #sgnl = stats.norm(0.2, 1)
 #bkgd = stats.norm(-0.3, 1)
@@ -36,18 +39,21 @@ N = 10**6
 #bkgd = stats.norm(-0.5, 1)
 #sgnl = stats.norm(0.5, 1)
 
+filestr = 'models/univariate/sqr_ab_param/set_{}/'.format(num)
+sqr_filestr = filestr + '/linear/model_{}_{}.h5'
+exp_filestr = filestr + '/exp/model_{}_{}.h5'
+
 lr = make_lr(bkgd, sgnl)
 mae = make_mae(bkgd, sgnl)
 
-m = (bkgd.mean() + sgnl.mean()) / 2
-s = ((bkgd.var() + sgnl.var()) / 2 + np.var([bkgd.mean(), sgnl.mean()]))**0.5
+m = np.load(filestr + 'm.npy')
+s = np.load(filestr + 's.npy')
+#m = (bkgd.mean() + sgnl.mean()) / 2
+#s = ((bkgd.var() + sgnl.var()) / 2 + np.var([bkgd.mean(), sgnl.mean()]))**0.5
 
 rs = np.sort(np.append(np.round(np.linspace(-2, 2, 81), 2),
                        np.round(np.linspace(-0.05, 0.05, 26), 3)[1:-1]))
 
-filestr = 'models/univariate/sqr_ab_param/set_{}/'.format(num)
-sqr_filestr = filestr + '/linear/model_{}_{}.h5'
-exp_filestr = filestr + '/exp/model_{}_{}.h5'
 print(num)
 # Get model likelihood ratios.
 sqr_avgs = []
@@ -82,7 +88,7 @@ exp_avgs = np.array(exp_avgs)
 np.save(filestr + 'lin_shift', sqr_avgs)
 np.save(filestr + 'exp_shift', exp_avgs)
 
-fig, ax = plt.subplots(figsize = (10, 8))
+fig, ax = plt.subplots(figsize = (8, 8))
 
 plt.plot(rs, sqr_avgs, c='blue', label='linear')
 plt.plot(rs, exp_avgs, c='red', label='exponential')
@@ -105,6 +111,6 @@ plt.xlabel(r'$r$')
 #          loc="right",
 #          fontsize=20);
 plt.title(r"SQR $A/B$ Parametrization",loc="left",fontsize=20);
-plt.savefig('plots/sqr_ab_gammas_2.png'.format(num), 
+plt.savefig('plots/sqr_ab_norm_0.1.png'.format(num), 
             dpi=1200, 
             bbox_inches='tight')
