@@ -15,16 +15,19 @@ physical_devices = tf.config.list_physical_devices('GPU')
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 # Experiment parameters
+num = 2    # bkgd: normal(-0.1, 1)     sgnl: normal(0.1, 1)
 #num = 3    # bkgd: beta(2, 3)          sgnl: beta(3, 2)
 #num = 4    # bkgd: gamma(5, 1)         sgnl: gamma(6, 1)
 #num = 5    # bkgd: normal(-0.2, 1)     sgnl: normal(0.2, 1)
 #num = 6    # bkgd: normal(-0.3, 1)     sgnl: normal(0.3, 1)
 #num = 7    # bkgd: normal(-0.4, 1)     sgnl: normal(0.4, 1)
-num = 8    # bkgd: normal(-0.5, 1)     sgnl: normal(0.5, 1)
+#num = 8    # bkgd: normal(-0.5, 1)     sgnl: normal(0.5, 1)
 reps = 20
 
 # Data generation
 N = 10**6
+bkgd = stats.norm(-0.1, 1)
+sgnl = stats.norm(-0.1, 1)
 #bkgd = stats.beta(2, 3)
 #sgnl = stats.beta(3, 2)
 #bkgd = stats.gamma(5, 1)
@@ -35,8 +38,8 @@ N = 10**6
 #sgnl = stats.norm(0.3, 1)
 #bkgd = stats.norm(-0.4, 1)
 #sgnl = stats.norm(0.4, 1)
-bkgd = stats.norm(-0.5, 1)
-sgnl = stats.norm(0.5, 1)
+#bkgd = stats.norm(-0.5, 1)
+#sgnl = stats.norm(0.5, 1)
 
 filestr = 'models/univariate/sqr_ab_param/set_{}/'.format(num)
 sqr_filestr = filestr + 'linear/model_{}_{}.h5'

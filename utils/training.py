@@ -169,11 +169,17 @@ def pow_odds_lr(model, p, m = 0, s = 1):
         return np.squeeze( (f / (1. - f))**(p - 1))
     return model_lr
 
+def t_tanh(x):
+    return 0.5 * (np.tanh(x) + 1)
+
 def tanh_lr(model, m = 0, s = 1):
     def model_lr(x):
         f = model.predict((x - m) / s)
         return np.squeeze(t_tanh(f) / (1. - t_tanh(f)))
     return model_lr
+
+def t_atan(x):
+    return 0.5 + (np.arctan(x) / np.pi)
 
 def atan_lr(model, m = 0, s = 1):
     def model_lr(x):

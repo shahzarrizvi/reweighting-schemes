@@ -1,5 +1,6 @@
 import numpy as np
 import tensorflow.keras.backend as K
+import tensorflow as tf
 #from scipy import stats
 
 # Loss functions

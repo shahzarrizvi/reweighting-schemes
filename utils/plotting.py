@@ -10,6 +10,7 @@ rc('font', size=22)
 rc('xtick', labelsize=15)
 rc('ytick', labelsize=15)
 rc('legend', fontsize=15)
+rc('text.latex', preamble=r'\usepackage{amsmath}')
 
 # Plotting functions
 def get_preds(model_lrs, xs=np.linspace(-6, 6, 1000)):
