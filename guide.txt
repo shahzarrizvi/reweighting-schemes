@@ -93,6 +93,12 @@ loss_comp: comparing all losses together.
             mse_params = {'loss':mse}
             mlc_params = {'loss':mlc, 'output':'relu'}
             sqr_params = {'loss':sqr, 'output':'relu'}
+    set_3:  bkgd = normal(-0.1, 1)     
+            sgnl = normal(+0.1, 1)
+            bce_params = {'loss':bce}
+            mse_params = {'loss':mse}
+            mlc_params = {'loss':mlc, 'output':'relu'}
+            sqr_params = {'loss':sqr, 'output':'relu'}
 
 gammas: computing likelihood ratios for gamma distributed data.
     set_0:  bkgd = stats.gamma(5, 1)

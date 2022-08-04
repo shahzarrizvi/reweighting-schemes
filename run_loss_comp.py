@@ -10,19 +10,19 @@ from utils.training import *
 
 np.random.seed(666) # Need to do more to ensure data is the same across runs.
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "2" # pick a number < 4 on ML4HEP; < 3 on Voltan 
+os.environ["CUDA_VISIBLE_DEVICES"] = "0" # pick a number < 4 on ML4HEP; < 3 on Voltan 
 physical_devices = tf.config.list_physical_devices('GPU') 
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
-num = 3
+num = 4
 reps = 100
-Ns = [10**7]
+Ns = 10**np.arange(2, 8)
 
 # Model parameters
 bce_params = {'loss':bce}
-mse_params = {'loss':get_mse(1.25)}
+mse_params = {'loss':get_mse(1.24)}
 mlc_params = {'loss':exp_mlc, 'output':'linear'}
-sqr_params = {'loss':get_sqr(0.05), 'output':'linear'}
+sqr_params = {'loss':get_exp_sqr(-0.05), 'output':'linear'}
 
 filestr = 'models/univariate/loss_comp/set_{}/'.format(num)
 bce_filestr = filestr + 'bce/model_{}_{}.h5'
@@ -45,11 +45,11 @@ for N in Ns:
         mse_model, trace = train(data, **mse_params)
         
         mlc_model, trace = train(data, **mlc_params)
-        while trace.history['val_loss'][-1] > 0:
+        while trace.history['val_loss'][-1] > 0.1 or np.isnan(trace.history['val_loss'][-1]):
             mlc_model, trace = train(data, **mlc_params)
         
         sqr_model, trace = train(data, **sqr_params)
-        while trace.history['val_loss'][-1] > 1:
+        while trace.history['val_loss'][-1] > 1.1 or np.isnan(trace.history['val_loss'][-1]):
             sqr_model, trace = train(data, **sqr_params)
         print()
             
