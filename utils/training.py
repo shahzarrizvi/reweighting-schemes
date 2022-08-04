@@ -157,7 +157,7 @@ def pow_lr(model, p, m = 0, s = 1):
         return np.squeeze(f**p)
     return model_lr
 
-def exp_pow_lr(model, p, m = 0, s = 1):
+def pow_exp_lr(model, p, m = 0, s = 1):
     def model_lr(x):
         f = model.predict((x - m) / s)
         return np.squeeze(np.exp(f)**p)

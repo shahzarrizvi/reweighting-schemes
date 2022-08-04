@@ -13,7 +13,7 @@ rc('legend', fontsize=15)
 rc('text.latex', preamble=r'\usepackage{amsmath}')
 
 # Plotting functions
-def get_preds(model_lrs, xs=np.linspace(-6, 6, 1000)):
+def get_preds(model_lrs, xs):
     # Takes in model_lrs, a list of model likelihood ratios and xs, a list of 
     # values on which to compute the likelihood ratios. Returns a 2D array. The 
     # nth row is the likelihood ratio predictions from the nth model in 
@@ -22,15 +22,14 @@ def get_preds(model_lrs, xs=np.linspace(-6, 6, 1000)):
     
 def avg_lr(preds):
     # Takes in a 2D array of multiple models' likelihood ratio predictions. 
-    # Returns the average likelihood ratio prediction and its error.
-    return preds.mean(axis=0), preds.std(axis=0)
+    # Returns the average likelihood ratio prediction.
+    return preds.mean(axis=0)
 
-def avg_lrr(lr, preds, xs=np.linspace(-6, 6, 1000)):
+def avg_lrr(lr, preds, xs):
     # Takes in a 2D array of multiple models' likelihood ratio predictions. 
-    # Returns the average ratio of predicted likelihood to true likelihood and 
-    # its error.
+    # Returns the average ratio of predicted likelihood to true likelihood
     lrr_preds = preds / lr(xs)
-    return lrr_preds.mean(axis=0), lrr_preds.std(axis=0)
+    return lrr_preds.mean(axis=0)
     
 def lr_plot(ensembles,
             lr,
