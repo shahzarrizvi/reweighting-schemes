@@ -82,7 +82,7 @@ def mlc(y_true, y_pred):
              (1. - y_true) * (1. - y_pred))
 
 def square_mlc(y_true, y_pred):
-    return -((y_true) * K.log(y_pred**2 + K.epsilon()) + 
+    return -((y_true) * K.log( (y_pred + K.epsilon())**2 ) + 
              (1. - y_true) * (1. - y_pred**2))
 
 def exp_mlc(y_true, y_pred):
