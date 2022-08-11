@@ -6,11 +6,13 @@ from matplotlib import rc
 import matplotlib.font_manager
 rc('font', family='serif')
 rc('text', usetex=True)
-rc('font', size=22)
-rc('xtick', labelsize=15)
-rc('ytick', labelsize=15)
-rc('legend', fontsize=15)
+rc('font', size=10)        #22
+rc('xtick', labelsize=8)  #15
+rc('ytick', labelsize=8)  #15
+rc('legend', fontsize=8)  #15
 rc('text.latex', preamble=r'\usepackage{amsmath}')
+cs = ['brown', 'green', 'red', 'blue']
+lss = [':', '--', '-.', ':']
 
 # Plotting functions
 def get_preds(model_lrs, xs):
@@ -35,16 +37,11 @@ def lr_plot(ensembles,
             lr,
             bkgd, 
             sgnl,
-            title=None,
-            filename=None,
-            params=r"$\mu_{\rm{sgnl}}="+str(0.1)+r", \mu_{\rm{bkgd}}="+str(-0.1)+r"$",
+            xs = np.linspace(-6, 6, 1000), 
+            bins = np.linspace(-6, 6, 100),
             figsize = (10, 6),
-            cs = ['brown', 'green', 'red', 'blue'],
-            lss = [':', '--', '-.', ':'],
-            xs=np.linspace(-6, 6, 1000), 
-            bins=np.linspace(-6, 6, 100)):
-            #xs=np.linspace(0, 20, 1000)):
-            #xs=np.linspace(4, 16, 1000)):
+            title = None,
+            filename = None):
     # Takes in a list of pairs (lr_avg, lr_err). Plots them against the true 
     # likelihood.
     fig, ax_1 = plt.subplots(figsize = figsize)
@@ -88,16 +85,11 @@ def lr_plot(ensembles,
 def lrr_plot(ensembles,
              lr,
              bkgd, sgnl,
-             title=None,
-             filename=None,
-             params=r"$\mu_{\rm{sgnl}}="+str(0.1)+r", \mu_{\rm{bkgd}}="+str(-0.1)+r"$",
+             xs = np.linspace(-6, 6, 1000),
+             bins = np.linspace(-6, 6, 100),
              figsize = (10, 6),
-             cs = ['brown', 'green', 'red', 'blue'],
-             lss = [':', '--', '-.', ':'],
-             xs=np.linspace(-6, 6, 1000),
-             bins=np.linspace(-6, 6, 100)):
-             #xs=np.linspace(0, 20, 1000)):
-             #xs=np.linspace(4, 16, 1000)):
+             title = None,
+             filename = None):
     # Takes in a list of pairs (lrr_avg, lrr_err). Plots them.
     fig, ax_1 = plt.subplots(figsize = figsize)
     
@@ -135,3 +127,145 @@ def lrr_plot(ensembles,
         plt.title(title, loc="left", fontsize=20)
     if filename != None:
         plt.savefig(filename, dpi=1200, bbox_inches='tight')
+
+def ratio_plot(ensembles,
+               labels,
+               lr,
+               bkgd, sgnl, 
+               xs,
+               y_lim = None,
+               figsize = (8, 8), 
+               title = None, 
+               filename = None):
+    
+    fig, axs = plt.subplots(2, 1,
+                            figsize = figsize,
+                            sharex = True, 
+                            gridspec_kw = {'height_ratios': [2, 1]})
+    
+    # Plot likelihood ratios
+    axs[0].plot(xs, lr(xs), label = 'Exact', c = 'k', lw = 0.75)
+    
+    n = len(ensembles)
+    
+    lrs = [None] * n
+    lrrs = [None] * n
+    for i in range(n):
+        lrs[i] = avg_lr(ensembles[i])
+        lrrs[i] = avg_lrr(lr, ensembles[i], xs)
+    
+    for i in range(n):
+        axs[0].plot(xs, 
+                    lrs[i], 
+                    label = labels[i],
+                    c = cs[i % len(cs)], 
+                    ls = lss[i % len(lss)],
+                    lw = 0.75)
+        
+    axs[0].set_xlim(xs[0], xs[-1])
+    if y_lim:
+        axs[0].set_ylim(y_lim[0], y_lim[1])
+    axs[0].legend()
+    axs[0].minorticks_on()
+    axs[0].tick_params(which = 'minor', length = 3)
+    axs[0].tick_params(which = 'major', length = 5)
+    axs[0].tick_params(which = 'both', direction='in')
+    axs[0].set_ylabel('Likelihood Ratio')
+
+    # Plot exact histograms
+    hist_ax = axs[0].twinx()
+    bins = np.linspace(xs[0] - 0.05, xs[-1] + 0.05, 122)
+    weights = bkgd.cdf(bins)[1:] - bkgd.cdf(bins[:-1])
+    plt.hist(bins[:-1], bins = bins, weights = weights, alpha = 0.1)
+    weights = sgnl.cdf(bins)[1:] - sgnl.cdf(bins[:-1])
+    plt.hist(bins[:-1], bins = bins, weights = weights, alpha = 0.1);
+    hist_ax.set_yticks([]);
+
+    # Plot likelihood ratio ratios
+    for i in range(n):
+        axs[1].plot(xs, 
+                    lrrs[i],
+                    c = cs[i % len(cs)],
+                    ls = lss[i % len(lss)],
+                    lw = 0.75)
+
+    axs[1].axhline(1,ls=":",color="grey", lw=0.5)
+    axs[1].axvline(0,ls=":",color="grey", lw=0.5)
+    axs[1].set_ylim(0.95, 1.05);
+    axs[1].minorticks_on()
+    axs[1].tick_params(which = 'minor', length = 3)
+    axs[1].tick_params(which = 'major', length = 5)
+    axs[1].tick_params(which = 'both', direction='in')
+    axs[1].set_ylabel('Ratio')
+
+    plt.subplots_adjust(hspace = 0.1)
+                    
+    if title:
+        plt.title(title, loc = 'right')
+    if filename:
+        plt.savefig(filename, 
+                    dpi = 300,
+                    transparent = True,
+                    bbox_inches = 'tight')
+
+def mae_plot(maes,
+             labels,
+             Ns,
+             figsize = (8, 8),
+             y_lim = None,
+             title = None,
+             filename = None):
+    
+    plt.figure(figsize = figsize)
+    
+    for i in range(len(maes)):
+        plt.plot(Ns, 
+                 maes[i],
+                 label = labels[i],
+                 c = cs[i % len(cs)],
+                 ls = lss[i % len(lss)],
+                 lw = 0.75)
+    plt.legend()
+    
+    if y_lim:
+        plt.ylim(y_lim[0], y_lim[1])
+
+    plt.minorticks_on()
+    plt.tick_params(axis = 'y', which = 'minor', length = 3)
+    plt.tick_params(axis = 'y', which = 'major', length = 5)
+    plt.tick_params(which = 'both', direction='in')
+    plt.xscale("log", base=10)
+    plt.ylabel('Mean Absolute Error')
+    plt.xlabel(r'$N$')
+    
+    if title:
+        plt.title(title, loc="right");
+    if filename:
+        plt.savefig(filename,
+                    transparent = True,
+                    dpi=300, 
+                    bbox_inches='tight')
+
+def diff_plot(preds,
+              lr,
+              g,
+              aa, bb,
+              figsize = (10, 8),
+              title = None, 
+              filename = None):
+    
+    plt.figure(figsize = figsize)
+    
+    dd = (preds - lr(g)).reshape(aa.shape[0] - 1, aa.shape[1] - 1)
+    
+    plt.pcolormesh(aa, bb, dd, cmap = 'bwr', shading = 'auto', vmin = -0.2, vmax = 0.2)
+    plt.colorbar()
+    plt.gca().set_aspect('equal')
+    
+    if title:
+        plt.title(title, loc="right");
+    if filename:
+        plt.savefig(filename,
+                    transparent = True,
+                    dpi=300, 
+                    bbox_inches='tight')

@@ -1,8 +1,5 @@
-# ML imports
-#import tensorflow as tf
-#import tensorflow.keras
-#import tensorflow.keras.backend as K
 import numpy as np
+from scipy import stats
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, Input, Dropout
 from tensorflow.keras.callbacks import EarlyStopping
@@ -49,7 +46,7 @@ def train(data,
           verbose = 0):
     X_train, X_test, y_train, y_test = data
     
-    N = (len(X_train) + len(X_test)) / 2
+    N = len(X_train) + len(X_test)
     
     model = create_model(loss, d, hidden, output, dropout, optimizer, metrics, verbose)      
     
@@ -68,38 +65,86 @@ def train(data,
     
     return model, trace
 
-def make_data(bkgd, sgnl, N):
-    X_bkgd = bkgd.rvs(size = N)
-    X_sgnl = sgnl.rvs(size = N)
-    y_bkgd = np.zeros(N)
-    y_sgnl = np.ones(N)
+def create_simple_model(loss,
+                        activation = 'sigmoid', 
+                        optimizer = 'adam', 
+                        metrics = ['accuracy'], 
+                        verbose = 0):
+    model = Sequential()
+    model.add(Dense(1, activation=activation, input_shape=(1, )))      
+    return model
+
+def train_simple(data, 
+                 loss,
+                 activation = 'sigmoid',
+                 optimizer = 'adam', 
+                 metrics = ['accuracy'], 
+                 verbose = 0):
     
-    X = np.concatenate([X_bkgd, X_sgnl])
-    y = np.concatenate([y_bkgd, y_sgnl])
+    X_train, X_test, y_train, y_test = data
     
-    # Split in train and test sets.
-    X_train, X_test, y_train, y_test = train_test_split(X, y)
+    N = len(X_train) + len(X_test)
     
-    # Normalize both the train and the test set.
-    m = np.mean(X_train, axis = 0)
-    s = np.std(X_train, axis = 0)
-    X_train = (X_train - m) / s
-    X_test = (X_test - m) / s
+    model = create_simple_model(loss, activation, optimizer, metrics, verbose)      
     
-    return (X_train, X_test, y_train, y_test), m, s
+    model.compile(loss = loss,
+                  optimizer = optimizer, 
+                  metrics = metrics)
+    
+    trace = model.fit(X_train, 
+                      y_train,
+                      epochs = 100, 
+                      batch_size = int(0.1*N), 
+                      validation_data = (X_test, y_test),
+                      callbacks = [earlystopping], 
+                      verbose = verbose)
+    print(trace.history['val_loss'][-1], '\t', len(trace.history['val_loss']), end = '\t')
+    print(model.get_weights()[0].flatten()[0], '\t', model.get_weights()[1].flatten()[0])
+    
+    return model, trace
+
+
+def make_data(bkgd, sgnl, N_trn=10**7, N_tst=10**5):
+    y_trn = stats.bernoulli.rvs(0.5, size = N_trn)
+    
+    X_bkgd = bkgd.rvs(size = N_trn)
+    X_sgnl = sgnl.rvs(size = N_trn)
+    
+    X_trn = np.zeros_like(X_bkgd)
+    X_trn[y_trn == 0] = X_bkgd[y_trn == 0]
+    X_trn[y_trn == 1] = X_sgnl[y_trn == 1]
+    
+    y_tst = stats.bernoulli.rvs(0.5, size = N_tst)
+    
+    X_bkgd = bkgd.rvs(size = N_tst)
+    X_sgnl = sgnl.rvs(size = N_tst)
+    
+    X_tst = np.zeros_like(X_bkgd)
+    X_tst[y_tst == 0] = X_bkgd[y_tst == 0]
+    X_tst[y_tst == 1] = X_sgnl[y_tst == 1]
+    
+    return X_trn, X_tst, y_trn, y_tst
+
+def split_data(X, y):
+    # Split into train and validation sets.
+    X_trn, X_vld, y_trn, y_vld = train_test_split(X, y, random_state = 666)
+    
+    # Standardize both the train and validation set.
+    m = np.mean(X_trn, axis = 0)
+    s = np.std(X_trn, axis = 0)
+    X_trn = (X_trn - m) / s
+    X_vld = (X_vld - m) / s
+    
+    return (X_trn, X_vld, y_trn, y_vld), m, s
 
 def make_lr(bkgd, sgnl):
     return lambda x: sgnl.pdf(x) / bkgd.pdf(x)
 
-def make_mae(bkgd, sgnl, N_mae = 10**4):
-    bkgd_mae = bkgd.rvs(size = N_mae)
-    sgnl_mae = sgnl.rvs(size = N_mae)
-    X_mae = np.concatenate([bkgd_mae, sgnl_mae])
-    
+def make_mae(bkgd, sgnl, dir_name):
+    X_mae = np.load(dir_name + 'X_tst.npy')
     lr = make_lr(bkgd, sgnl)
     
     def mae(model_lr):
-        nonlocal X_mae
         return np.abs(model_lr(X_mae) - lr(X_mae)).mean()
     return mae
 
@@ -178,13 +223,13 @@ def tanh_lr(model, m = 0, s = 1):
         return np.squeeze(t_tanh(f) / (1. - t_tanh(f)))
     return model_lr
 
-def t_atan(x):
+def t_arctan(x):
     return 0.5 + (np.arctan(x) / np.pi)
 
-def atan_lr(model, m = 0, s = 1):
+def arctan_lr(model, m = 0, s = 1):
     def model_lr(x):
         f = model.predict((x - m) / s)
-        return np.squeeze(t_atan(f) / (1. - t_atan(f)))
+        return np.squeeze(t_arctan(f) / (1. - t_arctan(f)))
     return model_lr
 
 '''

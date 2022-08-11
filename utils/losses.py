@@ -30,11 +30,11 @@ def tanh_bce(y_true, y_pred):
     return -((y_true) * K.log(y_pred + K.epsilon()) + 
              (1. - y_true) * K.log(1. - y_pred))
 
-def t_atan(x):
+def t_arctan(x):
     return 0.5 + (tf.math.atan(x) / np.pi)
 
-def atan_bce(y_true, y_pred):
-    y_pred = t_atan(y_pred)
+def arctan_bce(y_true, y_pred):
+    y_pred = t_arctan(y_pred)
     y_pred = K.clip(y_pred, K.epsilon(), 1. - K.epsilon())
     
     return -((y_true) * K.log(y_pred + K.epsilon()) + 
@@ -62,8 +62,8 @@ def tanh_mse(y_true, y_pred):
     return -((y_true) * -K.square(1. - y_pred) + 
              (1. - y_true) * -K.square(y_pred))
 
-def atan_mse(y_true, y_pred):
-    y_pred = t_atan(y_pred)
+def arctan_mse(y_true, y_pred):
+    y_pred = t_arctan(y_pred)
     y_pred = K.clip(y_pred, K.epsilon(), 1. - K.epsilon())
     
     return -((y_true) * -K.square(1. - y_pred) + 
