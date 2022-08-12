@@ -99,7 +99,7 @@ def train_simple(data,
                       callbacks = [earlystopping], 
                       verbose = verbose)
     print(trace.history['val_loss'][-1], '\t', len(trace.history['val_loss']), end = '\t')
-    print(model.get_weights()[0].flatten()[0], '\t', model.get_weights()[1].flatten()[0])
+    print(model.get_weights()[0].flatten()[0], '\t', model.get_weights()[1].flatten()[0], end = '\t')
     
     return model, trace
 
