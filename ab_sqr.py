@@ -15,7 +15,15 @@ physical_devices = tf.config.list_physical_devices('GPU')
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 # Experiment parameters
-num = 0    # bkgd: normal(-0.1, 1)     sgnl: normal(0.1, 1)
+# Multivariate
+#num = 0    # vertical
+#num = 1    # slant
+#num = 2    # circle
+#num = 3    # hyperbola
+num = 4    # checker
+
+# Univariate
+#num = 0    # bkgd: normal(-0.1, 1)     sgnl: normal(0.1, 1)
 #num = 1    # bkgd: normal(-0.2, 1)     sgnl: normal(0.2, 1)
 #num = 2    # bkgd: normal(-0.3, 1)     sgnl: normal(0.3, 1)
 #num = 3    # bkgd: normal(-0.4, 1)     sgnl: normal(0.4, 1)
@@ -25,8 +33,8 @@ num = 0    # bkgd: normal(-0.1, 1)     sgnl: normal(0.1, 1)
 reps = 20
 
 # Model parameters
-dirstr = 'models/univariate/simple/ab_sqr/set_{}/'.format(num)
-#dirstr = 'models/univariate/ab_sqr/set_{}/'.format(num)
+#dirstr = 'models/univariate/simple/ab_sqr/set_{}/'.format(num)
+dirstr = 'models/multivariate/ab_sqr/set_{}/'.format(num)
 filestr_1 = dirstr + 'relu/model_{}_{}.h5'
 filestr_2 = dirstr + 'exponential/model_{}_{}.h5'
 
@@ -41,8 +49,8 @@ if not os.path.isdir(dirstr + 'exponential/'):
 
 # Data parameters
 N = 10**6
-X = np.load('data/normal/0.1/X_trn.npy')[:N]
-y = np.load('data/normal/0.1/y_trn.npy')[:N]
+X = np.load('data/mvn/checker/X_trn.npy')[:N]
+y = np.load('data/mvn/checker/y_trn.npy')[:N]
 data, m, s = split_data(X, y)
 
 rs = np.sort(np.append(np.round(np.linspace(-2, 2, 81), 2),
@@ -52,16 +60,16 @@ rs = rs[rs < 0]
 
 for r in rs:
     print('===================================================\n{}'.format(r))
-    params_1 = {'loss': get_sqr(r), 'activation':'relu'}
-    params_2 = {'loss': get_exp_sqr(r), 'activation':'linear'}
-    #params_1 = {'loss': get_sqr(r), 'output':'relu'}
-    #params_2 = {'loss': get_exp_sqr(r), 'output':'linear'}
+    #params_1 = {'loss': get_sqr(r), 'activation':'relu'}
+    #params_2 = {'loss': get_exp_sqr(r), 'activation':'linear'}
+    params_1 = {'loss': get_sqr(r), 'd': 2, 'output':'relu'}
+    params_2 = {'loss': get_exp_sqr(r), 'd': 2, 'output':'linear'}
     for i in range(reps):
         print(i, end = '\t')
-        sqr_model, trace = train_simple(data, **params_1)
-        exp_model, trace = train_simple(data, **params_2)
-        #sqr_model, trace = train(data, **params_1)
-        #exp_model, trace = train(data, **params_2)
+        #sqr_model, trace = train_simple(data, **params_1)
+        #exp_model, trace = train_simple(data, **params_2)
+        sqr_model, trace = train(data, **params_1)
+        exp_model, trace = train(data, **params_2)
         print()
         sqr_model.save_weights(filestr_1.format(r, i))
         exp_model.save_weights(filestr_2.format(r, i))
