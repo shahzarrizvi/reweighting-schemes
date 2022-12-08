@@ -1,5 +1,6 @@
 # Plotting imports
 import numpy as np
+
 from matplotlib import pyplot as plt
 from matplotlib.patches import Patch
 from matplotlib import rc
@@ -11,6 +12,7 @@ rc('xtick', labelsize=8)  #15
 rc('ytick', labelsize=8)  #15
 rc('legend', fontsize=8)  #15
 rc('text.latex', preamble=r'\usepackage{amsmath}')
+
 cs = ['brown', 'green', 'red', 'blue']
 lss = [':', '--', '-.', ':']
 
