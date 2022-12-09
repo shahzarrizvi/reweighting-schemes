@@ -62,7 +62,7 @@ def flow(data,
          num_ffjords = 4, 
          num_hidden = 8, 
          num_layers = 3, 
-         batch_size = 2**10, 
+         batch_size = 2**8, 
          lr = 1e-2, 
          num_epochs = 80):
     n, d = data.shape
@@ -71,7 +71,7 @@ def flow(data,
     base_dist = tfd.MultivariateNormalDiag(d*[0], d*[1])
     tsfm_dist = tfd.TransformedDistribution(distribution = base_dist, bijector = ffjords)
     
-    #ckpt = tf.train.Checkpoint(tsfm_dist)
+    ckpt = tf.train.Checkpoint(tsfm_dist)
     
     dataset = tf.data.Dataset.from_tensor_slices(data.astype(np.float32)) \
                 .prefetch(tf.data.experimental.AUTOTUNE) \
@@ -85,6 +85,6 @@ def flow(data,
     for epoch in tqdm.trange(num_epochs // 2):
         for batch in dataset:
             _ = train_step(tsfm_dist, optimizer, batch)
-            #ckpt.save(ckpt_path)
+            ckpt.save(ckpt_path)
     
     return tsfm_dist
