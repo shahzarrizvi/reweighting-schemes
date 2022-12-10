@@ -1,4 +1,4 @@
-simport numpy as np
+import numpy as np
 from scipy import stats
 
 import tensorflow.compat.v2 as tf
