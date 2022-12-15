@@ -89,11 +89,12 @@ def flow(data,
     
     return tsfm_dist
 
-#
-#def make_distributions(d = 2, 
-#                       num_ffjords = 4,
-#                       num_hidden = 8, 
-#                       num_layers = 3):
-#    ffjords = create_ffjords(num_ffjords, num_hidden, num_layers, d)
-#    base_dist = tfd.MultivariateNormalDiag(d*[0], d*[1])
-#    tsfm_dist = tfd.TransformedDistribution(distribution = base_dist, bijector = ffjords)
+
+def make_target(d = 2, 
+                num_ffjords = 4,
+                num_hidden = 8, 
+                num_layers = 3):
+    ffjords = create_ffjords(num_ffjords, num_hidden, num_layers, d)
+    base_dist = tfd.MultivariateNormalDiag(d*[0], d*[1])
+    tsfm_dist = tfd.TransformedDistribution(distribution = base_dist, bijector = ffjords)
+    return tsfm_dist
