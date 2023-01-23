@@ -20,8 +20,3 @@ sim_m =   mc['sim_jets'][:, 3]
 sim = np.vstack([sim_pt, sim_eta, sim_phi, sim_m]).T
 
 sim_target = flow(sim, ckpt_path = 'sim/ckpt')
-
-N = sim.shape[0]
-smp = sim_target.sample(N)
-
-smp.numpy().save('sim_smp.npy')

@@ -64,7 +64,7 @@ def flow(data,
          num_layers = 3, 
          batch_size = 2**6, 
          lr = 1e-2, 
-         num_epochs = 80):
+         num_epochs = 100):
     n, d = data.shape
     
     ffjords = create_ffjords(num_ffjords, num_hidden, num_layers, d)
@@ -82,10 +82,15 @@ def flow(data,
     learning_rate = tf.Variable(lr, trainable=False)
     optimizer = snt.optimizers.Adam(learning_rate)
 
+    i = 1
     for epoch in tqdm.trange(num_epochs // 2):
         for batch in dataset:
             _ = train_step(tsfm_dist, optimizer, batch)
-            ckpt.save(ckpt_path)
+            
+            if i % 1000 == 0:
+                ckpt.save(ckpt_path)
+            i += 1
+    ckpt.save(ckpt_path)
     
     return tsfm_dist
 
