@@ -9,17 +9,20 @@ from utils.training import *
 
 np.random.seed(666) # Need to do more to ensure data is the same across runs.
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0" # pick a number < 4 on ML4HEP; < 3 on Voltan 
+os.environ["CUDA_VISIBLE_DEVICES"] = "1" # pick a number < 4 on ML4HEP; < 3 on Voltan 
 physical_devices = tf.config.list_physical_devices('GPU') 
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 # Experiment parameters
+# Physics
+num = 0 
+
 # Multivariate
 #num = 0    # vertical
 #num = 1    # slant
 #num = 2    # circle
 #num = 3    # hyperbola
-num = 4    # checker
+#num = 4    # checker
 
 #Univariate
 #num = 0    # bkgd: normal(-0.1, 1)     sgnl: normal(0.1, 1)
@@ -32,23 +35,23 @@ num = 4    # checker
 reps = 20
 
 # File parameters
-filestr = 'models/multivariate/ab_mse/set_{}/'.format(num)
+filestr = 'models/flows/ab_mse/set_{}/'.format(num)
 mse_filestr = filestr + 'model_{}_{}.h5'
 
 if not os.path.isdir(filestr):
     os.mkdir(filestr)
 
 # Data parameters
-N = 10**6
-X = np.load('data/mvn/checker/X_trn.npy')[:N]
-y = np.load('data/mvn/checker/y_trn.npy')[:N]
+#N = 10**6
+X = np.load('data/zenodo/X.npy')
+y = np.load('data/zenodo/y.npy')
 data, m, s = split_data(X, y)
 
 ps = np.round(np.linspace(-2, 2, 101), 2)
 
 for p in ps:
     print('===================================================\n{}'.format(p))
-    params = {'loss': get_mse(p), 'd': 2}
+    params = {'loss': get_mse(p), 'd': 4}
     for i in range(reps):
         print(i, end = '\t')
         model, trace = train(data, **params)

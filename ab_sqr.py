@@ -15,6 +15,9 @@ physical_devices = tf.config.list_physical_devices('GPU')
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 # Experiment parameters
+# Physics
+num = 0 
+
 # Multivariate
 #num = 0    # vertical
 #num = 1    # slant
@@ -34,7 +37,7 @@ reps = 20
 
 # Model parameters
 #dirstr = 'models/univariate/simple/ab_sqr/set_{}/'.format(num)
-dirstr = 'models/multivariate/ab_sqr/set_{}/'.format(num)
+dirstr = 'models/flows/ab_sqr/set_{}/'.format(num)
 filestr_1 = dirstr + 'relu/model_{}_{}.h5'
 filestr_2 = dirstr + 'exponential/model_{}_{}.h5'
 
@@ -48,9 +51,9 @@ if not os.path.isdir(dirstr + 'exponential/'):
     os.mkdir(dirstr + 'exponential/')
 
 # Data parameters
-N = 10**6
-X = np.load('data/mvn/checker/X_trn.npy')[:N]
-y = np.load('data/mvn/checker/y_trn.npy')[:N]
+#N = 10**6
+X = np.load('data/zenodo/X.npy')
+y = np.load('data/zenodo/y.npy')
 data, m, s = split_data(X, y)
 
 rs = np.sort(np.append(np.round(np.linspace(-2, 2, 81), 2),
@@ -62,8 +65,8 @@ for r in rs:
     print('===================================================\n{}'.format(r))
     #params_1 = {'loss': get_sqr(r), 'activation':'relu'}
     #params_2 = {'loss': get_exp_sqr(r), 'activation':'linear'}
-    params_1 = {'loss': get_sqr(r), 'd': 2, 'output':'relu'}
-    params_2 = {'loss': get_exp_sqr(r), 'd': 2, 'output':'linear'}
+    params_1 = {'loss': get_sqr(r), 'd': 4, 'output':'relu'}
+    params_2 = {'loss': get_exp_sqr(r), 'd': 4, 'output':'linear'}
     for i in range(reps):
         print(i, end = '\t')
         #sqr_model, trace = train_simple(data, **params_1)
