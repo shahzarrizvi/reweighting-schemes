@@ -23,7 +23,7 @@ num = 0
 #num = 1    # slant
 #num = 2    # circle
 #num = 3    # hyperbola
-num = 4    # checker
+#num = 4    # checker
 
 # Univariate
 #num = 0    # bkgd: normal(-0.1, 1)     sgnl: normal(0.1, 1)
