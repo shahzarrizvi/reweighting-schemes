@@ -51,15 +51,15 @@ if not os.path.isdir(dirstr + 'exponential/'):
     os.mkdir(dirstr + 'exponential/')
 
 # Data parameters
-#N = 10**6
-X = np.load('data/zenodo/X.npy')
-y = np.load('data/zenodo/y.npy')
+N = 10**6
+X = np.load('data/zenodo/X_trn.npy')[:N]
+y = np.load('data/zenodo/y_trn.npy')[:N].astype('float32')
 data, m, s = split_data(X, y)
 
 rs = np.sort(np.append(np.round(np.linspace(-2, 2, 81), 2),
                        np.round(np.linspace(-0.05, 0.05, 26), 3)[1:-1]))
-#rs = rs[rs < 0]
-rs = rs[rs >= 0]
+rs = rs[rs < 0]
+#rs = rs[rs >= 0]
 
 for r in rs:
     print('===================================================\n{}'.format(r))
