@@ -172,7 +172,7 @@ def ratio_plot(ensembles,
     axs[0].tick_params(which = 'minor', length = 3)
     axs[0].tick_params(which = 'major', length = 5)
     axs[0].tick_params(which = 'both', direction='in')
-    axs[0].set_ylabel('Likelihood Ratio')
+    axs[0].set_ylabel('$\mathcal{L}(x)$')
 
     # Plot exact histograms
     hist_ax = axs[0].twinx()
@@ -201,6 +201,7 @@ def ratio_plot(ensembles,
     axs[1].set_ylabel('Ratio')
 
     plt.subplots_adjust(hspace = 0.1)
+    plt.xlabel(r'$x$')
                     
     if title:
         plt.title(title, loc = 'right')
