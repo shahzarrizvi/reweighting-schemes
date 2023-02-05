@@ -234,6 +234,12 @@ def arctan_lr(model, m = 0, s = 1):
         return np.squeeze(t_arctan(f) / (1. - t_arctan(f)))
     return model_lr
 
+def xgb_lr(model, m = 0, s = 1):
+    def model_lr(x):
+        f = model.predict_proba((x - m) / s)[:, 1]
+        return np.squeeze(f / (1. - f))
+    return model_lr
+
 '''
 #bkgd sgnl maybe an array
 # distribution primarily only needed for plotting
