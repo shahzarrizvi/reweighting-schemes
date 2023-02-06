@@ -37,8 +37,8 @@ def avg_lrr(lr, preds, xs):
     
 def lr_plot(ensembles,
             lr,
-            bkgd, 
-            sgnl,
+            bkgd = None, 
+            sgnl = None,
             xs = np.linspace(-6, 6, 1000), 
             bins = np.linspace(-6, 6, 100),
             figsize = (10, 6),
@@ -62,17 +62,18 @@ def lr_plot(ensembles,
     plt.ylabel('Likelihood Ratio')
     #plt.ylim(0, 10)
 
-    # Plot background and signal
-    ax_2 = ax_1.twinx()
-    #bins = np.linspace(4, 16, 100)
-    #bins = np.linspace(0, 20, 100)
-    X_bkgd = bkgd.rvs(size = 10**6)
-    X_sgnl = sgnl.rvs(size = 10**6)
-    plt.hist(X_sgnl, alpha=0.1, bins=bins)
-    plt.hist(X_bkgd, alpha=0.1, bins=bins)
-    ax_2.minorticks_on()
-    ax_2.tick_params(direction='in', which='both',length=5)
-    plt.ylabel('Count')
+    if bkgd and sgnl:
+        # Plot background and signal
+        ax_2 = ax_1.twinx()
+        #bins = np.linspace(4, 16, 100)
+        #bins = np.linspace(0, 20, 100)
+        X_bkgd = bkgd.rvs(size = 10**6)
+        X_sgnl = sgnl.rvs(size = 10**6)
+        plt.hist(X_sgnl, alpha=0.1, bins=bins)
+        plt.hist(X_bkgd, alpha=0.1, bins=bins)
+        ax_2.minorticks_on()
+        ax_2.tick_params(direction='in', which='both',length=5)
+        plt.ylabel('Count')
 
     plt.xlim(xs[0], xs[-1])
     plt.xlabel(r'$x$')
@@ -133,8 +134,8 @@ def lrr_plot(ensembles,
 def ratio_plot(ensembles,
                labels,
                lr,
-               bkgd, sgnl, 
                xs,
+               bkgd = None, sgnl = None, 
                y_lim = None,
                figsize = (8, 8), 
                title = None, 
@@ -175,13 +176,14 @@ def ratio_plot(ensembles,
     axs[0].set_ylabel('$\mathcal{L}(x)$')
 
     # Plot exact histograms
-    hist_ax = axs[0].twinx()
-    bins = np.linspace(xs[0] - 0.05, xs[-1] + 0.05, 122)
-    weights = bkgd.cdf(bins)[1:] - bkgd.cdf(bins[:-1])
-    plt.hist(bins[:-1], bins = bins, weights = weights, alpha = 0.1)
-    weights = sgnl.cdf(bins)[1:] - sgnl.cdf(bins[:-1])
-    plt.hist(bins[:-1], bins = bins, weights = weights, alpha = 0.1);
-    hist_ax.set_yticks([]);
+    if bkgd and sgnl:
+        hist_ax = axs[0].twinx()
+        bins = np.linspace(xs[0] - 0.05, xs[-1] + 0.05, 122)
+        weights = bkgd.cdf(bins)[1:] - bkgd.cdf(bins[:-1])
+        plt.hist(bins[:-1], bins = bins, weights = weights, alpha = 0.1)
+        weights = sgnl.cdf(bins)[1:] - sgnl.cdf(bins[:-1])
+        plt.hist(bins[:-1], bins = bins, weights = weights, alpha = 0.1);
+        hist_ax.set_yticks([]);
 
     # Plot likelihood ratio ratios
     for i in range(n):
