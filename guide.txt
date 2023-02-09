@@ -87,3 +87,23 @@ betas: computing likelihood ratios for beta distributed data.
             sgnl = stats.beta(3, 2)
             
 multivariate:
+
+trees:
+    1: d = 1
+        set_0: d = 1
+               bkgd = stats.norm(-0.1, 1)
+               sgnl = stats.norm(+0.1, 1)
+    2:
+        set_0: d = 2
+               mu_bkgd = np.array([-0.1, 0])
+               mu_sgnl = np.array([+0.1, 0])
+               sg_bkgd = np.eye(2)
+               sg_sgnl = np.eye(2)
+
+               bkgd = stats.multivariate_normal(mu_bkgd, sg_bkgd)
+               sgnl = stats.multivariate_normal(mu_sgnl, sg_sgnl)
+    4:
+        set_0: d = 4
+               see above
+    and so on...
+    
