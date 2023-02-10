@@ -206,7 +206,7 @@ def ratio_plot(ensembles,
     plt.xlabel(r'$x$')
                     
     if title:
-        plt.title(title, loc = 'right')
+        axs[0].set_title(title, loc = 'right')
     if filename:
         plt.savefig(filename, 
                     dpi = 300,
@@ -244,7 +244,7 @@ def mae_plot(maes,
     plt.xlabel(r'$N$')
     
     if title:
-        plt.title(title, loc="right");
+        axs[0].set_title(title, loc="right");
     if filename:
         plt.savefig(filename,
                     transparent = True,
