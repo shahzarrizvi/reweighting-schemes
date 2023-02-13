@@ -145,10 +145,10 @@ def make_lr(bkgd, sgnl):
 def make_mae(bkgd, sgnl, dir_name):
     X_mae = np.load(dir_name + 'X_tst.npy').reshape(-1, 1)
     lr = make_lr(bkgd, sgnl)
-    
-    lr_tst = lr(X_mae)
+    lr_tst = lr(X_mae).reshape(-1)
     
     def mae(model_lr):
+        print('1', end = ' ')
         return np.abs(model_lr(X_mae) - lr_tst).mean()
     return mae
 

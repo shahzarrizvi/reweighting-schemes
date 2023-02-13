@@ -244,7 +244,7 @@ def mae_plot(maes,
     plt.xlabel(r'$N$')
     
     if title:
-        axs[0].set_title(title, loc="right");
+        plt.title(title, loc="right");
     if filename:
         plt.savefig(filename,
                     transparent = True,

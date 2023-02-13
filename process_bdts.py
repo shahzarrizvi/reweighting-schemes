@@ -19,7 +19,7 @@ np.random.seed(666) # Need to do more to ensure data is the same across runs.
 w = 3.5
 h = 3.25              # Plots have dimension (w,h)
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "2" # pick a number < 4 on ML4HEP; < 3 on Voltan 
+os.environ["CUDA_VISIBLE_DEVICES"] = "0" # pick a number < 4 on ML4HEP; < 3 on Voltan 
 physical_devices = tf.config.list_physical_devices('GPU') 
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
@@ -32,7 +32,7 @@ Ns = 10**np.arange(2, 8)
 # Model parameters
 bce_params = {'loss':bce, 'd': d}
 
-filestr = 'models/trees/{}/set_{}/'.format(d, num)
+filestr = 'models/bdts/{}/set_{}/'.format(d, num)
 bce_filestr = filestr + 'bce/model_{}_{}.h5'
 gbc_filestr = filestr + 'gbc/model_{}_{}.h5'
 bdt_filestr = filestr + 'bdt/model_{}.h5'
@@ -42,10 +42,10 @@ bkgd = stats.norm(-0.1, 1)
 sgnl = stats.norm(+0.1, 1)
 
 lr = make_lr(bkgd, sgnl)
-mae = make_mae(bkgd, sgnl, 'data/trees/{}/'.format(d))
+mae = make_mae(bkgd, sgnl, 'data/bdts/{}/'.format(d))
 
-X = np.load('data/trees/{}/X_trn.npy'.format(d)).reshape(-1, 1)
-y = np.load('data/trees/{}/y_trn.npy'.format(d))
+X = np.load('data/bdts/{}/X_trn.npy'.format(d)).reshape(-1, 1)
+y = np.load('data/bdts/{}/y_trn.npy'.format(d))
 
 # Calculate mean absolute errors
 gbc_avg = np.array([])
@@ -88,7 +88,7 @@ mae_plot([bce_avg, gbc_avg, bdt_avg],
          Ns,
          figsize = (w, h),
          title = r'\it $d = {}$'.format(d),
-         filename = 'plots/paper/gbc_d{}.png'.format(d))
+         filename = 'plots/paper/bdts_d{}.png'.format(d))
 
 # Experiment parameters
 num = 0
@@ -99,7 +99,7 @@ Ns = 10**np.arange(2, 8)
 # Model parameters
 bce_params = {'loss':bce, 'd': d}
 
-filestr = 'models/trees/{}/set_{}/'.format(d, num)
+filestr = 'models/bdts/{}/set_{}/'.format(d, num)
 bce_filestr = filestr + 'bce/model_{}_{}.h5'
 gbc_filestr = filestr + 'gbc/model_{}_{}.h5'
 bdt_filestr = filestr + 'bdt/model_{}.h5'
@@ -114,10 +114,10 @@ bkgd = stats.multivariate_normal(mu_bkgd, sg_bkgd)
 sgnl = stats.multivariate_normal(mu_sgnl, sg_sgnl)
 
 lr = make_lr(bkgd, sgnl)
-mae = make_mae(bkgd, sgnl, 'data/trees/{}/'.format(d))
+mae = make_mae(bkgd, sgnl, 'data/bdts/{}/'.format(d))
 
-X = np.load('data/trees/{}/X_trn.npy'.format(d))
-y = np.load('data/trees/{}/y_trn.npy'.format(d))
+X = np.load('data/bdts/{}/X_trn.npy'.format(d))
+y = np.load('data/bdts/{}/y_trn.npy'.format(d))
 
 # Calculate mean absolute errors
 gbc_avg = np.array([])
@@ -154,12 +154,13 @@ for N in Ns:
     bdt_avg = np.append(bdt_avg, bdt_mae)
     np.save(filestr + 'bdt_avg', bdt_avg)
     print(bdt_mae)
+
 mae_plot([bce_avg, gbc_avg, bdt_avg],
          ['BCE', 'GBC', 'BDT'],
          Ns,
          figsize = (w, h),
          title = r'\it $d = {}$'.format(d),
-         filename = 'plots/paper/gbc_d{}.png'.format(d))
+         filename = 'plots/paper/bdts_d{}.png'.format(d))
 
 # Experiment parameters
 num = 0
@@ -170,7 +171,7 @@ Ns = 10**np.arange(2, 8)
 # Model parameters
 bce_params = {'loss':bce, 'd': d}
 
-filestr = 'models/trees/{}/set_{}/'.format(d, num)
+filestr = 'models/bdts/{}/set_{}/'.format(d, num)
 bce_filestr = filestr + 'bce/model_{}_{}.h5'
 gbc_filestr = filestr + 'gbc/model_{}_{}.h5'
 bdt_filestr = filestr + 'bdt/model_{}.h5'
@@ -185,10 +186,10 @@ bkgd = stats.multivariate_normal(mu_bkgd, sg_bkgd)
 sgnl = stats.multivariate_normal(mu_sgnl, sg_sgnl)
 
 lr = make_lr(bkgd, sgnl)
-mae = make_mae(bkgd, sgnl, 'data/trees/{}/'.format(d))
+mae = make_mae(bkgd, sgnl, 'data/bdts/{}/'.format(d))
 
-X = np.load('data/trees/{}/X_trn.npy'.format(d))
-y = np.load('data/trees/{}/y_trn.npy'.format(d))
+X = np.load('data/bdts/{}/X_trn.npy'.format(d))
+y = np.load('data/bdts/{}/y_trn.npy'.format(d))
 
 # Calculate mean absolute errors
 gbc_avg = np.array([])
@@ -231,7 +232,7 @@ mae_plot([bce_avg, gbc_avg, bdt_avg],
          Ns,
          figsize = (w, h),
          title = r'\it $d = {}$'.format(d),
-         filename = 'plots/paper/gbc_d{}.png'.format(d))
+         filename = 'plots/paper/bdts_d{}.png'.format(d))
 
 # Experiment parameters
 num = 0
@@ -242,7 +243,7 @@ Ns = 10**np.arange(2, 8)
 # Model parameters
 bce_params = {'loss':bce, 'd': d}
 
-filestr = 'models/trees/{}/set_{}/'.format(d, num)
+filestr = 'models/bdts/{}/set_{}/'.format(d, num)
 bce_filestr = filestr + 'bce/model_{}_{}.h5'
 gbc_filestr = filestr + 'gbc/model_{}_{}.h5'
 bdt_filestr = filestr + 'bdt/model_{}.h5'
@@ -257,10 +258,10 @@ bkgd = stats.multivariate_normal(mu_bkgd, sg_bkgd)
 sgnl = stats.multivariate_normal(mu_sgnl, sg_sgnl)
 
 lr = make_lr(bkgd, sgnl)
-mae = make_mae(bkgd, sgnl, 'data/trees/{}/'.format(d))
+mae = make_mae(bkgd, sgnl, 'data/bdts/{}/'.format(d))
 
-X = np.load('data/trees/{}/X_trn.npy'.format(d))
-y = np.load('data/trees/{}/y_trn.npy'.format(d))
+X = np.load('data/bdts/{}/X_trn.npy'.format(d))
+y = np.load('data/bdts/{}/y_trn.npy'.format(d))
 
 # Calculate mean absolute errors
 gbc_avg = np.array([])
@@ -303,7 +304,7 @@ mae_plot([bce_avg, gbc_avg, bdt_avg],
          Ns,
          figsize = (w, h),
          title = r'\it $d = {}$'.format(d),
-         filename = 'plots/paper/gbc_d{}.png'.format(d))
+         filename = 'plots/paper/bdts_d{}.png'.format(d))
 
 # Experiment parameters
 num = 0
@@ -314,7 +315,7 @@ Ns = 10**np.arange(2, 8)
 # Model parameters
 bce_params = {'loss':bce, 'd': d}
 
-filestr = 'models/trees/{}/set_{}/'.format(d, num)
+filestr = 'models/bdts/{}/set_{}/'.format(d, num)
 bce_filestr = filestr + 'bce/model_{}_{}.h5'
 gbc_filestr = filestr + 'gbc/model_{}_{}.h5'
 bdt_filestr = filestr + 'bdt/model_{}.h5'
@@ -329,10 +330,10 @@ bkgd = stats.multivariate_normal(mu_bkgd, sg_bkgd)
 sgnl = stats.multivariate_normal(mu_sgnl, sg_sgnl)
 
 lr = make_lr(bkgd, sgnl)
-mae = make_mae(bkgd, sgnl, 'data/trees/{}/'.format(d))
+mae = make_mae(bkgd, sgnl, 'data/bdts/{}/'.format(d))
 
-X = np.load('data/trees/{}/X_trn.npy'.format(d))
-y = np.load('data/trees/{}/y_trn.npy'.format(d))
+X = np.load('data/bdts/{}/X_trn.npy'.format(d))
+y = np.load('data/bdts/{}/y_trn.npy'.format(d))
 
 # Calculate mean absolute errors
 gbc_avg = np.array([])
@@ -375,7 +376,7 @@ mae_plot([bce_avg, gbc_avg, bdt_avg],
          Ns,
          figsize = (w, h),
          title = r'\it $d = {}$'.format(d),
-         filename = 'plots/paper/gbc_d{}.png'.format(d))
+         filename = 'plots/paper/bdts_d{}.png'.format(d))
 
 # Experiment parameters
 num = 0
@@ -386,7 +387,7 @@ Ns = 10**np.arange(2, 8)
 # Model parameters
 bce_params = {'loss':bce, 'd': d}
 
-filestr = 'models/trees/{}/set_{}/'.format(d, num)
+filestr = 'models/bdts/{}/set_{}/'.format(d, num)
 bce_filestr = filestr + 'bce/model_{}_{}.h5'
 gbc_filestr = filestr + 'gbc/model_{}_{}.h5'
 bdt_filestr = filestr + 'bdt/model_{}.h5'
@@ -401,10 +402,10 @@ bkgd = stats.multivariate_normal(mu_bkgd, sg_bkgd)
 sgnl = stats.multivariate_normal(mu_sgnl, sg_sgnl)
 
 lr = make_lr(bkgd, sgnl)
-mae = make_mae(bkgd, sgnl, 'data/trees/{}/'.format(d))
+mae = make_mae(bkgd, sgnl, 'data/bdts/{}/'.format(d))
 
-X = np.load('data/trees/{}/X_trn.npy'.format(d))
-y = np.load('data/trees/{}/y_trn.npy'.format(d))
+X = np.load('data/bdts/{}/X_trn.npy'.format(d))
+y = np.load('data/bdts/{}/y_trn.npy'.format(d))
 
 # Calculate mean absolute errors
 gbc_avg = np.array([])
@@ -447,6 +448,6 @@ mae_plot([bce_avg, gbc_avg, bdt_avg],
          Ns,
          figsize = (w, h),
          title = r'\it $d = {}$'.format(d),
-         filename = 'plots/paper/gbc_d{}.png'.format(d))
+         filename = 'plots/paper/bdts_d{}.png'.format(d))
 
 
