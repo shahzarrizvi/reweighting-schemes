@@ -47,41 +47,9 @@ mae = make_mae(bkgd, sgnl, 'data/bdts/{}/'.format(d))
 X = np.load('data/bdts/{}/X_trn.npy'.format(d)).reshape(-1, 1)
 y = np.load('data/bdts/{}/y_trn.npy'.format(d))
 
-# Calculate mean absolute errors
-gbc_avg = np.array([])
-bce_avg = np.array([])
-bdt_avg = np.array([])
-for N in Ns:
-    print(N, end = '\t')
-    data, m, s = split_data(X[:N], y[:N])
-    
-    gbc_lrs = [None] * reps
-    bce_lrs = [None] * reps
-    for i in range(reps):
-        gbc_model = load(gbc_filestr.format(N, i))
-        gbc_lrs[i] = tree_lr(gbc_model)
-        
-        bce_model = create_model(**bce_params)
-        bce_model.load_weights(bce_filestr.format(N, i))
-        bce_lrs[i] = odds_lr(bce_model, m, s)
-        
-    bce_maes = [mae(lr) for lr in bce_lrs]
-    bce_avg = np.append(bce_avg, np.mean(bce_maes))
-    np.save(filestr + 'bce_avg', bce_avg)
-    print(bce_avg[-1], end = '\t')
-    
-    gbc_maes = [mae(lr) for lr in gbc_lrs]
-    gbc_avg = np.append(gbc_avg, np.mean(gbc_maes))
-    np.save(filestr + 'gbc_avg', gbc_avg)
-    print(gbc_avg[-1], end = '\t')
-    
-    bdt = XGBClassifier(early_stopping_rounds = 10)
-    bdt.load_model(bdt_filestr.format(N))
-    bdt_lr = tree_lr(bdt)
-    bdt_mae = mae(bdt_lr)
-    bdt_avg = np.append(bdt_avg, bdt_mae)
-    np.save(filestr + 'bdt_avg', bdt_avg)
-    print(bdt_mae)
+bce_avg = np.load(filestr + 'bce_avg.npy')
+gbc_avg = np.load(filestr + 'gbc_avg.npy')
+bdt_avg = np.load(filestr + 'bdt_avg.npy')
 
 mae_plot([bce_avg, gbc_avg, bdt_avg],
          ['BCE', 'GBC', 'BDT'],
