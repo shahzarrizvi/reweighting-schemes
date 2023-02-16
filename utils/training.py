@@ -143,13 +143,12 @@ def make_lr(bkgd, sgnl):
     return lambda x: sgnl.pdf(x) / bkgd.pdf(x)
 
 def make_mae(bkgd, sgnl, dir_name):
-    X_mae = np.load(dir_name + 'X_tst.npy').reshape(-1, 1)
+    X_tst = np.load(dir_name + 'X_tst.npy')
     lr = make_lr(bkgd, sgnl)
-    lr_tst = lr(X_mae).reshape(-1)
+    lr_tst = np.squeeze(lr(X_tst))
     
     def mae(model_lr):
-        print('1', end = ' ')
-        return np.abs(model_lr(X_mae) - lr_tst).mean()
+        return np.abs(model_lr(X_tst) - lr_tst).mean()
     return mae
 
 def make_mpe(bkgd, sgnl, N_mpe = 10**4):
@@ -238,6 +237,7 @@ def arctan_lr(model, m = 0, s = 1):
 
 def tree_lr(model, m = 0, s = 1):
     def model_lr(x):
+        x = x.reshape(x.shape[0], -1)
         f = model.predict_proba((x - m) / s)[:, 1]
         return np.squeeze(f / (1. - f))
     return model_lr
