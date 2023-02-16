@@ -216,12 +216,18 @@ def ratio_plot(ensembles,
 def mae_plot(maes,
              labels,
              Ns,
+             stds = None,
              figsize = (8, 8),
              y_lim = None,
              title = None,
              filename = None):
     
     plt.figure(figsize = figsize)
+    
+    if not stds:
+        stds = [None] * len(maes)
+        for i in range(len(maes)):
+            stds[i] = np.zeros_like(Ns)
     
     for i in range(len(maes)):
         plt.plot(Ns, 
@@ -230,6 +236,11 @@ def mae_plot(maes,
                  c = cs[i % len(cs)],
                  ls = lss[i % len(lss)],
                  lw = 0.75)
+        plt.fill_between(Ns, 
+                         maes[i] - stds[i], 
+                         maes[i] + stds[i], 
+                         color = cs[i % len(cs)], 
+                         alpha=0.1)
     plt.legend()
     
     if y_lim:

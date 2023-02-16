@@ -13,7 +13,7 @@ from utils.training import *
 
 np.random.seed(666) # Need to do more to ensure data is the same across runs.
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "3" # pick a number < 4 on ML4HEP; < 3 on Voltan 
+os.environ["CUDA_VISIBLE_DEVICES"] = "0" # pick a number < 4 on ML4HEP; < 3 on Voltan 
 physical_devices = tf.config.list_physical_devices('GPU') 
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
@@ -173,8 +173,8 @@ for N in Ns:
     print(trace['logloss'][-1], '\t', len(trace['logloss']), end = '\n')
     bdt_model.save_model(bdt_filestr.format(N))
 
-    for i in range(91, reps):
-        print(i, end = ' ')
+    for i in range(reps):
+        print(i, end = '\t')
         # Train BCE model
         bce_model, trace = train(data, **bce_params)
         bce_model.save_weights(bce_filestr.format(N, i))
@@ -184,7 +184,9 @@ for N in Ns:
                                                n_iter_no_change = 10)
         gbc_model.fit(X[:N], y[:N])
         dump(gbc_model, gbc_filestr.format(N, i))
+        print()
     print()    
+
 
 # Experiment parameters
 num = 0
