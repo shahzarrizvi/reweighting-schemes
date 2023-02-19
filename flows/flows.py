@@ -65,6 +65,7 @@ def flow(data,
          batch_size = 2**6, 
          lr = 1e-2, 
          num_epochs = 100):
+    
     n, d = data.shape
     
     ffjords = create_ffjords(num_ffjords, num_hidden, num_layers, d)

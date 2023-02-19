@@ -7,7 +7,7 @@ from flows import *
 
 import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "1" # pick a number < 4 on ML4HEP; < 3 on Voltan 
+os.environ["CUDA_VISIBLE_DEVICES"] = "0" # pick a number < 4 on ML4HEP; < 3 on Voltan 
 physical_devices = tf.config.list_physical_devices('GPU') 
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
@@ -19,4 +19,8 @@ dat_phi = data['sim_jets'][:, 2]
 dat_m =   data['sim_jets'][:, 3]
 dat = np.vstack([dat_pt, dat_eta, dat_phi, dat_m]).T
 
-dat_target = flow(dat, ckpt_path = 'dat/ckpt')
+dat_target = flow(dat, 
+                  ckpt_path = 'dat2/ckpt', 
+                  batch_size = 2**7, 
+                  num_epochs = 200, 
+                  lr = 1e-3)
