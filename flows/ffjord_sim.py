@@ -19,4 +19,8 @@ sim_phi = mc['sim_jets'][:, 2]
 sim_m =   mc['sim_jets'][:, 3]
 sim = np.vstack([sim_pt, sim_eta, sim_phi, sim_m]).T
 
-sim_target = flow(sim, ckpt_path = 'sim/ckpt')
+dat_target = flow(sim, 
+                  ckpt_path = 'sim2/ckpt', 
+                  batch_size = 2**7, 
+                  num_epochs = 100, 
+                  lr = 1e-4)
