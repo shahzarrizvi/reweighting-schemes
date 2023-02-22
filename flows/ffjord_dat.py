@@ -20,7 +20,7 @@ dat_m =   data['sim_jets'][:, 3]
 dat = np.vstack([dat_pt, dat_eta, dat_phi, dat_m]).T
 
 dat_target = flow(dat, 
-                  ckpt_path = 'dat4/ckpt', 
+                  ckpt_path = 'dat5/ckpt', 
                   batch_size = 2**7, 
                   num_epochs = 200, 
-                  lr = 1e-4)
+                  lr = 1e-2)
