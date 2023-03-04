@@ -17,10 +17,10 @@ sim_pt =  mc['sim_jets'][:, 0]
 sim_eta = mc['sim_jets'][:, 1]
 sim_phi = mc['sim_jets'][:, 2]
 sim_m =   mc['sim_jets'][:, 3]
-sim = np.vstack([sim_pt, sim_eta, sim_phi, sim_m]).T
+sim = sim_pt.reshape(-1, 1)
 
 sim_target = flow(sim, 
-                  ckpt_path = 'sim3/ckpt', 
+                  ckpt_path = 'zenodo/sim1/ckpt', 
                   batch_size = 2**7, 
-                  num_epochs = 600, 
+                  num_epochs = 400, 
                   lr = 1e-3)
