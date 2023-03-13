@@ -4,5 +4,5 @@ sim2: batch_size 2**7. num_epochs = 100. lr = 1e-4. (sucked)
 dat3: batch_size 2**7. num_epochs = 400. lr = 1e-3. (really good)
 dat4: batch_size 2**7. num_epochs = 200. lr = 1e-4. (sucked)
 dat5: batch_size 2**7. num_epochs = 200. lr = 1e-2. (okay ? still waiting)
-dat6: batch_size 2**7. num_epochs = 600. lr = 1e-3
-sim3: batch_size 2**7. num_epochs = 600. lr = 1e-3
+dat6: batch_size 2**7. num_epochs = 600. lr = 1e-3 (best)
+sim3: batch_size 2**7. num_epochs = 600. lr = 1e-3 (best)

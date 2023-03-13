@@ -37,7 +37,7 @@ reps = 20
 
 # Model parameters
 #dirstr = 'models/univariate/simple/ab_sqr/set_{}/'.format(num)
-dirstr = 'models/flows/ab_sqr/set_{}/'.format(num)
+dirstr = 'models/zenodo/ab_sqr/set_{}/'.format(num)
 filestr_1 = dirstr + 'relu/model_{}_{}.h5'
 filestr_2 = dirstr + 'exponential/model_{}_{}.h5'
 
@@ -52,8 +52,8 @@ if not os.path.isdir(dirstr + 'exponential/'):
 
 # Data parameters
 N = 10**6
-X = np.load('data/zenodo/X_trn.npy')[:N]
-y = np.load('data/zenodo/y_trn.npy')[:N].astype('float32')
+X = np.load('data/zenodo/fold/X_trn.npy')[:N]
+y = np.load('data/zenodo/fold/y_trn.npy')[:N].astype('float32')
 data, m, s = split_data(X, y)
 
 rs = np.sort(np.append(np.round(np.linspace(-2, 2, 81), 2),
