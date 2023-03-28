@@ -137,7 +137,10 @@ def ratio_plot(ensembles,
                xs,
                bkgd = None, sgnl = None, 
                y_lim = None,
-               figsize = (8, 8), 
+               ratio_y_lim = (0.95, 1.05),
+               figsize = (8, 8),
+               cs = None, 
+               lss = None,
                title = None, 
                filename = None):
     
@@ -145,6 +148,11 @@ def ratio_plot(ensembles,
                             figsize = figsize,
                             sharex = True, 
                             gridspec_kw = {'height_ratios': [2, 1]})
+    
+    if not cs:
+        cs = np.repeat(['brown', 'green', 'red', 'blue'], len(ensembles))
+    if not lss:
+        lss = np.repeat([':', '--', '-.', ':'], len(ensembles))
     
     # Plot likelihood ratios
     axs[0].plot(xs, lr(xs), label = 'Exact', c = 'k', lw = 0.75)
@@ -161,14 +169,14 @@ def ratio_plot(ensembles,
         axs[0].plot(xs, 
                     lrs[i], 
                     label = labels[i],
-                    c = cs[i % len(cs)], 
-                    ls = lss[i % len(lss)],
+                    c = cs[i], 
+                    ls = lss[i],
                     lw = 0.75)
         
     axs[0].set_xlim(xs[0], xs[-1])
     if y_lim:
         axs[0].set_ylim(y_lim[0], y_lim[1])
-    axs[0].legend()
+    axs[0].legend(frameon = False)
     axs[0].minorticks_on()
     axs[0].tick_params(which = 'minor', length = 3)
     axs[0].tick_params(which = 'major', length = 5)
@@ -189,21 +197,21 @@ def ratio_plot(ensembles,
     for i in range(n):
         axs[1].plot(xs, 
                     lrrs[i],
-                    c = cs[i % len(cs)],
-                    ls = lss[i % len(lss)],
+                    c = cs[i],
+                    ls = lss[i],
                     lw = 0.75)
 
     axs[1].axhline(1,ls=":",color="grey", lw=0.5)
     axs[1].axvline(0,ls=":",color="grey", lw=0.5)
-    axs[1].set_ylim(0.95, 1.05);
+    axs[1].set_ylim(ratio_y_lim[0], ratio_y_lim[1]);
     axs[1].minorticks_on()
     axs[1].tick_params(which = 'minor', length = 3)
     axs[1].tick_params(which = 'major', length = 5)
     axs[1].tick_params(which = 'both', direction='in')
-    axs[1].set_ylabel('Ratio')
+    axs[1].set_ylabel(r'$\hat{\mathcal{L}}(x) / \mathcal{L}(x)$')
 
     plt.subplots_adjust(hspace = 0.1)
-    plt.xlabel(r'$x$')
+    axs[1].set_xlabel(r'$x$')
                     
     if title:
         axs[0].set_title(title, loc = 'right')
@@ -219,30 +227,35 @@ def mae_plot(maes,
              stds = None,
              figsize = (8, 8),
              y_lim = None,
+             cs = None,
+             lss = None,
              title = None,
              filename = None):
     
     plt.figure(figsize = figsize)
     
-    if not stds:
-        stds = [None] * len(maes)
-        for i in range(len(maes)):
-            stds[i] = np.zeros_like(Ns)
+    if not cs:
+        cs = np.repeat(['brown', 'green', 'red', 'blue'], len(maes))
+    if not lss:
+        lss = np.repeat([':', '--', '-.', ':'], len(maes))
     
     for i in range(len(maes)):
         plt.plot(Ns, 
                  maes[i],
                  label = labels[i],
-                 c = cs[i % len(cs)],
-                 ls = lss[i % len(lss)],
+                 c = cs[i],
+                 ls = lss[i],
                  lw = 0.75)
-        plt.fill_between(Ns, 
-                         maes[i] - stds[i], 
-                         maes[i] + stds[i], 
-                         color = cs[i % len(cs)], 
-                         alpha=0.1)
-    plt.legend()
+        if stds:
+            plt.fill_between(Ns, 
+                             maes[i] - stds[i], 
+                             maes[i] + stds[i], 
+                             color = cs[i], 
+                             alpha=0.1)
+            
+    plt.legend(frameon = False)
     
+    plt.xlim(Ns[0], Ns[-1])
     if y_lim:
         plt.ylim(y_lim[0], y_lim[1])
 

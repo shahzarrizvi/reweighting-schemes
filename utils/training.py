@@ -151,17 +151,14 @@ def make_mae(bkgd, sgnl, dir_name):
         return np.abs(model_lr(X_tst) - lr_tst).mean()
     return mae
 
-def make_mpe(bkgd, sgnl, N_mpe = 10**4):
-    bkgd_mpe = bkgd.rvs(size = N_mpe)
-    sgnl_mpe = sgnl.rvs(size = N_mpe)
-    X_mpe = np.concatenate([bkgd_mpe, sgnl_mpe])
+def make_mpe(bkgd, sgnl, dir_name):
+    X_tst = np.load(dir_name + 'X_tst.npy')
     
     lr = make_lr(bkgd, sgnl)
-    
+    lr_tst = np.squeeze(lr(X_tst))
     def mpe(model_lr):
-        nonlocal X_mpe
-        return np.abs((model_lr(X_mpe) - lr(X_mpe)) / lr(X_mpe)).mean() * 100
-    return mae
+        return np.abs((model_lr(X_tst) - lr(X_tst)) / lr_tst).mean() * 100
+    return mpe
     
 def odds_lr(model, m = 0, s = 1):
     def model_lr(x):
