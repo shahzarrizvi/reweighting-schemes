@@ -221,6 +221,60 @@ def ratio_plot(ensembles,
                     transparent = True,
                     bbox_inches = 'tight')
 
+def mpe_plot(mpes,
+             labels,
+             Ns,
+             stds = None,
+             figsize = (8, 8),
+             y_lim = None,
+             cs = None,
+             lss = None,
+             title = None,
+             filename = None):
+    
+    plt.figure(figsize = figsize)
+    
+    if not cs:
+        cs = np.repeat(['brown', 'green', 'red', 'blue'], len(mpes))
+    if not lss:
+        lss = np.repeat([':', '--', '-.', ':'], len(mpes))
+    
+    for i in range(len(mpes)):
+        plt.plot(Ns, 
+                 mpes[i],
+                 label = labels[i],
+                 c = cs[i],
+                 ls = lss[i],
+                 lw = 0.75)
+        if stds:
+            plt.fill_between(Ns, 
+                             mpes[i] - stds[i], 
+                             mpes[i] + stds[i], 
+                             color = cs[i], 
+                             alpha=0.1)
+            
+    plt.legend(frameon = False)
+    
+    plt.xlim(Ns[0], Ns[-1])
+    if y_lim:
+        plt.ylim(y_lim[0], y_lim[1])
+
+    plt.minorticks_on()
+    plt.tick_params(axis = 'y', which = 'minor', length = 3)
+    plt.tick_params(axis = 'y', which = 'major', length = 5)
+    plt.tick_params(which = 'both', direction='in')
+    plt.xscale("log", base=10)
+    plt.ylabel('Mean Percent Error')
+    plt.xlabel(r'$N$')
+    
+    if title:
+        plt.title(title, loc="right");
+    if filename:
+        plt.savefig(filename,
+                    transparent = True,
+                    dpi=300, 
+                    bbox_inches='tight')
+        
 def mae_plot(maes,
              labels,
              Ns,
