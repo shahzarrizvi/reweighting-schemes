@@ -5,6 +5,7 @@ from matplotlib import pyplot as plt
 from matplotlib.patches import Patch
 from matplotlib import rc
 import matplotlib.font_manager
+import matplotlib.ticker
 rc('font', family='serif')
 rc('text', usetex=True)
 rc('font', size=10)        #22
@@ -316,8 +317,10 @@ def mae_plot(maes,
     plt.minorticks_on()
     plt.tick_params(axis = 'y', which = 'minor', length = 3)
     plt.tick_params(axis = 'y', which = 'major', length = 5)
+    plt.tick_params(axis = 'x', which = 'minor', bottom = False)
     plt.tick_params(which = 'both', direction='in')
     plt.xscale("log", base=10)
+    plt.xticks(Ns)
     plt.ylabel('Mean Absolute Error')
     plt.xlabel(r'$N$')
     
