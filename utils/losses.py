@@ -112,3 +112,9 @@ def get_exp_sqr(p):
         return -((y_true) * -K.pow(K.exp(y_pred), -p/2) + 
                  (1. - y_true) * -K.pow(K.exp(y_pred), p/2))
     return exp_sqr_p
+
+def get_q_loss(q):
+    def q_loss(y_true, y_pred):
+        return -((y_true) * (K.pow(K.exp(y_pred), q) - 1)/q + 
+                 (1. - y_true) * (1 - K.pow(K.exp(y_pred), q + 1)/(q + 1)))
+    return q_loss

@@ -157,8 +157,28 @@ def make_mpe(bkgd, sgnl, dir_name):
     lr = make_lr(bkgd, sgnl)
     lr_tst = np.squeeze(lr(X_tst))
     def mpe(model_lr):
-        return np.abs((model_lr(X_tst) - lr(X_tst)) / lr_tst).mean() * 100
+        return np.abs((model_lr(X_tst) - lr_tst) / lr_tst).mean() * 100
     return mpe
+
+def make_mr(bkgd, sgnl, dir_name):
+    X_tst = np.load(dir_name + 'X_tst.npy')
+    
+    lr = make_lr(bkgd, sgnl)
+    lr_tst = np.squeeze(lr(X_tst))
+    def mr(model_lr):
+        return np.mean(model_lr(X_tst) / lr_tst)
+    return mr
+
+def make_null_statistic(bkgd, sgnl, dir_name):
+    X_tst = np.load(dir_name + 'X_tst.npy')
+    y_tst = np.load(dir_name + 'y_tst.npy')
+    X_null = X_tst[y_tst == 1]
+    
+    lr = make_lr(bkgd, sgnl)
+    null_lr = np.mean(lr(X_null))
+    def null_statistic(model_lr):
+        return abs(np.mean(model_lr(X_null)) - null_lr)
+    return null_statistic
     
 def odds_lr(model, m = 0, s = 1):
     def model_lr(x):
