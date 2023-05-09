@@ -9,7 +9,7 @@ from utils.training import *
 
 np.random.seed(666) # Need to do more to ensure data is the same across runs.
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0" # pick a number < 4 on ML4HEP; < 3 on Voltan 
+os.environ["CUDA_VISIBLE_DEVICES"] = "2" # pick a number < 4 on ML4HEP; < 3 on Voltan 
 physical_devices = tf.config.list_physical_devices('GPU') 
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
@@ -25,7 +25,8 @@ tf.config.experimental.set_memory_growth(physical_devices[0], True)
 #num = 4    # checker
 
 #Univariate
-num = 0    # bkgd: normal(-0.1, 1)     sgnl: normal(0.1, 1)
+#num = 0    # bkgd: normal(-0.1, 1)     sgnl: normal(0.1, 1)
+num = 1    # bkgd: normal(-0.1, 1)     sgnl: normal(0.1, 1) but with different qs
 #num = 1    # bkgd: normal(-0.2, 1)     sgnl: normal(0.2, 1)
 #num = 2    # bkgd: normal(-0.3, 1)     sgnl: normal(0.3, 1)
 #num = 3    # bkgd: normal(-0.4, 1)     sgnl: normal(0.4, 1) 
@@ -47,7 +48,7 @@ X = np.load('data/normal/0.1/X_trn.npy')[:N]
 y = np.load('data/normal/0.1/y_trn.npy')[:N].astype('float32')
 data, m, s = split_data(X, y)
 
-qs = np.round(np.linspace(-1, 0.5, 101), 2)
+qs = np.round(np.linspace(-1, 2, 151), 2)
 
 for q in qs:
     print('===================================================\n{}'.format(q))
