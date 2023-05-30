@@ -8,4 +8,5 @@ dat6: batch_size 2**7. num_epochs = 600. lr = 1e-3 (best)
 sim3: batch_size 2**7. num_epochs = 600. lr = 1e-3 (best)
 dat7: batch_size 2**7. num_epochs = 1000. lr = 1e-3 (not as good as previous)
 dat4: batch_size 2**7. num_epochs = 1000. lr = 1e-3 (not as good as previous)
-dat8: batch_size 2**7. num_epochs = 600. lr = 1e-3. num_hidden = 64.
+dat8: batch_size 2**6. num_epochs = 1000. lr = 1e-3. num_hidden = 16. (not as good as previous?)
+dat9: batch_size 2**7. num_epochs = 1000. lr = 1e-3. num_ffjords = 8.

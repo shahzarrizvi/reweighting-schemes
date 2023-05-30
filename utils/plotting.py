@@ -8,10 +8,14 @@ import matplotlib.font_manager
 import matplotlib.ticker
 rc('font', family='serif')
 rc('text', usetex=True)
-rc('font', size=10)        #22
-rc('xtick', labelsize=8)  #15
-rc('ytick', labelsize=8)  #15
-rc('legend', fontsize=8)  #15
+#rc('font', size=10)        #22
+#rc('xtick', labelsize=8)  #15
+#rc('ytick', labelsize=8)  #15
+#rc('legend', fontsize=8)  #15
+rc('font', size=6)        #22
+rc('xtick', labelsize=5)  #15
+rc('ytick', labelsize=5)  #15
+rc('legend', fontsize=5)  #15
 rc('text.latex', preamble=r'\usepackage{amsmath}')
 
 cs = ['brown', 'green', 'red', 'blue']
@@ -321,11 +325,12 @@ def mae_plot(maes,
     plt.tick_params(which = 'both', direction='in')
     plt.xscale("log", base=10)
     plt.xticks(Ns)
-    plt.ylabel('Mean Absolute Error')
+    plt.ylabel('MAE (100 trials)')
     plt.xlabel(r'$N$')
     
     if title:
-        plt.title(title, loc="right");
+        #plt.title(title, loc="right");
+        plt.title(title, loc = 'right')
     if filename:
         plt.savefig(filename,
                     transparent = True,
