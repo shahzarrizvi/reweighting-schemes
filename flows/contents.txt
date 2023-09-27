@@ -13,3 +13,7 @@ dat9: batch_size 2**7. num_epochs = 1000. lr = 1e-3. num_ffjords = 8. (0.5409)
 dat10: batch_size 2**7. num_epochs = 2000. lr = 1e-3. (0.5234)
 dat11: batch_size 2**7. num_epochs = 4000. lr = 1e-3. (???)
 dat12: batch_size 2**8. num_epochs = 4000. lr = 1e-3. (???)
+sim10: batch_size: 2**7. num_epochs = 2000. lr = 1e-3. (???)
+sim5: batch_size: 2**10. num_epochs = 2000. lr = 1e-3. (0.531)
+sim6: batch_size: 2**7. num_epochs = 2000. lr = 1e-3. (???)
+sim7: batch_size: 2**10. num_epochs = 4000. lr = 1e-3.

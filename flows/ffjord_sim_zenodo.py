@@ -27,8 +27,8 @@ sim_zgs = mc['sim_zgs']
 sim = np.vstack([sim_pt, sim_eta, sim_phi, sim_m, sim_mults, sim_lhas, 
                  sim_widths, sim_ang2s, sim_tau2s, sim_sdms, sim_zgs]).T
 
-sim_target = flow(sim, 
-                  ckpt_path = 'zenodo/sim11/ckpt', 
-                  batch_size = 2**7, 
-                  num_epochs = 400, 
+sim_target = distributed_flow(sim, 
+                  ckpt_path = 'zenodo/sim5/ckpt', 
+                  batch_size = 2**10, 
+                  num_epochs = 2000, 
                   lr = 1e-3)

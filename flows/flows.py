@@ -104,3 +104,45 @@ def make_target(d = 2,
     base_dist = tfd.MultivariateNormalDiag(d*[0], d*[1])
     tsfm_dist = tfd.TransformedDistribution(distribution = base_dist, bijector = ffjords)
     return tsfm_dist
+
+
+def distributed_flow(data,
+         ckpt_path = 'ckpt',
+         num_ffjords = 4, 
+         num_hidden = 8, 
+         num_layers = 3, 
+         batch_size = 2**6, 
+         lr = 1e-2, 
+         num_epochs = 100):
+    
+    n, d = data.shape
+    
+    strategy = tf.distribute.MirroredStrategy(devices=["/gpu:0", "/gpu:1", "/gpu:2", "/gpu:3"])
+    
+    with strategy.scope():
+        ffjords = create_ffjords(num_ffjords, num_hidden, num_layers, d)
+        base_dist = tfd.MultivariateNormalDiag(d*[0], d*[1])
+        tsfm_dist = tfd.TransformedDistribution(distribution = base_dist, bijector = ffjords)
+
+    ckpt = tf.train.Checkpoint(tsfm_dist)
+
+    dataset = tf.data.Dataset.from_tensor_slices(data.astype(np.float32)) \
+                .prefetch(tf.data.experimental.AUTOTUNE) \
+                .cache() \
+                .shuffle(n) \
+                .batch(batch_size)
+
+    learning_rate = tf.Variable(lr, trainable=False)
+    optimizer = snt.optimizers.Adam(learning_rate)
+
+    i = 1
+    for epoch in tqdm.trange(num_epochs // 2):
+        for batch in dataset:
+            _ = train_step(tsfm_dist, optimizer, batch)
+
+            if i % 1000 == 0:
+                ckpt.save(ckpt_path)
+            i += 1
+    ckpt.save(ckpt_path)
+    
+    return tsfm_dist
