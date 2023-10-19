@@ -4,6 +4,9 @@ from scipy import stats
 import tensorflow.compat.v2 as tf
 import tensorflow_probability as tfp
 import sonnet as snt
+import wandb
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn import metrics
 tf.enable_v2_behavior()
 
 tfb = tfp.bijectors
@@ -35,7 +38,7 @@ def create_ffjords(num_ffjords = 4,
                    d = 2):
     solver = tfp.math.ode.DormandPrince(atol=1e-5)
     ode_solve_fn = solver.solve
-    trace_augmentation_fn = tfb.ffjord.trace_jacobian_exact
+    trace_augmentation_fn = tfb.ffjord.trace_jacobian_hutchinson
 
     bijectors = []
     for _ in range(num_ffjords):
@@ -73,6 +76,7 @@ def flow(data,
     tsfm_dist = tfd.TransformedDistribution(distribution = base_dist, bijector = ffjords)
     
     ckpt = tf.train.Checkpoint(tsfm_dist)
+    manager = tf.train.CheckpointManager(ckpt, ckpt_path, max_to_keep=10)
     
     dataset = tf.data.Dataset.from_tensor_slices(data.astype(np.float32)) \
                 .prefetch(tf.data.experimental.AUTOTUNE) \
@@ -86,12 +90,13 @@ def flow(data,
     i = 1
     for epoch in tqdm.trange(num_epochs // 2):
         for batch in dataset:
-            _ = train_step(tsfm_dist, optimizer, batch)
+            loss = train_step(tsfm_dist, optimizer, batch)
             
-            if i % 1000 == 0:
-                ckpt.save(ckpt_path)
+            #if i % 1000 == 0:
+            #    ckpt.save(ckpt_path)
+            manager.save()
             i += 1
-    ckpt.save(ckpt_path)
+    #ckpt.save(ckpt_path)
     
     return tsfm_dist
 
@@ -105,6 +110,37 @@ def make_target(d = 2,
     tsfm_dist = tfd.TransformedDistribution(distribution = base_dist, bijector = ffjords)
     return tsfm_dist
 
+def calculate_auc(data, flow):
+    n, d = data.shape 
+    
+    X_bkgd = flow
+    X_sgnl = data
+    
+    np.random.seed(666)
+    
+    # Create full dataset; randomly sample points from Data or Flow with chance 1/2.
+    y = stats.bernoulli.rvs(0.5, size = n).astype('float32')
+    X = np.zeros_like(X_bkgd)
+
+    X[y == 0] = X_bkgd[y == 0]
+    X[y == 1] = X_sgnl[y == 1]
+
+    # Take 70% of data to be training data.
+    N_trn = int(0.7*n)
+    trn_idx = np.random.choice(range(n), N_trn, replace = False)
+    tst_idx = [n for n in range(n) if n not in trn_idx]
+
+    X_trn = X[trn_idx]
+    y_trn = y[trn_idx]
+
+    X_tst = X[tst_idx]
+    y_tst = y[tst_idx]
+    
+    ab_clf = AdaBoostClassifier()
+    ab_clf.fit(X_trn, y_trn)
+    
+    y_hat = ab_clf.predict_proba(X_tst)[:, 1]
+    return metrics.roc_auc_score(y_tst, y_hat)
 
 def distributed_flow(data,
          ckpt_path = 'ckpt',
@@ -114,6 +150,13 @@ def distributed_flow(data,
          batch_size = 2**6, 
          lr = 1e-2, 
          num_epochs = 100):
+    
+    run = wandb.init(project="four-vector-flows",
+                     config={"learning_rate": lr,
+                             "epochs": num_epochs,
+                             "batch_size": batch_size
+                            }
+                    )
     
     n, d = data.shape
     
@@ -138,7 +181,8 @@ def distributed_flow(data,
     i = 1
     for epoch in tqdm.trange(num_epochs // 2):
         for batch in dataset:
-            _ = train_step(tsfm_dist, optimizer, batch)
+            loss = train_step(tsfm_dist, optimizer, batch)
+            wandb.log({'loss': loss})
 
             if i % 1000 == 0:
                 ckpt.save(ckpt_path)

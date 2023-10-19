@@ -8,14 +8,14 @@ import matplotlib.font_manager
 import matplotlib.ticker
 rc('font', family='serif')
 rc('text', usetex=True)
-#rc('font', size=10)        #22
-#rc('xtick', labelsize=8)  #15
-#rc('ytick', labelsize=8)  #15
-#rc('legend', fontsize=8)  #15
-rc('font', size=6)        #22
-rc('xtick', labelsize=5)  #15
-rc('ytick', labelsize=5)  #15
-rc('legend', fontsize=5)  #15
+rc('font', size=10)        #22
+rc('xtick', labelsize=8)  #15
+rc('ytick', labelsize=8)  #15
+rc('legend', fontsize=8)  #15
+#rc('font', size=6)        #22
+#rc('xtick', labelsize=5)  #15
+#rc('ytick', labelsize=5)  #15
+#rc('legend', fontsize=5)  #15
 rc('text.latex', preamble=r'\usepackage{amsmath}')
 
 cs = ['brown', 'green', 'red', 'blue']

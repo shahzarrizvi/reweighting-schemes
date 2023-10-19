@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from flows import *
 
 import os
-
+# Run as CUDA_VISIBLE_DEVICES=0,1,2,3
 os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2,3" # pick a number < 4 on ML4HEP; < 3 on Voltan 
 physical_devices = tf.config.list_physical_devices('GPU') 
 for gpu in physical_devices:
@@ -21,7 +21,7 @@ sim_m =   mc['sim_jets'][:, 3]
 sim = np.vstack([sim_pt, sim_eta, sim_phi, sim_m]).T
 
 sim_target = distributed_flow(sim, 
-                  ckpt_path = 'sim7/ckpt', 
-                  batch_size = 2**10, 
-                  num_epochs = 4000, 
-                  lr = 1e-3)
+                              ckpt_path = 'sim/9/ckpt', 
+                              batch_size = 2**9, 
+                              num_epochs = 1000, 
+                              lr = 1e-4)

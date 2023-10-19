@@ -5,6 +5,7 @@ from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, Input, Dropout
 from tensorflow.keras.callbacks import EarlyStopping
 
+import tensorflow_probability as tfp
 from sklearn.model_selection import train_test_split
 
 # Training functions
@@ -250,6 +251,16 @@ def arctan_lr(model, m = 0, s = 1):
     def model_lr(x):
         f = model.predict((x - m) / s)
         return np.squeeze(t_arctan(f) / (1. - t_arctan(f)))
+    return model_lr
+
+def probit(x):
+    normal = tfp.distributions.Normal(loc=0., scale=1.)
+    return normal.cdf(x)
+
+def probit_lr(model, m = 0, s = 1):
+    def model_lr(x):
+        f = model.predict((x - m) / s)
+        return np.squeeze(probit(f) / (1. - probit(f)))
     return model_lr
 
 def tree_lr(model, m = 0, s = 1):
