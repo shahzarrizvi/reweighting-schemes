@@ -38,6 +38,7 @@ def create_ffjords(num_ffjords = 4,
                    d = 2):
     solver = tfp.math.ode.DormandPrince(atol=1e-5)
     ode_solve_fn = solver.solve
+    #trace_augmentation_fn = tfb.ffjord.trace_jacobian_exact
     trace_augmentation_fn = tfb.ffjord.trace_jacobian_hutchinson
 
     bijectors = []
@@ -184,7 +185,7 @@ def distributed_flow(data,
             loss = train_step(tsfm_dist, optimizer, batch)
             wandb.log({'loss': loss})
 
-            if i % 1000 == 0:
+            if i % 100 == 0:
                 ckpt.save(ckpt_path)
             i += 1
     ckpt.save(ckpt_path)
