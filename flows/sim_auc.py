@@ -66,11 +66,12 @@ def calculate_auc(fake, real):
     auc = metrics.roc_auc_score(y_tst, y_hat)
     return auc
 
-start = 12001
-end = 20000
+start = 22001
+end = 28000
 ns = np.arange(start, end + 1)
 
 aucs = np.zeros(end)
+aucs[:start - 1] = np.load('sim_aucs.npy')
 
 for i in ns:
     sim_target = make_target(d)

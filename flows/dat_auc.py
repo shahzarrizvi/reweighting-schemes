@@ -66,10 +66,12 @@ def calculate_auc(fake, real):
     auc = metrics.roc_auc_score(y_tst, y_hat)
     return auc
 
-num_ckpts = 16000 #16k - 20k
-ns = np.arange(1, num_ckpts + 1)
+start = 27001
+end = 35000
+ns = np.arange(start, end + 1)
 
-aucs = np.zeros(num_ckpts)
+aucs = np.zeros(end)
+aucs[:start - 1] = np.load('dat_aucs.npy')
 
 for i in ns:
     dat_target = make_target(d)
