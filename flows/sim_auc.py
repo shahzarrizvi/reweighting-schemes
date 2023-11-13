@@ -66,8 +66,8 @@ def calculate_auc(fake, real):
     auc = metrics.roc_auc_score(y_tst, y_hat)
     return auc
 
-start = 22001
-end = 28000
+start = 40001
+end = 55000
 ns = np.arange(start, end + 1)
 
 aucs = np.zeros(end)

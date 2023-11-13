@@ -15,7 +15,7 @@ tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 # Experiment parameters
 # Physics
-num = 2
+num = 4
 
 # Multivariate
 #num = 0    # vertical
@@ -43,15 +43,16 @@ if not os.path.isdir(filestr):
 
 # Data parameters
 N = 10**6
-X = np.load('data/zenodo/fold/X_trn.npy')[:N]
-y = np.load('data/zenodo/fold/y_trn.npy')[:N].astype('float32')
+X = np.load('data/zenodo/fold/6/X_trn.npy')[:N]
+y = np.load('data/zenodo/fold/6/y_trn.npy')[:N].astype('float32')
 data, m, s = split_data(X, y)
 
-ps = np.round(np.linspace(-2, 2, 101), 2)
+#ps = np.round(np.linspace(-2, 2, 101), 2)
+ps = np.round(np.linspace(2, 3, 101), 2)
 
 for p in ps:
     print('===================================================\n{}'.format(p))
-    params = {'loss': get_mse(p), 'd': 4}
+    params = {'loss': get_mse(p), 'd': 6}
     for i in range(reps):
         print(i, end = '\t')
         model, trace = train(data, **params)
