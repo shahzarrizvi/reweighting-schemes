@@ -32,7 +32,7 @@ from utils.losses import *
 
 np.random.seed(666)
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "2" # pick a number < 4 on ML4HEP; < 3 on Voltan 
+os.environ["CUDA_VISIBLE_DEVICES"] = "3" # pick a number < 4 on ML4HEP; < 3 on Voltan 
 physical_devices = tf.config.list_physical_devices('GPU') 
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
@@ -66,8 +66,8 @@ def calculate_auc(fake, real):
     auc = metrics.roc_auc_score(y_tst, y_hat)
     return auc
 
-start = 48001
-end = 62000
+start = 70001
+end = 83000
 ns = np.arange(start, end + 1)
 
 aucs = np.zeros(end)
