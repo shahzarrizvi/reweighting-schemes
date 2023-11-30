@@ -1,6 +1,6 @@
 # Pick GPU.
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 import torch
 from torch import nn
@@ -71,5 +71,5 @@ for epoch in tqdm.trange(num_epochs):
         losses[i] = loss
         i += 1
         if i % 100 == 0:
-            make_checkpoint(flow, optimizer, loss, 'nflows/batches_0/ckpt_{}'.format(i))
-    np.save('nflows/batches_0/losses.npy', losses)
+            make_checkpoint(flow, optimizer, loss, 'nflows/batches_1/ckpt_{}'.format(i))
+    np.save('nflows/batches_1/losses.npy', losses)
