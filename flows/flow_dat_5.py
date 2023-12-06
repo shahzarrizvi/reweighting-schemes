@@ -1,0 +1,94 @@
+# Pick GPU.
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+
+import torch
+from torch import nn
+from torch import optim
+from torch.utils.data import DataLoader
+
+print(torch.cuda.is_available())
+print(torch.cuda.device_count())
+print(torch.cuda.current_device())
+print(torch.cuda.device(0))
+print(torch.cuda.get_device_name(0))
+
+from nflows.flows.base import Flow
+from nflows.distributions.normal import StandardNormal
+from nflows.transforms.base import CompositeTransform
+from nflows.transforms.autoregressive import MaskedAffineAutoregressiveTransform
+from nflows.transforms.permutations import ReversePermutation
+
+import tqdm as tqdm
+import numpy as np
+
+# Load in data.
+dt = np.load("../data/zenodo/Herwig_Zjet_pTZ-200GeV_0.npz")
+
+dt_pt =  dt['sim_jets'][:, 0] 
+dt_eta = dt['sim_jets'][:, 1]
+dt_phi = dt['sim_jets'][:, 2]
+dt_m =   dt['sim_jets'][:, 3]
+dt_w = dt['sim_widths']
+dt_sdms = dt['sim_sdms']
+
+dt = np.vstack([dt_pt, dt_eta, dt_m, dt_w, dt_sdms]).T
+n, d = dt.shape
+
+data = torch.tensor(dt, dtype = torch.float32)
+dataset = DataLoader(data, batch_size = 2**6, shuffle = True)
+
+
+# Checkpointing methods
+def make_checkpoint(flow, optimizer, loss, filename):
+    torch.save({'model_state_dict': flow.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'loss': loss,
+               }, 
+               filename)
+
+# Initialize flow.
+num_layers = 5
+base_dist = StandardNormal(shape=[d])
+
+transforms = []
+for _ in range(num_layers):
+    transforms.append(ReversePermutation(features=d))
+    transforms.append(MaskedAffineAutoregressiveTransform(features=d, 
+                                                          hidden_features=8))
+transform = CompositeTransform(transforms)
+
+flow = Flow(transform, base_dist)
+optimizer = optim.Adam(flow.parameters())
+
+# Reset old checkpoint
+ckpt = torch.load('flows/dat/5/ckpt_100000')
+flow.load_state_dict(ckpt['model_state_dict'])
+optimizer.load_state_dict(ckpt['optimizer_state_dict'])
+loss = ckpt['loss']
+flow.train()
+
+# Train flow.
+trn_dir = 'flows/dat/5/'
+num_iter = 200000 # Use dataset 100,000 times.
+losses = np.zeros(num_iter)
+losses[:100000] = np.load(trn_dir + 'losses.npy')
+
+best_loss = min(losses[losses > 0])
+for i in tqdm.trange(100001, num_iter):
+    optimizer.zero_grad()
+    loss = -flow.log_prob(inputs=data).mean()
+    losses[i] = loss
+    
+    loss.backward()
+    optimizer.step()
+    if i % 100 == 0:
+        make_checkpoint(flow, optimizer, loss, trn_dir + 'ckpt_{}'.format(i))
+        np.save(trn_dir + 'losses.npy', losses)
+        
+    if losses[i] < best_loss:
+        make_checkpoint(flow, optimizer, loss, trn_dir + 'ckpt_best')
+        best_loss = losses[i]
+        
+make_checkpoint(flow, optimizer, loss, trn_dir + 'ckpt_{}'.format(num_iter))
+np.save(trn_dir + 'losses.npy', losses)

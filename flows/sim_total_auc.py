@@ -1,4 +1,14 @@
 #import tensorflow as tf
+import torch
+from torch import nn
+from torch import optim
+from torch.utils.data import DataLoader
+from nflows.flows.base import Flow
+from nflows.distributions.normal import StandardNormal
+from nflows.transforms.base import CompositeTransform
+from nflows.transforms.autoregressive import MaskedAffineAutoregressiveTransform
+from nflows.transforms.permutations import ReversePermutation
+
 from scipy import stats
 import numpy as np
 import sklearn.metrics as metrics
@@ -21,14 +31,14 @@ rc('text.latex', preamble=r'\usepackage{amsmath}')
 w = 3.5
 h = 3.25       
 
-from flows import *
+#from flows import *
 
 import sys
 import os
 
 sys.path.append('../')
-from utils.training import *
-from utils.losses import *
+#from utils.training import *
+#from utils.losses import *
 
 np.random.seed(666)
 
@@ -68,28 +78,31 @@ def calculate_auc(fake, real):
 
 #start = 65001
 #end = 80000
-ns = np.arange(0, 99900, 100)
+ns = np.arange(0, 99901, 100)
 
-aucs = np.zeros_like(ns)
+aucs = np.zeros(len(ns))
 #aucs[:start - 1] = np.load('sim_aucs.npy')
 
-for i in ns:
-    num_layers = 5
-    base_dist = StandardNormal(shape=[6])
+num_layers = 5
+base_dist = StandardNormal(shape=[6])
 
-    transforms = []
-    for _ in range(num_layers):
-        transforms.append(ReversePermutation(features=6))
-        transforms.append(MaskedAffineAutoregressiveTransform(features=6, 
-                                                              hidden_features=8))
-    transform = CompositeTransform(transforms)
+transforms = []
+for _ in range(num_layers):
+    transforms.append(ReversePermutation(features=6))
+    transforms.append(MaskedAffineAutoregressiveTransform(features=6, 
+                                                          hidden_features=8))
+transform = CompositeTransform(transforms)
+flow = Flow(transform, base_dist)
 
-    flow = Flow(transform, base_dist)
-    ckpt = torch.load('nflows/total_0/ckpt_{}'.format(i))
+for i in range(len(ns)):
+    k = ns[i]
+    
+    ckpt = torch.load('nflows/total_1/ckpt_{}'.format(k))
     flow.load_state_dict(ckpt['model_state_dict'])
+    flow.eval()
     
     sim_smp = flow.sample(n).detach().numpy()
-    aucs[i] = calculate_auc(sim_smp, sim)
+    aucs[i] =  calculate_auc(sim_smp, sim)
     
-    print(i, '\t', round(aucs[i], 4))
-    np.save('sim_total_aucs.npy', aucs)
+    print(k, '\t', round(aucs[i]*100, 2))
+    np.save('sim_total_1_aucs.npy', aucs)

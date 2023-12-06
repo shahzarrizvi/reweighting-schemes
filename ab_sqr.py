@@ -17,7 +17,7 @@ tf.config.experimental.set_memory_growth(physical_devices[0], True)
 # Experiment parameters
 # Physics
 #num = 0 
-num = 3
+num = 5
 
 # Multivariate
 #num = 0    # vertical
@@ -53,9 +53,10 @@ if not os.path.isdir(dirstr + 'exponential/'):
 
 # Data parameters
 N = 10**6
-X = np.load('data/zenodo/fold/6/X_trn.npy')[:N]
-y = np.load('data/zenodo/fold/6/y_trn.npy')[:N].astype('float32')
+X = np.load('data/zenodo/fold/5/X_trn.npy')[:N]
+y = np.load('data/zenodo/fold/5/y_trn.npy')[:N].astype('float32')
 data, m, s = split_data(X, y)
+d = X.shape[1]
 
 rs = np.sort(np.append(np.round(np.linspace(-2, 2, 81), 2),
                        np.round(np.linspace(-0.05, 0.05, 26), 3)[1:-1]))
@@ -66,8 +67,8 @@ for r in rs:
     print('===================================================\n{}'.format(r))
     #params_1 = {'loss': get_sqr(r), 'activation':'relu'}
     #params_2 = {'loss': get_exp_sqr(r), 'activation':'linear'}
-    params_1 = {'loss': get_sqr(r), 'd': 6, 'output':'relu'}
-    params_2 = {'loss': get_exp_sqr(r), 'd': 6, 'output':'linear'}
+    params_1 = {'loss': get_sqr(r), 'd': d, 'output':'relu'}
+    params_2 = {'loss': get_exp_sqr(r), 'd': d, 'output':'linear'}
     for i in range(reps):
         print(i, end = '\t')
         #sqr_model, trace = train_simple(data, **params_1)

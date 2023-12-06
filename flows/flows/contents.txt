@@ -1,0 +1,22 @@
+5:
+- pT
+- eta
+- m
+- widths
+- sdms
+
+6:
+- m
+- mults
+- widths
+- soft drop jet mass
+- tau21
+- pT
+
+7:
+- pT
+- eta
+- m
+- widths
+- sdms
+- tau21
