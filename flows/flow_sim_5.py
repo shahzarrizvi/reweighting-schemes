@@ -12,6 +12,8 @@ print(torch.cuda.device_count())
 print(torch.cuda.current_device())
 print(torch.cuda.device(0))
 print(torch.cuda.get_device_name(0))
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(device)
 
 from nflows.flows.base import Flow
 from nflows.distributions.normal import StandardNormal
@@ -35,8 +37,9 @@ mc_sdms = mc['sim_sdms']
 mc = np.vstack([mc_pt, mc_eta, mc_m, mc_w, mc_sdms]).T
 n, d = mc.shape
 
-data = torch.tensor(mc, dtype = torch.float32)
-dataset = DataLoader(data, batch_size = 2**6, shuffle = True)
+data = torch.tensor(mc, dtype = torch.float32).cuda()
+data.to(device)
+#dataset = DataLoader(data, batch_size = 2**6, shuffle = True)
 
 
 # Checkpointing methods
@@ -46,6 +49,7 @@ def make_checkpoint(flow, optimizer, loss, filename):
                 'loss': loss,
                }, 
                filename)
+
 
 # Initialize flow.
 num_layers = 5
@@ -59,37 +63,40 @@ for _ in range(num_layers):
 transform = CompositeTransform(transforms)
 
 flow = Flow(transform, base_dist)
+flow.to(device)
 optimizer = optim.Adam(flow.parameters())
 
+
 # Reset old checkpoint
-ckpt = torch.load('flows/sim/5/ckpt_100000')
+ckpt = torch.load('nflows/sim/5/ckpt_200000')
 flow.load_state_dict(ckpt['model_state_dict'])
 optimizer.load_state_dict(ckpt['optimizer_state_dict'])
 loss = ckpt['loss']
 flow.train()
 
 # Train flow.
-trn_dir = 'flows/sim/5/'
-num_iter = 200000 # Use dataset 100,000 times.
+trn_dir = 'nflows/sim/5/'
+num_iter = 1000000 # Use dataset 100,000 times.
 losses = np.zeros(num_iter)
-losses[:100000] = np.load(trn_dir + 'losses.npy')[:100000]
+losses[:200000] = np.load(trn_dir + 'losses.npy')[:200000]
 
-best_loss = min(losses[losses > 0])
-print(-flow.log_prob(inputs=mc.astype('float32')).mean())
-for i in tqdm.trange(100001, num_iter):
+best = np.inf * np.ones(100)
+print(-flow.log_prob(inputs=data).mean())
+for i in tqdm.trange(200001, num_iter):
     optimizer.zero_grad()
     loss = -flow.log_prob(inputs=data).mean()
     losses[i] = loss
     
     loss.backward()
     optimizer.step()
-    if i % 100 == 0:
+    if i % 10000 == 0:
         make_checkpoint(flow, optimizer, loss, trn_dir + 'ckpt_{}'.format(i))
         np.save(trn_dir + 'losses.npy', losses)
         
-    if losses[i] < best_loss:
-        make_checkpoint(flow, optimizer, loss, trn_dir + 'ckpt_best')
-        best_loss = losses[i]
+    if losses[i] < max(best):
+        idx = np.argmax(best) # Get the index of the maximum best loss
+        make_checkpoint(flow, optimizer, loss, trn_dir + 'best/ckpt_{}'.format(idx))
+        best[idx] = losses[i]
         
 make_checkpoint(flow, optimizer, loss, trn_dir + 'ckpt_{}'.format(num_iter))
 np.save(trn_dir + 'losses.npy', losses)

@@ -63,6 +63,7 @@ def make_checkpoint(flow, optimizer, loss, filename):
                }, 
                filename)
 
+
 # Initialize flow.
 num_layers = 5
 base_dist = StandardNormal(shape=[d])
@@ -78,8 +79,9 @@ flow = Flow(transform, base_dist)
 flow.to(device)
 optimizer = optim.Adam(flow.parameters())
 
+
 # Reset old checkpoint
-ckpt = torch.load('flows/dat/6/ckpt_200000')
+ckpt = torch.load('nflows/dat/6/ckpt_1000000')
 flow.load_state_dict(ckpt['model_state_dict'])
 optimizer.load_state_dict(ckpt['optimizer_state_dict'])
 loss = ckpt['loss']
@@ -87,22 +89,22 @@ flow.train()
 
 
 # Train flow.
-trn_dir = 'flows/dat/6/'
-num_iter = 800000 # Use dataset 100,000 times.
+trn_dir = 'nflows/dat/6/'
+num_iter = 2000000 # Use dataset 100,000 times.
 losses = np.zeros(num_iter)
-losses[:200000] = np.load(trn_dir + 'losses.npy')[:200000]
+losses[:1000000] = np.load(trn_dir + 'losses.npy')[:1000000]
 
 best = np.inf * np.ones(100)
 print(-flow.log_prob(inputs=data).mean())
-for i in tqdm.trange(200001, num_iter):
+for i in tqdm.trange(1000001, num_iter):
     optimizer.zero_grad()
     loss = -flow.log_prob(inputs=data).mean()
     losses[i] = loss
     
     loss.backward()
     optimizer.step()
-    if i % 100 == 0:
-        #make_checkpoint(flow, optimizer, loss, trn_dir + 'ckpt_{}'.format(i))
+    if i % 10000 == 0:
+        make_checkpoint(flow, optimizer, loss, trn_dir + 'ckpt_{}'.format(i))
         np.save(trn_dir + 'losses.npy', losses)
         
     if losses[i] < max(best):
