@@ -117,6 +117,9 @@ def square_sqr(y_true, y_pred):
              (1. - y_true) * -K.sqrt(K.square(y_pred)))
 
 def exp_sqr(y_true, y_pred):
+#    v = -((y_true) * -1. / K.sqrt(K.exp(y_pred)) + 
+#          (1. - y_true) * -K.sqrt(K.exp(y_pred)))
+#    print(K.get_value(v))
     return -((y_true) * -1. / K.sqrt(K.exp(y_pred)) + 
              (1. - y_true) * -K.sqrt(K.exp(y_pred)))
 

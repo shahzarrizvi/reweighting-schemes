@@ -23,12 +23,13 @@ def create_model(loss,
                  verbose = 0):
     model = Sequential()
     if dropout:
+        p = 0.1 #64, 128, 64
         model.add(Dense(64, activation=hidden, input_shape=(d, )))
-        model.add(Dropout(0.1))
+        model.add(Dropout(p))
         model.add(Dense(128, activation=hidden))
-        model.add(Dropout(0.1))
+        model.add(Dropout(p))
         model.add(Dense(64, activation=hidden))
-        model.add(Dropout(0.1))
+        model.add(Dropout(p))
         model.add(Dense(1, activation=output))
     else: 
         model.add(Dense(64, activation=hidden, input_shape=(d, )))

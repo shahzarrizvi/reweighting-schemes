@@ -9,13 +9,13 @@ from utils.training import *
 
 np.random.seed(666) # Need to do more to ensure data is the same across runs.
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "3" # pick a number < 4 on ML4HEP; < 3 on Voltan 
+os.environ["CUDA_VISIBLE_DEVICES"] = "0" # pick a number < 4 on ML4HEP; < 3 on Voltan 
 physical_devices = tf.config.list_physical_devices('GPU') 
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 # Experiment parameters
 # Physics
-num = 5
+num = 6
 
 # Multivariate
 #num = 0    # vertical
@@ -43,13 +43,12 @@ if not os.path.isdir(filestr):
 
 # Data parameters
 N = 10**6
-X = np.load('data/zenodo/fold/5/X_trn.npy')[:N]
-y = np.load('data/zenodo/fold/5/y_trn.npy')[:N].astype('float32')
+X = np.load('data/zenodo/fold/6/X_trn.npy')[:N]
+y = np.load('data/zenodo/fold/6/y_trn.npy')[:N].astype('float32')
 d = X.shape[1]
 data, m, s = split_data(X, y)
 
-ps = np.round(np.linspace(-2, 2, 101), 2)
-#ps = np.round(np.linspace(2, 3, 101), 2)
+ps = np.linspace(-2, 3, 126)
 
 for p in ps:
     print('===================================================\n{}'.format(p))
