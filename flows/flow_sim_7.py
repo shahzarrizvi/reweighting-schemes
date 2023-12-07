@@ -12,6 +12,8 @@ print(torch.cuda.device_count())
 print(torch.cuda.current_device())
 print(torch.cuda.device(0))
 print(torch.cuda.get_device_name(0))
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(device)
 
 from nflows.flows.base import Flow
 from nflows.distributions.normal import StandardNormal
@@ -38,7 +40,7 @@ mc = np.vstack([mc_pt, mc_eta, mc_m, mc_w, mc_sdms, mc_tau21]).T
 n, d = mc.shape
 
 data = torch.tensor(mc, dtype = torch.float32)
-dataset = DataLoader(data, batch_size = 2**6, shuffle = True)
+data.to(device)
 
 # Checkpointing methods
 def make_checkpoint(flow, optimizer, loss, filename):
@@ -60,10 +62,11 @@ for _ in range(num_layers):
 transform = CompositeTransform(transforms)
 
 flow = Flow(transform, base_dist)
+flow.to(device)
 optimizer = optim.Adam(flow.parameters())
 
 # Reset old checkpoint
-ckpt = torch.load('flows/sim/7/ckpt_100000')
+ckpt = torch.load('flows/sim/7/ckpt_200000')
 flow.load_state_dict(ckpt['model_state_dict'])
 optimizer.load_state_dict(ckpt['optimizer_state_dict'])
 loss = ckpt['loss']

@@ -1,4 +1,0 @@
-batches_0 and batches_1 are sim, but done in batches.
-total_0 and total_1 are sim, but done without batches.
-
-total_2 is dat.
