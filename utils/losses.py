@@ -117,9 +117,6 @@ def square_sqr(y_true, y_pred):
              (1. - y_true) * -K.sqrt(K.square(y_pred)))
 
 def exp_sqr(y_true, y_pred):
-#    v = -((y_true) * -1. / K.sqrt(K.exp(y_pred)) + 
-#          (1. - y_true) * -K.sqrt(K.exp(y_pred)))
-#    print(K.get_value(v))
     return -((y_true) * -1. / K.sqrt(K.exp(y_pred)) + 
              (1. - y_true) * -K.sqrt(K.exp(y_pred)))
 
@@ -131,8 +128,8 @@ def get_sqr(p):
 
 def get_exp_sqr(p):
     def exp_sqr_p(y_true, y_pred):
-        return -((y_true) * -K.pow(K.exp(y_pred), -p/2) + 
-                 (1. - y_true) * -K.pow(K.exp(y_pred), p/2))
+        return -((y_true) * -K.pow(K.exp(y_pred) + K.epsilon(), -p/2) + 
+                 (1. - y_true) * -K.pow(K.exp(y_pred) + K.epsilon(), p/2))
     return exp_sqr_p
 
 def get_q_loss(q):

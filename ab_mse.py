@@ -48,7 +48,7 @@ y = np.load('data/zenodo/fold/6/y_trn.npy')[:N].astype('float32')
 d = X.shape[1]
 data, m, s = split_data(X, y)
 
-ps = np.linspace(-2, 3, 126)
+ps = np.round(np.linspace(-2, 3, 126), 2)
 
 for p in ps:
     print('===================================================\n{}'.format(p))
