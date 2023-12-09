@@ -1,3 +1,11 @@
+4: (just run for 5 million iterations)
+- pT
+- eta
+- phi
+- m
+- widths
+- sdms
+
 5:
 - pT
 - eta
@@ -20,3 +28,6 @@
 - widths
 - sdms
 - tau21
+
+8:
+Just 7 again

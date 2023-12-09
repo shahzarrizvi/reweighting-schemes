@@ -81,7 +81,7 @@ optimizer = optim.Adam(flow.parameters())
 
 
 # Reset old checkpoint
-ckpt = torch.load('nflows/dat/6/ckpt_2000000')
+ckpt = torch.load('nflows/dat/6/ckpt_3000000')
 flow.load_state_dict(ckpt['model_state_dict'])
 optimizer.load_state_dict(ckpt['optimizer_state_dict'])
 loss = ckpt['loss']
@@ -90,13 +90,13 @@ flow.train()
 
 # Train flow.
 trn_dir = 'nflows/dat/6/'
-num_iter = 3000000 # Use dataset 100,000 times.
+num_iter = 5000000 # Use dataset 100,000 times.
 losses = np.zeros(num_iter)
-losses[:2000000] = np.load(trn_dir + 'losses.npy')[:2000000]
+losses[:3000000] = np.load(trn_dir + 'losses.npy')[:3000000]
 
 best = np.inf * np.ones(100)
 print(-flow.log_prob(inputs=data).mean())
-for i in tqdm.trange(2000001, num_iter):
+for i in tqdm.trange(3000001, num_iter):
     optimizer.zero_grad()
     loss = -flow.log_prob(inputs=data).mean()
     losses[i] = loss
