@@ -89,7 +89,7 @@ optimizer = optim.Adam(flow.parameters())
 
 
 # Train flow.
-trn_dir = 'nflows/dat/8/'
+trn_dir = 'nflows/dat/12/'
 num_iter = 5000000 # Use dataset 100,000 times.
 losses = np.zeros(num_iter)
 #losses[:3000000] = np.load(trn_dir + 'losses.npy')[:3000000]

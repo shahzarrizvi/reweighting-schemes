@@ -72,7 +72,7 @@ transforms = []
 for _ in range(num_layers):
     transforms.append(ReversePermutation(features=d))
     transforms.append(MaskedAffineAutoregressiveTransform(features=d, 
-                                                          hidden_features=16))
+                                                          hidden_features=32))
 transform = CompositeTransform(transforms)
 
 flow = Flow(transform, base_dist)
@@ -89,7 +89,7 @@ optimizer = optim.Adam(flow.parameters())
 
 
 # Train flow.
-trn_dir = 'nflows/dat/8/'
+trn_dir = 'nflows/dat/11/'
 num_iter = 5000000 # Use dataset 100,000 times.
 losses = np.zeros(num_iter)
 #losses[:3000000] = np.load(trn_dir + 'losses.npy')[:3000000]
