@@ -31,3 +31,15 @@
 
 8:
 Just 7 again
+
+9: 
+7 again but with 10 layers (num_layers = 10)
+
+10: 
+7 again but with 20 layers (num_layers = 20)
+
+11:
+7 again but with 16 hidden features (hidden_features = 16)
+
+12:
+7 again but with 64 hidden features (hidden_features = 64)
