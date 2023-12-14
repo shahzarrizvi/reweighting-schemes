@@ -222,7 +222,7 @@ def ratio_plot(ensembles,
         axs[0].set_title(title, loc = 'right')
     if filename:
         plt.savefig(filename, 
-                    dpi = 300,
+                    dpi = 1200,
                     transparent = True,
                     bbox_inches = 'tight')
 
@@ -277,7 +277,7 @@ def mpe_plot(mpes,
     if filename:
         plt.savefig(filename,
                     transparent = True,
-                    dpi=300, 
+                    dpi=1200, 
                     bbox_inches='tight')
         
 def mae_plot(maes,
@@ -334,7 +334,7 @@ def mae_plot(maes,
     if filename:
         plt.savefig(filename,
                     transparent = True,
-                    dpi=300, 
+                    dpi=1200, 
                     bbox_inches='tight')
 
 def diff_plot(preds,

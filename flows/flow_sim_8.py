@@ -110,6 +110,7 @@ for i in tqdm.trange(3460001, num_iter):
         idx = np.argmax(best)
         make_checkpoint(flow, optimizer, loss, trn_dir + 'best/ckpt_{}'.format(idx))
         best[idx] = losses[i]
+        np.save(trn_dir + 'best.npy', best)
         
 make_checkpoint(flow, optimizer, loss, trn_dir + 'ckpt_{}'.format(num_iter))
 np.save(trn_dir + 'losses.npy', losses)
