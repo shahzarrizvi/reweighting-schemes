@@ -8,10 +8,10 @@ import matplotlib.font_manager
 import matplotlib.ticker
 rc('font', family='serif')
 rc('text', usetex=True)
-rc('font', size=10)        #22
-rc('xtick', labelsize=8)  #15
-rc('ytick', labelsize=8)  #15
-rc('legend', fontsize=8)  #15
+rc('font', size=10)        #22 #10
+rc('xtick', labelsize=8)  #15 #8
+rc('ytick', labelsize=8)  #15 #8
+rc('legend', fontsize=8)  #15 #8
 #rc('font', size=6)        #22
 #rc('xtick', labelsize=5)  #15
 #rc('ytick', labelsize=5)  #15
@@ -20,6 +20,8 @@ rc('text.latex', preamble=r'\usepackage{amsmath}')
 
 cs = ['brown', 'green', 'red', 'blue']
 lss = [':', '--', '-.', ':']
+lw = 0.75
+#lw = 2
 
 # Plotting functions
 def get_preds(model_lrs, xs):
@@ -160,7 +162,8 @@ def ratio_plot(ensembles,
         lss = np.repeat([':', '--', '-.', ':'], len(ensembles))
     
     # Plot likelihood ratios
-    axs[0].plot(xs, lr(xs), label = 'Exact', c = 'k', lw = 0.75)
+    #axs[0].plot(xs, lr(xs), label = 'Exact', c = 'k', lw = 0.75)
+    axs[0].plot(xs, lr(xs), label = 'Exact', c = 'k', lw = lw)
     
     n = len(ensembles)
     
@@ -176,7 +179,8 @@ def ratio_plot(ensembles,
                     label = labels[i],
                     c = cs[i], 
                     ls = lss[i],
-                    lw = 0.75)
+                    lw = lw)
+                    #lw = 0.75)
         
     axs[0].set_xlim(xs[0], xs[-1])
     if y_lim:
@@ -204,7 +208,8 @@ def ratio_plot(ensembles,
                     lrrs[i],
                     c = cs[i],
                     ls = lss[i],
-                    lw = 0.75)
+                    lw = lw)
+                    #lw = 0.75)
 
     axs[1].axhline(1,ls=":",color="grey", lw=0.5)
     axs[1].axvline(0,ls=":",color="grey", lw=0.5)
@@ -358,5 +363,5 @@ def diff_plot(preds,
     if filename:
         plt.savefig(filename,
                     transparent = True,
-                    dpi=300, 
+                    dpi=1200, 
                     bbox_inches='tight')
